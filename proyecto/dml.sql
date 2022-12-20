@@ -2,7 +2,7 @@ use yourfolio;
 
 INSERT INTO user (email, password, name, surname1, surname2) VALUES ("test@test.com", "contraseña", "Juan", "Pérez", "Rodríguez");
 
-INSERT INTO file (type, data, user_id) VALUES ("pdf", "datos de prueba", 1);
+INSERT INTO file (url, description, user_id) VALUES ("/imgs/test.jpg", "Imagen de prueba", 1);
 
 INSERT INTO portfolio (theme, user_id) VALUES ("tema del portafolio", 1);
 

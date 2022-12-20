@@ -14,8 +14,8 @@ CREATE TABLE user (
 
 CREATE TABLE file (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(255),
-    data TEXT,
+    url VARCHAR(255),
+    description VARCHAR(255),
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
