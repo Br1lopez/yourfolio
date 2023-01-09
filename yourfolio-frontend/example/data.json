@@ -1,0 +1,66 @@
+{
+    "tabs": [
+      {
+        "name": "dibujos",
+        "sections": [
+          {
+            "name": "global",
+            "projects": [
+              {
+                "name": "Dibujos 2021",
+                "description": "Dibujos que cree en 2021"
+              },
+              {
+                "name": "Dibujos antiguos",
+                "description": "Dibujos que cree en años anteriores"
+              }
+            ]
+          },
+          {
+            "name": "paisajes",
+            "projects": [
+              {
+                "name": "Paisajes al aire libre",
+                "description": "Dibujos de paisajes al aire libre"
+              },
+              {
+                "name": "Paisajes urbanos",
+                "description": "Dibujos de paisajes urbanos"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "pinturas",
+        "sections": [
+          {
+            "name": "retratos",
+            "projects": [
+              {
+                "name": "Retratos a óleo",
+                "description": "Pinturas a óleo de retratos"
+              },
+              {
+                "name": "Retratos al acuarela",
+                "description": "Pinturas al acuarela de retratos"
+              }
+            ]
+          },
+          {
+            "name": "paisajes",
+            "projects": [
+              {
+                "name": "Paisajes a óleo",
+                "description": "Pinturas a óleo de paisajes"
+              },
+              {
+                "name": "Paisajes al acuarela",
+                "description": "Pinturas al acuarela de paisajes"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
