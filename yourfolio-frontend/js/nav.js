@@ -5,7 +5,7 @@ document.write(
 ESTO ES UN EJEMPLO   
 </a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon" id="mobile-icon"></span>
+<i class="fas fa-bars"></i>
 </button>
 <div class="collapse navbar-collapse" id="navbarNavDropdown">
   <ul class="navbar-nav ml-auto">
@@ -49,7 +49,8 @@ fetch("./data.json")
         }
 
         .navbar-toggler{
-          background-color: ${data["style"]["font-color"]} !important;
+          color: ${data["style"]["font-color"]} !important;
+          font-size: 1.8em;
         }
 
         #nav .active a{
