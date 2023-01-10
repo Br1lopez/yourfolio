@@ -1,4 +1,9 @@
 {
+    "style":{
+      "bg-color": "black",
+      "font-color": "white"
+    },
+
     "tabs": [
       {
         "name": "dibujos",
