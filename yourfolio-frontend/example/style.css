@@ -457,3 +457,19 @@ img{
   transition: filter 0.4s;
   transition: 0.4s -webkit-filter ;
 }
+
+#darkness{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.66);
+  z-index: 9000;
+}
+
+#darkness .visible{
+  visibility: visible;
+}
+
+#darkness .invisible{
+  visibility: hidden;
+}

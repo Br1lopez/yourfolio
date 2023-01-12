@@ -21,18 +21,17 @@ function ImgHover(obj){
     obj.classList.remove("bright");
     document.getElementById("gal2").classList.remove("selected");
     }
-    
-    function PlaySong(url, obj, index){
-    current_song = index;
-      vol = document.getElementById("music-player").volume;
-    document.getElementById("music-player").setVolume(0);
-    document.getElementById("music-player").setSrc(url);
-    document.getElementById("music-player").play();
-    document.getElementById("music-player").setVolume(vol);
-    x =document.getElementsByClassName("playlist");
-    for (i = 0; i < x.length; i++) {
-      x[i].classList.remove("current");
-    }
-    obj.classList.add("current");
-    
+
+    function changeDarkness(){
+      let darkness = document.getElementById("darkness");
+
+      if (darkness.classList.includes("visible")){
+        obj.classList.add("invisible");
+        obj.classList.remove("visible");
+      } else if (darkness.classList.includes("invisible")){
+        obj.classList.add("visible");
+        obj.classList.remove("invisible");
+      }
+      obj.classList.add("visible");
+      obj.classList.remove("invisible");
     }
