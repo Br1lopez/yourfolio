@@ -6,7 +6,7 @@ export class Nav extends WebElement {
     `
     <nav class="navbar navbar-expand-sm navbar-light bg-light" id="nav">
     <a class="navbar-brand" href="index.html">
-    ESTO ES UN EJEMPLO   
+    ${this.data["title"]}  
     </a>
     <button class="navbar-toggler" type="button" this.data-toggle="collapse" this.data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <i class="fas fa-bars"></i>
