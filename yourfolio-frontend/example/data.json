@@ -13,11 +13,13 @@
             "projects": [
               {
                 "name": "Dibujos 2021",
-                "description": "Dibujos que cree en 2021"
+                "description": "Dibujos que cree en 2021",
+                "image": "drawing1.png"
               },
               {
                 "name": "Dibujos antiguos",
-                "description": "Dibujos que cree en años anteriores"
+                "description": "Dibujos que cree en años anteriores",
+                "image": "drawing2.webp"
               }
             ]
           },
@@ -44,11 +46,13 @@
             "projects": [
               {
                 "name": "Retratos a óleo",
-                "description": "Pinturas a óleo de retratos"
+                "description": "Pinturas a óleo de retratos",
+                "image": "portrait1.jpg"
               },
               {
                 "name": "Retratos al acuarela",
-                "description": "Pinturas al acuarela de retratos"
+                "description": "Pinturas al acuarela de retratos",
+                "image": "portrait2.jfif"
               }
             ]
           },
