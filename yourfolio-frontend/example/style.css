@@ -437,3 +437,23 @@ margin: auto;
       border: 0.5vw solid black;
       background-color: white;
     }
+  }
+
+  .selected .blurred>.thumb_img{
+    filter: blur(0.15vw) brightness(60%);
+    -webkit-filter: blur(0.15vw) brightness(60%);
+}
+
+.selected .blurred>.icon_container{
+opacity: 0;
+}
+
+.bright>.thumb_img{
+  filter: saturate(200%) brightness(40%);
+  -webkit-filter:saturate(200%) brightness(40%);
+}
+
+img{
+  transition: filter 0.4s;
+  transition: 0.4s -webkit-filter ;
+}
