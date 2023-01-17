@@ -24,13 +24,16 @@ function ImgHover(obj){
 
     function changeDarkness(){
       let darkness = document.getElementById("darkness");
-      darkness.classList.add("visible");
-      darkness.classList.remove("invisible");
-      if (darkness.classList.includes("visible")){
-        darkness.classList.add("invisible");
-        darkness.classList.remove("visible");
-      } else if (darkness.classList.includes("invisible")){
-        darkness.classList.add("visible");
-        darkness.classList.remove("invisible");
+      if (darkness.classList.contains("vis")){
+        darkness.classList.add("invis");
+        darkness.classList.remove("vis");
+      } else if (darkness.classList.contains("invis")){
+        darkness.classList.add("vis");
+        darkness.classList.remove("invis");
       }
+      // if (darkness.style == "hidden"){
+      //   darkness.style.visibility = "visible"; 
+      // } else if (darkness.style == "visible"){
+      //   darkness.style.visibility = "hidden";
+      // }
     }

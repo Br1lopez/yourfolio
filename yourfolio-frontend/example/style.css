@@ -462,14 +462,17 @@ img{
   width: 100%;
   height: 100%;
   position: fixed;
-  background: rgba(0, 0, 0, 0.66);
-  z-index: 9000;
-}
-
-#darkness .visible{
   visibility: visible;
+  z-index: 9000;
+  pointer-events: none;
+  transition: 0.4s;
+  background: rgba(0, 0, 0, 0.66);
 }
 
-#darkness .invisible{
-  visibility: hidden;
+.vis{
+  background: rgba(0, 0, 0, 0.66) !important;
+}
+
+.invis{
+  background: rgba(0, 0, 0, 0) !important;
 }

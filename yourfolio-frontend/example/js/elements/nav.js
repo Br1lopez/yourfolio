@@ -27,7 +27,7 @@ export class Nav extends WebElement {
         </li>`})
         
       navElementList.innerHTML +=  `<li class="nav-item active">
-      <a class="nav-link" href="">
+      <a class="nav-link" href="#">
       <i class="fas fa-plus-circle" style="font-size:1.5em;" onclick="changeDarkness()"></i>
       </a>
       </li>`;
