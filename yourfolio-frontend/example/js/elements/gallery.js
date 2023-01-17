@@ -5,7 +5,7 @@ export class Gallery extends WebElement {
     document.body.innerHTML +=
     `
     <div class="gal_fondo">
-    <img class="cincuenta" src="img/macaco.webp">
+    <img class="cincuenta" src="img/wp4.jpg">
   </div>
   
   <div class="galeria" id="gal2"> 

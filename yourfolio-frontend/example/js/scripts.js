@@ -24,14 +24,13 @@ function ImgHover(obj){
 
     function changeDarkness(){
       let darkness = document.getElementById("darkness");
-
+      darkness.classList.add("visible");
+      darkness.classList.remove("invisible");
       if (darkness.classList.includes("visible")){
-        obj.classList.add("invisible");
-        obj.classList.remove("visible");
+        darkness.classList.add("invisible");
+        darkness.classList.remove("visible");
       } else if (darkness.classList.includes("invisible")){
-        obj.classList.add("visible");
-        obj.classList.remove("invisible");
+        darkness.classList.add("visible");
+        darkness.classList.remove("invisible");
       }
-      obj.classList.add("visible");
-      obj.classList.remove("invisible");
     }
