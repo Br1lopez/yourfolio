@@ -24,17 +24,17 @@
               <form>
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example3cg" >E-mail:</label>
-                  <input type="email" id="email" class="form-control form-control-lg" pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]+" value="correo" required />
+                  <input type="email" id="email" class="form-control form-control-lg" value="correo" />
                 </div>
 
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example4cg">Contraseña:</label>
-                  <input type="password" id="contrasena" pattern="\w{7,30}" class="form-control form-control-lg" required/>
+                  <input type="password" id="contrasena" class="form-control form-control-lg" />
               </div>
 
               <div class="form-outline mb-4">
                 <label class="form-label" for="form3Example4cdg">Repite tu contraseña:</label>
-                <input type="password" id="repetirContrasena" class="form-control form-control-lg" required/>
+                <input type="password" id="repetirContrasena" class="form-control form-control-lg" />
               </div>
 
                 <div class="d-flex justify-content-center">
@@ -56,10 +56,12 @@
 </section>
 
 <script>
-    let inputs = document.getElementsByTagName('input');
     let email = document.getElementById("email");
+    let contrasena = document.getElementById("contrasena");
+    let repetirContrasena = document.getElementById("repetirContrasena");
+    let botonRegistro = document.getElementById("boton-registro");
 
-    //FUNCIÓN PARA MOSTRAR FEEDBACK BAJO EL INPUT
+    //FUNCIÓN PARA MOSTRAR EL FEEDBACK DE LA VALIDACIÓN EN CADA INPUT
     function showFeedback(input, isValid, message){
       let parent = input.parentNode;
 
@@ -70,6 +72,10 @@
         }
       });
 
+      //Se borran las clases con feedback visual del input      
+      input.classList.remove("is-valid");
+      input.classList.remove("is-invalid");
+
       if (isValid != null){
         //Se crea el nuevo div con feedback
         let feedback = document.createElement("div");
@@ -78,49 +84,27 @@
         feedback.innerHTML = message; 
         parent.appendChild(feedback);
 
-        parent.classList.add("was-validated");
+        //Se añade la nueva clase con feedback visual
+        input.classList.add(isValid ? "is-valid" : "is-invalid")
       }
+
+
     }
 
-    function validar(input){
-      let msg = "";
-    if (input.checkValidity()) {
-      showFeedback(input, true, "");
-      return;
-    }else if (input.validity.valueMissing) {
-      msg = "Campo obligatorio"; 
-    }else if (input.validity.patternMismatch) {
-      if (input.id == "contrasena") {
-        if (input.value.length < 7){
-          msg = `Contraseña demasiado corta. <br> <b>Mínimo: 7 caracteres.</b>`;
-        }else if (input.value.length > 30){
-          msg = `Contraseña demasiado larga. <br> <b>Máximo: 30 caracteres.</b>`;
-        }else {
-          msg= "Formato de contraseña incorrecto";
-        }
-      }else if (input.id == "email") {
-        msg = "No es una dirección de email válida";
+    function validar(){
+      var emailRegex = new RegExp("[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]+");
+      let emailValue = email.value;
+      if (emailValue == ""){
+        showFeedback(email, false, "Está vacío");
+      }else if (emailRegex.test(emailValue)){
+        showFeedback(email, true, "Buen formato!!");
       }else{
-        msg = "Formato incorrecto";
+        showFeedback(email, false, "Mal formato!!");       
       }
-    }else{
-      msg = `Ocurrió un error: ${input.validationMessage}`;
     }
 
-    showFeedback(input, false, msg);
-  }
-  
-
-  for (let i = 0; i < inputs.length; i++) {
-          inputs[i].addEventListener("input", () => inputs[i].parentNode.classList.remove("was-validated"));
-    }
-
-
-    document.getElementById("boton-registro").addEventListener("click", () => {
-      for (let i = 0; i < inputs.length; i++) {
-          validar(inputs[i]);}
-    });
-  
+    botonRegistro.addEventListener("click", validar);
+    
     
     </script>
 </body>
