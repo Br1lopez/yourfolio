@@ -81,16 +81,14 @@
         parent.classList.add("was-validated");
       }
     }
-
-    function validar(input){
-      let msg = "";
-    if (input.checkValidity()) {
-      showFeedback(input, true, "");
-      return;
-    }else if (input.validity.valueMissing) {
+  
+  function validar(input) {
+  let msg = "";
+  if (!input.checkValidity()) {
+    if (input.validity.valueMissing) {
       msg = "Campo obligatorio"; 
-    }else if (input.validity.patternMismatch) {
-      if (input.id == "contrasena") {
+    } else if (input.validity.patternMismatch) {
+      if (input.id === "contrasena") {
         if (input.value.length < 7){
           msg = `Contraseña demasiado corta. <br> <b>Mínimo: 7 caracteres.</b>`;
         }else if (input.value.length > 30){
@@ -98,7 +96,7 @@
         }else {
           msg= "Formato de contraseña incorrecto";
         }
-      }else if (input.id == "email") {
+      }else if (input.id === "email") {
         msg = "No es una dirección de email válida";
       }else{
         msg = "Formato incorrecto";
@@ -106,10 +104,11 @@
     }else{
       msg = `Ocurrió un error: ${input.validationMessage}`;
     }
-
     showFeedback(input, false, msg);
+  } else {
+    showFeedback(input, true, "");
   }
-  
+}
 
   for (let i = 0; i < inputs.length; i++) {
           inputs[i].addEventListener("input", () => inputs[i].parentNode.classList.remove("was-validated"));
