@@ -60,8 +60,9 @@
     let email = document.getElementById("email");
 
     //FUNCIÓN PARA MOSTRAR FEEDBACK BAJO EL INPUT
-    function showFeedback(input, isValid, message){
+    function showFeedback(input, message){
       let parent = input.parentNode;
+      let isValid = message === "";
 
     //Se borran todos los divs con feedback
       Array.from(parent.children).forEach(child => {
@@ -103,11 +104,14 @@
       }
     }else{
       msg = `Ocurrió un error: ${input.validationMessage}`;
+    } 
+  }else{    
+    if((input.id === "repetirContrasena") && (input.value != document.getElementById("contrasena").value)){
+      msg = "Las contraseñas no coinciden.";
+      input.setCustomValidity("ERROR");
     }
-    showFeedback(input, false, msg);
-  } else {
-    showFeedback(input, true, "");
   }
+  showFeedback(input, msg);
 }
 
   for (let i = 0; i < inputs.length; i++) {
