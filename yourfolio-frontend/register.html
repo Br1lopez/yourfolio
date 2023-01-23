@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script type="module" src="./js/registerFormValidation.js"></script>
 </head>
 <body id="registro">
 <section class="vh-100 bg-image"
@@ -21,7 +22,7 @@
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Regístrate</h2>
 
-              <form>
+              <form id="register-form">
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example3cg" >E-mail:</label>
                   <input type="email" id="email" class="form-control form-control-lg" pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]+" value="correo" required />
@@ -54,82 +55,5 @@
     </div>
   </div>
 </section>
-
-<script>
-    let inputs = document.getElementsByTagName('input');
-    let email = document.getElementById("email");
-
-    //FUNCIÓN PARA MOSTRAR FEEDBACK BAJO EL INPUT
-    function showFeedback(input){
-      let parent = input.parentNode;
-      let isValid = input.validationMessage === "";
-
-    //Se borran todos los divs con feedback
-      Array.from(parent.children).forEach(child => {
-        if (child.classList.contains("feedback")){
-          child.remove();
-        }
-      });
-
-      if (isValid != null){
-        //Se crea el nuevo div con feedback
-        let feedback = document.createElement("div");
-        feedback.classList.add("feedback");
-        feedback.classList.add(isValid? "valid-feedback" : "invalid-feedback");  
-        feedback.innerHTML = input.validationMessage; 
-        parent.appendChild(feedback);
-
-        parent.classList.add("was-validated");
-      }
-    }
-  
-  function validar(input) {
-  let msg = "";
-  input.setCustomValidity(msg);
-  
-  if (!input.checkValidity()) {
-    if (input.validity.valueMissing) {
-      msg = "Campo obligatorio"; 
-    } else if (input.validity.patternMismatch) {
-      if (input.id === "contrasena") {
-        if (input.value.length < 7){
-          msg = `Contraseña demasiado corta. <br> <b>Mínimo: 7 caracteres.</b>`;
-        }else if (input.value.length > 30){
-          msg = `Contraseña demasiado larga. <br> <b>Máximo: 30 caracteres.</b>`;
-        }else {
-          msg= "Formato de contraseña incorrecto";
-        }
-      }else if (input.id === "email") {
-        msg = "No es una dirección de email válida";
-      }else{
-        msg = "Formato incorrecto";
-      }
-    }else{
-      msg = `Ocurrió un error: ${input.validationMessage}`;
-    } 
-  }else{    
-    if((input.id === "repetirContrasena") && (input.value != document.getElementById("contrasena").value)){
-      msg = "Las contraseñas no coinciden.";
-    }
-  }
-
-  input.setCustomValidity(msg);
-  showFeedback(input);
-}
-
-  for (let i = 0; i < inputs.length; i++) {
-          inputs[i].addEventListener("input", () => inputs[i].parentNode.classList.remove("was-validated"));
-    }
-
-
-    document.getElementById("boton-registro").addEventListener("click", () => {
-      for (let i = 0; i < inputs.length; i++) {
-          validar(inputs[i]);}
-    });
-
-    document.getElementsByTagName("form")[0].reset();
-  
-    
-    </script>
 </body>
 </html>
