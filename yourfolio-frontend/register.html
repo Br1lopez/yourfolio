@@ -60,9 +60,9 @@
     let email = document.getElementById("email");
 
     //FUNCIÓN PARA MOSTRAR FEEDBACK BAJO EL INPUT
-    function showFeedback(input, message){
+    function showFeedback(input){
       let parent = input.parentNode;
-      let isValid = message === "";
+      let isValid = input.validationMessage === "";
 
     //Se borran todos los divs con feedback
       Array.from(parent.children).forEach(child => {
@@ -76,7 +76,7 @@
         let feedback = document.createElement("div");
         feedback.classList.add("feedback");
         feedback.classList.add(isValid? "valid-feedback" : "invalid-feedback");  
-        feedback.innerHTML = message; 
+        feedback.innerHTML = input.validationMessage; 
         parent.appendChild(feedback);
 
         parent.classList.add("was-validated");
@@ -85,6 +85,8 @@
   
   function validar(input) {
   let msg = "";
+  input.setCustomValidity(msg);
+  
   if (!input.checkValidity()) {
     if (input.validity.valueMissing) {
       msg = "Campo obligatorio"; 
@@ -108,10 +110,11 @@
   }else{    
     if((input.id === "repetirContrasena") && (input.value != document.getElementById("contrasena").value)){
       msg = "Las contraseñas no coinciden.";
-      input.setCustomValidity("ERROR");
     }
   }
-  showFeedback(input, msg);
+
+  input.setCustomValidity(msg);
+  showFeedback(input);
 }
 
   for (let i = 0; i < inputs.length; i++) {
@@ -123,6 +126,8 @@
       for (let i = 0; i < inputs.length; i++) {
           validar(inputs[i]);}
     });
+
+    document.getElementsByTagName("form")[0].reset();
   
     
     </script>
