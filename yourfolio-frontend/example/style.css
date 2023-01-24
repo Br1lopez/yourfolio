@@ -476,3 +476,11 @@ img{
 .invis{
   background: rgba(0, 0, 0, 0) !important;
 }
+
+.modal-backdrop.show {
+  opacity: 0.66;
+}
+
+/* .modal-backdrop {
+  transition: 0.4s;
+} */
