@@ -28,7 +28,7 @@ export class Nav extends WebElement {
         
       navElementList.innerHTML +=  `<li class="nav-item active">
       <a class="nav-link" href="#">
-      <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newProject"></i>
+      <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newTab"></i>
       </a>
       </li>`;
 
@@ -51,7 +51,34 @@ export class Nav extends WebElement {
           font-weight: bold !important;
         }
       </style>
-      `)
+      `);
+
+
+      document.body.innerHTML +=
+      `<div class="modal fade" id="newTab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Crear pestaña</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form id="register-form">
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="titulo" >Nombre:</label>
+                    <input type="text" id="titulo" class="form-control form-control-lg" required />
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary">Crear pestaña</button>
+          </div>
+        </div>
+      </div>
+  </div>`;
   }
 }
 
