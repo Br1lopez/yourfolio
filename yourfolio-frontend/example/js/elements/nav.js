@@ -74,20 +74,30 @@ drawPopUp(){
         <div class="modal-body">
             <form id="register-form">
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="titulo" >Nombre:</label>
-                  <input type="text" id="titulo" class="form-control form-control-lg" required />
+                  <label class="form-label" for="newTabTitle" >Nombre:</label>
+                  <input type="text" id="newTabTitle" class="form-control form-control-lg" required />
                 </div>
             </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" id="newTab">Crear pestaña</button>
+          <button type="submit" class="btn btn-primary" id="newTabButton">Crear pestaña</button>
         </div>
       </div>
     </div>
 </div>`;
 
-  document.getElementById("newTabButton")
+
+// El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
+$(document).on("click", "#newTabButton", () => {
+  let data = JSON.parse(sessionStorage.getItem("data"));
+
+  data.tabs.push({"name": $("#newTabTitle").val()});
+  
+  sessionStorage.setItem("data", JSON.stringify(data));
+  $('#newTab').modal('hide');
+  location.reload();
+});
   }
 
 }
