@@ -12,9 +12,10 @@ export class Gallery extends WebElement {
   </div>`;
 
   let galeria = document.getElementById("gal2");
-  let page = new URLSearchParams(window.location.search).get("tab");
+  let currentTab = new URLSearchParams(window.location.search).get("tab");
 
-  this.data["tabs"].find(tab => tab["name"] == page)["sections"][0]["projects"].forEach(project => {
+
+  this.data["tabs"].find(tabData => tabData["name"] == currentTab)["sections"].find(section=> section.name == "global")["projects"].forEach(project => {
     galeria.innerHTML += 
     `<a class='visual gal_elem [type value] [class value]' href='[link value]'>
     <div onmouseover='ImgHoverVisual(this)' onmouseout='ImgUnhoverVisual(this)' class='blurred'>
@@ -82,7 +83,7 @@ export class Gallery extends WebElement {
 $(document).on("click", "#addProject", () => {
   let data = JSON.parse(sessionStorage.getItem("data"));
 
-  data.tabs.find(tab => tab.name = page).sections.find(section => section.name = "global").projects.push({
+  data.tabs.find(tabData => tabData.name = currentTab).sections.find(section => section.name = "global").projects.push({
     "name": $("#newProjectTitle").val(),
     "description": $("#newProjectDescription").val(),
     "image": $("#newProjectImage").val()

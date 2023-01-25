@@ -266,10 +266,6 @@ margin: auto;
                 /* filter: blur(0.2vw);
                 -webkit-filter: blur(0.2vw); */
     }
-    .gal_elem>div:hover>img{
-    
-    }
-    
     
     
     }
@@ -345,11 +341,7 @@ margin: auto;
       background-color: black;
     }
     
-    
-    .galeria>a{
-    }
-    
-    .navbar{
+     .navbar{
     margin: 0;
     }
     

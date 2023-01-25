@@ -8,7 +8,7 @@ export class Nav extends WebElement {
 
 
 drawNav(){
-  let page = new URLSearchParams(window.location.search).get("tab");
+  let currentTab = new URLSearchParams(window.location.search).get("tab");
   document.body.innerHTML +=
   `
   <nav class="navbar navbar-expand-sm navbar-light bg-light" id="nav">
@@ -25,18 +25,18 @@ drawNav(){
   </nav>
   `;
 
-  var navElementList = document.getElementById("navbarNavDropdown").children[0];
+  var navElementList = $("#navbarNavDropdown").children().first();
 
-  this.data["tabs"].forEach(tab => {
-    navElementList.innerHTML += `<li class="nav-item ${page==tab.name? "active": ""}">
-      <a class="nav-link" href="index.html?tab=${tab.name}">${tab.name}<span class="sr-only">(current)</span></a>
-      </li>`})
-      
-    navElementList.innerHTML +=  `<li class="nav-item active">
-    <a class="nav-link" href="#">
-    <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newTab"></i>
-    </a>
-    </li>`;
+  this.data["tabs"].forEach(tabData => {
+      navElementList.append(`<li class="nav-item ${currentTab==tabData.name? "active": ""}">
+        <a class="nav-link" href="index.html?tab=${tabData.name}">${tabData.name}<span class="sr-only">(current)</span></a>
+        </li>`)
+      });
+      navElementList.append(`<li class="nav-item active">
+      <a class="nav-link" href="#">
+      <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newTab"></i>
+      </a>
+      </li>`);
 
     $('head').append(`
     <style>
@@ -92,7 +92,7 @@ drawPopUp(){
 $(document).on("click", "#newTabButton", () => {
   let data = JSON.parse(sessionStorage.getItem("data"));
 
-  data.tabs.push({"name": $("#newTabTitle").val()});
+  data.tabs.push({"name": $("#newTabTitle").val(), "sections" : {}});
   
   sessionStorage.setItem("data", JSON.stringify(data));
   $('#newTab').modal('hide');
