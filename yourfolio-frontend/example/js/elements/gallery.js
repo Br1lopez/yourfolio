@@ -13,6 +13,7 @@ export class Gallery extends WebElement {
 
   let galeria = document.getElementById("gal2");
   let page = new URLSearchParams(window.location.search).get("tab");
+
   this.data["tabs"].find(tab => tab["name"] == page)["sections"][0]["projects"].forEach(project => {
     galeria.innerHTML += 
     `<a class='visual gal_elem [type value] [class value]' href='[link value]'>
@@ -30,6 +31,16 @@ export class Gallery extends WebElement {
   </a>  `;
   });
 
+  galeria.innerHTML += 
+  `<a class='visual gal_elem addProject'>
+  <div>
+  <i class="fas fa-plus" type="button" data-toggle="modal" data-target="#newProject"></i>
+    </div>  
+  </div>            
+</a>  `;
+
+
+
   document.body.innerHTML +=
   `<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -43,27 +54,45 @@ export class Gallery extends WebElement {
       <div class="modal-body">
           <form id="register-form">
               <div class="form-outline mb-4">
-                <label class="form-label" for="titulo" >Título:</label>
-                <input type="text" id="titulo" class="form-control form-control-lg" required />
+                <label class="form-label" for="newProjectTitle" >Título:</label>
+                <input type="text" id="newProjectTitle" class="form-control form-control-lg" required />
               </div>
 
               <div class="form-outline mb-4">
-                <label class="form-label" for="descripcion">Descripción breve:</label>
-                <input type="text" id="descripcion" class="form-control form-control-lg"/>
+                <label class="form-label" for="newProjectDescription">Descripción breve:</label>
+                <input type="text" id="newProjectDescription" class="form-control form-control-lg"/>
               </div>
 
               <div class="form-outline mb-4">
-                  <label class="form-label" for="imagen">Imagen:</label>
-                  <input type="file" id="imagen" class="form-control form-control-lg"/>
+                  <label class="form-label" for="newProjectImage">Imagen:</label>
+                  <input type="file" id="newProjectImage" class="form-control form-control-lg"/>
               </div>
           </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Crear proyecto</button>
+        <button id="addProject" type="button" class="btn btn-primary">Crear proyecto</button>
       </div>
     </div>
   </div>
 </div>`;
+
+
+// El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
+$(document).on("click", "#addProject", () => {
+  let data = JSON.parse(sessionStorage.getItem("data"));
+
+  data.tabs.find(tab => tab.name = page).sections.find(section => section.name = "global").projects.push({
+    "name": $("#newProjectTitle").val(),
+    "description": $("#newProjectDescription").val(),
+    "image": $("#newProjectImage").val()
+  });
+  
+  sessionStorage.setItem("data", JSON.stringify(data));
+  $('#newProject').modal('hide');
+  location.reload();
+});
+
 }
+
 }

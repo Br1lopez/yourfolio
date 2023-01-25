@@ -465,3 +465,19 @@ img{
 /* .modal-backdrop {
   transition: 0.4s;
 } */
+
+.addProject>div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none !important;
+}
+
+.addProject i {
+  color: white;
+  font-size: 4em;
+}
+
+.addProject:hover{
+  text-decoration: none;
+}

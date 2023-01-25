@@ -8,6 +8,7 @@ export class Nav extends WebElement {
 
 
 drawNav(){
+  let page = new URLSearchParams(window.location.search).get("tab");
   document.body.innerHTML +=
   `
   <nav class="navbar navbar-expand-sm navbar-light bg-light" id="nav">
@@ -27,7 +28,6 @@ drawNav(){
   var navElementList = document.getElementById("navbarNavDropdown").children[0];
 
   this.data["tabs"].forEach(tab => {
-    let page = new URLSearchParams(window.location.search).get("tab");
     navElementList.innerHTML += `<li class="nav-item ${page==tab.name? "active": ""}">
       <a class="nav-link" href="index.html?tab=${tab.name}">${tab.name}<span class="sr-only">(current)</span></a>
       </li>`})
