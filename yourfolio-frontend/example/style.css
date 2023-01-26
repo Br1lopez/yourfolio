@@ -431,6 +431,11 @@ margin: auto;
     }
   }
 
+  .icon{
+    right: 0;
+    bottom: 0;
+  }
+  
   .selected .blurred>.thumb_img{
     filter: blur(0.15vw) brightness(60%);
     -webkit-filter: blur(0.15vw) brightness(60%);
