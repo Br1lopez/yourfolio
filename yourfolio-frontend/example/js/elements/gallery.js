@@ -81,15 +81,15 @@ export class Gallery extends WebElement {
 
 // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
 $(document).on("click", "#addProject", () => {
-  let data = JSON.parse(sessionStorage.getItem("data"));
+  let storedData = JSON.parse(sessionStorage.getItem("data"));
 
-  data.tabs.find(tabData => tabData.name = currentTab).sections.find(section => section.name = "global").projects.push({
+  storedData.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global").projects.push({
     "name": $("#newProjectTitle").val(),
     "description": $("#newProjectDescription").val(),
     "image": $("#newProjectImage").val()
   });
   
-  sessionStorage.setItem("data", JSON.stringify(data));
+  sessionStorage.setItem("data", JSON.stringify(storedData));
   $('#newProject').modal('hide');
   location.reload();
 });
