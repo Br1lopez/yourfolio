@@ -15,8 +15,9 @@ export class Gallery extends WebElement {
   let currentTab = new URLSearchParams(window.location.search).get("tab");
 
 
+  let galleryElements = "";
   this.data["tabs"].find(tabData => tabData["name"] == currentTab)["sections"].find(section=> section.name == "global")["projects"].forEach(project => {
-    galeria.innerHTML += 
+    galleryElements += 
     `<a class='visual gal_elem [type value] [class value]' href='[link value]'>
     <div onmouseover='ImgHoverVisual(this)' onmouseout='ImgUnhoverVisual(this)' class='blurred'>
       <img class='thumb_img' src='img/${project["image"]}'>
@@ -31,6 +32,8 @@ export class Gallery extends WebElement {
     </div>            
   </a>  `;
   });
+
+  galeria.innerHTML += galleryElements;
 
   galeria.innerHTML += 
   `<a class='visual gal_elem addProject'>

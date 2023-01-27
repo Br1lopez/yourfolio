@@ -1,7 +1,9 @@
 import { WebElement } from './webElement.js'
 
 export class Nav extends WebElement {
+
   draw(){
+      this.navElementList = null;
       this.drawNav();
       this.drawPopUp();
   }
@@ -25,14 +27,20 @@ drawNav(){
   </nav>
   `;
 
-  var navElementList = $("#navbarNavDropdown").children().first();
+  this.navElementList = $("#navbarNavDropdown").children().first();
+
+  let listElements = "";
 
   this.data["tabs"].forEach(tabData => {
-      navElementList.append(`<li class="nav-item ${currentTab==tabData.name? "active": ""}">
+      listElements += (`<li class="nav-item ${currentTab==tabData.name? "active": ""}">
         <a class="nav-link" href="index.html?tab=${tabData.name}">${tabData.name}<span class="sr-only">(current)</span></a>
-        </li>`)
+        </li>`);
       });
-      navElementList.append(`<li class="nav-item active">
+
+  this.navElementList.append(listElements);
+
+
+    this.navElementList.append(`<li class="nav-item active">
       <a class="nav-link" href="#">
       <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newTab"></i>
       </a>
@@ -90,13 +98,14 @@ drawPopUp(){
 
 // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
 $(document).on("click", "#newTabButton", () => {
-  let data = JSON.parse(sessionStorage.getItem("data"));
-
-  data.tabs.push({"name": $("#newTabTitle").val(), "sections" : {}});
-  
-  sessionStorage.setItem("data", JSON.stringify(data));
+  let newTabTitle = $("#newTabTitle").val();
+  this.data.tabs.push({"name": newTabTitle, "sections" : {}});
+  localStorage.setItem("pageData", JSON.stringify(this.data));  
   $('#newTab').modal('hide');
-  location.reload();
+  
+  this.navElementList.append(`<li class="nav-item ${currentTab==newTabTitle? "active": ""}">
+  <a class="nav-link" href="index.html?tab=${newTabTitle}">${newTabTitle}<span class="sr-only">(current)</span></a>
+  </li>`)
 });
   }
 
