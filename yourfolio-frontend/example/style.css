@@ -478,3 +478,7 @@ img{
 .addProject:hover{
   text-decoration: none;
 }
+
+#newTabParent{
+  justify-self: flex-end;
+}

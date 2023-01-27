@@ -3,14 +3,12 @@ import { WebElement } from './webElement.js'
 export class Nav extends WebElement {
 
   draw(){
-      this.navElementList = null;
       this.drawNav();
       this.drawPopUp();
   }
 
 
 drawNav(){
-  let currentTab = new URLSearchParams(window.location.search).get("tab");
   document.body.innerHTML +=
   `
   <nav class="navbar navbar-expand-sm navbar-light bg-light" id="nav">
@@ -27,20 +25,20 @@ drawNav(){
   </nav>
   `;
 
-  this.navElementList = $("#navbarNavDropdown").children().first();
+  let navElementList = $("#navbarNavDropdown").children().first();
 
   let listElements = "";
 
   this.data["tabs"].forEach(tabData => {
-      listElements += (`<li class="nav-item ${currentTab==tabData.name? "active": ""}">
+      listElements += (`<li class="nav-item ${new URLSearchParams(window.location.search).get("tab")==tabData.name? "active": ""}">
         <a class="nav-link" href="index.html?tab=${tabData.name}">${tabData.name}<span class="sr-only">(current)</span></a>
         </li>`);
       });
 
-  this.navElementList.append(listElements);
+  navElementList.append(listElements);
 
 
-    this.navElementList.append(`<li class="nav-item active">
+    navElementList.append(`<li class="nav-item active" id="newTabParent">
       <a class="nav-link" href="#">
       <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newTab"></i>
       </a>
@@ -103,9 +101,10 @@ $(document).on("click", "#newTabButton", () => {
   localStorage.setItem("pageData", JSON.stringify(this.data));  
   $('#newTab').modal('hide');
   
-  this.navElementList.append(`<li class="nav-item ${currentTab==newTabTitle? "active": ""}">
+  
+  $("#navbarNavDropdown").children().first().append(`<li class="nav-item ${new URLSearchParams(window.location.search).get("tab")==newTabTitle? "active": ""}">
   <a class="nav-link" href="index.html?tab=${newTabTitle}">${newTabTitle}<span class="sr-only">(current)</span></a>
-  </li>`)
+  </li>`);
 });
   }
 
