@@ -1,16 +1,18 @@
-import { WebElement } from './webElement.js'
+import {
+  WebElement
+} from './webElement.js'
 
 export class Nav extends WebElement {
 
-  draw(){
-      this.drawNav();
-      this.drawPopUp();
+  draw() {
+    this.drawNav();
+    this.drawPopUp();
   }
 
 
-drawNav(){
-  document.body.innerHTML +=
-  `
+  drawNav() {
+    document.body.innerHTML +=
+      `
   <nav class="navbar navbar-expand-sm navbar-light bg-light" id="nav">
   <a class="navbar-brand" href="index.html">
   ${this.data["title"]}  
@@ -25,17 +27,17 @@ drawNav(){
   </nav>
   `;
 
-  let navElementList = $("#navbarNavDropdown").children().first();
+    let navElementList = $("#navbarNavDropdown").children().first();
 
-  let listElements = "";
+    let listElements = "";
 
-  this.data["tabs"].forEach(tabData => {
+    this.data["tabs"].forEach(tabData => {
       listElements += (`<li class="nav-item ${new URLSearchParams(window.location.search).get("tab")==tabData.name? "active": ""}">
         <a class="nav-link" href="index.html?tab=${tabData.name}">${tabData.name}<span class="sr-only">(current)</span></a>
         </li>`);
-      });
+    });
 
-  navElementList.append(listElements);
+    navElementList.append(listElements);
 
 
     navElementList.append(`<li class="nav-item active" id="newTabParent">
@@ -64,11 +66,11 @@ drawNav(){
       }
     </style>
     `);
-}
+  }
 
-drawPopUp(){
+  drawPopUp() {
     document.body.innerHTML +=
-    `<div class="modal fade" id="newTab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      `<div class="modal fade" id="newTab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -94,25 +96,27 @@ drawPopUp(){
 </div>`;
 
 
-// El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
-$(document).on("click", "#newTabButton", () => {
-  let newTabTitle = $("#newTabTitle").val();
-  this.data.tabs.push({"name": newTabTitle, "sections" : {}});
-  localStorage.setItem("pageData", JSON.stringify(this.data));  
-  $('#newTab').modal('hide');
-  
-  
-  $("#navbarNavDropdown").children().first().append(`<li class="nav-item ${new URLSearchParams(window.location.search).get("tab")==newTabTitle? "active": ""}">
-  <a class="nav-link" href="index.html?tab=${newTabTitle}">${newTabTitle}<span class="sr-only">(current)</span></a>
-  </li>`);
-});
+    // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
+    $(document).on("click", "#newTabButton", () => {
+      let newTabTitle = $("#newTabTitle").val();
+      this.data.tabs.push({
+        "name": newTabTitle,
+        "sections": {}
+      });
+      localStorage.setItem("pageData", JSON.stringify(this.data));
+      $('#newTab').modal('hide');
+
+      let newTab = document.createElement("li");
+      newTab.classList.add("nav-item");
+
+      if (new URLSearchParams(window.location.search).get("tab") == newTabTitle) {
+        newTab.classList.add("active");
+      }
+      newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${newTabTitle}">${newTabTitle}<span class="sr-only">(current)</span></a>`;
+
+      
+      $("#navbarNavDropdown").children().first().append(newTab, $("#newTabParent")[0]);
+    });
   }
 
 }
-
-
-
-
-
-
-
