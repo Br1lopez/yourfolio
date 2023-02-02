@@ -6,29 +6,9 @@ export class Nav extends WebElement {
 
   draw() {
     this.defineNav();
-    this.drawPopUp();
+    this.definePopUp();
 
     document.body.append(this.element);
-  }
-
-  drawExistingTab(tabTitle){
-    let newTab = document.createElement("li");
-    newTab.classList.add("nav-item");
-    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
-    this.element.getElementsByClassName("tabList")[0].insertBefore(newTab, this.element.getElementsByClassName("newTabButton")[0]);
-  }
-
-  drawNewTab(tabTitle){
-    let newTab = document.createElement("li");
-    newTab.classList.add("nav-item");
-    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
-    document.getElementById("nav-element-list").insertBefore(newTab, document.getElementById("newTabParent"));
-  }
-
-  drawExistingTabs(tabArray){
-    tabArray.forEach(tabData => {
-      this.drawExistingTab(tabData.name);
-    });
   }
 
   defineNav() {
@@ -73,7 +53,7 @@ export class Nav extends WebElement {
     `);
   }
 
-  drawPopUp() {
+  definePopUp() {
     document.body.innerHTML +=
       `<div class="modal fade" id="newTab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -112,6 +92,26 @@ export class Nav extends WebElement {
 
       this.drawNewTab(newTabTitle);
     });
+  }
+
+  drawExistingTabs(tabArray) {
+    tabArray.forEach(tabData => {
+      this.drawExistingTab(tabData.name);
+    });
+  }
+
+  drawExistingTab(tabTitle) {
+    let newTab = document.createElement("li");
+    newTab.classList.add("nav-item");
+    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
+    this.element.getElementsByClassName("tabList")[0].insertBefore(newTab, this.element.getElementsByClassName("newTabButton")[0]);
+  }
+
+  drawNewTab(tabTitle) {
+    let newTab = document.createElement("li");
+    newTab.classList.add("nav-item");
+    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
+    document.getElementById("nav-element-list").insertBefore(newTab, document.getElementById("newTabParent"));
   }
 
 }
