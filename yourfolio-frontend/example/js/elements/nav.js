@@ -54,7 +54,7 @@ export class Nav extends WebElement {
   }
 
   definePopUp() {
-    document.body.innerHTML +=
+    this.element.innerHTML +=
       `<div class="modal fade" id="newTab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -96,15 +96,12 @@ export class Nav extends WebElement {
 
   drawExistingTabs(tabArray) {
     tabArray.forEach(tabData => {
-      this.drawExistingTab(tabData.name);
+      let newTab = document.createElement("li");
+      newTab.classList.add("nav-item");
+      newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabData.name}">${tabData.name}<span class="sr-only">(current)</span></a>`;
+      
+      this.element.getElementsByClassName("tabList")[0].insertBefore(newTab, this.element.getElementsByClassName("newTabButton")[0]);
     });
-  }
-
-  drawExistingTab(tabTitle) {
-    let newTab = document.createElement("li");
-    newTab.classList.add("nav-item");
-    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
-    this.element.getElementsByClassName("tabList")[0].insertBefore(newTab, this.element.getElementsByClassName("newTabButton")[0]);
   }
 
   drawNewTab(tabTitle) {
