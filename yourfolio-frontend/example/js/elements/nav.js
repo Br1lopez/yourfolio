@@ -7,8 +7,6 @@ export class Nav extends WebElement {
   draw() {
     this.defineNav();
     this.definePopUp();
-
-    document.body.append(this.element);
   }
 
   defineNav() {
@@ -28,6 +26,7 @@ export class Nav extends WebElement {
         </li>
       </ul>
     </div>`;
+    (document.body).append(this.element);
 
     this.drawExistingTabs(this.data["tabs"]);
 
@@ -96,7 +95,7 @@ export class Nav extends WebElement {
 
   drawExistingTabs(tabArray) {
     tabArray.forEach(tabData => {
-      this.drawTab(tabData.name, this.element.getElementsByClassName("tabList")[0]);
+      this.drawTab(tabData.name, document.getElementById("nav-element-list"));
     });
   }
 
@@ -104,14 +103,20 @@ export class Nav extends WebElement {
     this.drawTab(tabTitle, document.getElementById("nav-element-list"));
   }
 
-  drawTab(tabTitle, navList){
-    let newTab = document.createElement("li");
-    newTab.classList.add("nav-item");
+  drawTab(tabTitle){
+    tabTitle = tabTitle.replace(" ", "-");
+    let newTab = $("<li>");
+    newTab.addClass("nav-item");
     if (new URLSearchParams(window.location.search).get("tab")==tabTitle){
-      newTab.classList.add("active");
+      newTab.addClass("active");
     }
-    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
-    navList.insertBefore(newTab, navList.getElementsByClassName("newTabButton")[0]);
+    newTab.html(`<a id="${tabTitle}" tabindex="0" class="nav-link" href="index.html?tab=${tabTitle}" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">${tabTitle}<span class="sr-only">(current)</span></a>`);
+    $(document).on("contextmenu", `#${tabTitle}`, function(e){
+      $(`#${tabTitle}`).popover(`toggle`);
+      e.preventDefault();
+    });
+    
+    ($("#newTabParent")).before(newTab);
   }
 
 }
