@@ -98,6 +98,9 @@ export class Nav extends WebElement {
     tabArray.forEach(tabData => {
       let newTab = document.createElement("li");
       newTab.classList.add("nav-item");
+      if (new URLSearchParams(window.location.search).get("tab")==tabData.name){
+        newTab.classList.add("active");
+      }
       newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabData.name}">${tabData.name}<span class="sr-only">(current)</span></a>`;
       
       this.element.getElementsByClassName("tabList")[0].insertBefore(newTab, this.element.getElementsByClassName("newTabButton")[0]);
@@ -107,6 +110,9 @@ export class Nav extends WebElement {
   drawNewTab(tabTitle) {
     let newTab = document.createElement("li");
     newTab.classList.add("nav-item");
+    if (new URLSearchParams(window.location.search).get("tab")==tabTitle){
+      newTab.classList.add("active");
+    }
     newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
     document.getElementById("nav-element-list").insertBefore(newTab, document.getElementById("newTabParent"));
   }
