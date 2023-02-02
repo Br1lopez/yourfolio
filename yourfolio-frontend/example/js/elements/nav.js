@@ -5,54 +5,59 @@ import {
 export class Nav extends WebElement {
 
   draw() {
-    this.drawNav();
+    this.defineNav();
     this.drawPopUp();
+
+    document.body.append(this.element);
   }
 
+  drawExistingTab(tabTitle){
+    let newTab = document.createElement("li");
+    newTab.classList.add("nav-item");
+    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
+    this.element.getElementsByClassName("tabList")[0].insertBefore(newTab, this.element.getElementsByClassName("newTabButton")[0]);
+  }
 
-  drawNav() {
-    document.body.innerHTML +=
-      `
-  <nav class="navbar navbar-expand-sm navbar-light bg-light" id="nav">
-  <a class="navbar-brand" href="index.html">
-  ${this.data["title"]}  
-  </a>
-  <button class="navbar-toggler" type="button" this.data-toggle="collapse" this.data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-  <i class="fas fa-bars"></i>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav ml-auto">
-    </ul>
-  </div>
-  </nav>
-  `;
+  drawNewTab(tabTitle){
+    let newTab = document.createElement("li");
+    newTab.classList.add("nav-item");
+    newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${tabTitle}">${tabTitle}<span class="sr-only">(current)</span></a>`;
+    document.getElementById("nav-element-list").insertBefore(newTab, document.getElementById("newTabParent"));
+  }
 
-    let navElementList = $("#navbarNavDropdown").children().first();
-
-    let listElements = "";
-
-    this.data["tabs"].forEach(tabData => {
-      listElements += (`<li class="nav-item ${new URLSearchParams(window.location.search).get("tab")==tabData.name? "active": ""}">
-        <a class="nav-link" href="index.html?tab=${tabData.name}">${tabData.name}<span class="sr-only">(current)</span></a>
-        </li>`);
+  drawExistingTabs(tabArray){
+    tabArray.forEach(tabData => {
+      this.drawExistingTab(tabData.name);
     });
+  }
 
-    navElementList.append(listElements);
+  defineNav() {
+    this.element = document.createElement("nav");
+    this.element.classList.add("navbar", "navbar-expand-sm", "navbar-light", "bg-light");
+    this.element.id = "navbar";
+    this.element.innerHTML = `<a class="navbar-brand" href="index.html">${this.data["title"]}</a>
+    <button class="navbar-toggler" type="button" this.data-toggle="collapse" this.data-target=".navbarbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto tabList" id="nav-element-list">
+        <li class="nav-item active newTabButton" id="newTabParent">
+          <a class="nav-link" href="#">
+          <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newTab"></i>
+        </a>
+        </li>
+      </ul>
+    </div>`;
 
-
-    navElementList.append(`<li class="nav-item active" id="newTabParent">
-      <a class="nav-link" href="#">
-      <i class="fas fa-plus-circle" style="font-size:1.5em;" type="button" data-toggle="modal" data-target="#newTab"></i>
-      </a>
-      </li>`);
+    this.drawExistingTabs(this.data["tabs"]);
 
     $('head').append(`
     <style>
-      #nav{
+      .navbar{
         background-color: ${this.data["style"]["bg-color"]} !important;
       }
 
-      #nav a{
+      .navbar a{
         color: ${this.data["style"]["font-color"]} !important;
       }
 
@@ -61,7 +66,7 @@ export class Nav extends WebElement {
         font-size: 1.8em;
       }
 
-      #nav .active a{
+      .navbar .active a{
         font-weight: bold !important;
       }
     </style>
@@ -95,7 +100,6 @@ export class Nav extends WebElement {
     </div>
 </div>`;
 
-
     // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
     $(document).on("click", "#newTabButton", () => {
       let newTabTitle = $("#newTabTitle").val();
@@ -106,16 +110,7 @@ export class Nav extends WebElement {
       localStorage.setItem("pageData", JSON.stringify(this.data));
       $('#newTab').modal('hide');
 
-      let newTab = document.createElement("li");
-      newTab.classList.add("nav-item");
-
-      if (new URLSearchParams(window.location.search).get("tab") == newTabTitle) {
-        newTab.classList.add("active");
-      }
-      newTab.innerHTML = `<a class="nav-link" href="index.html?tab=${newTabTitle}">${newTabTitle}<span class="sr-only">(current)</span></a>`;
-
-      
-      $("#navbarNavDropdown").children().first().append(newTab, $("#newTabParent")[0]);
+      this.drawNewTab(newTabTitle);
     });
   }
 
