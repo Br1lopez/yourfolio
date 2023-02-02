@@ -110,7 +110,7 @@ export class Nav extends WebElement {
     if (new URLSearchParams(window.location.search).get("tab")==tabTitle){
       newTab.addClass("active");
     }
-    newTab.html(`<a id="${tabTitle}" tabindex="0" class="nav-link" href="index.html?tab=${tabTitle}" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">${tabTitle}<span class="sr-only">(current)</span></a>`);
+    newTab.html(`<a id="${tabTitle}" tabindex="0" class="nav-link" href="index.html?tab=${tabTitle}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="">${tabTitle}<span class="sr-only">(current)</span></a>`);
     $(document).on("contextmenu", `#${tabTitle}`, function(e){
       $(`#${tabTitle}`).popover(`toggle`);
       e.preventDefault();
