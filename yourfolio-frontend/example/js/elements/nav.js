@@ -128,8 +128,8 @@ export class Nav extends WebElement {
       _this.data.tabs.splice(index, 1);
       localStorage.setItem("pageData", JSON.stringify(_this.data));
   
-      this.drawNewTab(newTabTitle);
-      $("#newTabParent").remove();
+      let tab = document.getElementById(tabId);
+      tab.parentNode.removeChild(tab);
     });
 
     ($("#newTabParent")).before(newTab);
