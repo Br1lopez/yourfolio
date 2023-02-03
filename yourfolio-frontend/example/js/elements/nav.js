@@ -106,6 +106,7 @@ export class Nav extends WebElement {
   }
 
   drawTab(tabTitle) {
+    var data = this.data;
     let tabId = tabTitle.replace(" ", "-");
     let newTab = $("<li>");
     newTab.addClass("nav-item");
@@ -122,11 +123,11 @@ export class Nav extends WebElement {
       e.preventDefault();
     });
 
-    var _this = this;
+    
     $(document).on("click", `#${tabId}-delete`, function (e) {
-      let index = _this.data.tabs.findIndex((tab) => tab.name == tabId);
-      _this.data.tabs.splice(index, 1);
-      localStorage.setItem("pageData", JSON.stringify(_this.data));
+      let index = data.tabs.findIndex((tab) => tab.name == tabId);
+      data.tabs.splice(index, 1);
+      localStorage.setItem("pageData", JSON.stringify(data));
   
       let tab = document.getElementById(tabId);
       tab.parentNode.removeChild(tab);
@@ -134,14 +135,4 @@ export class Nav extends WebElement {
 
     ($("#newTabParent")).before(newTab);
   }
-
-  deleteTab(tabId) {
-    let index = this.data.tabs.findIndex((tab) => tab.name == tabId);
-    this.data.tabs.remove(index, 1);
-    localStorage.setItem("pageData", JSON.stringify(this.data));
-
-    this.drawNewTab(newTabTitle);
-    $("#newTabParent").remove();
-  }
-
 }
