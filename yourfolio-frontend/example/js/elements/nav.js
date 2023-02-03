@@ -2,6 +2,8 @@ import {
   WebElement
 } from './webElement.js'
 
+var navData;
+
 export class Nav extends WebElement {
 
   draw() {
@@ -103,20 +105,43 @@ export class Nav extends WebElement {
     this.drawTab(tabTitle, document.getElementById("nav-element-list"));
   }
 
-  drawTab(tabTitle){
-    tabTitle = tabTitle.replace(" ", "-");
+  drawTab(tabTitle) {
+    let tabId = tabTitle.replace(" ", "-");
     let newTab = $("<li>");
     newTab.addClass("nav-item");
-    if (new URLSearchParams(window.location.search).get("tab")==tabTitle){
+    if (new URLSearchParams(window.location.search).get("tab") == tabId) {
       newTab.addClass("active");
     }
-    newTab.html(`<a id="${tabTitle}" tabindex="0" class="nav-link" href="index.html?tab=${tabTitle}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="">${tabTitle}<span class="sr-only">(current)</span></a>`);
-    $(document).on("contextmenu", `#${tabTitle}`, function(e){
-      $(`#${tabTitle}`).popover(`toggle`);
+    newTab.html(`<a id="${tabId}" tabindex="0" class="nav-link" href="index.html?tab=${tabId}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom">${tabId}<span class="sr-only">(current)</span></a>`);
+    $(document).on("contextmenu", `#${tabId}`, function (e) {
+      $(`#${tabId}`).popover({
+        html: true,
+        content: `<i id=\"${tabId}-delete\" class=\"fas fa-trash-alt\"></i>`
+      });
+      $(`#${tabId}`).popover('toggle');
       e.preventDefault();
     });
-    
+
+    var _this = this;
+    $(document).on("click", `#${tabId}-delete`, function (e) {
+      let index = _this.data.tabs.findIndex((tab) => tab.name == tabId);
+      _this.data.tabs.splice(index, 1);
+      localStorage.setItem("pageData", JSON.stringify(_this.data));
+  
+      this.drawNewTab(newTabTitle);
+      $("#newTabParent").remove();
+    });
+
     ($("#newTabParent")).before(newTab);
+  }
+
+  deleteTab(tabId) {
+    let index = this.data.tabs.findIndex((tab) => tab.name == tabId);
+    this.data.tabs.remove(index, 1);
+    localStorage.setItem("pageData", JSON.stringify(this.data));
+
+    this.drawNewTab(newTabTitle);
+    $("#newTabParent").remove();
   }
 
 }
