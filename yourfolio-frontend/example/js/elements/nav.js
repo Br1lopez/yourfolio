@@ -30,7 +30,9 @@ export class Nav extends WebElement {
     </div>`;
     (document.body).append(this.element);
 
-    this.drawExistingTabs(this.data["tabs"]);
+    this.data["tabs"].forEach(tabData => {
+      this.drawTab(tabData.name, document.getElementById("nav-element-list"));
+    });
 
     $('head').append(`
     <style>
@@ -91,18 +93,8 @@ export class Nav extends WebElement {
       localStorage.setItem("pageData", JSON.stringify(this.data));
       $('#newTab').modal('hide');
 
-      this.drawNewTab(newTabTitle);
+      this.drawTab(newTabTitle);
     });
-  }
-
-  drawExistingTabs(tabArray) {
-    tabArray.forEach(tabData => {
-      this.drawTab(tabData.name, document.getElementById("nav-element-list"));
-    });
-  }
-
-  drawNewTab(tabTitle) {
-    this.drawTab(tabTitle, document.getElementById("nav-element-list"));
   }
 
   drawTab(tabTitle) {
