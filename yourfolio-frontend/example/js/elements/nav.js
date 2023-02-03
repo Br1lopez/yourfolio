@@ -108,18 +108,22 @@ export class Nav extends WebElement {
   drawTab(tabTitle) {
     var data = this.data;
     let tabId = tabTitle.replace(" ", "-");
-    let newTab = $("<li>");
-    newTab.addClass("nav-item");
+
+    let newTab = document.createElement("li");
+    newTab.classList.add("nav-item");
     if (new URLSearchParams(window.location.search).get("tab") == tabId) {
-      newTab.addClass("active");
+      newTab.classList.add("active");
     }
-    newTab.html(`<a id="${tabId}" tabindex="0" class="nav-link" href="index.html?tab=${tabId}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom">${tabId}<span class="sr-only">(current)</span></a>`);
+    newTab.innerHTML = `<a id="${tabId}" tabindex="0" class="nav-link" href="index.html?tab=${tabId}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom">${tabId}<span class="sr-only">(current)</span></a>`;
+    
     $(document).on("contextmenu", `#${tabId}`, function (e) {
       $(`#${tabId}`).popover({
         html: true,
         content: `<i id=\"${tabId}-delete\" class=\"fas fa-trash-alt\"></i>`
       });
+      //BOOTSTRAP fuerza a usar JQuery
       $(`#${tabId}`).popover('toggle');
+
       e.preventDefault();
     });
 
