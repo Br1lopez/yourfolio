@@ -1,5 +1,6 @@
 import { Nav} from './elements/nav.js'
 import { Gallery} from './elements/gallery.js'
+import { Style } from './elements/style.js';
 
 // ___________TEMPORAL______________
 
@@ -21,6 +22,7 @@ drawPage (localPageData);
 
 
 function drawPage(data) {
+    new Style(data);
     new Nav(data);
     new Gallery(data);
 }

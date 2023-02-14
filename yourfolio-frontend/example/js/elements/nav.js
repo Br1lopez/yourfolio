@@ -6,11 +6,15 @@ import {
 export class Nav extends WebElement {
 
   draw() {
-    this.defineNav();
-    this.definePopUp();
+    this.parentNav();
+    this.newTabPopUp();
+
+    this.data["tabs"].forEach(tabData => {
+      this.drawTab(tabData.name, document.getElementById("nav-element-list"));
+    });
   }
 
-  defineNav() {
+  parentNav() {
     this.element = document.createElement("nav");
     this.element.classList.add("navbar", "navbar-expand-sm", "navbar-light", "bg-light");
     this.element.id = "navbar";
@@ -29,55 +33,15 @@ export class Nav extends WebElement {
     </div>`;
     (document.body).append(this.element);
 
+    this.navBrandPopover();
 
-    $(document).on("contextmenu", `#navbar-brand`, function (e) {
-      $(`#navbar-brand`).popover({
-        html: true,
-        content: `<span class="action-button"><i id=\"reset-page\" class=\"fas fa-redo-alt\"></i></span>`
-      });
-      //BOOTSTRAP fuerza a usar JQuery
-      $(`#navbar-brand`).popover('toggle');
 
-      e.preventDefault();
-    });
 
-    $(document).on("click", `#reset-page`, function (e) {
-      fetch("./data.json")
-      .then(response => response.json())
-      .then(data => {
-          localStorage.setItem("pageData", JSON.stringify(data));
-      });
 
-      location.reload();
-    });
 
-    this.data["tabs"].forEach(tabData => {
-      this.drawTab(tabData.name, document.getElementById("nav-element-list"));
-    });
-
-    $('head').append(`
-    <style>
-      .navbar{
-        background-color: ${this.data["style"]["bg-color"]} !important;
-      }
-
-      .navbar a{
-        color: ${this.data["style"]["font-color"]} !important;
-      }
-
-      .navbar-toggler{
-        color: ${this.data["style"]["font-color"]} !important;
-        font-size: 1.8em;
-      }
-
-      .navbar .active a{
-        font-weight: bold !important;
-      }
-    </style>
-    `);
   }
 
-  definePopUp() {
+  newTabPopUp() {
     this.element.innerHTML +=
       `<div class="modal fade" id="newTab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -113,12 +77,28 @@ export class Nav extends WebElement {
     });
   }
 
-  saveTab(tabTitle){
-    this.data.tabs.push({
-      "name": tabTitle,
-      "sections": {}
+
+  navBrandPopover() {
+    $(document).on("contextmenu", `#navbar-brand`, function (e) {
+      $(`#navbar-brand`).popover({
+        html: true,
+        content: `<span class="action-button"><i id=\"reset-page\" class=\"fas fa-redo-alt\"></i></span>`
+      });
+      //BOOTSTRAP fuerza a usar JQuery
+      $(`#navbar-brand`).popover('toggle');
+
+      e.preventDefault();
     });
-    localStorage.setItem("pageData", JSON.stringify(this.data));
+
+    $(document).on("click", `#reset-page`, function (e) {
+      fetch("./data.json")
+        .then(response => response.json())
+        .then(data => {
+          localStorage.setItem("pageData", JSON.stringify(data));
+        });
+
+      location.reload();
+    });
   }
 
   drawTab(tabTitle) {
@@ -131,7 +111,7 @@ export class Nav extends WebElement {
       newTab.classList.add("active");
     }
     newTab.innerHTML = `<a id="${tabId}" tabindex="0" class="nav-link" href="index.html?tab=${tabId}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom">${tabId}<span class="sr-only">(current)</span></a>`;
-    
+
     $(document).on("contextmenu", `#${tabId}`, function (e) {
       $(`#${tabId}`).popover({
         html: true,
@@ -143,16 +123,24 @@ export class Nav extends WebElement {
       e.preventDefault();
     });
 
-    
+
     $(document).on("click", `#${tabId}-delete`, function (e) {
       let index = data.tabs.findIndex((tab) => tab.name == tabId);
       data.tabs.splice(index, 1);
       localStorage.setItem("pageData", JSON.stringify(data));
-  
+
       let tab = document.getElementById(tabId);
       tab.parentNode.removeChild(tab);
     });
 
     ($("#newTabParent")).before(newTab);
+  }
+
+  saveTab(tabTitle) {
+    this.data.tabs.push({
+      "name": tabTitle,
+      "sections": {}
+    });
+    localStorage.setItem("pageData", JSON.stringify(this.data));
   }
 }
