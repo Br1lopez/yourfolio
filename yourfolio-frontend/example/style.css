@@ -482,3 +482,7 @@ img{
 #newTabParent{
   justify-self: flex-end;
 }
+
+.action-button{
+  cursor: pointer;
+}

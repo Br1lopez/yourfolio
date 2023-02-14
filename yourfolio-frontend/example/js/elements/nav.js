@@ -2,7 +2,6 @@ import {
   WebElement
 } from './webElement.js'
 
-var navData;
 
 export class Nav extends WebElement {
 
@@ -15,7 +14,7 @@ export class Nav extends WebElement {
     this.element = document.createElement("nav");
     this.element.classList.add("navbar", "navbar-expand-sm", "navbar-light", "bg-light");
     this.element.id = "navbar";
-    this.element.innerHTML = `<a class="navbar-brand" href="index.html">${this.data["title"]}</a>
+    this.element.innerHTML = `<a id="navbar-brand" class="navbar-brand" href="index.html" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom"">${this.data["title"]}</a>
     <button class="navbar-toggler" type="button" this.data-toggle="collapse" this.data-target=".navbarbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
@@ -29,6 +28,28 @@ export class Nav extends WebElement {
       </ul>
     </div>`;
     (document.body).append(this.element);
+
+
+    $(document).on("contextmenu", `#navbar-brand`, function (e) {
+      $(`#navbar-brand`).popover({
+        html: true,
+        content: `<span class="action-button"><i id=\"reset-page\" class=\"fas fa-redo-alt\"></i></span>`
+      });
+      //BOOTSTRAP fuerza a usar JQuery
+      $(`#navbar-brand`).popover('toggle');
+
+      e.preventDefault();
+    });
+
+    $(document).on("click", `#reset-page`, function (e) {
+      fetch("./data.json")
+      .then(response => response.json())
+      .then(data => {
+          localStorage.setItem("pageData", JSON.stringify(data));
+      });
+
+      location.reload();
+    });
 
     this.data["tabs"].forEach(tabData => {
       this.drawTab(tabData.name, document.getElementById("nav-element-list"));
@@ -86,15 +107,18 @@ export class Nav extends WebElement {
     // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
     $(document).on("click", "#newTabButton", () => {
       let newTabTitle = $("#newTabTitle").val();
-      this.data.tabs.push({
-        "name": newTabTitle,
-        "sections": {}
-      });
-      localStorage.setItem("pageData", JSON.stringify(this.data));
+      this.saveTab(newTabTitle);
       $('#newTab').modal('hide');
-
       this.drawTab(newTabTitle);
     });
+  }
+
+  saveTab(tabTitle){
+    this.data.tabs.push({
+      "name": tabTitle,
+      "sections": {}
+    });
+    localStorage.setItem("pageData", JSON.stringify(this.data));
   }
 
   drawTab(tabTitle) {
@@ -111,7 +135,7 @@ export class Nav extends WebElement {
     $(document).on("contextmenu", `#${tabId}`, function (e) {
       $(`#${tabId}`).popover({
         html: true,
-        content: `<i id=\"${tabId}-delete\" class=\"fas fa-trash-alt\"></i>`
+        content: `<span class="action-button"><i id=\"${tabId}-delete\" class=\"fas fa-trash-alt\"></i></span>`
       });
       //BOOTSTRAP fuerza a usar JQuery
       $(`#${tabId}`).popover('toggle');
