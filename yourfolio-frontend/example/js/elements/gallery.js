@@ -7,7 +7,7 @@ export class Gallery extends WebElement {
 
     let currentTab = new URLSearchParams(window.location.search).get("tab");
     this.data["tabs"].find(tabData => tabData["name"] == currentTab)["sections"].find(section=> section.name == "global")["projects"].forEach(project => {
-      this.drawProjectThumb(tabData.name, document.getElementById("nav-element-list"));
+      this.drawProjectThumb(project);
     });
   }
 
@@ -21,6 +21,13 @@ export class Gallery extends WebElement {
     this.element = document.createElement("div");
     this.element.classList.add("galeria");
     this.element.id = "gal2";
+    this.element.innerHTML =   `<a id="addProjectButton" class='visual gal_elem addProject'>
+    <div>
+    <i class="fas fa-plus" type="button" data-toggle="modal" data-target="#newProject"></i>
+      </div>  
+    </div>            
+  </a>  `;
+
     (document.body).append(this.element);
   }
 
@@ -78,12 +85,12 @@ export class Gallery extends WebElement {
   });
   }
 
-  drawProjectThumb(tabTitle) {
+  drawProjectThumb(project) {
     var data = this.data;
 
   
-    let newTab = document.createElement("div");
-    newTab.innerHTML =
+    let newProjectThumb = document.createElement("div");
+    newProjectThumb.innerHTML =
     `<a class='visual gal_elem' href='[link value]'>
     <div onmouseover='ImgHoverVisual(this)' onmouseout='ImgUnhoverVisual(this)' class='blurred'>
       <img class='thumb_img' src='img/${project["image"]}'>
@@ -98,7 +105,7 @@ export class Gallery extends WebElement {
     </div>            
   </a>  `;
 
-
+/*
     $(document).on("click", `#${tabId}-delete`, function (e) {
       let index = data.tabs.findIndex((tab) => tab.name == tabId);
       data.tabs.splice(index, 1);
@@ -107,8 +114,8 @@ export class Gallery extends WebElement {
       let tab = document.getElementById(tabId);
       tab.parentNode.removeChild(tab);
     });
-
-    ($("#newTabParent")).before(newProjectThumb);
+*/
+    ($("#addProjectButton")).before(newProjectThumb);
   }
 
   saveTab(tabTitle) {
