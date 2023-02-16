@@ -5,8 +5,12 @@ export class Gallery extends WebElement {
     this.parentDiv();
     this.newProjectPopUp();
 
-    let currentTab = new URLSearchParams(window.location.search).get("tab");
-    this.data["tabs"].find(tabData => tabData["name"] == currentTab)["sections"].find(section=> section.name == "global")["projects"].forEach(project => {
+    this.currentTab = new URLSearchParams(window.location.search).get("tab");
+    if (this.currentTab == null){
+      this.currentTab = this.data["tabs"][0].name;
+    }
+
+    this.data["tabs"].find(tabData => tabData["name"] == this.currentTab)["sections"].find(section=> section.name == "global")["projects"].forEach(project => {
       this.drawProjectThumb(project);
     });
   }
@@ -93,11 +97,9 @@ export class Gallery extends WebElement {
   }
 
   drawProjectThumb(project) {
-    let currentTab = new URLSearchParams(window.location.search).get("tab");
-  
     let newProjectThumb = document.createElement("div");
     newProjectThumb.innerHTML =
-    `<a class='visual gal_elem [type value] [class value]' href='project.html?tab=${currentTab}&project=${project["id"]}'>
+    `<a class='visual gal_elem [type value] [class value]' href='project.html?tab=${this.currentTab}&project=${project["id"]}'>
     <div onmouseover='ImgHoverVisual(this)' onmouseout='ImgUnhoverVisual(this)' class='blurred'>
       <img class='thumb_img' src='${project["image"]}'>
       <div class='thumb_ficha'>
@@ -111,8 +113,7 @@ export class Gallery extends WebElement {
   }
 
   saveProject(project) {
-    let currentTab = new URLSearchParams(window.location.search).get("tab");
-    this.data.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global").projects.push(project);
+    this.data.tabs.find(tabData => tabData.name == this.currentTab).sections.find(section => section.name == "global").projects.push(project);
     localStorage.setItem("pageData", JSON.stringify(this.data));
   }
 }
