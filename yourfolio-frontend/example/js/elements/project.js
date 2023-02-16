@@ -2,11 +2,31 @@ import {
   WebElement
 } from './webElement.js'
 
+
+function findProject(data, tabId, projectId) {
+  // Find the tab with the given ID
+  const tab = data["tabs"].find(tab => tab.id === tabId);
+
+  if (tab) {
+    alert(tabId);
+    // Find the project with the given ID in the tab's sections
+    for (const section of tab.sections) {
+      const project = section.projects.find(project => project.id === projectId);
+      if (project) {
+        return project;
+      }
+    }
+  }
+
+  // Return null if no project was found
+  return null;
+}
+
 export class Project extends WebElement {
 
   draw() {
 
-    let project = this.data
+    let project = findProject(this.data, new URLSearchParams(window.location.search).get("tab"), new URLSearchParams(window.location.search).get("project"));
     document.body.innerHTML +=
       `
       <div class="gal_fondo">
@@ -30,7 +50,7 @@ export class Project extends WebElement {
             <p class = "sinopsis">
               ${project["description"]}
           </p>
-          <a class="back" href="example/index.html"><i class="fas fa-chevron-circle-left"></i> ${back_button_visual}</a>
+          <a class="back" href="example/index.html"><i class="fas fa-chevron-circle-left"></i></a>
           </div>
             </div>
     </div>
