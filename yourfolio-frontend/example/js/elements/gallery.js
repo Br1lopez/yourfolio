@@ -65,7 +65,7 @@ export class Gallery extends WebElement {
 
               <div class="form-outline mb-4">
                   <label class="form-label" for="newProjectImage">Imagen:</label>
-                  <input type="file" id="newProjectImage" class="form-control form-control-lg"/>
+                  <input type="text" id="newProjectVideo" class="form-control form-control-lg"/>
               </div>
           </form>
       </div>
@@ -77,18 +77,27 @@ export class Gallery extends WebElement {
   </div>
 </div>`;
 
+function youtube_parser(url){
+  
+  var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return (match&&match[7].length==11)? match[7] : false;
+}
 
 // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
 $(document).on("click", "#addProject", () => {
-  let storedData = JSON.parse(sessionStorage.getItem("data"));
+  let data = this.data;
+  let youtubeId = youtube_parser($("#newProjectVideo").val());
 
-  storedData.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global").projects.push({
+  console.log(data.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global"));
+  data.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global").projects.push({
     "name": $("#newProjectTitle").val(),
     "description": $("#newProjectDescription").val(),
-    "image": $("#newProjectImage").val()
+    "image": `https://img.youtube.com/vi/${youtubeId}/0.jpg`,
+    "video_url": `https://www.youtube.com/embed/${youtubeId}`
   });
   
-  sessionStorage.setItem("data", JSON.stringify(storedData));
+  sessionStorage.setItem("pageData", JSON.stringify(data));
   $('#newProject').modal('hide');
   location.reload();
 });
