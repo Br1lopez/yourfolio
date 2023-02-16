@@ -24,8 +24,8 @@ function findProject(data, tabId, projectId) {
 export class Project extends WebElement {
 
   draw() {
-
-    let project = findProject(this.data, new URLSearchParams(window.location.search).get("tab"), new URLSearchParams(window.location.search).get("project"));
+    let tab = new URLSearchParams(window.location.search).get("tab");
+    let project = findProject(this.data, tab, new URLSearchParams(window.location.search).get("project"));
     document.body.innerHTML +=
       `
       <div class="gal_fondo">
@@ -49,7 +49,7 @@ export class Project extends WebElement {
             <p class = "sinopsis">
               ${project["description"]}
           </p>
-          <a class="back" href="example/index.html"><i class="fas fa-chevron-circle-left"></i></a>
+          <a class="back" href="index.html?tab=${tab}"><i class="fas fa-chevron-circle-left"></i></a>
           </div>
             </div>
     </div>
