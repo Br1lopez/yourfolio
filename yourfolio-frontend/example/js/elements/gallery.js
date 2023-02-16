@@ -77,20 +77,18 @@ export class Gallery extends WebElement {
   
   // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
   $(document).on("click", "#addProject", () => {
-    var data = this.data;
     let youtubeId = youtube_parser($("#newProjectVideo").val());
-    let currentTab = new URLSearchParams(window.location.search).get("tab");
-
-    data.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global").projects.push({
+    let project = {
       "name": $("#newProjectTitle").val(),
+      "id": $("#newProjectTitle").val().replace(" ","-").toLowerCase(),
       "description": $("#newProjectDescription").val(),
       "image": `https://img.youtube.com/vi/${youtubeId}/0.jpg`,
       "video_url": `https://www.youtube.com/embed/${youtubeId}`
-    });
-    
-    sessionStorage.setItem("pageData", JSON.stringify(data));
+    };
+
+    this.saveProject(project);
     $('#newProject').modal('hide');
-    location.reload();
+    this.drawProjectThumb(project);
   });
   }
 
@@ -109,24 +107,12 @@ export class Gallery extends WebElement {
     </div>            
   </a>  `;
 
-/*
-    $(document).on("click", `#${tabId}-delete`, function (e) {
-      let index = data.tabs.findIndex((tab) => tab.name == tabId);
-      data.tabs.splice(index, 1);
-      localStorage.setItem("pageData", JSON.stringify(data));
-
-      let tab = document.getElementById(tabId);
-      tab.parentNode.removeChild(tab);
-    });
-*/
     ($("#addProjectButton")).before(newProjectThumb);
   }
 
-  saveTab(tabTitle) {
-    this.data.tabs.push({
-      "name": tabTitle,
-      "sections": {}
-    });
+  saveProject(project) {
+    let currentTab = new URLSearchParams(window.location.search).get("tab");
+    this.data.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global").projects.push(project);
     localStorage.setItem("pageData", JSON.stringify(this.data));
   }
 }
