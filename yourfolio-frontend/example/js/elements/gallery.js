@@ -18,13 +18,9 @@ export class Gallery extends WebElement {
   let galleryElements = "";
   this.data["tabs"].find(tabData => tabData["name"] == currentTab)["sections"].find(section=> section.name == "global")["projects"].forEach(project => {
     galleryElements += 
-    `<a class='visual gal_elem [type value] [class value]' href='[link value]'>
+    `<a class='visual gal_elem [type value] [class value]' href='project.html?tab=${currentTab}&project=${project["id"]}'>
     <div onmouseover='ImgHoverVisual(this)' onmouseout='ImgUnhoverVisual(this)' class='blurred'>
-      <img class='thumb_img' src='img/${project["image"]}'>
-      <!-- <div class='icon_container'>
-              <img class='icon' src='/images/thumbs/[type value]_thumb.png'>
-              </div> -->
-  
+      <img class='thumb_img' src='${project["image"]}'>
       <div class='thumb_ficha'>
         <p class='thumb_title'>${project["name"]}</p>
         <p class='thumb_paragraph'>${project["description"]}</p>

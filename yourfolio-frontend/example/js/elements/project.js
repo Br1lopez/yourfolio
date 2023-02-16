@@ -8,7 +8,6 @@ function findProject(data, tabId, projectId) {
   const tab = data["tabs"].find(tab => tab.id === tabId);
 
   if (tab) {
-    alert(tabId);
     // Find the project with the given ID in the tab's sections
     for (const section of tab.sections) {
       const project = section.projects.find(project => project.id === projectId);
