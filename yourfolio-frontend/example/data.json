@@ -1,76 +1,95 @@
 {
-    "title": "MARÍA MARTÍNEZ - PINTORA", 
-    "style":{
-      "bg-color": "black",
-      "font-color": "white"
-    },
+  "title": "MARÍA MARTÍNEZ - PINTORA",
+  "style": {
+    "bg-color": "black",
+    "font-color": "white"
+  },
 
-    "tabs": [
-      {
-        "name": "dibujos",
-        "sections": [
-          {
-            "name": "global",
-            "projects": [
-              {
-                "name": "Dibujos 2021",
-                "description": "Dibujos que cree en 2021",
-                "image": "drawing1.png"
-              },
-              {
-                "name": "Dibujos antiguos",
-                "description": "Dibujos que cree en años anteriores",
-                "image": "drawing2.webp"
-              }
-            ]
-          },
-          {
-            "name": "paisajes",
-            "projects": [
-              {
-                "name": "Paisajes al aire libre",
-                "description": "Dibujos de paisajes al aire libre"
-              },
-              {
-                "name": "Paisajes urbanos",
-                "description": "Dibujos de paisajes urbanos"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "pinturas",
-        "sections": [
-          {
-            "name": "global",
-            "projects": [
-              {
-                "name": "Retratos a óleo",
-                "description": "Pinturas a óleo de retratos",
-                "image": "portrait1.jpg"
-              },
-              {
-                "name": "Retratos al acuarela",
-                "description": "Pinturas al acuarela de retratos",
-                "image": "portrait2.jfif"
-              }
-            ]
-          },
-          {
-            "name": "paisajes",
-            "projects": [
-              {
-                "name": "Paisajes a óleo",
-                "description": "Pinturas a óleo de paisajes"
-              },
-              {
-                "name": "Paisajes al acuarela",
-                "description": "Pinturas al acuarela de paisajes"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  "tabs": [{
+      "name": "dibujos",
+      "id": "dibujos",
+      "sections": [{
+          "name": "global",
+          "id": "global",
+          "projects": [{
+              "name": "Dibujos 2021",
+              "id": "dibujos-2021",
+              "description": "Dibujos que cree en 2021",
+              "image": "https://img.youtube.com/vi/wxOmZ6Meako/0.jpg",
+              "video_url": "https://www.youtube.com/embed/wxOmZ6Meako"
+            },
+            {
+              "name": "Dibujos antiguos",
+              "id": "dibujos-antiguos",
+              "description": "Dibujos que cree en años anteriores",
+              "image": "https://img.youtube.com/vi/pffgsxjrIUk/0.jpg",
+              "video_url": "https://www.youtube.com/embed/pffgsxjrIUk"
+            }
+          ]
+        },
+        {
+          "name": "paisajes",
+          "id": "paisajes",
+          "projects": [{
+              "name": "Paisajes al aire libre",
+              "id": "paisajes-aire-libre",
+              "description": "Dibujos de paisajes al aire libre",
+              "image": "",
+              "video_url": "https://www.youtube.com/embed/od_PmtmMDV0"
+            },
+            {
+              "name": "Paisajes urbanos",
+              "id": "paisajes-urbanos",
+              "description": "Dibujos de paisajes urbanos",
+              "image": "",
+              "video_url": "https://www.youtube.com/embed/khxEVZFE714"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pinturas",
+      "id": "pinturas",
+      "sections": [{
+          "name": "global",
+          "id": "global",
+          "projects": [{
+              "name": "Retratos a óleo",
+              "id": "retratos-oleo",
+              "description": "Pinturas a óleo de retratos",
+              "image": "https://img.youtube.com/vi/pvSQV1SL7f8/0.jpg",
+              "video_url": "https://www.youtube.com/embed/pvSQV1SL7f8"
+            },
+            {
+              "name": "Retratos al acuarela",
+              "id": "retratos-acuarela",
+              "description": "Pinturas al acuarela de retratos",
+              "image": "https://img.youtube.com/vi/H4dGpz6cnHo/0.jpg",
+              "video_url": "https://www.youtube.com/embed/H4dGpz6cnHo"
+            }
+          ]
+        },
+        {
+          "name": "paisajes",
+          "id": "paisajes",
+          "projects": [{
+              "name": "Paisajes a óleo",
+              "id": "paisajes-oleo",
+              "description": "Pinturas a óleo de paisajes",
+              "video_url": "https://www.youtube.com/embed/6DEdq2WdFnU",
+              "image": "landscape1.jpg"
+            },
+            {
+              "name": "Paisajes al acuarela",
+              "id": "paisajes-acuarela",
+              "description": "Pinturas al acuarela de paisajes",
+              "video_url": "https://www.youtube.com/watch?v=MR61TduJCHQ",
+              "image": "landscape2.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

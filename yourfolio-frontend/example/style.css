@@ -12,7 +12,6 @@ article {
 .thumb{
     width: calc(33vw - 5px);
     aspect-ratio: 2;    
-    border: red solid 5px;
 }
 
 
@@ -483,6 +482,212 @@ img{
   justify-self: flex-end;
 }
 
+
+
+
+
+.ficha {
+    display: flex;
+    width: 66.6VW;
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    height: auto;
+    margin: auto;
+    justify-content: space-between;
+    font-family: "Poppins", sans-serif;
+    flex-wrap: wrap;
+}
+
+.ficha .lowpart {
+    width: inherit;
+    height: 25vw;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5vw;
+}
+
+.ficha .rightpart {
+    width: 33.3%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.ficha .thumb {
+    width: calc(100%/3*2 - 0.25vw) !important;
+    height: 100vw;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.ficha .info {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.ficha .info .player {
+    width: inherit;
+    height: 2vw;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .ficha .info .description {
+        width: calc(100%/3 - 0.25vw) !important;
+    }
+
+    .lang_sel {
+        display: flex;
+        position: fixed;
+        /* background-color: rgba(0, 0, 0, 0.5); */
+        height: 2.5vw;
+        width: 5vw;
+        bottom: 1vw;
+        right: 1vw;
+        font-size: 0.83vw;
+        align-items: flex-end;
+        justify-content: center;
+        color: rgba(255,255,255,0.5) !important;
+    }
+
+    .lang_sel>a {
+        color: rgba(255,255,255,0.5) !important;
+        font-family: "Argentum Sans";
+        font-weight: 300;
+    }
+
+    .lang_sel>a:hover {
+        text-decoration: none;
+        font-weight: 600;
+        color: white !important;
+    }
+
+    .lang_sel>.active {
+        font-weight: 600;
+    }
+
+    .ficha .info .description {
+        /* height: 25vw; */
+        padding: 2vw;
+        /* font-weight: 200; */
+        color: white;
+        font-size: 0.83vw;
+        line-height: 1vw;
+        font-weight: 300;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ficha .info .description .datos {
+        /* font-style: italic; */
+        font-size: 0.75vw;
+        font-weight: 200;
+        margin-bottom: 2vw;
+        line-height: 1.5vw;
+    }
+
+    .ficha .info .description .dato1 {
+        /* font-style: italic; */
+        font-size: 0.75vw;
+        font-weight: 200;
+    }
+
+    .ficha .info .description .dato2 {
+        font-size: 0.75vw;
+        font-weight: 300;
+    }
+
+    .ficha .info .description .title_desc {
+        font-size: 1.5vw;
+        font-weight: 600;
+        text-align: center;
+        line-height: 2vw;
+        font-family: "Argentum Sans";
+        text-transform: uppercase;
+    }
+
+    .ficha .info .description .sep_desc {
+        font-size: 1.5vw;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1vw;
+        font-family: "Argentum Sans";
+        color: rgba(0,0,0,0);
+    }
+
+    .ficha .info .description .sinopsis {
+        font-family: "Argentum Sans", sans-serif;
+    }
+
+    .ficha .info .description .back {
+        display: block;
+        margin-top: auto;
+        line-height: 0;
+        align-self: flex-end;
+        color: rgba(255,255,255,0.5);
+        font-style: normal;
+        font-weight: 300;
+        font-size: 0.66vw;
+        font-style: italic;
+    }
+
+    .ficha .info .description .download {
+        display: block;
+        margin-top: auto;
+        line-height: 0;
+        align-self: flex-end;
+        color: rgba(255,255,255,0.5);
+        font-style: normal;
+        font-weight: 300;
+        font-size: 0.66vw;
+        font-style: italic;
+    }
+
+    .back:hover {
+        text-decoration: none;
+        color: white !important;
+    }
+
+    .back>i {
+        /* transform: translate(-1.2vw, 0.4vw) scale(0.9, 0.9);
+display: block; */
+        font-size: 0.7vw;
+    }
+
+    /* .player div{
+height: 100%;
+max-height: none;
+min-height: none;
+
+} */
+    .player {
+        margin-top: 0.5VW;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .mejs__inner {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .mejs__controls {
+        position: relative;
+        width: inherit;
+        background-image: none !important;
+    }
+
+    .mejs__player {
+        height: 100% !important;
+        display: flex;
+        align-items: center;
+        min-height: none;
+        max-height: none;
+        background-color: transparent;
+    }
+}
 .action-button{
   cursor: pointer;
 }

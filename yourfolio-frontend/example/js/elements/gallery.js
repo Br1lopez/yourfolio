@@ -93,11 +93,7 @@ export class Gallery extends WebElement {
     newProjectThumb.innerHTML =
     `<a class='visual gal_elem' href='[link value]'>
     <div onmouseover='ImgHoverVisual(this)' onmouseout='ImgUnhoverVisual(this)' class='blurred'>
-      <img class='thumb_img' src='img/${project["image"]}'>
-      <!-- <div class='icon_container'>
-              <img class='icon' src='/images/thumbs/[type value]_thumb.png'>
-              </div> -->
-  
+      <img class='thumb_img' src='${project["image"]}'>
       <div class='thumb_ficha'>
         <p class='thumb_title'>${project["name"]}</p>
         <p class='thumb_paragraph'>${project["description"]}</p>
