@@ -43,22 +43,22 @@ export class Gallery extends WebElement {
           </button>
         </div>
         <div class="modal-body">
-            <form id="register-form">
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="newProjectTitle" >Título:</label>
-                  <input type="text" id="newProjectTitle" class="form-control form-control-lg" required />
-                </div>
-  
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="newProjectDescription">Descripción breve:</label>
-                  <input type="text" id="newProjectDescription" class="form-control form-control-lg"/>
-                </div>
-  
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="newProjectImage">Imagen:</label>
-                    <input type="file" id="newProjectImage" class="form-control form-control-lg"/>
-                </div>
-            </form>
+        <form id="register-form">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="newProjectTitle" >Título:</label>
+          <input type="text" id="newProjectTitle" class="form-control form-control-lg" required />
+        </div>
+
+        <div class="form-outline mb-4">
+          <label class="form-label" for="newProjectDescription">Descripción breve:</label>
+          <input type="text" id="newProjectDescription" class="form-control form-control-lg"/>
+        </div>
+
+        <div class="form-outline mb-4">
+            <label class="form-label" for="newProjectImage">Imagen:</label>
+            <input type="text" id="newProjectVideo" class="form-control form-control-lg"/>
+        </div>
+    </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -72,11 +72,13 @@ export class Gallery extends WebElement {
   // El método de JQuery "on()" es equivalente al addEventListener de JS, pero espera por defecto a que se carguen los elementos de DOM.
   $(document).on("click", "#addProject", () => {
     let storedData = JSON.parse(sessionStorage.getItem("data"));
-  
+    let youtubeId = youtube_parser($("#newProjectVideo").val());
+
     storedData.tabs.find(tabData => tabData.name == currentTab).sections.find(section => section.name == "global").projects.push({
       "name": $("#newProjectTitle").val(),
       "description": $("#newProjectDescription").val(),
-      "image": $("#newProjectImage").val()
+      "image": `https://img.youtube.com/vi/${youtubeId}/0.jpg`,
+      "video_url": `https://www.youtube.com/embed/${youtubeId}`
     });
     
     sessionStorage.setItem("data", JSON.stringify(storedData));
@@ -86,12 +88,11 @@ export class Gallery extends WebElement {
   }
 
   drawProjectThumb(project) {
-    var data = this.data;
-
+    let currentTab = new URLSearchParams(window.location.search).get("tab");
   
     let newProjectThumb = document.createElement("div");
     newProjectThumb.innerHTML =
-    `<a class='visual gal_elem' href='[link value]'>
+    `<a class='visual gal_elem [type value] [class value]' href='project.html?tab=${currentTab}&project=${project["id"]}'>
     <div onmouseover='ImgHoverVisual(this)' onmouseout='ImgUnhoverVisual(this)' class='blurred'>
       <img class='thumb_img' src='${project["image"]}'>
       <div class='thumb_ficha'>
