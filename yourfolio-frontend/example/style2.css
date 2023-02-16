@@ -12,7 +12,7 @@ filter: brightness(50%);
 
 @font-face {
        font-family: "Argentum Sans";
-        src: "/fonts/ArgentumSans-Light.ttf";
+        src: "/fonts/argentum-sans.light.ttf";
 }
 .home_body
 {

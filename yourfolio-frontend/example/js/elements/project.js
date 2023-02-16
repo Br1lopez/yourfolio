@@ -49,7 +49,7 @@ export class Project extends WebElement {
             <p class = "sinopsis">
               ${project["description"]}
           </p>
-          <a class="back" href="index.html?tab=${tab}"><i class="fas fa-chevron-circle-left"></i></a>
+          <a class="back" href="index.html?tab=${tab}"><i class="fas fa-chevron-circle-left"></i> Volver</a>
           </div>
             </div>
     </div>

@@ -1,3 +1,23 @@
+@font-face {
+  font-family: 'Argentum Sans Bold';
+  src: url('./fonts/argentumsans-bold-webfont.woff2') format('woff2'),
+       url('./fonts/argentumsans-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+
+
+@font-face {
+  font-family: 'Argentum Sans';
+  src: url('./fonts/argentumsans-light-webfont.woff2') format('woff2'),
+       url('./fonts/argentumsans-light-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
 body {
     margin: 0;
     padding: 0;
@@ -604,7 +624,7 @@ img{
         font-weight: 600;
         text-align: center;
         line-height: 2vw;
-        font-family: "Argentum Sans";
+        font-family: "Argentum Sans Bold";
         text-transform: uppercase;
     }
 
