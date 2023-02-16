@@ -67,7 +67,27 @@
               "description": "Pinturas al acuarela de retratos",
               "image": "https://img.youtube.com/vi/mAoFz_Nu7Wc/0.jpg",
               "video_url": "https://www.youtube.com/embed/mAoFz_Nu7Wc"
-            }
+            },{
+              "name": "Retratos al pastel",
+              "id": "retratos-pastel",
+              "description": "Pinturas al pastel de retratos",
+              "image": "https://img.youtube.com/vi/sh71Rev5Y04/0.jpg",
+              "video_url": "https://www.youtube.com/embed/sh71Rev5Y04"
+              },
+              {
+              "name": "Retratos al gouache",
+              "id": "retratos-gouache",
+              "description": "Pinturas al gouache de retratos",
+              "image": "https://img.youtube.com/vi/cP8JPQiPY1Y/0.jpg",
+              "video_url": "https://www.youtube.com/embed/cP8JPQiPY1Y"
+              },
+              {
+              "name": "Retratos al temple",
+              "id": "retratos-temple",
+              "description": "Pinturas al temple de retratos",
+              "image": "https://img.youtube.com/vi/MqmjZGMDrLY/0.jpg",
+              "video_url": "https://www.youtube.com/embed/MqmjZGMDrLY"
+              }
           ]
         },
         {
