@@ -115,7 +115,7 @@ export class Nav extends WebElement {
     $(document).on("contextmenu", `#${tabId}`, function (e) {
       $(`#${tabId}`).popover({
         html: true,
-        content: `<span class="action-button"><i id=\"${tabId}-delete\" class=\"fas fa-trash-alt\"></i></span>`
+        content: `<div class="action-buttons-container"><span class="action-button"><i id=\"${tabId}-edit\" class=\"fas fa-edit\"></i></span><span class="action-button"><i id=\"${tabId}-delete\" class=\"fas fa-trash-alt\"></i></span></div>`
       });
       //BOOTSTRAP fuerza a usar JQuery
       $(`#${tabId}`).popover('toggle');
