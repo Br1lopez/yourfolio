@@ -711,3 +711,22 @@ min-height: none;
 .action-button{
   cursor: pointer;
 }
+
+
+.interface-tips{
+  background-color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  position: fixed;
+  bottom: 0px;
+  /* left: 30px; */
+  margin: auto;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 5px 5px 25px black;
+  width: 100%;
+}
