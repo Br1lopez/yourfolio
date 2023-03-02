@@ -125,15 +125,19 @@ export class Nav extends WebElement {
 
 
     $(document).on("click", `#${tabId}-delete`, function (e) {
-      let index = data.tabs.findIndex((tab) => tab.name == tabId);
-      data.tabs.splice(index, 1);
-      localStorage.setItem("pageData", JSON.stringify(data));
+      deleteTab(tabId);
 
       let tab = document.getElementById(tabId);
       tab.parentNode.removeChild(tab);
     });
 
     ($("#newTabParent")).before(newTab);
+  }
+
+  deleteTab(tabTitle) {
+    let index = data.tabs.findIndex((tab) => tab.name == tabTitle);
+    data.tabs.splice(index, 1);
+    localStorage.setItem("pageData", JSON.stringify(data));
   }
 
   saveTab(tabTitle) {
