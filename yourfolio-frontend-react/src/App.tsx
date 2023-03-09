@@ -3,13 +3,13 @@ import "./App.css";
 import DefaultHead from "./components/DefaultHead";
 
 import React from "react";
-import { CustomNavbar } from "./modules/pageCreator/components/navBar/NavBar2";
+import { NavBar } from "./modules/pageCreator/components/navBar/NavBar";
 
 function App() {
   return (
     <div>
       <DefaultHead></DefaultHead>
-      <CustomNavbar title="test"></CustomNavbar>
+      <NavBar title="test"></NavBar>
     </div>
   );
 }
