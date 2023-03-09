@@ -1,14 +1,15 @@
 // @ts-ignore
 import "./App.css";
 import DefaultHead from "./components/DefaultHead";
-import { Navbar } from "./modules/pageCreator/components/navBar/NavBar";
+
 import React from "react";
+import { CustomNavbar } from "./modules/pageCreator/components/navBar/NavBar2";
 
 function App() {
   return (
     <div>
       <DefaultHead></DefaultHead>
-      <Navbar title="test"></Navbar>
+      <CustomNavbar title="test"></CustomNavbar>
     </div>
   );
 }
