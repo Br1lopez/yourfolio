@@ -6,6 +6,13 @@ export interface NavBarProps {
 }
 
 export const NavBar = (props: NavBarProps) => {
+  $(document).on("click", "#newTabButton", () => {
+    let newTabTitle = $("#newTabTitle").val();
+    this.saveTab(newTabTitle);
+    $('#newTab').modal('hide');
+    this.drawTab(newTabTitle);
+  });
+
   return (
     <>
       <Navbar bg="light" expand="sm" id="navbar">
