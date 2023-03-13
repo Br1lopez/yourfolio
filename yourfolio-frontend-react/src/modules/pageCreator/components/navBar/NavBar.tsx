@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal, Navbar, Button, Nav, Form} from "react-bootstrap";
+import './navBar.scss'
 
 interface NavBarProps {
   title: string;
@@ -14,11 +15,11 @@ export const NavBar = (props: NavBarProps) => {
     <>
       <Navbar bg="light" expand="sm" id="navbar">
         <Navbar.Brand href="index.html">{props.title}</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarNavDropdown" />
-        <Navbar.Collapse className="justify-content-end" id="navbarNavDropdown">
+        <Navbar.Toggle aria-controls="navCollapse" />
+        <Navbar.Collapse className="justify-content-end" id="navCollapse">
           <Nav>
             <Nav.Link href="#">
-              <Button variant="link" onClick={handleShow}>
+              <Button className="addTab" variant="link" onClick={handleShow}>
                 <i
                   className="fas fa-plus-circle"
                   style={{ fontSize: "1.5em" }}

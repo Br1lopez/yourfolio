@@ -1,15 +1,15 @@
 #navbar {
     margin: 0;
-}
-
-.navbarNavDropdown {
-    justify-content: flex-end;
-
-    .newTabButton {
+    padding: 5px 20px;
+    & .addTab {
         justify-self: flex-end;
-
-        & i {
+        padding: 0;
+        & i{
+            border-color: rgba(0,0,0,0);
+            background-color: rgba(0,0,0,0);
             color: black;
         }
     }
+    
 }
+

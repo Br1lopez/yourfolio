@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       <DefaultHead></DefaultHead>
-      <NavBar title="test"></NavBar>
+      <NavBar title="HOLA"></NavBar>
     </div>
   );
 }
