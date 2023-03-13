@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       <DefaultHead></DefaultHead>
-      <NavBar title="HOLA"></NavBar>
+      <NavBar title="HOLA" sections={["primera", "otra más"]}></NavBar>
     </div>
   );
 }

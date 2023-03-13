@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Modal, Navbar, Button, Nav, Form} from "react-bootstrap";
-import './navBar.scss'
+import { Modal, Navbar, Button, Nav, Form } from "react-bootstrap";
+import "./navBar.scss";
 
 interface NavBarProps {
   title: string;
+  sections?: string[];
 }
 
 export const NavBar = (props: NavBarProps) => {
@@ -18,6 +19,13 @@ export const NavBar = (props: NavBarProps) => {
         <Navbar.Toggle aria-controls="navCollapse" />
         <Navbar.Collapse className="justify-content-end" id="navCollapse">
           <Nav>
+            {props.sections?.map((section) => {
+              return (
+                <Nav.Link href="#">
+                  {section}
+                </Nav.Link>
+              );
+            })}
             <Nav.Link href="#">
               <Button className="addTab" variant="link" onClick={handleShow}>
                 <i
