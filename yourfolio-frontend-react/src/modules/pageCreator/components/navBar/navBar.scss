@@ -1,6 +1,15 @@
 #navbar {
     margin: 0;
 }
-#newTabParent {
-    justify-self: flex-end;
+
+.navbarNavDropdown {
+    justify-content: flex-end;
+
+    .newTabButton {
+        justify-self: flex-end;
+
+        & i {
+            color: black;
+        }
+    }
 }

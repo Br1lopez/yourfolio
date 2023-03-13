@@ -1,5 +1,5 @@
 // @ts-ignore
-import "./App.css";
+import "./App.scss";
 import DefaultHead from "./components/DefaultHead";
 
 import React from "react";

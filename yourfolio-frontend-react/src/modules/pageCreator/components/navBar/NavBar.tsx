@@ -1,18 +1,15 @@
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
-import "./navBar.scss";
-import NewTabModal from "./NewTabModal";
+
 import { useState } from "react";
-
-
+import { Modal, Navbar, Button, Nav, Form, CloseButton } from "react-bootstrap";
 
 interface NavBarProps {
   title: string;
 }
 
 export const NavBar = (props: NavBarProps) => {
-  const [modalShow, setModalShow] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -29,19 +26,13 @@ export const NavBar = (props: NavBarProps) => {
           aria-controls="navbarNavDropdown"
           aria-label="Toggle navigation"
         />
-        <Navbar.Collapse id="navbarNavDropdown">
+        <Navbar.Collapse className="navbarNavDropdown">
           <Nav className="ml-auto tabList" id="nav-element-list">
             <Nav.Item
               className="nav-item active newTabButton"
-              id="newTabParent"
             >
               <Nav.Link href="#">
-                <Button
-                  variant="link"
-                  data-toggle="modal"
-                  data-target="#newTab"
-                  onClick={() => {setModalShow(true)}}
-                >
+                <Button className="button" variant="link" onClick={handleShow}>
                   <i
                     className="fas fa-plus-circle"
                     style={{ fontSize: "1.5em" }}
@@ -52,7 +43,32 @@ export const NavBar = (props: NavBarProps) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <NewTabModal show={modalShow} setShow={setModalShow}></NewTabModal>
+      <Modal
+        id="newTab"
+        aria-labelledby="exampleModalLabel"
+        show={show}
+        onHide={handleClose}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Crear pestaña</Modal.Title>
+        </Modal.Header>
+        <Form>
+          <Modal.Body>
+            <Form.Group controlId="newTabTitle" className="mb-4">
+              <Form.Label>Nombre:</Form.Label>
+              <Form.Control type="text" required />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancelar
+            </Button>
+            <Button type="submit" variant="primary">
+              Crear pestaña
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
     </>
   );
 };
