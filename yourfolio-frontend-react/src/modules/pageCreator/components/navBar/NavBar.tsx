@@ -1,58 +1,46 @@
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 import "./navBar.scss";
-import NewTabModal from "./NewTabModal";
-import { useState } from "react";
 
-
-
-interface NavBarProps {
-  title: string;
+export interface NavBarProps{
+  title: string
 }
 
 export const NavBar = (props: NavBarProps) => {
-  const [modalShow, setModalShow] = useState<boolean>(false);
-
   return (
-    <>
-      <Navbar bg="light" expand="sm" id="navbar">
-        <Navbar.Brand
-          href="index.html"
-          data-toggle="popover"
-          data-trigger="focus"
-          data-placement="bottom"
-        >
-          {props.title}
-        </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="navbarNavDropdown"
-          aria-label="Toggle navigation"
-        />
-        <Navbar.Collapse id="navbarNavDropdown">
-          <Nav className="ml-auto tabList" id="nav-element-list">
-            <Nav.Item
-              className="nav-item active newTabButton"
-              id="newTabParent"
-            >
-              <Nav.Link href="#">
-                <Button
-                  variant="link"
-                  data-toggle="modal"
-                  data-target="#newTab"
-                  onClick={() => {setModalShow(true)}}
-                >
-                  <i
-                    className="fas fa-plus-circle"
-                    style={{ fontSize: "1.5em" }}
-                  ></i>
-                </Button>
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <NewTabModal show={modalShow} setShow={setModalShow}></NewTabModal>
-    </>
+    <nav className="navbar navbar-expand-sm navbar-light bg-light" id="navbar">
+      <a
+        id="navbar-brand"
+        className="navbar-brand"
+        href="index.html"
+        role="button"
+        data-toggle="popover"
+        data-trigger="focus"
+        data-placement="bottom"
+      >{props.title}</a>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbarbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i className="fas fa-bars"></i>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul className="navbar-nav ml-auto tabList" id="nav-element-list">
+          <li className="nav-item active newTabButton" id="newTabParent">
+            <a className="nav-link" href="#">
+              <button type="button" data-toggle="modal" data-target="#newTab">
+                <i
+                  className="fas fa-plus-circle"
+                  style={{ fontSize: "1.5em" }}
+                ></i>
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
 };
