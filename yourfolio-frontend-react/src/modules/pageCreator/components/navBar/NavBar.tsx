@@ -1,3 +1,4 @@
+import { Button, Nav, Navbar } from "react-bootstrap";
 import "./navBar.scss";
 
 export interface NavBarProps {
@@ -7,47 +8,41 @@ export interface NavBarProps {
 export const NavBar = (props: NavBarProps) => {
   return (
     <>
-      <nav
-        className="navbar navbar-expand-sm navbar-light bg-light"
-        id="navbar"
-      >
-        <a
-          id="navbar-brand"
-          className="navbar-brand"
+      <Navbar bg="light" expand="sm" id="navbar">
+        <Navbar.Brand
           href="index.html"
-          role="button"
           data-toggle="popover"
           data-trigger="focus"
           data-placement="bottom"
         >
           {props.title}
-        </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target=".navbarbarNavDropdown"
+        </Navbar.Brand>
+        <Navbar.Toggle
           aria-controls="navbarNavDropdown"
-          aria-expanded="false"
           aria-label="Toggle navigation"
-        >
-          <i className="fas fa-bars"></i>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav ml-auto tabList" id="nav-element-list">
-            <li className="nav-item active newTabButton" id="newTabParent">
-              <a className="nav-link" href="#">
-                <button type="button" data-toggle="modal" data-target="#newTab">
+        />
+        <Navbar.Collapse id="navbarNavDropdown">
+          <Nav className="ml-auto tabList" id="nav-element-list">
+            <Nav.Item
+              className="nav-item active newTabButton"
+              id="newTabParent"
+            >
+              <Nav.Link href="#">
+                <Button
+                  variant="link"
+                  data-toggle="modal"
+                  data-target="#newTab"
+                >
                   <i
                     className="fas fa-plus-circle"
                     style={{ fontSize: "1.5em" }}
                   ></i>
-                </button>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+                </Button>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
 
       <div
         className="modal fade"
