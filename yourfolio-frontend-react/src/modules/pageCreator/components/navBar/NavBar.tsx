@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Modal, Navbar, Button, Nav, Form, CloseButton } from "react-bootstrap";
+import { Modal, Navbar, Button, Nav, Form} from "react-bootstrap";
 
 interface NavBarProps {
   title: string;
@@ -14,39 +13,22 @@ export const NavBar = (props: NavBarProps) => {
   return (
     <>
       <Navbar bg="light" expand="sm" id="navbar">
-        <Navbar.Brand
-          href="index.html"
-          data-toggle="popover"
-          data-trigger="focus"
-          data-placement="bottom"
-        >
-          {props.title}
-        </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="navbarNavDropdown"
-        />
-        <Navbar.Collapse  className="justify-content-end" id="navbarNavDropdown">
+        <Navbar.Brand href="index.html">{props.title}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarNavDropdown" />
+        <Navbar.Collapse className="justify-content-end" id="navbarNavDropdown">
           <Nav>
-            <Nav.Item
-            >
-              <Nav.Link href="#">
-                <Button variant="link" onClick={handleShow}>
-                  <i
-                    className="fas fa-plus-circle"
-                    style={{ fontSize: "1.5em" }}
-                  ></i>
-                </Button>
-              </Nav.Link>
-            </Nav.Item>
+            <Nav.Link href="#">
+              <Button variant="link" onClick={handleShow}>
+                <i
+                  className="fas fa-plus-circle"
+                  style={{ fontSize: "1.5em" }}
+                ></i>
+              </Button>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Modal
-        id="newTab"
-        aria-labelledby="exampleModalLabel"
-        show={show}
-        onHide={handleClose}
-      >
+      <Modal id="newTab" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Crear pestaña</Modal.Title>
         </Modal.Header>
