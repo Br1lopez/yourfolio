@@ -24,15 +24,13 @@ export const NavBar = (props: NavBarProps) => {
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="navbarNavDropdown"
-          aria-label="Toggle navigation"
         />
-        <Navbar.Collapse className="navbarNavDropdown">
-          <Nav className="ml-auto tabList" id="nav-element-list">
+        <Navbar.Collapse  className="justify-content-end" id="navbarNavDropdown">
+          <Nav>
             <Nav.Item
-              className="nav-item active newTabButton"
             >
               <Nav.Link href="#">
-                <Button className="button" variant="link" onClick={handleShow}>
+                <Button variant="link" onClick={handleShow}>
                   <i
                     className="fas fa-plus-circle"
                     style={{ fontSize: "1.5em" }}
