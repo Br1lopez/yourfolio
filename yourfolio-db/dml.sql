@@ -1,12 +1,12 @@
 use yourfolio;
 
-INSERT INTO user (email, password, name, surname1, surname2) VALUES ("test@test.com", "contraseña", "Juan", "Pérez", "Rodríguez");
+INSERT INTO user (name, surname1, surname2, email, password) VALUES ("test@test.com", "contraseña", "Juan", "Pérez", "Rodríguez");
 
 INSERT INTO file (url, description, user_id) VALUES ("/imgs/test.jpg", "Imagen de prueba", 1);
 
 INSERT INTO portfolio (theme, user_id) VALUES ("tema del portafolio", 1);
 
-INSERT INTO project (title, description, user_id) VALUES ("Título del proyecto", "Descripción del proyecto", 1);
+INSERT INTO project (name, description, user_id) VALUES ("Título del proyecto", "Descripción del proyecto", 1);
 
 INSERT INTO tab (template, portfolio_id) VALUES ("plantilla de pestaña", 1);
 

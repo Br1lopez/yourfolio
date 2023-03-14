@@ -5,11 +5,11 @@ use yourfolio;
 
 CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255),
-    password VARCHAR(255),
     name VARCHAR(255),
+    email VARCHAR(255),
     surname1 VARCHAR(255),
-    surname2 VARCHAR(255)
+    surname2 VARCHAR(255),
+    password VARCHAR(32)
 );
 
 CREATE TABLE file (
@@ -29,8 +29,8 @@ CREATE TABLE portfolio (
 
 CREATE TABLE project (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    description TEXT,
+    name VARCHAR(255),
+    description VARCHAR(255),
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
