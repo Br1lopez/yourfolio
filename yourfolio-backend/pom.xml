@@ -6,6 +6,7 @@
     <modules>
         <module>api</module>
         <module>boot</module>
+        <module>db</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -22,7 +23,7 @@
         <java.version>17</java.version>
         <revision>0.0.1-SNAPSHOT</revision>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

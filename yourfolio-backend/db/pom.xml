@@ -6,10 +6,9 @@
     <parent>
         <groupId>com.yourfolio</groupId>
         <artifactId>yourfolio</artifactId>
-        <version>${revision}</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.yourfolio</groupId>
-    <artifactId>api</artifactId>
+    <artifactId>db</artifactId>
 
 </project>
