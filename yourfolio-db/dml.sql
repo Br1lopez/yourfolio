@@ -6,7 +6,7 @@ INSERT INTO file (url, description, user_id) VALUES ("/imgs/test.jpg", "Imagen d
 
 INSERT INTO portfolio (name, user_id) VALUES ("tema del portafolio", 1);
 
-INSERT INTO project (name, description, thumbnail_id, user_id) VALUES ("Título del proyecto", "Descripción del proyecto", 1, 1);
+INSERT INTO project (name, description, thumbnail_id) VALUES ("Título del proyecto", "Descripción del proyecto", 1);
 
 INSERT INTO tab (template, portfolio_id) VALUES ("plantilla de pestaña", 1);
 

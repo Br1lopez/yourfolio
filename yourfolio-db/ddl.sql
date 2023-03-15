@@ -32,9 +32,7 @@ CREATE TABLE project (
     name VARCHAR(255),
     description VARCHAR(255),
     thumbnail_id INT,
-    user_id INT,
-    FOREIGN KEY (thumbnail_id) REFERENCES file(id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    FOREIGN KEY (thumbnail_id) REFERENCES file(id)
 );
 
 CREATE TABLE tab (
