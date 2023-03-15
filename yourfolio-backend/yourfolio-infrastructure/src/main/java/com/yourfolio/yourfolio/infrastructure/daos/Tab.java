@@ -1,11 +1,9 @@
 package com.yourfolio.yourfolio.infrastructure.daos;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "tab")
 public class Tab {
