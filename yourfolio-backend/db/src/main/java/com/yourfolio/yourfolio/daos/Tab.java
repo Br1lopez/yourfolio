@@ -1,4 +1,4 @@
-package com.yourfolio.daos;
+package com.yourfolio.yourfolio.daos;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,18 +7,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "style")
-public class Style {
+@Table(name = "tab")
+public class Tab {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "bg_color", length = 32)
-    private String bgColor;
-
-    @Column(name = "font_color", length = 32)
-    private String fontColor;
+    @Column(name = "template")
+    private String template;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")

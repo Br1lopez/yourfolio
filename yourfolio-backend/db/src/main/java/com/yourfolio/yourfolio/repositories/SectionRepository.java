@@ -1,6 +1,6 @@
-package com.yourfolio.repositories;
+package com.yourfolio.yourfolio.repositories;
 
-import com.yourfolio.daos.Section;
+import com.yourfolio.yourfolio.daos.Section;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SectionRepository extends JpaRepository<Section, Integer> {

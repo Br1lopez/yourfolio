@@ -1,4 +1,4 @@
-package com.yourfolio.daos;
+package com.yourfolio.yourfolio.daos;
 
 import jakarta.persistence.*;
 import lombok.Getter;

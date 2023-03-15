@@ -1,6 +1,6 @@
-package com.yourfolio.repositories;
+package com.yourfolio.yourfolio.repositories;
 
-import com.yourfolio.daos.Portfolio;
+import com.yourfolio.yourfolio.daos.Portfolio;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PortfolioRepository extends JpaRepository<Portfolio, Integer> {
