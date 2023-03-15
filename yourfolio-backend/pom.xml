@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>api</module>
-        <module>boot</module>
-        <module>db</module>
+        <module>yourfolio-api</module>
+        <module>yourfolio-boot</module>
+        <module>yourfolio-infrastructure</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
