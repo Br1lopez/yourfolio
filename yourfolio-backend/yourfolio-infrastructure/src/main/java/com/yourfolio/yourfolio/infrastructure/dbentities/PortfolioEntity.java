@@ -15,7 +15,8 @@ public class PortfolioEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //TODO: comprobar si puede ser lazy
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 

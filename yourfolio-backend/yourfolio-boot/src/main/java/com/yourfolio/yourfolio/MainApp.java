@@ -1,6 +1,6 @@
 package com.yourfolio.yourfolio;
 
-import com.yourfolio.yourfolio.infrastructure.repositories.UserRepository;
+import com.yourfolio.yourfolio.infrastructure.repositories.PortfolioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @AllArgsConstructor
 public class MainApp implements CommandLineRunner {
 
-    private final UserRepository repo;
+    private final PortfolioRepository repo;
     public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
     }
