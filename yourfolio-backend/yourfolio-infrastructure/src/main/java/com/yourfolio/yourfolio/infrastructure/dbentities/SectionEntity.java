@@ -1,4 +1,4 @@
-package com.yourfolio.yourfolio.infrastructure.daos;
+package com.yourfolio.yourfolio.infrastructure.dbentities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "section")
-public class Section {
+public class SectionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -22,6 +22,6 @@ public class Section {
     @JoinTable(name = "section_project",
             joinColumns = @JoinColumn(name = "section_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private Set<Project> projects = new LinkedHashSet<>();
+    private Set<ProjectEntity> projectEntities = new LinkedHashSet<>();
 
 }

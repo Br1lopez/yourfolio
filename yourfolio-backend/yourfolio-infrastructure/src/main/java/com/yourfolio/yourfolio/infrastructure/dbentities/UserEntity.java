@@ -1,4 +1,4 @@
-package com.yourfolio.yourfolio.infrastructure.daos;
+package com.yourfolio.yourfolio.infrastructure.dbentities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

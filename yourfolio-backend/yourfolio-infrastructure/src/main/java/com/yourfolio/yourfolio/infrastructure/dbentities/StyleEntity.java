@@ -1,4 +1,4 @@
-package com.yourfolio.yourfolio.infrastructure.daos;
+package com.yourfolio.yourfolio.infrastructure.dbentities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "style")
-public class Style {
+public class StyleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -20,6 +20,6 @@ public class Style {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")
-    private Portfolio portfolio;
+    private PortfolioEntity portfolioEntity;
 
 }

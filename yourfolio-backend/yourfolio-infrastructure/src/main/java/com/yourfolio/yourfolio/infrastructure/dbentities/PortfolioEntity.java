@@ -1,22 +1,22 @@
-package com.yourfolio.yourfolio.infrastructure.daos;
+package com.yourfolio.yourfolio.infrastructure.dbentities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "tab")
-public class Tab {
+@Table(name = "portfolio")
+public class PortfolioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "template")
-    private String template;
+    @Column(name = "name")
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "portfolio_id")
-    private Portfolio portfolio;
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
 }
