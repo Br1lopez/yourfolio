@@ -1,6 +1,6 @@
-package com.yourfolio.yourfolio.infrastructure.repositories;
+package com.yourfolio.yourfolio.repositories;
 
-import com.yourfolio.yourfolio.infrastructure.dbentities.UserEntity;
+import com.yourfolio.yourfolio.dbentities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {

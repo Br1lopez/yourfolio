@@ -1,6 +1,6 @@
-package com.yourfolio.yourfolio.infrastructure.repositories;
+package com.yourfolio.yourfolio.repositories;
 
-import com.yourfolio.yourfolio.infrastructure.dbentities.SectionEntity;
+import com.yourfolio.yourfolio.dbentities.SectionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SectionRepository extends JpaRepository<SectionEntity, Integer> {

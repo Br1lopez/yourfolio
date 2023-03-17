@@ -1,6 +1,6 @@
-package com.yourfolio.yourfolio.infrastructure.repositories;
+package com.yourfolio.yourfolio.repositories;
 
-import com.yourfolio.yourfolio.infrastructure.dbentities.PortfolioEntity;
+import com.yourfolio.yourfolio.dbentities.PortfolioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.yourfolio.yourfolio.infrastructure.dbentities;
+package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
 import lombok.Data;

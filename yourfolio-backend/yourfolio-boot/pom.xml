@@ -23,6 +23,16 @@
     <dependencies>
         <dependency>
             <groupId>com.yourfolio</groupId>
+            <artifactId>yourfolio-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yourfolio</groupId>
+            <artifactId>yourfolio-service</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yourfolio</groupId>
             <artifactId>yourfolio-repository</artifactId>
             <version>${revision}</version>
         </dependency>
