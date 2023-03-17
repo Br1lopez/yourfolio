@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface SectionMapper {
-    SectionDTO toSectionDTO(SectionEntity SectionEntity);
+    SectionDTO toSectionDTO(SectionEntity sectionEntity);
 }
