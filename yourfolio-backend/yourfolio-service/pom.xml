@@ -9,6 +9,14 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>yourfolio-infrastructure</artifactId>
+    <artifactId>yourfolio-service</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yourfolio</groupId>
+            <artifactId>yourfolio-repository</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
 
 </project>

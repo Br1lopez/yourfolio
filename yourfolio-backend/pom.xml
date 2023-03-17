@@ -6,7 +6,8 @@
     <modules>
         <module>yourfolio-api</module>
         <module>yourfolio-boot</module>
-        <module>yourfolio-infrastructure</module>
+        <module>yourfolio-repository</module>
+        <module>yourfolio-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

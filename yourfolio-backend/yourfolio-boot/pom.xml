@@ -23,7 +23,7 @@
     <dependencies>
         <dependency>
             <groupId>com.yourfolio</groupId>
-            <artifactId>yourfolio-infrastructure</artifactId>
+            <artifactId>yourfolio-repository</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>
