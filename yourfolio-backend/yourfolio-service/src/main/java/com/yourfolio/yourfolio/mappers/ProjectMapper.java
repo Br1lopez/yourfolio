@@ -4,7 +4,11 @@ import com.yourfolio.yourfolio.dtos.ProjectDTO;
 import com.yourfolio.yourfolio.dbentities.ProjectEntity;
 import org.mapstruct.Mapper;
 
-@Mapper
+import java.util.List;
+
+@Mapper(componentModel = "spring")
 public interface ProjectMapper {
     ProjectDTO toProjectDTO(ProjectEntity projectEntity);
+
+    List<ProjectDTO> toProjectDTOList(List<ProjectEntity> projectEntityList);
 }
