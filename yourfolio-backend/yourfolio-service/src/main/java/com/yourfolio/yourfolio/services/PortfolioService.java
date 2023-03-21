@@ -4,6 +4,7 @@ import com.yourfolio.yourfolio.dbentities.TabEntity;
 import com.yourfolio.yourfolio.dtos.PortfolioDTO;
 import com.yourfolio.yourfolio.dbentities.PortfolioEntity;
 import com.yourfolio.yourfolio.dbentities.StyleEntity;
+import com.yourfolio.yourfolio.dtos.StyleDTO;
 import com.yourfolio.yourfolio.dtos.TabDTO;
 import com.yourfolio.yourfolio.mappers.SectionMapper;
 import com.yourfolio.yourfolio.repositories.PortfolioRepository;
@@ -34,17 +35,17 @@ public class PortfolioService {
 
     public PortfolioDTO getPortfolioById(Integer portfolioId) {
         PortfolioEntity portfolioEntity = portfolioRepository.getReferenceById(portfolioId);
-        StyleEntity styleEntity = styleRepository.findByPortfolio_Id(portfolioId);
-        List<TabDTO> tabDtos = tabMapper.toTabDTOList(tabRepository.findByPortfolio_Id(portfolioId));
-        tabDtos.forEach(
+        StyleDTO styleDTO= styleMapper.toStyleDTO(styleRepository.findByPortfolio_Id(portfolioId));
+        List<TabDTO> tabDTOs = tabMapper.toTabDTOList(tabRepository.findByPortfolio_Id(portfolioId));
+        tabDTOs.forEach(
                 tab -> tab.setSections(
                         sectionMapper.toSectionDTOList(
                                 sectionRepository.findByTab_Id(tab.getId()))));
 
         return PortfolioDTO.builder()
                 .title(portfolioEntity.getName())
-                .style(styleMapper.toStyleDTO(styleEntity))
-                .tabs(tabDtos)
+                .style(styleDTO)
+                .tabs(tabDTOs)
                 .build();
     }
 }
