@@ -6,6 +6,6 @@ import java.util.List;
 @Data
 public class TabDTO {
     private String name;
-    private String id;
+    private Integer id;
     private List<SectionDTO> sections;
 }
