@@ -1,11 +1,16 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "section")
 public class SectionEntity {
@@ -27,36 +32,4 @@ public class SectionEntity {
     @JoinColumn(name = "tab_id")
     private TabEntity tab;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<ProjectEntity> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<ProjectEntity> projects) {
-        this.projects = projects;
-    }
-
-    public TabEntity getTab() {
-        return tab;
-    }
-
-    public void setTab(TabEntity tab) {
-        this.tab = tab;
-    }
 }

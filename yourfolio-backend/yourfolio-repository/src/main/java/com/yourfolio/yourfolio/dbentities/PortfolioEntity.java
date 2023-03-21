@@ -1,12 +1,16 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "portfolio")
 public class PortfolioEntity {
@@ -22,40 +26,8 @@ public class PortfolioEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-
+    
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
     private Set<TabEntity> tabs = new LinkedHashSet<>();
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public Set<TabEntity> getTabs() {
-        return tabs;
-    }
-
-    public void setTabs(Set<TabEntity> tabs) {
-        this.tabs = tabs;
-    }
 }
