@@ -12,8 +12,8 @@ public class TabEntity {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "template")
-    private String template;
+    @Column(name = "name")
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")

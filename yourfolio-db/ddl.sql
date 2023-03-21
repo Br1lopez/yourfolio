@@ -37,7 +37,7 @@ CREATE TABLE project (
 
 CREATE TABLE tab (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    template VARCHAR(255),
+    name VARCHAR(255),
     portfolio_id INT,
     FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
 );
