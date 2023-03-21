@@ -18,8 +18,9 @@ public class StyleEntity {
     @Column(name = "font_color", length = 32)
     private String fontColor;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "portfolio_id")
     private PortfolioEntity portfolio;
+
 
 }
