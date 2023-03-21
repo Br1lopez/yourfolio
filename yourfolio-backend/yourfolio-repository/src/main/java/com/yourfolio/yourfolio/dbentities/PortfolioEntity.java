@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Data
+
 @Entity
 @Table(name = "portfolio")
 public class PortfolioEntity {
@@ -26,4 +26,36 @@ public class PortfolioEntity {
 
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
     private Set<TabEntity> tabs = new LinkedHashSet<>();
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public Set<TabEntity> getTabs() {
+        return tabs;
+    }
+
+    public void setTabs(Set<TabEntity> tabs) {
+        this.tabs = tabs;
+    }
 }
