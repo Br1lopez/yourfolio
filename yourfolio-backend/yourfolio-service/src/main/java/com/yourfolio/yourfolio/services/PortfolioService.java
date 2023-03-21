@@ -10,8 +10,10 @@ import com.yourfolio.yourfolio.mappers.StyleMapper;
 import com.yourfolio.yourfolio.mappers.TabMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
@@ -24,7 +26,8 @@ public class PortfolioService {
     public PortfolioDTO getPortfolioById(Integer portfolioId) {
         PortfolioEntity portfolioEntity = portfolioRepository.getReferenceById(portfolioId);
         StyleEntity styleEntity = styleRepository.findByPortfolioEntity_Id(portfolioId);
-
+        System.out.println(tabRepository.findByPortfolioEntity_Id(portfolioId));
+        System.out.println(tabMapper.toTabDTOList(tabRepository.findByPortfolioEntity_Id(portfolioId)));
         return PortfolioDTO.builder()
                 .title(portfolioEntity.getName())
                 .style(styleMapper.toStyleDTO(styleEntity))

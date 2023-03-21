@@ -3,6 +3,9 @@ package com.yourfolio.yourfolio.dbentities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "portfolio")
@@ -18,6 +21,11 @@ public class PortfolioEntity {
     //TODO: comprobar si puede ser lazy
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    private UserEntity user;
+
+
+    @OneToMany(mappedBy = "portfolioEntity", fetch = FetchType.EAGER)
+    private Set<TabEntity> tabs = new LinkedHashSet<>();
+
 
 }

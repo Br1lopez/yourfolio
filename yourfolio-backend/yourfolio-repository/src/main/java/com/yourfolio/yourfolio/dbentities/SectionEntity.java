@@ -24,4 +24,8 @@ public class SectionEntity {
             inverseJoinColumns = @JoinColumn(name = "project_id"))
     private Set<ProjectEntity> projectEntities = new LinkedHashSet<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tab_id")
+    private TabEntity tab;
+
 }
