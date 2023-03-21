@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PortfolioMapper {
-    PortfolioDTO toPortfolioDTO(PortfolioEntity PortfolioEntity);
+    PortfolioDTO toPortfolioDTO(PortfolioEntity portfolioEntity);
 
-    List<PortfolioDTO> toPortfolioDTOList(List<PortfolioEntity> PortfolioEntityList);
+    List<PortfolioDTO> toPortfolioDTOList(List<PortfolioEntity> portfolioEntityList);
 }

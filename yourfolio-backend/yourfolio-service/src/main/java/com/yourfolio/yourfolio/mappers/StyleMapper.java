@@ -1,7 +1,7 @@
 package com.yourfolio.yourfolio.mappers;
 
-import com.yourfolio.yourfolio.dtos.StyleDTO;
 import com.yourfolio.yourfolio.dbentities.StyleEntity;
+import com.yourfolio.yourfolio.dtos.StyleDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

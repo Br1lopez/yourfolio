@@ -1,8 +1,6 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +24,7 @@ public class PortfolioEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-    
+
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
     private Set<TabEntity> tabs = new LinkedHashSet<>();
 

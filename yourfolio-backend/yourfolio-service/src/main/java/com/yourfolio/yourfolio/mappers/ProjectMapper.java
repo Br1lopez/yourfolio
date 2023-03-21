@@ -1,7 +1,7 @@
 package com.yourfolio.yourfolio.mappers;
 
-import com.yourfolio.yourfolio.dtos.ProjectDTO;
 import com.yourfolio.yourfolio.dbentities.ProjectEntity;
+import com.yourfolio.yourfolio.dtos.ProjectDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;
