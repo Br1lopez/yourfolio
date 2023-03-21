@@ -24,7 +24,7 @@ public class PortfolioEntity {
     private UserEntity user;
 
 
-    @OneToMany(mappedBy = "portfolioEntity", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
     private Set<TabEntity> tabs = new LinkedHashSet<>();
 
 

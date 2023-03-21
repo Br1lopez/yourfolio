@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StyleRepository extends JpaRepository<StyleEntity, Integer> {
-    StyleEntity findByPortfolioEntity_Id(@NonNull Integer id);
+    StyleEntity findByPortfolio_Id(@NonNull Integer id);
 
 }

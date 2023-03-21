@@ -23,7 +23,7 @@ public class FileEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    private UserEntity user;
 
     @ManyToMany
     @JoinTable(name = "file_project",

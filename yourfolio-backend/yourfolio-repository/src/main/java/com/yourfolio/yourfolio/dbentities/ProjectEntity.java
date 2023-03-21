@@ -29,12 +29,12 @@ public class ProjectEntity {
     @JoinTable(name = "file_project",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "file_id"))
-    private Set<FileEntity> fileEntities = new LinkedHashSet<>();
+    private Set<FileEntity> files = new LinkedHashSet<>();
 
     @ManyToMany
     @JoinTable(name = "section_project",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "section_id"))
-    private Set<SectionEntity> sectionEntities = new LinkedHashSet<>();
+    private Set<SectionEntity> sections = new LinkedHashSet<>();
 
 }

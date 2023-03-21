@@ -18,9 +18,9 @@ public class TabEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")
-    private PortfolioEntity portfolioEntity;
+    private PortfolioEntity portfolio;
 
 
     @OneToMany(mappedBy = "tab", fetch = FetchType.EAGER)

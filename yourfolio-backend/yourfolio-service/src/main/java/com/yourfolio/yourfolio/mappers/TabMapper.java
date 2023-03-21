@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TabMapper {
-    TabDTO toTabDTO(TabEntity TabEntity);
+    TabDTO toTabDTO(TabEntity tabEntity);
     List<TabDTO> toTabDTOList(List<TabEntity> tabEntities);
 }

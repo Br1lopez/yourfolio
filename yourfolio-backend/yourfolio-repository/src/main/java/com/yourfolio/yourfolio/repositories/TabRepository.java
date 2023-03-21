@@ -7,6 +7,8 @@ import org.springframework.lang.NonNull;
 import java.util.List;
 
 public interface TabRepository extends JpaRepository<TabEntity, Integer> {
-    List<TabEntity> findByPortfolioEntity_Id(@NonNull Integer id);
+    List<TabEntity> findByPortfolio_Id(@NonNull Integer id);
+
+
 
 }

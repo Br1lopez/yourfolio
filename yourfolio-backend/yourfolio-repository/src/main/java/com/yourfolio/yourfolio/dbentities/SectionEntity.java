@@ -22,7 +22,7 @@ public class SectionEntity {
     @JoinTable(name = "section_project",
             joinColumns = @JoinColumn(name = "section_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private Set<ProjectEntity> projectEntities = new LinkedHashSet<>();
+    private Set<ProjectEntity> projects = new LinkedHashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tab_id")
