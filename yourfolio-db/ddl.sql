@@ -32,14 +32,12 @@ CREATE TABLE project (
     name VARCHAR(255),
     description VARCHAR(255),
     thumbnail_id INT,
-    user_id INT,
-    FOREIGN KEY (thumbnail_id) REFERENCES file(id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    FOREIGN KEY (thumbnail_id) REFERENCES file(id)
 );
 
 CREATE TABLE tab (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    template VARCHAR(255),
+    name VARCHAR(255),
     portfolio_id INT,
     FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
 );
