@@ -18,7 +18,7 @@ export const PageCreator = () => {
   return (
     <>
       <DefaultHead></DefaultHead>
-      <NavBar title={data.name} sections={["primera", "otra más"]}></NavBar>
+      <NavBar title={data.name} sections={data.tabs.map(tab => tab.name)}></NavBar>
     </>
   );
 };
