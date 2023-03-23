@@ -6,8 +6,6 @@ import { NewTabModal } from "./NewTabModal";
 interface NavBarProps {
   title: string;
   sections?: string[];
-  bgColor?: string;
-  textColor?: string;
 }
 
 export const NavBar = (props: NavBarProps) => {
@@ -17,38 +15,17 @@ export const NavBar = (props: NavBarProps) => {
 
   return (
     <>
-      <Navbar
-        expand="sm"
-        id="navbar"
-        style={{
-          backgroundColor: `${props.bgColor}`,
-        }}
-      >
-        <Navbar.Brand href="index.html">{props.title}</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navCollapse" />
+      <Navbar expand="sm" id="navbar" className="navbar">
+        <Navbar.Brand className="navbar__brand" href="index.html">{props.title}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navCollapse" className="navbar__collapseButton"/>
         <Navbar.Collapse className="justify-content-end" id="navCollapse">
           <Nav>
             {props.sections?.map((section) => {
-              return (
-                <Nav.Link
-                  href="#"
-                  style={{
-                    color: `${props.textColor}`,
-                  }}
-                >
-                  {section}
-                </Nav.Link>
-              );
+              return <Nav.Link className="navbar__tabLink" href="#">{section}</Nav.Link>;
             })}
             <Nav.Link href="#">
-              <Button className="addTab" variant="link" onClick={handleShow}>
-                <i
-                  className="fas fa-plus-circle"
-                  style={{
-                    fontSize: "1.5em",
-                    color: `${props.textColor}`,
-                  }}
-                ></i>
+              <Button className="navbar__addTabButton" variant="link" onClick={handleShow}>
+                <i className="fas fa-plus-circle"></i>
               </Button>
             </Nav.Link>
           </Nav>
@@ -62,6 +39,4 @@ export const NavBar = (props: NavBarProps) => {
 NavBar.defaultProps = {
   title: "Yourfolio",
   sections: [],
-  bgColor: "#88719e",
-  textColor: "#bdabab",
 };

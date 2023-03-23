@@ -1,12 +1,25 @@
-#navbar {
+.navbar {
     margin: 0;
     padding: 5px 20px;
-    & .addTab {
+    background-color: var(--bg-color);
+
+    &__tabLink, &__brand, &__collapseButton{
+        color: var(--text-color) !important;
+    }
+
+    & .navbar-toggler-icon{
+        // background-image: none;
+        // TODO enlazar un svg local al que se le cambie el color
+    }
+
+    &__addTabButton {
         justify-self: flex-end;
         padding: 0;
         & i{
             border-color: rgba(0,0,0,0);
             background-color: rgba(0,0,0,0);
+            font-size: 1.5em;
+            color: var(--text-color);
         }
     }
     
