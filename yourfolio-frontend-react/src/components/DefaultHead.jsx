@@ -14,7 +14,7 @@ function DefaultHead() {
   src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
   crossorigin></script>
 
-<script>var Alert = ReactBootstrap.Alert;</script>
+{/* <script>var Alert = ReactBootstrap.Alert;</script> */}
       <script
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"

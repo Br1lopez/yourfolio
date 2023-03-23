@@ -4,21 +4,29 @@ import { NavBar } from "./components/navBar/NavBar";
 import axios from "axios";
 
 export const PageCreator = () => {
-  const [data, setData] = useState([]);
-
-
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    // axios.defaults.baseURL = "http://localhost:8080";
-    // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-    axios.get("http://localhost:8080/portfolios/1").then((response) => {
-      setData(response.data);
-    });
+    console.log("hola");
+    axios
+      .get("http://localhost:8080/portfolios/1")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
   return (
     <>
       <DefaultHead></DefaultHead>
-      <NavBar title={data.name} sections={data.tabs.map(tab => tab.name)}></NavBar>
+      {data && (
+        <NavBar
+          title={data.name}
+          sections={data.tabs.map((tab) => tab.name)}
+        ></NavBar>
+      )}
     </>
   );
 };
