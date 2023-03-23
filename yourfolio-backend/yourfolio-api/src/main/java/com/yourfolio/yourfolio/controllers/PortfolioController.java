@@ -18,4 +18,6 @@ public class PortfolioController {
     public ResponseEntity<PortfolioDTO> getPortfolioById(@PathVariable Integer id) {
         return new ResponseEntity<>(portfolioService.getPortfolioById(id), HttpStatus.OK);
     }
+
+    //TODO: addTabToPortfolio
 }
