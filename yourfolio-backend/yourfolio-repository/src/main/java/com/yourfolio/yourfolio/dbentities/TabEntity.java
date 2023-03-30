@@ -1,8 +1,7 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -11,6 +10,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "tab")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TabEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

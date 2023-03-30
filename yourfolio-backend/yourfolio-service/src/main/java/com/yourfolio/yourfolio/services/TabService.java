@@ -18,14 +18,14 @@ public class TabService {
     private final TabRepository tabRepository;
 
     public TabDTO createTabInPortfolio(Integer portfolioId, TabSaveDTO tabSaveDTO) {
-        PortfolioEntity portfolioEntity = new PortfolioEntity();
-        portfolioEntity.setId(portfolioId);
-
-        TabEntity tabEntity = new TabEntity();
-        tabEntity.setPortfolio(portfolioEntity);
-        tabEntity.setPosition(tabRepository.findMaxPosition(portfolioId) + 1);
-        tabEntity.setName(tabSaveDTO.getName());
-
-        return tabMapper.toTabDTO(tabRepository.save(tabEntity));
+        return tabMapper.toTabDTO(
+                tabRepository.save(
+                TabEntity.builder()
+                        .portfolio(PortfolioEntity.builder()
+                                .id(portfolioId)
+                                .build())
+                        .position(tabRepository.findMaxPosition(portfolioId) + 1)
+                        .name(tabSaveDTO.getName())
+                        .build()));
     }
 }
