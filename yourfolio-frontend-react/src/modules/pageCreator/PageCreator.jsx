@@ -7,7 +7,6 @@ export const PageCreator = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    console.log("hola");
     axios
       .get("http://localhost:8080/portfolios/1")
       .then((response) => {
@@ -20,20 +19,6 @@ export const PageCreator = () => {
         console.log(error);
       });
   }, []);
-
-  const [darkTheme, setDarkTheme] = useState(false);
-
-  useEffect(() => {
-    // Accessing scss variable "--background-color"
-    // and "--text-color" using plain JavaScript
-    // and changing the same according to the state of "darkTheme"
-    const root = document.documentElement;
-    root?.style.setProperty(
-      "--background-color",
-      darkTheme ? "#262833" : "#fff"
-    );
-    root?.style.setProperty("--text-color", darkTheme ? "#fff" : "#262833");
-  }, [darkTheme]);
 
   return (
     <>

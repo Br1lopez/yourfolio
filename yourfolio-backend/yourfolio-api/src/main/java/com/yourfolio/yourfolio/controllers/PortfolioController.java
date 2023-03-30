@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class PortfolioController {
     private final PortfolioService portfolioService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PortfolioDTO> getPortfolioById(@PathVariable Integer id) {
-        return new ResponseEntity<>(portfolioService.getPortfolioById(id), HttpStatus.OK);
+    @GetMapping("/{portfolioId}")
+    public ResponseEntity<PortfolioDTO> getPortfolioById(@PathVariable Integer portfolioId) {
+        return new ResponseEntity<>(portfolioService.getPortfolioById(portfolioId), HttpStatus.OK);
     }
 
     //TODO: addTabToPortfolio
