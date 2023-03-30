@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import DefaultHead from "../../components/DefaultHead";
 import { NavBar } from "./components/navBar/NavBar";
 import axios from "axios";
+import { API_PORT } from '../../globals';
 
 export const PageCreator = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/portfolios/1")
+      .get(`http://localhost:${API_PORT}/portfolios/1`)
       .then((response) => {
         setData(response.data);
         const style = document.documentElement?.style;

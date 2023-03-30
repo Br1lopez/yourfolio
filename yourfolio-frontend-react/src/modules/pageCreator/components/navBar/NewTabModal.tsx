@@ -1,6 +1,7 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { API_PORT } from '../../../../globals';
 
 interface newTabModalProps {
   show: boolean;
@@ -9,11 +10,17 @@ interface newTabModalProps {
 
 export const NewTabModal = (props: newTabModalProps) => {
 
+  const [name, setName] = useState<string>("");
+
+  const handleNameInputChange = (event: any) => {
+    setName(event.target.value);
+  };
+
 const onSubmit = () => {
   axios
-  .post("http://localhost:8081/portfolios/1/tabs",
+  .post(`http://localhost:${API_PORT}/portfolios/1/tabs`,
   {
-    name: "Tab 1",
+    name: name,
   })
   .catch((error) => {
     console.log(error);
@@ -29,7 +36,7 @@ const onSubmit = () => {
         <Modal.Body>
           <Form.Group controlId="newTabTitle" className="mb-4">
             <Form.Label>Nombre:</Form.Label>
-            <Form.Control type="text" required />
+            <Form.Control type="text" onChange={handleNameInputChange}  required />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
