@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DefaultHead from "../../components/DefaultHead";
 import { NavBar } from "./components/navBar/NavBar";
 import axios from "axios";
-import { API_PORT } from '../../globals';
+import { API_PORT } from "../../globals";
 
 export const PageCreator = () => {
   const [data, setData] = useState(null);
@@ -27,7 +27,9 @@ export const PageCreator = () => {
       {data && (
         <NavBar
           title={data.name}
-          sections={data.tabs.map((tab) => tab.name)}
+          sections={data.tabs
+            .sort((a, b) => a.position - b.position)
+            .map((tab) => tab.name)}
         ></NavBar>
       )}
     </>
