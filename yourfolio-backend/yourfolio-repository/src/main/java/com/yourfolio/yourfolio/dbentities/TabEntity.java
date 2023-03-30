@@ -20,9 +20,13 @@ public class TabEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "tab_position")
+    private Integer position;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")
     private PortfolioEntity portfolio;
+
 
     @OneToMany(mappedBy = "tab", fetch = FetchType.EAGER)
     private Set<SectionEntity> sections = new LinkedHashSet<>();

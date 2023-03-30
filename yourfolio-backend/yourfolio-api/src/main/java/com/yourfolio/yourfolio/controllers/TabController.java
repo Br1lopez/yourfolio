@@ -2,6 +2,7 @@ package com.yourfolio.yourfolio.controllers;
 
 import com.yourfolio.yourfolio.dtos.PortfolioDTO;
 import com.yourfolio.yourfolio.dtos.TabDTO;
+import com.yourfolio.yourfolio.dtos.TabSaveDTO;
 import com.yourfolio.yourfolio.services.TabService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class TabController {
     TabService tabService;
 
     @PostMapping("")
-    public ResponseEntity<TabDTO> createTabInPortfolio(@PathVariable Integer portfolioId, @RequestBody TabDTO tab) {
+    public ResponseEntity<TabDTO> createTabInPortfolio(@PathVariable Integer portfolioId, @RequestBody TabSaveDTO tab) {
         return new ResponseEntity<>(tabService.createTabInPortfolio(portfolioId, tab), HttpStatus.CREATED);
     }
 }

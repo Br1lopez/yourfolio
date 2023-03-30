@@ -8,7 +8,7 @@ INSERT INTO portfolio (name, user_id) VALUES ("Joaquín Jiménez - Cocinero", 1)
 
 INSERT INTO project (name, description, thumbnail_id) VALUES ("Macarrones", "Macarrones con queso", 1);
 
-INSERT INTO tab (name, portfolio_id) VALUES ("Pasta italiana", 1);
+INSERT INTO tab (name, tab_position, portfolio_id) VALUES ("Pasta italiana", 1, 1);
 
 INSERT INTO section (name, tab_id) VALUES ("global", 1);
 
