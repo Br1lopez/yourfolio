@@ -16,19 +16,30 @@ export const NavBar = (props: NavBarProps) => {
   const [showTabmenu, setShowTabmenu] = useState<any>([]);
 
   useEffect(() => {
-    document.addEventListener("contextmenu", (event: any) => {
-      if (event.target.id.includes("navbar__tabLink")) {
-        setShowTabmenu(
-          props.sections?.map((section, index) =>
-            event.target.id == `navbar__tabLink_${index}` ? true : false
-          )
-        );
-      } else {
-        setShowTabmenu(props.sections?.map((section) => false));
-      }
+    const handleContextMenu = (event: MouseEvent) => {
       event.preventDefault();
-    });
-    setShowTabmenu(props.sections?.map((section) => false));
+      const target = event.target as HTMLElement;
+      if (target.id.includes("navbar__tabLink")) {
+        const index = Number(target.id.replace("navbar__tabLink_", ""));
+        setShowTabmenu(props.sections?.map((section, i) => i === index));
+      } else {
+        closeAllTabMenus();
+      }
+    };
+
+    const closeAllTabMenus = () => {
+      setShowTabmenu(props.sections?.map(() => false));
+    };
+
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("click", closeAllTabMenus);
+
+    closeAllTabMenus();
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("click", closeAllTabMenus);
+    };
   }, [props.sections]);
 
   return (
@@ -49,6 +60,7 @@ export const NavBar = (props: NavBarProps) => {
                   name={section}
                   open={showTabmenu[index]}
                   index={index}
+                  key={index}
                 ></Tab>
               );
             })}

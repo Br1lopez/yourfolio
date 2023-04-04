@@ -1,0 +1,14 @@
+.action-buttons-container{
+    display: flex;
+  }
+  
+  .action-button{
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .action-button:last-child{
+    cursor: pointer;
+    margin-right: 0px;
+  }
+  
