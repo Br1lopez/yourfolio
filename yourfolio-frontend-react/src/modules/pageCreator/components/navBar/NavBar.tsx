@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Navbar, Button, Nav, Popover, OverlayTrigger } from "react-bootstrap";
+import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
 import "./navBar.scss";
 import { NewTabModal } from "./NewTabModal";
+import "rsuite/dist/rsuite.min.css";
+import { Popover, Whisper } from "rsuite";
+import { Dropdown } from "rsuite";
 
 interface NavBarProps {
   title: string;
@@ -12,17 +15,6 @@ export const NavBar = (props: NavBarProps) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [showPopover, setShowPopover] = useState(false);
-
-  const handleContextMenu = (e: any) => {
-    setShowPopover(true);
-    e.preventDefault();
-  };
-
-  const handlePopoverClose = (e: any) => {
-    setShowPopover(false);
-    e.preventDefault();
-  };
 
   return (
     <>
@@ -38,48 +30,28 @@ export const NavBar = (props: NavBarProps) => {
           <Nav>
             {props.sections?.map((section) => {
               return (
-                <Nav.Link
-                  className="navbar__tabLink"
-                  href="#"
-                  onContextMenu={handleContextMenu}
+                <Whisper
+                trigger="contextMenu"
+                  speaker={
+                    <Popover title="Geeks Menu">
+                      <Dropdown.Menu>
+                        <Dropdown.Item>New File</Dropdown.Item>
+                        <Dropdown.Item>
+                          New File with Current Profile
+                        </Dropdown.Item>
+                        <Dropdown.Item>Download As...</Dropdown.Item>
+                        <Dropdown.Item>Export PDF</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Popover>
+                  }
                 >
-                  {section}
-                  <OverlayTrigger
-                    show={showPopover}
-                    trigger="click"
-                    placement="right"
-                    overlay={
-                      <Popover>
-                        <Popover.Body>
-                          <div className="action-buttons-container">
-                            <span className="action-button">
-                              <i
-                                className="fas fa-edit"
-                                onClick={() => {
-                                  // Handle edit click here
-                                  setShowPopover(false);
-                                }}
-                              ></i>
-                            </span>
-                            <span className="action-button">
-                              <i
-                                className="fas fa-trash-alt"
-                                onClick={() => {
-                                  // Handle delete click here
-                                  setShowPopover(false);
-                                }}
-                              ></i>
-                            </span>
-                          </div>
-                        </Popover.Body>
-                      </Popover>
-                    }
-                    rootClose={true}
-                    // onHide={handlePopoverClose}
+                  <Nav.Link
+                    className="navbar__tabLink"
+                    href="#"
                   >
-                    <Button variant="link"></Button>
-                  </OverlayTrigger>
-                </Nav.Link>
+                    {section}
+                  </Nav.Link>
+                </Whisper>
               );
             })}
             <Nav.Link href="#">
