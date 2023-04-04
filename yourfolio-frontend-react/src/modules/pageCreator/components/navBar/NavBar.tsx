@@ -16,6 +16,18 @@ export const NavBar = (props: NavBarProps) => {
   const [showTabmenu, setShowTabmenu] = useState<any>([]);
 
   useEffect(() => {
+    document.addEventListener("contextmenu", (event: any) => {
+      if (event.target.id.includes("navbar__tabLink")) {
+        setShowTabmenu(
+          props.sections?.map((section, index) =>
+            event.target.id == `navbar__tabLink_${index}` ? true : false
+          )
+        );
+      } else {
+        setShowTabmenu(props.sections?.map((section) => false));
+      }
+      event.preventDefault();
+    });
     setShowTabmenu(props.sections?.map((section) => false));
   }, [props.sections]);
 
@@ -32,7 +44,13 @@ export const NavBar = (props: NavBarProps) => {
         <Navbar.Collapse className="justify-content-end" id="navCollapse">
           <Nav>
             {props.sections?.map((section, index) => {
-              return <Tab name={section} open={showTabmenu[index]}></Tab>;
+              return (
+                <Tab
+                  name={section}
+                  open={showTabmenu[index]}
+                  index={index}
+                ></Tab>
+              );
             })}
             <Nav.Link href="#">
               <Button

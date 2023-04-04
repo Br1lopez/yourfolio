@@ -7,6 +7,7 @@ import "../navBar.scss";
 interface TabProps {
   name: string;
   open: boolean;
+  index: any;
 }
 
 const Tab = (props: TabProps) => {
@@ -21,7 +22,7 @@ const Tab = (props: TabProps) => {
         </Popover>
       }
     >
-      <Nav.Link className="navbar__tabLink" href="#">
+      <Nav.Link className="navbar__tabLink" href="#" id={`navbar__tabLink_${props.index}`}>
         {props.name}
       </Nav.Link>
     </Whisper>
