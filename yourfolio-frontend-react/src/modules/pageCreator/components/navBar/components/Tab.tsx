@@ -5,10 +5,11 @@ import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
-interface TabProps {
+export interface TabProps {
   name: string;
   open: boolean;
   index: any;
+  tabId: number;
 }
 
 const Tab = (props: TabProps) => {

@@ -28,4 +28,9 @@ public class TabService {
                         .name(tabSaveDTO.getName())
                         .build()));
     }
+
+    public void deleteTab(Integer tabId) {
+        //TODO: comprobar que esa tab es de tu repositorio
+            tabRepository.deleteById(tabId);
+    }
 }

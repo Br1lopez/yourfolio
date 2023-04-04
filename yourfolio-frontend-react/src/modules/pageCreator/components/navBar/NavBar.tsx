@@ -6,7 +6,7 @@ import Tab from "./components/Tab";
 
 interface NavBarProps {
   title: string;
-  sections?: string[];
+  tabs?: { title: string; index: number }[];
 }
 
 export const NavBar = (props: NavBarProps) => {
@@ -21,14 +21,14 @@ export const NavBar = (props: NavBarProps) => {
       const target = event.target as HTMLElement;
       if (target.id.includes("navbar__tabLink")) {
         const index = Number(target.id.replace("navbar__tabLink_", ""));
-        setShowTabmenu(props.sections?.map((section, i) => i === index));
+        setShowTabmenu(props.tabs?.map((section, i) => i === index));
       } else {
         closeAllTabMenus();
       }
     };
 
     const closeAllTabMenus = () => {
-      setShowTabmenu(props.sections?.map(() => false));
+      setShowTabmenu(props.tabs?.map(() => false));
     };
 
     document.addEventListener("contextmenu", handleContextMenu);
@@ -40,7 +40,7 @@ export const NavBar = (props: NavBarProps) => {
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("click", closeAllTabMenus);
     };
-  }, [props.sections]);
+  }, [props.tabs]);
 
   return (
     <>
@@ -54,13 +54,14 @@ export const NavBar = (props: NavBarProps) => {
         />
         <Navbar.Collapse className="justify-content-end" id="navCollapse">
           <Nav>
-            {props.sections?.map((section, index) => {
+            {props.tabs?.map((tab, index) => {
               return (
                 <Tab
-                  name={section}
+                  name={tab.title}
                   open={showTabmenu[index]}
                   index={index}
                   key={index}
+                  tabId={tab.index}
                 ></Tab>
               );
             })}

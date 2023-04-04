@@ -27,7 +27,7 @@ export const PageCreator = () => {
       {data && (
         <NavBar
           title={data.name}
-          sections={data.tabs
+          tabs={data.tabs
             .sort((a, b) => a.position - b.position)
             .map((tab) => tab.name)}
         ></NavBar>
