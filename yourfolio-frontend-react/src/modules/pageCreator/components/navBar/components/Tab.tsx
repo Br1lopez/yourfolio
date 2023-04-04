@@ -3,6 +3,7 @@ import { Popover, Whisper } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import { Nav } from "react-bootstrap";
 import "./tab.scss";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 interface TabProps {
   name: string;
@@ -20,10 +21,10 @@ const Tab = (props: TabProps) => {
         <Popover>
           <div className="action-buttons-container">
             <span className="action-button">
-              <i className="fas fa-edit"></i>
+              <FaEdit />
             </span>
             <span className="action-button">
-              <i className="fas fa-trash-alt\"></i>
+              <FaTrashAlt />
             </span>
           </div>
         </Popover>

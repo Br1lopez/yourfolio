@@ -3,6 +3,10 @@
     padding: 5px 20px;
     background-color: var(--bg-color);
 
+    &-nav{
+        align-items: center;
+    }
+
     &__tabLink, &__brand, &__collapseButton{
         color: var(--text-color) !important;
     }
