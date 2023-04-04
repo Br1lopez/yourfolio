@@ -6,7 +6,7 @@ import Tab from "./components/Tab";
 
 interface NavBarProps {
   title: string;
-  tabs?: { title: string; index: number }[];
+  tabs?: { name: string; index: number }[];
 }
 
 export const NavBar = (props: NavBarProps) => {
@@ -57,7 +57,7 @@ export const NavBar = (props: NavBarProps) => {
             {props.tabs?.map((tab, index) => {
               return (
                 <Tab
-                  name={tab.title}
+                  name={tab.name}
                   open={showTabmenu[index]}
                   index={index}
                   key={index}

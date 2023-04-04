@@ -29,7 +29,7 @@ export const PageCreator = () => {
           title={data.name}
           tabs={data.tabs
             .sort((a, b) => a.position - b.position)
-            .map((tab) => tab.name)}
+            .map((tab) => ({ name: tab.name, index: tab.id }))}
         ></NavBar>
       )}
     </>

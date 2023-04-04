@@ -9,18 +9,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("portfolios")
 @AllArgsConstructor
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class TabController {
     TabService tabService;
 
-    @PostMapping("/{portfolioId}/tabs")
+    @PostMapping("portfolios/{portfolioId}/tabs")
     public ResponseEntity<TabDTO> createTabInPortfolio(@PathVariable Integer portfolioId, @RequestBody TabSaveDTO tab) {
         return new ResponseEntity<>(tabService.createTabInPortfolio(portfolioId, tab), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{tabId}")
+    @DeleteMapping("tabs/{tabId}")
     public void deleteTab(@PathVariable Integer tabId){
         tabService.deleteTab(tabId);
     }
