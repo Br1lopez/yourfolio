@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
 import "./navBar.scss";
 import { NewTabModal } from "./components/NewTabModal";
@@ -13,6 +13,11 @@ export const NavBar = (props: NavBarProps) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showTabmenu, setShowTabmenu] = useState<any>([]);
+
+  useEffect(() => {
+    setShowTabmenu(props.sections?.map((section) => false));
+  }, [props.sections]);
 
   return (
     <>
@@ -26,10 +31,8 @@ export const NavBar = (props: NavBarProps) => {
         />
         <Navbar.Collapse className="justify-content-end" id="navCollapse">
           <Nav>
-            {props.sections?.map((section) => {
-              return (
-                <Tab name={section}></Tab>
-              );
+            {props.sections?.map((section, index) => {
+              return <Tab name={section} open={showTabmenu[index]}></Tab>;
             })}
             <Nav.Link href="#">
               <Button

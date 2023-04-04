@@ -1,19 +1,22 @@
 import React from "react";
-import { Dropdown, Popover, Whisper } from "rsuite";
+import { Popover, Whisper } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import { Nav } from "react-bootstrap";
 import "../navBar.scss";
 
 interface TabProps {
   name: string;
+  open: boolean;
 }
 
 const Tab = (props: TabProps) => {
   return (
     <Whisper
       trigger="contextMenu"
+      // placement="bottom"
+      open={props.open}
       speaker={
-        <Popover title="Geeks Menu">
+        <Popover>
           <div className="red">hola</div>
         </Popover>
       }
