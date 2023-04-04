@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
 import "./navBar.scss";
-import { NewTabModal } from "./NewTabModal";
-import "rsuite/dist/rsuite.min.css";
-import { Popover, Whisper } from "rsuite";
-import { Dropdown } from "rsuite";
+import { NewTabModal } from "./components/NewTabModal";
+import Tab from "./components/Tab";
 
 interface NavBarProps {
   title: string;
@@ -30,28 +28,7 @@ export const NavBar = (props: NavBarProps) => {
           <Nav>
             {props.sections?.map((section) => {
               return (
-                <Whisper
-                trigger="contextMenu"
-                  speaker={
-                    <Popover title="Geeks Menu">
-                      <Dropdown.Menu>
-                        <Dropdown.Item>New File</Dropdown.Item>
-                        <Dropdown.Item>
-                          New File with Current Profile
-                        </Dropdown.Item>
-                        <Dropdown.Item>Download As...</Dropdown.Item>
-                        <Dropdown.Item>Export PDF</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Popover>
-                  }
-                >
-                  <Nav.Link
-                    className="navbar__tabLink"
-                    href="#"
-                  >
-                    {section}
-                  </Nav.Link>
-                </Whisper>
+                <Tab name={section}></Tab>
               );
             })}
             <Nav.Link href="#">

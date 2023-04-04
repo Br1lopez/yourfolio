@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { API_PORT } from '../../../../globals';
+import { API_PORT } from '../../../../../globals';
 
 interface newTabModalProps {
   show: boolean;
