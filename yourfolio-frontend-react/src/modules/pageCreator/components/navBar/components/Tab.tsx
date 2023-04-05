@@ -5,7 +5,7 @@ import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
-import { API_PORT } from '../../../../../globals';
+import { API_PORT } from "../../../../../globals";
 
 export interface TabProps {
   name: string;
@@ -15,13 +15,9 @@ export interface TabProps {
 }
 
 const Tab = (props: TabProps) => {
-  const headers = {
-    "Content-Type": "application/json"
-  };
-
   const handleDelete = () => {
     axios
-      .delete(`http://localhost:${API_PORT}/tabs/${props.tabId}`, {headers})
+      .delete(`http://localhost:${API_PORT}/tabs/${props.tabId}`)
       .catch((error) => {
         console.log(error);
       });
