@@ -1,7 +1,7 @@
 package com.yourfolio.yourfolio.controllers;
 
-import com.yourfolio.yourfolio.dtos.TabDTO;
-import com.yourfolio.yourfolio.dtos.TabSaveDTO;
+import com.yourfolio.yourfolio.dtos.ElementDTO;
+import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import com.yourfolio.yourfolio.services.TabService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ public class TabController {
     TabService tabService;
 
     @PostMapping("portfolios/{portfolioId}/tabs")
-    public ResponseEntity<TabDTO> createTabInPortfolio(@PathVariable Integer portfolioId, @RequestBody TabSaveDTO tab) {
+    public ResponseEntity<ElementDTO> createTabInPortfolio(@PathVariable Integer portfolioId, @RequestBody ElementSaveDTO tab) {
         return new ResponseEntity<>(tabService.createTabInPortfolio(portfolioId, tab), HttpStatus.CREATED);
     }
 

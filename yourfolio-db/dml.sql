@@ -1,19 +1,10 @@
 use yourfolio;
 
-INSERT INTO user (name, surname1, surname2, email, password) VALUES ("Joaquín", "Jiménez", "Rodríguez", "test@test.com", "contraseña");
-
-INSERT INTO file (url, description, user_id) VALUES ("/imgs/test.jpg", "Imagen de unos macarrones", 1);
-
-INSERT INTO portfolio (name, user_id) VALUES ("Joaquín Jiménez - Cocinero", 1);
-
-INSERT INTO project (name, description, thumbnail_id) VALUES ("Macarrones", "Macarrones con queso", 1);
-
-INSERT INTO tab (name, tab_position, portfolio_id) VALUES ("Pasta italiana", 1, 1);
-
-INSERT INTO section (name, tab_id) VALUES ("global", 1);
-
-INSERT INTO style(bg_color, font_color, portfolio_id) VALUES ("black", "white", 1);
-
-INSERT INTO file_project (file_id, project_id) VALUES (1, 1);
-
-INSERT INTO section_project (section_id, project_id) VALUES (1, 1);
+INSERT INTO user (name, email, surname1, surname2, password) VALUES ('John', 'john@example.com', 'Doe', 'Smith', 'password123');
+INSERT INTO file (url, description, user_id) VALUES ('https://example.com/file1', 'Description for File 1', 1);
+INSERT INTO portfolio (name, user_id) VALUES ('Portfolio 1', 1);
+INSERT INTO style (bg_color, font_color, portfolio_id) VALUES ('#FFFFFF', '#000000', 1);
+INSERT INTO element (type, name, position, description, thumbnail_file_id, portfolio_id) VALUES ('element-group', 'Element Group 1', 1, 'Description for Element Group 1', 1, 1);
+INSERT INTO element (type, name, position, description, thumbnail_file_id, portfolio_id) VALUES ('element-group', 'Element Group 1', 1, 'Description for Element Group 1', 1, 1);
+INSERT INTO element_file (file_id, element_id) VALUES (1, 1);
+INSERT INTO element_element (parent_id, child_id) VALUES (1, 2);

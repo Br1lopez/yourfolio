@@ -29,6 +29,6 @@ public class FileEntity {
     @JoinTable(name = "file_project",
             joinColumns = @JoinColumn(name = "file_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private Set<ProjectEntity> projectEntities = new LinkedHashSet<>();
+    private Set<ElementEntity> elements = new LinkedHashSet<>();
 
 }

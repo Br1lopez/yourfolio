@@ -22,13 +22,12 @@ public class PortfolioEntity {
     @Column(name = "name")
     private String name;
 
-    //TODO: comprobar si puede ser lazy
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
-    private Set<TabEntity> tabs = new LinkedHashSet<>();
+    private Set<ElementEntity> elements = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "portfolio", orphanRemoval = true)
     private StyleEntity style;

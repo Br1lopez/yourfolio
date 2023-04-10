@@ -10,5 +10,5 @@ import java.util.List;
 public class PortfolioDTO {
     private String name;
     private StyleDTO style;
-    private List<TabDTO> tabs;
+    private List<ElementDTO> elements;
 }

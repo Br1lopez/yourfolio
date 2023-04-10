@@ -1,6 +1,7 @@
 package com.yourfolio.yourfolio;
 
 import com.yourfolio.yourfolio.controllers.PortfolioController;
+import com.yourfolio.yourfolio.repositories.PortfolioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
