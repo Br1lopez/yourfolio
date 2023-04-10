@@ -10,6 +10,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -20,17 +24,18 @@ public class TabService {
     public ElementDTO createTabInPortfolio(Integer portfolioId, ElementSaveDTO tabSaveDTO) {
         return elementMapper.toDto(
                 elementRepository.save(
-                ElementEntity.builder()
-//                        .portfolio(PortfolioEntity.builder()
-//                                .id(portfolioId)
-//                                .build())
-                        .position(elementRepository.findMaxPosition(portfolioId) + 1)
-                        .name(tabSaveDTO.getName())
-                        .build()));
+                        ElementEntity.builder()
+                                .portfolios(new HashSet<>(Collections.singletonList(
+                                        PortfolioEntity.builder()
+                                                .id(portfolioId)
+                                                .build())))
+                                .position(elementRepository.findMaxPosition(portfolioId) + 1)
+                                .name(tabSaveDTO.getName())
+                                .build()));
     }
 
     public void deleteTab(Integer tabId) {
         //TODO: comprobar que esa tab es de tu repositorio
-            elementRepository.deleteById(tabId);
+        elementRepository.deleteById(tabId);
     }
 }

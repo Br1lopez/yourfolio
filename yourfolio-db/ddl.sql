@@ -43,9 +43,7 @@ create table element (
     position INT,
     description VARCHAR(255),
     thumbnail_file_id INT,
-    portfolio_id INT,
-    FOREIGN KEY (thumbnail_file_id) REFERENCES file(id),
-    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
+    FOREIGN KEY (thumbnail_file_id) REFERENCES file(id)
 );
 
 
@@ -64,3 +62,11 @@ CREATE TABLE element_element (
     FOREIGN KEY (parent_id) REFERENCES element(id),
     FOREIGN KEY (child_id) REFERENCES element(id)
 );
+
+CREATE TABLE element_portfolio (
+    portfolio_id INT,
+    element_id INT,
+    PRIMARY KEY (portfolio_id, element_id),
+    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id),
+    FOREIGN KEY (element_id) REFERENCES element(id)
+ );

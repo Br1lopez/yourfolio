@@ -26,9 +26,6 @@ public class PortfolioEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.LAZY)
-    private Set<ElementEntity> elements = new LinkedHashSet<>();
-
     @OneToOne(mappedBy = "portfolio", orphanRemoval = true)
     private StyleEntity style;
 

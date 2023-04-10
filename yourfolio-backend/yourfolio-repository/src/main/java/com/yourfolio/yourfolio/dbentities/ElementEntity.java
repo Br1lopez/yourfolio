@@ -31,19 +31,21 @@ public class ElementEntity {
 
     @Column(name = "description")
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "portfolio_id")
-    private PortfolioEntity portfolio;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "thumbnail_file_id")
     private FileEntity thumbnailFile;
 
-
+    @ManyToMany
+    @JoinTable(name = "element_portfolio",
+            joinColumns = @JoinColumn(name = "element_id"),
+            inverseJoinColumns = @JoinColumn(name = "portfolio_id"))
+    private Set<PortfolioEntity> portfolios = new LinkedHashSet<>();
     @ManyToMany
     @JoinTable(name = "element_element",
             joinColumns = @JoinColumn(name = "parent_id"),
             inverseJoinColumns = @JoinColumn(name = "child_id"))
-    private Set<ElementEntity> elementEntities = new LinkedHashSet<>();
+    private Set<ElementEntity> elements = new LinkedHashSet<>();
 
     @ManyToMany
     @JoinTable(name = "element_file",

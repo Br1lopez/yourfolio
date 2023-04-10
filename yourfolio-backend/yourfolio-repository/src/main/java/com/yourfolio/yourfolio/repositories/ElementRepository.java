@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ElementRepository extends JpaRepository<ElementEntity, Integer> {
-    List<ElementEntity> findByPortfolio_Id(@NonNull Integer portfolioId);
+    List<ElementEntity> findByPortfolios_Id(Integer id);
 
     @Query(value = "SELECT MAX(position) FROM tab WHERE portfolio_id= :portfolioId", nativeQuery = true)
     Integer findMaxPosition(@Param("portfolioId") Integer portfolioId);
