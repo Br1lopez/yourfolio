@@ -1,7 +1,7 @@
 package com.yourfolio.yourfolio.controllers;
 
-import com.yourfolio.yourfolio.dtos.PortfolioDTO;
-import com.yourfolio.yourfolio.services.PortfolioService;
+import com.yourfolio.yourfolio.dtos.ElementDTO;
+import com.yourfolio.yourfolio.services.ElementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("portfolios")
 @AllArgsConstructor
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
-public class PortfolioController {
-    private final PortfolioService portfolioService;
+public class ElementController {
+    private final ElementService elementService;
 
     @GetMapping("/{portfolioId}")
-    public ResponseEntity<PortfolioDTO> getPortfolioById(@PathVariable Integer portfolioId) {
-        return new ResponseEntity<>(portfolioService.getPortfolioById(portfolioId), HttpStatus.OK);
+    public ResponseEntity<ElementDTO> getPortfolioById(@PathVariable Integer portfolioId) {
+        return new ResponseEntity<>(elementService.getElementById(portfolioId), HttpStatus.OK);
     }
 
     //TODO: addTabToPortfolio

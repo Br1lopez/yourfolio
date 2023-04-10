@@ -26,9 +26,9 @@ public class FileEntity {
     private UserEntity user;
 
     @ManyToMany
-    @JoinTable(name = "file_project",
+    @JoinTable(name = "element_file",
             joinColumns = @JoinColumn(name = "file_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id"))
+            inverseJoinColumns = @JoinColumn(name = "element_id"))
     private Set<ElementEntity> elements = new LinkedHashSet<>();
 
 }

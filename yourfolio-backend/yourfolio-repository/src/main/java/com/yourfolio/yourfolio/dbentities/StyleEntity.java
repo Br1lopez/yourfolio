@@ -20,7 +20,6 @@ public class StyleEntity {
 
     @OneToOne
     @JoinColumn(name = "portfolio_id")
-    private PortfolioEntity portfolio;
-
+    private ElementEntity portfolio;
 
 }

@@ -14,7 +14,6 @@ public class ElementDTO implements Serializable {
     private final Integer id;
     private final String type;
     private final String name;
-    private final Integer position;
     private final String description;
     private final FileDTO thumbnailFile;
     private final List<FileDTO> files;

@@ -26,9 +26,6 @@ public class ElementEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "position")
-    private Integer position;
-
     @Column(name = "description")
     private String description;
 
@@ -36,11 +33,6 @@ public class ElementEntity {
     @JoinColumn(name = "thumbnail_file_id")
     private FileEntity thumbnailFile;
 
-    @ManyToMany
-    @JoinTable(name = "element_portfolio",
-            joinColumns = @JoinColumn(name = "element_id"),
-            inverseJoinColumns = @JoinColumn(name = "portfolio_id"))
-    private Set<PortfolioEntity> portfolios = new LinkedHashSet<>();
     @ManyToMany
     @JoinTable(name = "element_element",
             joinColumns = @JoinColumn(name = "parent_id"),

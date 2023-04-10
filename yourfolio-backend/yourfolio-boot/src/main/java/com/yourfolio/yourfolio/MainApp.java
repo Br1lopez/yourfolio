@@ -1,7 +1,6 @@
 package com.yourfolio.yourfolio;
 
-import com.yourfolio.yourfolio.controllers.PortfolioController;
-import com.yourfolio.yourfolio.repositories.PortfolioRepository;
+import com.yourfolio.yourfolio.controllers.ElementController;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @AllArgsConstructor
 public class MainApp implements CommandLineRunner {
 
-    private final PortfolioController controller;
+    private final ElementController controller;
     public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
     }
