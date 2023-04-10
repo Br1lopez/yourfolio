@@ -19,4 +19,6 @@ public class ElementDTO implements Serializable {
     private final List<FileDTO> files;
 
     private final List<ElementDTO> elements;
+
+    private final StyleDTO style;
 }

@@ -33,6 +33,7 @@ public class ElementEntity {
     @JoinColumn(name = "thumbnail_file_id")
     private FileEntity thumbnailFile;
 
+
     @ManyToMany
     @JoinTable(name = "element_element",
             joinColumns = @JoinColumn(name = "parent_id"),
@@ -44,5 +45,8 @@ public class ElementEntity {
             joinColumns = @JoinColumn(name = "element_id"),
             inverseJoinColumns = @JoinColumn(name = "file_id"))
     private Set<FileEntity> files = new LinkedHashSet<>();
+
+    @OneToOne(mappedBy = "portfolio", orphanRemoval = true)
+    private StyleEntity style;
 
 }
