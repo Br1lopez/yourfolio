@@ -1,5 +1,6 @@
 package com.yourfolio.yourfolio.services;
 
+import com.yourfolio.yourfolio.dbentities.ElementEntity;
 import com.yourfolio.yourfolio.dbentities.RelationshipEntity;
 import com.yourfolio.yourfolio.dbentities.ids.RelationshipEntityId;
 import com.yourfolio.yourfolio.dtos.ElementDTO;
@@ -16,11 +17,37 @@ import org.springframework.transaction.annotation.Transactional;
 public class ElementService {
     private final ElementRepository elementRepository;
     private final ElementMapper elementMapper;
-
     private final RelationshipRepository relationshipRepository;
 
     public ElementDTO getElement(Integer elementId) {
-        return elementMapper.toDto(elementRepository.getReferenceById(elementId));
+        return setChildrenPosition(elementRepository.getReferenceById(elementId));
+
+    }
+
+    public ElementDTO setChildrenPosition (ElementEntity elementEntity) {
+        ElementDTO elementDTO = elementMapper.toDto(elementEntity);
+
+        elementDTO.getElements().stream().forEach(
+                e -> e.setPosition(relationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition())
+        );
+
+        return elementDTO;
+    }
+
+    public ElementDTO saveElement(ElementDTO elementDTO, Integer parentId){
+        ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
+
+        if (parentId!=null){
+            relationshipRepository.save(
+                    RelationshipEntity.builder()
+                            .parentId(parentId)
+                            .childId(elementDTO.getId())
+                            .position(relationshipRepository.findMaxPosition(parentId) +1)
+                            .build()
+            );
+        }
+
+        return elementMapper.toDto(response);
     }
 
     public void deleteElement(Integer elementId) {

@@ -19,8 +19,19 @@ public class ElementController {
         return new ResponseEntity<>(elementService.getElement(elementId), HttpStatus.OK);
     }
 
+    @PostMapping("/")
+    public ResponseEntity<ElementDTO> saveElement(@RequestBody ElementDTO elementDto) {
+        return new ResponseEntity<>(elementService.saveElement(elementDto, null), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{parentId}")
+    public ResponseEntity<ElementDTO> saveElement(@PathVariable Integer parentId, @RequestBody ElementDTO elementDto) {
+        return new ResponseEntity<>(elementService.saveElement(elementDto, parentId), HttpStatus.CREATED);
+    }
+
+
     @DeleteMapping("/{elementId}")
-    public ResponseEntity<Boolean> deleteElementById(@PathVariable Integer elementId){
+    public ResponseEntity<Boolean> deleteElementById(@PathVariable Integer elementId) {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 

@@ -21,24 +21,17 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ElementDTO implements Serializable {
 
-    private final Integer id;
-    private final String type;
-    private final String name;
-    private final String description;
-    private final FileDTO thumbnailFile;
-    private final List<FileDTO> files;
+    private Integer id;
+    private String type;
+    private String name;
+    private String description;
+    private FileDTO thumbnailFile;
+    private List<FileDTO> files;
 
-    @Getter(AccessLevel.NONE)
-    private final List<ElementDTO> elements;
+    private List<ElementDTO> elements;
 
-    private final StyleDTO style;
+    private StyleDTO style;
 
-    public Set<ElementDTO> getElements(RelationshipRepository relationshipRepository) {
-        return elements.stream().sorted(
-                        (e1, e2) ->
-                                relationshipRepository.findByParentIdAndChildId(id, e1.getId())
-                                        .compareTo(
-                                                relationshipRepository.findByParentIdAndChildId(id, e2.getId())))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+    private Integer position;
+
     }
-}

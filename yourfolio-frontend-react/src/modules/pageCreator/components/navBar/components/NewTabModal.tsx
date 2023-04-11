@@ -18,7 +18,7 @@ export const NewTabModal = (props: newTabModalProps) => {
 
 const onSubmit = () => {
   axios
-  .post(`http://localhost:${API_PORT}/portfolios/1/tabs`,
+  .post(`http://localhost:${API_PORT}/elements/1/`,
   {
     name: name,
   })
