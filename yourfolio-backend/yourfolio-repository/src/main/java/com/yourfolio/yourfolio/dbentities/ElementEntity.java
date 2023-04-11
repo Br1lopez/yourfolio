@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import com.yourfolio.yourfolio.dbentities.RelationshipEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Builder
 @AllArgsConstructor
@@ -17,8 +18,6 @@ import com.yourfolio.yourfolio.dbentities.RelationshipEntity;
 @Entity
 @Table(name = "element")
 public class ElementEntity {
-
-    private RelationshipRepository relationshipRepository;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +59,7 @@ public class ElementEntity {
 
 
 
-    public Set<ElementEntity> getElements() {
+    public Set<ElementEntity> getElements(RelationshipRepository relationshipRepository) {
         return elements.stream().sorted(
                 (e1, e2) ->
                         relationshipRepository.findByParentIdAndChildId(id, e1.getId())
