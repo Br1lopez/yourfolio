@@ -8,16 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("portfolios")
+@RequestMapping("elements")
 @AllArgsConstructor
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class ElementController {
     private final ElementService elementService;
 
-    @GetMapping("/{portfolioId}")
-    public ResponseEntity<ElementDTO> getPortfolioById(@PathVariable Integer portfolioId) {
-        return new ResponseEntity<>(elementService.getElementById(portfolioId), HttpStatus.OK);
+    @GetMapping("/{elementId}")
+    public ResponseEntity<ElementDTO> getElementById(@PathVariable Integer elementId) {
+        return new ResponseEntity<>(elementService.getElementById(elementId), HttpStatus.OK);
     }
 
-    //TODO: addTabToPortfolio
 }

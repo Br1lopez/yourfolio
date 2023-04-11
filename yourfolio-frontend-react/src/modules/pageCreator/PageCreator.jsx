@@ -9,7 +9,7 @@ export const PageCreator = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:${API_PORT}/portfolios/1`)
+      .get(`http://localhost:${API_PORT}/elements/1`)
       .then((response) => {
         setData(response.data);
         const style = document.documentElement?.style;

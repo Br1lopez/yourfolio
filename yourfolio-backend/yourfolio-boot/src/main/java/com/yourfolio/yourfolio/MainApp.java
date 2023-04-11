@@ -1,8 +1,6 @@
 package com.yourfolio.yourfolio;
 
 import com.yourfolio.yourfolio.controllers.ElementController;
-import com.yourfolio.yourfolio.dbentities.RelationshipEntity;
-import com.yourfolio.yourfolio.dbentities.ids.RelationshipEntityId;
 import com.yourfolio.yourfolio.repositories.RelationshipRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +20,7 @@ public class MainApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        System.out.println(controller.getPortfolioById(1));
+        System.out.println(controller.getElementById(1));
         System.out.println(
                 repository.findByParentIdAndChildId(1,2));
     }
