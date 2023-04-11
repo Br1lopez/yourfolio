@@ -13,4 +13,6 @@ import java.util.List;
 @Repository
 public interface ElementRepository extends JpaRepository<ElementEntity, Integer> {
 
+
+
 }

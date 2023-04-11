@@ -13,7 +13,7 @@ import lombok.*;
 @Entity
 @IdClass(RelationshipEntityId.class)
 @Table(name = "element_element")
-public class RelationshipEntity {
+public class RelationshipEntity implements Comparable<RelationshipEntity> {
 
     @Id
     @Column(name = "parent_id")
@@ -26,6 +26,10 @@ public class RelationshipEntity {
     @Column(name = "position")
     private Integer position;
 
-
+    @Override
+    public int compareTo(RelationshipEntity o) {
+        return this.getPosition() - o.getPosition();
+    }
 }
+
 

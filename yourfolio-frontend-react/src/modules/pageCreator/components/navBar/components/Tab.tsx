@@ -17,7 +17,7 @@ export interface TabProps {
 const Tab = (props: TabProps) => {
   const handleDelete = () => {
     axios
-      .delete(`http://localhost:${API_PORT}/tabs/${props.tabId}`)
+      .delete(`http://localhost:${API_PORT}/elements/${props.tabId}`)
       .catch((error) => {
         console.log(error);
       });

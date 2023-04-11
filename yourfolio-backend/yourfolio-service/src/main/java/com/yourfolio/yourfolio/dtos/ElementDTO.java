@@ -1,6 +1,7 @@
 package com.yourfolio.yourfolio.dtos;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.List;
