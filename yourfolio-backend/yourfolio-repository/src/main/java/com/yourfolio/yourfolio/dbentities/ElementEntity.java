@@ -40,11 +40,9 @@ public class ElementEntity {
 
 
     @ManyToMany
-    @Getter(AccessLevel.NONE)
     @JoinTable(name = "element_element",
             joinColumns = @JoinColumn(name = "parent_id"),
             inverseJoinColumns = @JoinColumn(name = "child_id"))
-    @Setter(AccessLevel.NONE)
     private Set<ElementEntity> elements = new LinkedHashSet<>();
 
     @ManyToMany
@@ -56,16 +54,5 @@ public class ElementEntity {
 
     @OneToOne(mappedBy = "portfolio", orphanRemoval = true)
     private StyleEntity style;
-
-
-
-    public Set<ElementEntity> getElements(RelationshipRepository relationshipRepository) {
-        return elements.stream().sorted(
-                (e1, e2) ->
-                        relationshipRepository.findByParentIdAndChildId(id, e1.getId())
-                                .compareTo(
-                                        relationshipRepository.findByParentIdAndChildId(id, e2.getId())))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-    }
 
 }

@@ -24,13 +24,13 @@ public class MainApp implements CommandLineRunner {
     public void run(String... args) {
 
         for (int i = 0; i < 8; i++) {
-            elementRepository.getReferenceById(1).getElements(relationshipRepository).stream().forEachOrdered(e -> System.out.println(e.getName()));
+            elementRepository.getReferenceById(1).getElements().stream().forEachOrdered(e -> System.out.println(e.getName()));
             System.out.println("___________");
         }
 
         for (int i = 0; i < 8; i++) {
             elementController.getElementById(1).getBody()
-                    .getElements().stream().forEachOrdered(System.out::println);
+                    .getElements(relationshipRepository).stream().forEachOrdered(System.out::println);
         }
 
     }
