@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
 
 export interface ActiveComponentProps {
-    data: any
+  data: any;
 }
 
 const ActiveComponent = (props: ActiveComponentProps) => {
+  const { activeIndex } = useContext(PortfolioContext);
+  return <div>{props.data.name}{activeIndex}</div>;
+};
 
-  return (
-    <div>{props.data.name}</div>
-  )
-}
-
-export default ActiveComponent
+export default ActiveComponent;
