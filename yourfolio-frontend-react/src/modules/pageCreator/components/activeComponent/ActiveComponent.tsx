@@ -6,8 +6,8 @@ export interface ActiveComponentProps {
 }
 
 const ActiveComponent = (props: ActiveComponentProps) => {
-  const { activeElementId } = useContext(PortfolioContext);
-  return <div>{props.data.name}{activeElementId}</div>;
+  const { activeElementId, portfolioId } = useContext(PortfolioContext);
+  return <div>{props.data.name}{activeElementId}aaa{portfolioId.portfolioId}</div>;
 };
 
 export default ActiveComponent;

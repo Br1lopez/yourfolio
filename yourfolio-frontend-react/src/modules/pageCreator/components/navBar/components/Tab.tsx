@@ -5,6 +5,8 @@ import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
+import {  useQueryClient } from "@tanstack/react-query";
+
 
 export interface TabProps {
   name: string;
@@ -14,14 +16,15 @@ export interface TabProps {
 }
 
 const Tab = (props: TabProps) => {
-  
-  const {setActiveElementId} = useContext(PortfolioContext);
+  const queryClient = useQueryClient();
+
+  const { setActiveElementId} = useContext(PortfolioContext);
 
   const handleClick = (event: any) => {
     event.preventDefault();
     setActiveElementId(props.tabId);
   };
-  
+
   return (
     <Whisper
       trigger="contextMenu"
@@ -34,7 +37,7 @@ const Tab = (props: TabProps) => {
               <FaEdit />
             </span>
             <span className="action-button">
-              <FaTrashAlt/>
+              <FaTrashAlt />
             </span>
           </div>
         </Popover>

@@ -41,7 +41,7 @@ export const PageCreator = (portfolioId) => {
   const [activeElementId, setActiveElementId] = useState(1);
 
   return (
-    <PortfolioContext.Provider value={{ activeElementId, setActiveElementId }}>
+    <PortfolioContext.Provider value={{ activeElementId, setActiveElementId, portfolioId }}>
       <DefaultHead></DefaultHead>
       {query.data && (
         <>

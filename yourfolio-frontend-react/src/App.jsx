@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <PageCreator portfolioId = {"1"}></PageCreator>
+      <PageCreator portfolioId = {1}></PageCreator>
     </QueryClientProvider>
   );
 }

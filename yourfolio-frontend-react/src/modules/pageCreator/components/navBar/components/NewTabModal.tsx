@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { API_BASE_URL } from '../../../../../globals';
+import { createElement } from "../../../../../api/element";
+import { useMutation } from "@tanstack/react-query";
+import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
 
 interface newTabModalProps {
   show: boolean;
@@ -11,9 +13,20 @@ interface newTabModalProps {
 export const NewTabModal = (props: newTabModalProps) => {
 
   const [name, setName] = useState<string>("");
+  const { portfolioId } = useContext(PortfolioContext);
 
   const handleNameInputChange = (event: any) => {
     setName(event.target.value);
+  };
+
+  const createElementMutation = useMutation({
+    mutationFn: () => createElement(portfolioId.portfolioId, {name: name, type: "tab"})
+  });
+
+  const handleClick = (event: any) => {
+    event.preventDefault();
+    createElementMutation.mutate();
+    window.location.reload();
   };
 
   return (
@@ -32,7 +45,7 @@ export const NewTabModal = (props: newTabModalProps) => {
           <Button variant="secondary" onClick={props.onClose}>
             Cancelar
           </Button>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" onClick={handleClick}>
             Crear pestaña
           </Button>
         </Modal.Footer>
