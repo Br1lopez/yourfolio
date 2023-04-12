@@ -11,7 +11,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @AllArgsConstructor
-@ServletComponentScan
 public class MainApp implements CommandLineRunner {
 
     private final ElementController elementController;

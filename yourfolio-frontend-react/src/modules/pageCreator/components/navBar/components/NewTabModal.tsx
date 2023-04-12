@@ -16,17 +16,12 @@ export const NewTabModal = (props: newTabModalProps) => {
     setName(event.target.value);
   };
 
-  const headers = {
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Origin': '*'
-};
-
 const onSubmit = () => {
   axios
   .post(`http://localhost:${API_PORT}/elements/1`,
   {
     name: name,
-  }, {headers})
+  })
   .catch((error) => {
     console.log(error);
   });
