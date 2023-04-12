@@ -54,6 +54,12 @@ public class ElementService {
         return elementMapper.toDto(response);
     }
 
+    public ElementDTO updateElement(ElementDTO elementDTO, Integer elementId) {
+        elementDTO.setId(elementId);
+        ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
+        return elementMapper.toDto(response);
+    }
+
     public void deleteElement(Integer elementId) {
         for (RelationshipEntity relationship : relationshipRepository.findByChildId(elementId)){
             relationshipRepository.delete(relationship);

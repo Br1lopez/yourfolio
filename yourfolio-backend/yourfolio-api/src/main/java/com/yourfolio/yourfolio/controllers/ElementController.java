@@ -20,13 +20,19 @@ public class ElementController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ElementDTO> saveElement(@RequestBody ElementDTO elementDto) {
+    public ResponseEntity<ElementDTO> createElement(@RequestBody ElementDTO elementDto) {
         return new ResponseEntity<>(elementService.saveElement(elementDto, null), HttpStatus.CREATED);
     }
 
     @PostMapping("/{parentId}")
-    public ResponseEntity<ElementDTO> saveElement(@PathVariable Integer parentId, @RequestBody ElementDTO elementDto) {
+    public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementDTO elementDto) {
         return new ResponseEntity<>(elementService.saveElement(elementDto, parentId), HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/{elementId}")
+    public ResponseEntity<ElementDTO> updateElement(@PathVariable Integer elementId, @RequestBody ElementDTO elementDto) {
+        return new ResponseEntity<>(elementService.updateElement(elementDto, elementId), HttpStatus.OK);
     }
 
 
