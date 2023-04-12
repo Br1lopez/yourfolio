@@ -25,6 +25,7 @@ public class ElementService {
     }
 
     public ElementDTO setChildrenPosition (ElementEntity elementEntity) {
+        //TODO: Hacerlo recursivo
         ElementDTO elementDTO = elementMapper.toDto(elementEntity);
 
         elementDTO.getElements().stream().forEach(
@@ -38,11 +39,14 @@ public class ElementService {
         ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
 
         if (parentId!=null){
+            Integer maxPos = relationshipRepository.findMaxPosition(parentId);
+            if (maxPos == null)
+                maxPos = 0;
             relationshipRepository.save(
                     RelationshipEntity.builder()
                             .parentId(parentId)
-                            .childId(elementDTO.getId())
-                            .position(relationshipRepository.findMaxPosition(parentId) +1)
+                            .childId(response.getId())
+                            .position(maxPos + 1)
                             .build()
             );
         }
