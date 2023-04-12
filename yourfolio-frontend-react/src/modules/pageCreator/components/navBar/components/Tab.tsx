@@ -5,7 +5,8 @@ import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
-import {  useQueryClient } from "@tanstack/react-query";
+import {  useMutation,useQueryClient } from "@tanstack/react-query";
+import { deleteElement } from "../../../../../api/element";
 
 
 export interface TabProps {
@@ -19,11 +20,25 @@ const Tab = (props: TabProps) => {
   const queryClient = useQueryClient();
 
   const { setActiveElementId} = useContext(PortfolioContext);
+  const { portfolioId } = useContext(PortfolioContext);
 
   const handleClick = (event: any) => {
     event.preventDefault();
     setActiveElementId(props.tabId);
   };
+
+  const deleteElementMutation = useMutation({
+    mutationFn: () =>
+      deleteElement(props.tabId),
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getElement", portfolioId.portfolioId]);
+      }
+  });
+
+  const handleDeleteClick = () => {
+    deleteElementMutation.mutate();
+  };
+
 
   return (
     <Whisper
@@ -37,7 +52,7 @@ const Tab = (props: TabProps) => {
               <FaEdit />
             </span>
             <span className="action-button">
-              <FaTrashAlt />
+              <FaTrashAlt onClick={handleDeleteClick}/>
             </span>
           </div>
         </Popover>

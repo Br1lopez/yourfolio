@@ -32,6 +32,7 @@ public class ElementController {
 
     @DeleteMapping("/{elementId}")
     public ResponseEntity<Boolean> deleteElementById(@PathVariable Integer elementId) {
+        elementService.deleteElement(elementId);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
