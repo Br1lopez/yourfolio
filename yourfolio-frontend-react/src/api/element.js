@@ -2,8 +2,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../globals';
 
 
-export const getElement = async () => {
-    const elementId = 1;
+export const getElement = async (elementId) => {
     const response = await axios
     .get(`${API_BASE_URL}/elements/${elementId}`)
     // .then((response) => {

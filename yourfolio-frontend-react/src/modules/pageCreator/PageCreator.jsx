@@ -6,8 +6,8 @@ import { getElement } from "../../api/element";
 
 export const PageCreator = () => {
   const queryClient = useQueryClient();
-
-  const query = useQuery({ queryKey: ['getElement'], queryFn: getElement})
+  const id = 1;
+  const query = useQuery({ queryKey: ['getElement', id], queryFn: () => getElement(id)})
 
 
   return (
