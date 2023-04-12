@@ -4,8 +4,6 @@ import "rsuite/dist/rsuite.min.css";
 import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import axios from "axios";
-import { API_PORT } from "../../../../../globals";
 
 export interface TabProps {
   name: string;
@@ -15,15 +13,6 @@ export interface TabProps {
 }
 
 const Tab = (props: TabProps) => {
-  const handleDelete = () => {
-    axios
-      .delete(`http://localhost:${API_PORT}/elements/${props.tabId}`)
-      .catch((error) => {
-        console.log(error);
-      });
-    window.location.reload();
-  };
-
   return (
     <Whisper
       trigger="contextMenu"
@@ -36,7 +25,7 @@ const Tab = (props: TabProps) => {
               <FaEdit />
             </span>
             <span className="action-button">
-              <FaTrashAlt onClick={handleDelete} />
+              <FaTrashAlt/>
             </span>
           </div>
         </Popover>

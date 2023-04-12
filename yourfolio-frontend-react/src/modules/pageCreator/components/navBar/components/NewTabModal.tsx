@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { API_PORT } from '../../../../../globals';
+import { API_BASE_URL } from '../../../../../globals';
 
 interface newTabModalProps {
   show: boolean;
@@ -15,17 +15,6 @@ export const NewTabModal = (props: newTabModalProps) => {
   const handleNameInputChange = (event: any) => {
     setName(event.target.value);
   };
-
-const onSubmit = () => {
-  axios
-  .post(`http://localhost:${API_PORT}/elements/1`,
-  {
-    name: name,
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-}
 
   return (
     <Modal id="newTab" show={props.show} onHide={props.onClose}>
@@ -43,7 +32,7 @@ const onSubmit = () => {
           <Button variant="secondary" onClick={props.onClose}>
             Cancelar
           </Button>
-          <Button type="submit" variant="primary" onClick={onSubmit}>
+          <Button type="submit" variant="primary">
             Crear pestaña
           </Button>
         </Modal.Footer>

@@ -1,2 +1,2 @@
 // eslint-disable-next-line
-export const API_PORT = 8081;
+export const API_BASE_URL = "http://localhost:8081";
