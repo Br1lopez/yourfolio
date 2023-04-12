@@ -6,7 +6,7 @@ import Tab from "./components/Tab";
 
 interface NavBarProps {
   title: string;
-  tabs?: { name: string; index: number }[];
+  tabs?: { name: string; id: number }[];
 }
 
 export const NavBar = (props: NavBarProps) => {
@@ -61,7 +61,7 @@ export const NavBar = (props: NavBarProps) => {
                   open={showTabmenu[index]}
                   index={index}
                   key={index}
-                  tabId={tab.index}
+                  tabId={tab.id}
                 ></Tab>
               );
             })}
