@@ -25,8 +25,6 @@ const onSubmit = () => {
   .catch((error) => {
     console.log(error);
   });
-
-  debugger;
 }
 
   return (
