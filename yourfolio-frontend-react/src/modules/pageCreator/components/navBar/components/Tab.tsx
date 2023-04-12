@@ -15,11 +15,11 @@ export interface TabProps {
 
 const Tab = (props: TabProps) => {
   
-  const {setActiveIndex} = useContext(PortfolioContext);
+  const {setActiveElementId} = useContext(PortfolioContext);
 
   const handleClick = (event: any) => {
     event.preventDefault();
-    setActiveIndex(props.tabId);
+    setActiveElementId(props.tabId);
   };
   
   return (

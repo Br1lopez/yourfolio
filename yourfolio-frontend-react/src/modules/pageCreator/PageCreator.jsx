@@ -2,10 +2,30 @@ import DefaultHead from "../../components/DefaultHead";
 import { NavBar } from "./components/navBar/NavBar";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getElement } from "../../api/element";
-import React,  { useContext , useState}  from "react";
+import React, { useContext, useState } from "react";
 import ActiveComponent from "./components/activeComponent/ActiveComponent";
 
 export const PortfolioContext = React.createContext();
+
+function getElementByIdRecursive(id, element) {
+  if (element === null) {
+    return null;
+  }
+
+  if (element.id === id) {
+    return element;
+  }
+
+  for (let i = 0; i < element.elements.length; i++) {
+    const child = element.elements[i];
+    const result = getElementByIdRecursive(id, child);
+    if (result !== null) {
+      return result;
+    }
+  }
+
+  return null;
+}
 
 export const PageCreator = (portfolioId) => {
   const queryClient = useQueryClient();
@@ -14,10 +34,14 @@ export const PageCreator = (portfolioId) => {
     queryFn: () => getElement(1),
   });
 
-  const [activeIndex, setActiveIndex] = useState(1);
+  const getElementFromData = (id) => {
+    return getElementByIdRecursive(id, query.data);
+  };
+
+  const [activeElementId, setActiveElementId] = useState(1);
 
   return (
-    <PortfolioContext.Provider value={{activeIndex: {value: activeIndex, set: setActiveIndex}}}>
+    <PortfolioContext.Provider value={{ activeElementId, setActiveElementId }}>
       <DefaultHead></DefaultHead>
       {query.data && (
         <>
@@ -27,7 +51,7 @@ export const PageCreator = (portfolioId) => {
               .sort((a, b) => a.position - b.position)
               .map((tab) => ({ name: tab.name, id: tab.id }))}
           />
-          <ActiveComponent/>
+          <ActiveComponent data={getElementFromData(activeElementId)} />
         </>
       )}
     </PortfolioContext.Provider>
