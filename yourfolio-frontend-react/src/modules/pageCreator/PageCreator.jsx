@@ -30,8 +30,8 @@ function getElementByIdRecursive(id, element) {
 export const PageCreator = (portfolioId) => {
   const queryClient = useQueryClient();
   const query = useQuery({
-    queryKey: ["getElement", 1],
-    queryFn: () => getElement(1),
+    queryKey: ["getElement", portfolioId.portfolioId],
+    queryFn: () => getElement(portfolioId.portfolioId),
   });
 
   const getElementFromData = (id) => {
@@ -51,7 +51,7 @@ export const PageCreator = (portfolioId) => {
               .sort((a, b) => a.position - b.position)
               .map((tab) => ({ name: tab.name, id: tab.id }))}
           />
-          <ActiveComponent data={getElementFromData(activeElementId)} />
+          {(query.data.elements.length > 0) && <ActiveComponent data={getElementFromData(activeElementId)} />}
         </>
       )}
     </PortfolioContext.Provider>

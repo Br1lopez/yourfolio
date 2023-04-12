@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { createElement } from "../../../../../api/element";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
 
 interface newTabModalProps {
@@ -11,22 +11,27 @@ interface newTabModalProps {
 }
 
 export const NewTabModal = (props: newTabModalProps) => {
-
   const [name, setName] = useState<string>("");
   const { portfolioId } = useContext(PortfolioContext);
 
   const handleNameInputChange = (event: any) => {
     setName(event.target.value);
   };
+  const queryClient = useQueryClient();
 
   const createElementMutation = useMutation({
-    mutationFn: () => createElement(portfolioId.portfolioId, {name: name, type: "tab"})
+    mutationFn: () =>
+      createElement(portfolioId.portfolioId, { name: name, type: "tab" }),
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getElement", portfolioId.portfolioId]);
+        console.log("Success");
+        props.onClose();
+      },
   });
 
   const handleClick = (event: any) => {
     event.preventDefault();
     createElementMutation.mutate();
-    window.location.reload();
   };
 
   return (
@@ -38,7 +43,11 @@ export const NewTabModal = (props: newTabModalProps) => {
         <Modal.Body>
           <Form.Group controlId="newTabTitle" className="mb-4">
             <Form.Label>Nombre:</Form.Label>
-            <Form.Control type="text" onChange={handleNameInputChange}  required />
+            <Form.Control
+              type="text"
+              onChange={handleNameInputChange}
+              required
+            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
