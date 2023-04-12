@@ -17,7 +17,7 @@ export const PageCreator = (portfolioId) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
   return (
-    <PortfolioContext.Provider value={{activeIndex, setActiveIndex}}>
+    <PortfolioContext.Provider value={{activeIndex: {value: activeIndex, set: setActiveIndex}}}>
       <DefaultHead></DefaultHead>
       {query.data && (
         <>

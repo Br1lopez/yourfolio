@@ -1,8 +1,10 @@
 import { createContext } from "react";
 
 const portfolioContext = createContext({
-  activeIndex: 1,
-  setActiveIndex: (index) => {}
+    activeIndex: {
+        value: 1,
+        set: (index) => {}
+    }
 });
 
 export default portfolioContext;
