@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
 import "./navBar.scss";
-import { NewTabModal } from "./components/modals/NewTabModal";
+import { TabModal } from "./components/modals/TabModal";
 import Tab from "./components/Tab";
+import { PortfolioContext, ModalType } from "../../PageCreator";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface NavBarProps {
   title: string;
@@ -10,11 +12,11 @@ interface NavBarProps {
 }
 
 export const NavBar = (props: NavBarProps) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [showTabmenu, setShowTabmenu] = useState<any>([]);
-  //TODO: sacar show de aqui y ponerlo en el propio modal
+  const queryClient = useQueryClient();
+
+  const { activeModalData: activeModalProps, portfolioId } =
+    useContext(PortfolioContext);
 
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {
@@ -70,7 +72,13 @@ export const NavBar = (props: NavBarProps) => {
               <Button
                 className="navbar__addTabButton"
                 variant="link"
-                onClick={handleShow}
+                onClick={() => {
+                  activeModalProps.set({
+                    parentId: portfolioId,
+                    elementId: 0,
+                    type: ModalType.Create,
+                  });
+                }}
               >
                 <i className="fas fa-plus-circle"></i>
               </Button>
@@ -78,7 +86,7 @@ export const NavBar = (props: NavBarProps) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <NewTabModal show={show} onClose={handleClose}></NewTabModal>
+      <TabModal></TabModal>
     </>
   );
 };

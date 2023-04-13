@@ -8,7 +8,10 @@ import ActiveComponent from "./components/activeComponent/ActiveComponent";
 export const PortfolioContext = React.createContext<PortfolioCtxData>({
   activeElementId: { value: -1, set: () => console.log("set") },
   portfolioId: -1,
-  activeModalProps: { parentId: null, elementId: null, type: null },
+  activeModalData: {
+    value: { parentId: null, elementId: null, type: null },
+    set: () => console.log("set"),
+  },
 });
 
 export interface PortfolioCtxData {
@@ -17,7 +20,10 @@ export interface PortfolioCtxData {
     set: (value: number) => void;
   };
   portfolioId: number;
-  activeModalProps: ActiveModalCtxData;
+  activeModalData: {
+    value: ActiveModalCtxData;
+    set: (value: ActiveModalCtxData) => void;
+  };
 }
 
 export interface ActiveModalCtxData {
@@ -26,7 +32,7 @@ export interface ActiveModalCtxData {
   type: ModalType | null;
 }
 
-enum ModalType {
+export enum ModalType {
   Create,
   Edit,
 }
@@ -68,13 +74,18 @@ export const PageCreator = (props: PageCreatorProps) => {
   };
 
   const [activeElementId, setActiveElementId] = useState(1);
+  const [activeModalData, setActiveModalData] = useState<ActiveModalCtxData>({
+    parentId: null,
+    elementId: null,
+    type: null,
+  });
 
   return (
     <PortfolioContext.Provider
       value={{
         activeElementId: { value: activeElementId, set: setActiveElementId },
         portfolioId: portfolioId,
-        activeModalProps: { parentId: null, elementId: null, type: null },
+        activeModalData: { value: activeModalData, set: setActiveModalData },
       }}
     >
       <DefaultHead></DefaultHead>
