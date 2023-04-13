@@ -19,19 +19,18 @@ export interface TabProps {
 const Tab = (props: TabProps) => {
   const queryClient = useQueryClient();
 
-  const { setActiveElementId} = useContext(PortfolioContext);
-  const { portfolioId } = useContext(PortfolioContext);
+  const { portfolioId, activeElementId } = useContext(PortfolioContext);
 
   const handleClick = (event: any) => {
     event.preventDefault();
-    setActiveElementId(props.tabId);
+    activeElementId.set(props.tabId);
   };
 
   const deleteElementMutation = useMutation({
     mutationFn: () =>
       deleteElement(props.tabId),
       onSuccess: () => {
-        queryClient.invalidateQueries(["getElement", portfolioId.portfolioId]);
+        queryClient.invalidateQueries(["getElement", portfolioId]);
       }
   });
 

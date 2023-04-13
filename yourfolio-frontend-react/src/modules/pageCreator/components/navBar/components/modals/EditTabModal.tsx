@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { updateElement } from "../../../../../../api/element";
@@ -24,7 +23,7 @@ export const EditTabModal = (props: editTabModalProps) => {
     mutationFn: () =>
     updateElement(props.tabId, {name: {name}}),
     onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId.portfolioId]);
+      queryClient.invalidateQueries(["getElement", portfolioId]);
     }
   });
 

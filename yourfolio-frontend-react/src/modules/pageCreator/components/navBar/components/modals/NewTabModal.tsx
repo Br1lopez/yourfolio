@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { createElement } from "../../../../../../api/element";
@@ -21,9 +20,9 @@ export const NewTabModal = (props: newTabModalProps) => {
 
   const createElementMutation = useMutation({
     mutationFn: () =>
-      createElement(portfolioId.portfolioId, { name: name, type: "tab" }),
+      createElement(portfolioId, { name: name, type: "tab" }),
       onSuccess: () => {
-        queryClient.invalidateQueries(["getElement", portfolioId.portfolioId]);
+        queryClient.invalidateQueries(["getElement", portfolioId]);
         console.log("Success");
         props.onClose();
       },
