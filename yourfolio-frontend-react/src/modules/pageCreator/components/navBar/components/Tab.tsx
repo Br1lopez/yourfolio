@@ -4,10 +4,12 @@ import "rsuite/dist/rsuite.min.css";
 import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
-import {  useMutation,useQueryClient } from "@tanstack/react-query";
+import {
+  ModalType,
+  PortfolioContext,
+} from "src/modules/pageCreator/PageCreator";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateElement, deleteElement } from "../../../../../api/element";
-
 
 export interface TabProps {
   name: string;
@@ -19,25 +21,29 @@ export interface TabProps {
 const Tab = (props: TabProps) => {
   const queryClient = useQueryClient();
 
-  const { portfolioId, activeElementId } = useContext(PortfolioContext);
+  const { portfolioId, activeElementId, activeModalData } =
+    useContext(PortfolioContext);
 
   const handleClick = (event: any) => {
     event.preventDefault();
     activeElementId.set(props.tabId);
   };
 
-  const deleteElementMutation = useMutation({
-    mutationFn: () =>
-      deleteElement(props.tabId),
-      onSuccess: () => {
-        queryClient.invalidateQueries(["getElement", portfolioId]);
-      }
-  });
-
-  const handleDeleteClick = () => {
-    deleteElementMutation.mutate();
+  const handleEditClick = (event: any) => {
+    event.preventDefault();
+    activeModalData.set({
+      parentId: null,
+      elementId: props.tabId,
+      type: ModalType.Edit,
+    });
   };
 
+  const deleteElementMutation = useMutation({
+    mutationFn: () => deleteElement(props.tabId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getElement", portfolioId]);
+    },
+  });
 
   return (
     <Whisper
@@ -48,10 +54,14 @@ const Tab = (props: TabProps) => {
         <Popover>
           <div className="action-buttons-container">
             <span className="action-button">
-              <FaEdit />
+              <FaEdit onClick={handleEditClick} />
             </span>
             <span className="action-button">
-              <FaTrashAlt onClick={handleDeleteClick}/>
+              <FaTrashAlt
+                onClick={() => {
+                  deleteElementMutation.mutate();
+                }}
+              />
             </span>
           </div>
         </Popover>

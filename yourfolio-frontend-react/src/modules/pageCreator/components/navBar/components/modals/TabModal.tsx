@@ -26,7 +26,7 @@ export const TabModal = () => {
 
   const editElementMutation = useMutation({
     mutationFn: () =>
-      updateElement(activeModalData.value.elementId, { name: { name } }),
+      updateElement(activeModalData.value.elementId, { name: name }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId]);
       handleClose();
