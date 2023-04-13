@@ -1,16 +1,17 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { createElement } from "../../../../../api/element";
+import { updateElement } from "../../../../../../api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
 
-interface newTabModalProps {
+interface editTabModalProps {
+  tabId: number;
   show: boolean;
   onClose: () => void;
 }
 
-export const NewTabModal = (props: newTabModalProps) => {
+export const EditTabModal = (props: editTabModalProps) => {
   const [name, setName] = useState<string>("");
   const { portfolioId } = useContext(PortfolioContext);
 
@@ -19,25 +20,23 @@ export const NewTabModal = (props: newTabModalProps) => {
   };
   const queryClient = useQueryClient();
 
-  const createElementMutation = useMutation({
+  const editElementMutation = useMutation({
     mutationFn: () =>
-      createElement(portfolioId.portfolioId, { name: name, type: "tab" }),
-      onSuccess: () => {
-        queryClient.invalidateQueries(["getElement", portfolioId.portfolioId]);
-        console.log("Success");
-        props.onClose();
-      },
+    updateElement(props.tabId, {name: {name}}),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getElement", portfolioId.portfolioId]);
+    }
   });
 
   const handleClick = (event: any) => {
     event.preventDefault();
-    createElementMutation.mutate();
+    editElementMutation.mutate();
   };
 
   return (
     <Modal id="newTab" show={props.show} onHide={props.onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Crear pestaña</Modal.Title>
+        <Modal.Title>Editar pestaña</Modal.Title>
       </Modal.Header>
       <Form>
         <Modal.Body>
@@ -55,7 +54,7 @@ export const NewTabModal = (props: newTabModalProps) => {
             Cancelar
           </Button>
           <Button type="submit" variant="primary" onClick={handleClick}>
-            Crear pestaña
+            Editar pestaña
           </Button>
         </Modal.Footer>
       </Form>

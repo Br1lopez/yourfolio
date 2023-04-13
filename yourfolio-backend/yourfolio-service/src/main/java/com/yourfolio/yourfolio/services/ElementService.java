@@ -55,9 +55,9 @@ public class ElementService {
     }
 
     public ElementDTO updateElement(ElementDTO elementDTO, Integer elementId) {
-        elementDTO.setId(elementId);
-        ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
-        return elementMapper.toDto(response);
+        ElementEntity entityToSave = elementRepository.getReferenceById(elementId);
+        entityToSave.setName(elementDTO.getName());
+        return elementMapper.toDto(elementRepository.save(entityToSave));
     }
 
     public void deleteElement(Integer elementId) {

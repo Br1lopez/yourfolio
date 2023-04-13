@@ -6,7 +6,7 @@ import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { PortfolioContext } from "src/modules/pageCreator/PageCreator";
 import {  useMutation,useQueryClient } from "@tanstack/react-query";
-import { deleteElement } from "../../../../../api/element";
+import { updateElement, deleteElement } from "../../../../../api/element";
 
 
 export interface TabProps {

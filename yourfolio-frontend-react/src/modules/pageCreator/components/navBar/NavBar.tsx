@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
 import "./navBar.scss";
-import { NewTabModal } from "./components/NewTabModal";
+import { NewTabModal } from "./components/modals/NewTabModal";
 import Tab from "./components/Tab";
 
 interface NavBarProps {
@@ -14,6 +14,7 @@ export const NavBar = (props: NavBarProps) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [showTabmenu, setShowTabmenu] = useState<any>([]);
+  //TODO: sacar show de aqui y ponerlo en el propio modal
 
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {

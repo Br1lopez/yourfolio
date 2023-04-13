@@ -32,6 +32,16 @@ export const createElement = async (parentId, body) => {
     return response.data;
 }
 
+export const updateElement = async (elementId, body) => {
+    const response = await axios
+    .put(`${API_BASE_URL}/elements/${elementId}`, body)
+    .catch((error) => {
+        console.log(error);
+      });
+
+    return response.data;
+}
+
 export const deleteElement = async (elementId) => {
     const response = await axios
     .delete(`${API_BASE_URL}/elements/${elementId}`)
