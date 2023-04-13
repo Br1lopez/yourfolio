@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ModalType,
   PortfolioContext,
-} from "src/modules/pageCreator/PageCreator";
+} from "src/modules/pageCreator/context/PortfolioContext";
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");
@@ -17,9 +17,9 @@ export const TabModal = () => {
   const queryClient = useQueryClient();
 
   const createElementMutation = useMutation({
-    mutationFn: () => createElement(portfolioId, { name: name, type: "tab" }),
+    mutationFn: () => createElement(portfolioId.value, { name: name, type: "tab" }),
     onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId]);
+      queryClient.invalidateQueries(["getElement", portfolioId.value]);
       handleClose();
     },
   });
@@ -28,7 +28,7 @@ export const TabModal = () => {
     mutationFn: () =>
       updateElement(activeModalData.value.elementId, { name: name }),
     onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId]);
+      queryClient.invalidateQueries(["getElement", portfolioId.value]);
       handleClose();
     },
   });

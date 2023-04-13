@@ -3,7 +3,7 @@ import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
 import "./navBar.scss";
 import { TabModal } from "../modals/TabModal";
 import Tab from "./components/Tab";
-import { PortfolioContext, ModalType } from "../../PageCreator";
+import { PortfolioContext, ModalType } from "../../context/PortfolioContext";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface NavBarProps {
@@ -74,7 +74,7 @@ export const NavBar = (props: NavBarProps) => {
                 variant="link"
                 onClick={() => {
                   activeModalProps.set({
-                    parentId: portfolioId,
+                    parentId: portfolioId.value,
                     elementId: 0,
                     type: ModalType.Create,
                   });

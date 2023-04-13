@@ -7,9 +7,9 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import {
   ModalType,
   PortfolioContext,
-} from "src/modules/pageCreator/PageCreator";
+} from "src/modules/pageCreator/context/PortfolioContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateElement, deleteElement } from "../../../../../api/element";
+import { deleteElement } from "../../../../../api/element";
 
 export interface TabProps {
   name: string;
@@ -41,7 +41,7 @@ const Tab = (props: TabProps) => {
   const deleteElementMutation = useMutation({
     mutationFn: () => deleteElement(props.tabId),
     onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId]);
+      queryClient.invalidateQueries(["getElement", portfolioId.value]);
     },
   });
 
