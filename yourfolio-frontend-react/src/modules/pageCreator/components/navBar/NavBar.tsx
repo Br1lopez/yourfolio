@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
 import "./navBar.scss";
-import { TabModal } from "./components/modals/TabModal";
+import { TabModal } from "../modals/TabModal";
 import Tab from "./components/Tab";
 import { PortfolioContext, ModalType } from "../../PageCreator";
 import { useQueryClient } from "@tanstack/react-query";
