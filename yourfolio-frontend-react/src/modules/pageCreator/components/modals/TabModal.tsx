@@ -6,10 +6,11 @@ import {
   ModalType,
   PortfolioContext,
 } from "src/modules/pageCreator/context/PortfolioContext";
+import {CloudNotification, defaultToastValues} from '../notifications/CloudNotification';
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");
-  const { activeModalData, portfolioId } = useContext(PortfolioContext);
+  const { activeModalData, portfolioId, toaster } = useContext(PortfolioContext);
 
   const handleNameInputChange = (event: any) => {
     setName(event.target.value);
@@ -20,6 +21,7 @@ export const TabModal = () => {
     mutationFn: () => createElement(portfolioId.value, { name: name, type: "tab" }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      toaster.push(<CloudNotification text={`Pestaña "${name}" creada con éxito`}></CloudNotification>, defaultToastValues);
       handleClose();
     },
   });
@@ -29,6 +31,7 @@ export const TabModal = () => {
       updateElement(activeModalData.value.elementId, { name: name }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      toaster.push(<CloudNotification text={`Pestaña "${name}" modificada con éxito`}></CloudNotification>, defaultToastValues);
       handleClose();
     },
   });

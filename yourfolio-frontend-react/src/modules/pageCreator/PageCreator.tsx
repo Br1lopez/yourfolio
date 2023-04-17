@@ -8,7 +8,6 @@ import { getElementByIdRecursive } from "../../utils/functions";
 import { PortfolioContext } from "./context/PortfolioContext";
 import InterfaceFooter from "./components/interfaceFooter/InterfaceFooter";
 import { Notification } from "rsuite";
-import { useToaster } from "rsuite";
 import InterfaceBar from "./components/interfaceBar/InterfaceBar";
 import './pageCreator.scss'
 

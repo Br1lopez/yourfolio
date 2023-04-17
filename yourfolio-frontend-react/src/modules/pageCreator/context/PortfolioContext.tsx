@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useToaster } from "rsuite";
 
 export const PortfolioContext = React.createContext<PortfolioCtxData>({
   activeElementId: { value: -1, set: () => console.log("set") },
@@ -22,6 +23,7 @@ export interface PortfolioCtxData {
     value: ActiveModalCtxData;
     set: (value: ActiveModalCtxData) => void;
   };
+  toaster?: any;
 }
 
 export interface ActiveModalCtxData {

@@ -5,6 +5,9 @@ import {
   PortfolioContext,
   usePortfolioContext,
 } from "./modules/pageCreator/context/PortfolioContext";
+import { useToaster } from "rsuite";
+
+
 const queryClient = new QueryClient();
 const PORTFOLIO_ID = 33;
 
@@ -22,6 +25,7 @@ function App() {
           portfolioId: portfolioCtxId,
           activeElementId,
           activeModalData,
+          toaster: useToaster()
         }}
       >
         <PageCreator portfolioId={PORTFOLIO_ID}></PageCreator>

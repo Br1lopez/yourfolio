@@ -1,6 +1,6 @@
 @import 'src/vars.scss';
 
-.i-bar{
+.i-bar {
     background-color: #272727;
     height: 100vh;
     box-shadow: $default-shadow;
@@ -8,13 +8,15 @@
     align-items: center;
     flex-direction: column;
     justify-content: flex-end;
-    &__icon{
+
+    &__icon {
         width: 23px;
         height: 23px;
-        color : rgb(195, 195, 195);
+        color: rgb(195, 195, 195);
         margin: 12px 0px;
         cursor: pointer;
-        &:hover{
+
+        &:hover {
             color: white;
         }
     }
