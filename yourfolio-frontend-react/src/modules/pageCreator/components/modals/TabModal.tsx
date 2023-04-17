@@ -26,9 +26,10 @@ export const TabModal = () => {
     },
   });
 
-  const editElementMutation = useMutation({
+  const editElementMutation = useMutation(
+    {
     mutationFn: () =>
-      updateElement(activeModalData.value.elementId, { name: name }),
+      updateElement(activeModalData.value.elementId || -1, { name: name }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(<CloudNotification text={`Pestaña "${name}" modificada con éxito`}></CloudNotification>, defaultToastValues);

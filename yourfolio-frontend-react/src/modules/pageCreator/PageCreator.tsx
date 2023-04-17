@@ -9,7 +9,9 @@ import { PortfolioContext } from "./context/PortfolioContext";
 import InterfaceFooter from "./components/interfaceFooter/InterfaceFooter";
 import { Notification } from "rsuite";
 import InterfaceBar from "./components/interfaceBar/InterfaceBar";
-import './pageCreator.scss'
+import "./pageCreator.scss";
+import { ElementDTO } from "src/api/elementTypes";
+import PortfolioStyle from "./components/PortfolioStyle";
 
 export interface PageCreatorProps {
   portfolioId: number;
@@ -17,7 +19,7 @@ export interface PageCreatorProps {
 
 export const PageCreator = (props: PageCreatorProps) => {
   const { portfolioId, activeElementId } = useContext(PortfolioContext);
-  const [barWidth, useBarWidth] = useState<string>("55px")
+  const [barWidth, useBarWidth] = useState<string>("55px");
 
   useEffect(() => {
     portfolioId.set(props.portfolioId);
@@ -32,24 +34,38 @@ export const PageCreator = (props: PageCreatorProps) => {
   return (
     <>
       <DefaultHead></DefaultHead>
+      <PortfolioStyle
+        bgColor={query.data?.data.style?.bgColor || "black"}
+        textColor={query.data?.data.style?.fontColor || "white"}
+      />
       {query.data && (
         <div className="root">
-          <InterfaceBar width={barWidth}/>
-          <div className="content" style={{width: `calc(100vw - ${barWidth})`}}>
+          <InterfaceBar width={barWidth} />
+          <div
+            className="content"
+            style={{ width: `calc(100vw - ${barWidth})` }}
+          >
             <NavBar
-              title={query.data.name}
-              tabs={query.data.elements
-                .sort((a: any, b: any) => a.position - b.position)
-                .map((tab: any) => ({ name: tab.name, id: tab.id }))}
+              title={query.data.data.name}
+              tabs={
+                query.data.data.elements &&
+                query.data.data.elements
+                  .sort((a: any, b: any) => a.position - b.position)
+                  .map((tab: ElementDTO) => ({
+                    name: tab.name || "",
+                    id: tab.id,
+                  }))
+              }
             />
-            {query.data.elements.length > 0 && (
-              <ActiveComponent
-                data={getElementByIdRecursive(
-                  activeElementId.value,
-                  query.data
-                )}
-              />
-            )}
+            {query.data.data.elements?.length ||
+              (0 > 0 && (
+                <ActiveComponent
+                  data={getElementByIdRecursive(
+                    activeElementId.value,
+                    query.data
+                  )}
+                />
+              ))}
             {/* <InterfaceFooter /> */}
           </div>
         </div>
