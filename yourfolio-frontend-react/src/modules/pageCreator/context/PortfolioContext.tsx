@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useToaster } from "rsuite";
 
 export const PortfolioContext = React.createContext<PortfolioCtxData>({
   activeElementId: { value: -1, set: () => console.log("set") },
@@ -11,18 +10,9 @@ export const PortfolioContext = React.createContext<PortfolioCtxData>({
 });
 
 export interface PortfolioCtxData {
-  activeElementId: {
-    value: number;
-    set: (value: number) => void;
-  };
-  portfolioId: {
-    value: number;
-    set: (value: number) => void;
-  };
-  activeModalData: {
-    value: ActiveModalCtxData;
-    set: (value: ActiveModalCtxData) => void;
-  };
+  activeElementId: State<number>;
+  portfolioId: State<number>;
+  activeModalData: State<ActiveModalCtxData>;
   toaster?: any;
 }
 
@@ -32,40 +22,28 @@ export interface ActiveModalCtxData {
   type: ModalType | null;
 }
 
+export interface State<T> {
+  value: T;
+  set: (value: T) => void;
+}
+
 export enum ModalType {
   Create,
   Edit,
 }
 
-// export const portfolioContextData = () => {
-//   const [activeElementId, setActiveElementId] = useState(1);
-//   const [portfolioId, setPortfolioId] = useState(1);
-//   const [activeModalData, setActiveModalData] = useState<ActiveModalCtxData>({
-//     parentId: null,
-//     elementId: null,
-//     type: null,
-//   });
-
-//   return {
-//     activeElementId: { value: activeElementId, set: setActiveElementId },
-//     portfolioId: { value: portfolioId, set: setPortfolioId },
-//     activeModalData: { value: activeModalData, set: setActiveModalData },
-//   };
-// };
-
 export const usePortfolioContext = () => {
-    const [activeElementId, setActiveElementId] = useState(1);
-    const [portfolioId, setPortfolioId] = useState(1);
-    const [activeModalData, setActiveModalData] = useState<ActiveModalCtxData>({
-      parentId: null,
-      elementId: null,
-      type: null,
-    });
-  
-    return {
-      activeElementId: { value: activeElementId, set: setActiveElementId },
-      portfolioId: { value: portfolioId, set: setPortfolioId },
-      activeModalData: { value: activeModalData, set: setActiveModalData },
-    };
+  const [activeElementId, setActiveElementId] = useState(1);
+  const [portfolioId, setPortfolioId] = useState(1);
+  const [activeModalData, setActiveModalData] = useState<ActiveModalCtxData>({
+    parentId: null,
+    elementId: null,
+    type: null,
+  });
+
+  return {
+    activeElementId: { value: activeElementId, set: setActiveElementId },
+    portfolioId: { value: portfolioId, set: setPortfolioId },
+    activeModalData: { value: activeModalData, set: setActiveModalData },
   };
-  
+};
