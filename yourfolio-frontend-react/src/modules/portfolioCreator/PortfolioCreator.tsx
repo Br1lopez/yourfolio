@@ -1,7 +1,7 @@
 import DefaultHead from "../../components/DefaultHead";
 import { NavBar } from "./components/navBar/NavBar";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getElement } from "../../api/element";
+import { getElement } from "src/api/element";
 import React, { useContext, useEffect, useState } from "react";
 import ActiveComponent from "./components/activeComponent/ActiveComponent";
 import { getElementByIdRecursive } from "../../utils/functions";
