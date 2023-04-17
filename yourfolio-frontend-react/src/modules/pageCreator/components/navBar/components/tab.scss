@@ -1,13 +1,22 @@
-.navbar__tabLink{
+.navbar__tabLink {
     height: min-content;
     padding: 0 12px;
 }
+
+$icon-size: 14px;
+
 .action-buttons-container {
     display: flex;
+    padding: 2px;
 
     & .action-button {
         cursor: pointer;
         margin-right: 10px;
+
+        &>* {
+            width: $icon-size;
+            height: $icon-size;
+        }
     }
 
     & .action-button:last-child {
