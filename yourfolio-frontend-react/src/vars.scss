@@ -1,0 +1,15 @@
+//OTHER TOOLS:
+@mixin padding($value: 20px, $border-box: true) {
+    padding: $value;
+
+    @if ($border-box) {
+        box-sizing: border-box;
+    }
+}
+
+$default-shadow: 5px 5px 7px rgba(0, 0, 0, 0.064),
+  2px 2px 3px rgba(0, 0, 0, 0.064);
+
+@mixin rounded-borders($value: 6px) {
+    border-radius: $value;
+}
