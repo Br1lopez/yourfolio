@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
+import { PortfolioContext } from "src/modules/pageCreator/context/PortfolioContext";
 
 export interface ActiveComponentProps {
   data: any;

@@ -7,7 +7,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import {
   ModalType,
   PortfolioContext,
-} from "src/modules/portfolioCreator/context/PortfolioContext";
+} from "src/modules/pageCreator/context/PortfolioContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteElement } from "../../../../../api/element";
 

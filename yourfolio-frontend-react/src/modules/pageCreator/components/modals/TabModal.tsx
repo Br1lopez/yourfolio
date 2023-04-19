@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ModalType,
   PortfolioContext,
-} from "src/modules/portfolioCreator/context/PortfolioContext";
+} from "src/modules/pageCreator/context/PortfolioContext";
 import {CloudNotification, defaultToastValues} from '../notifications/CloudNotification';
 
 export const TabModal = () => {
