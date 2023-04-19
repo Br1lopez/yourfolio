@@ -3,12 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "@tanstack/router";
-import { appRouter } from "./Routes";
+import { router } from "./Routes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={appRouter} />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
