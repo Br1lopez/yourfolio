@@ -6,11 +6,16 @@ import {
   ModalType,
   PortfolioContext,
 } from "src/modules/portfolioCreator/context/PortfolioContext";
-import {CloudNotification, defaultToastValues} from '../notifications/CloudNotification';
+import {
+  NotificationContent,
+  defaultToastValues,
+} from "../notifications/CloudNotification";
+import { Notification } from "rsuite";
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");
-  const { activeModalData, portfolioId, toaster } = useContext(PortfolioContext);
+  const { activeModalData, portfolioId, toaster } =
+    useContext(PortfolioContext);
 
   const handleNameInputChange = (event: any) => {
     setName(event.target.value);
@@ -18,21 +23,33 @@ export const TabModal = () => {
   const queryClient = useQueryClient();
 
   const createElementMutation = useMutation({
-    mutationFn: () => createElement(portfolioId.value, { name: name, type: "tab" }),
+    mutationFn: () =>
+      createElement(portfolioId.value, { name: name, type: "tab" }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
-      toaster.push(<CloudNotification text={`Pestaña "${name}" creada con éxito`}></CloudNotification>, defaultToastValues);
+      toaster.push(
+        <Notification>
+          <NotificationContent
+            text={`Pestaña "${name}" creada con éxito`}
+          />
+        </Notification>,
+        defaultToastValues
+      );
       handleClose();
     },
   });
 
-  const editElementMutation = useMutation(
-    {
+  const editElementMutation = useMutation({
     mutationFn: () =>
       updateElement(activeModalData.value.elementId || -1, { name: name }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
-      toaster.push(<CloudNotification text={`Pestaña "${name}" modificada con éxito`}></CloudNotification>, defaultToastValues);
+      toaster.push(
+        <NotificationContent
+          text={`Pestaña "${name}" modificada con éxito`}
+        ></NotificationContent>,
+        defaultToastValues
+      );
       handleClose();
     },
   });

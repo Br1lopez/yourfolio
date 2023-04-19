@@ -1,18 +1,18 @@
 import React from "react";
 import { Notification } from "rsuite";
-import {BsFillCloudCheckFill} from "react-icons/bs";
-import './cloudNotification.scss';
+import { BsFillCloudCheckFill } from "react-icons/bs";
+import "./cloudNotification.scss";
 
-interface CloudNotificationProps {
+interface NotificationProps {
   text: string;
 }
 
-export const CloudNotification = (props: CloudNotificationProps) => {
+export const NotificationContent = (props: NotificationProps) => {
   return (
-    <Notification>
+    <>
       <BsFillCloudCheckFill className="cloudIcon" /> {props.text}
-    </Notification>
+    </>
   );
 };
 
-export const defaultToastValues = {placement: "bottomEnd", duration: 50};
+export const defaultToastValues = { placement: "bottomEnd"};
