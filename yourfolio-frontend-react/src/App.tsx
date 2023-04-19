@@ -1,10 +1,10 @@
 import "./App.scss";
-import { PageCreator } from "./modules/pageCreator/PageCreator";
+import { PortfolioCreator } from "./modules/portfolioCreator/PortfolioCreator";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   PortfolioContext,
   usePortfolioContext,
-} from "./modules/pageCreator/context/PortfolioContext";
+} from "./modules/portfolioCreator/context/PortfolioContext";
 import { useToaster } from "rsuite";
 
 
@@ -28,7 +28,7 @@ function App() {
           toaster: useToaster()
         }}
       >
-        <PageCreator portfolioId={PORTFOLIO_ID}></PageCreator>
+        <PortfolioCreator portfolioId={PORTFOLIO_ID}></PortfolioCreator>
       </PortfolioContext.Provider>
     </QueryClientProvider>
   );
