@@ -9,7 +9,7 @@ import { PortfolioContext } from "./context/PortfolioContext";
 import InterfaceFooter from "./components/interfaceFooter/InterfaceFooter";
 import { Notification } from "rsuite";
 import InterfaceBar from "./components/interfaceBar/InterfaceBar";
-import "./pageCreator.scss";
+import "./portfolioCreator.scss";
 import { ElementDTO } from "src/api/elementTypes";
 import PortfolioStyle from "./components/PortfolioStyle";
 
@@ -17,7 +17,7 @@ export interface PageCreatorProps {
   portfolioId: number;
 }
 
-export const PageCreator = (props: PageCreatorProps) => {
+export const PortfolioCreator = (props: PageCreatorProps) => {
   const { portfolioId, activeElementId } = useContext(PortfolioContext);
   const [barWidth, useBarWidth] = useState<string>("55px");
 
@@ -66,7 +66,6 @@ export const PageCreator = (props: PageCreatorProps) => {
                   )}
                 />
               ))}
-            {/* <InterfaceFooter /> */}
           </div>
         </div>
       )}
