@@ -13,91 +13,47 @@ import {
 import { Notification } from "rsuite";
 
 export const StyleModal = () => {
-  const [name, setName] = useState<string>("");
-  const { activeModalData, portfolioId, toaster } =
+  const { activeModalData, portfolioId, toaster, portfolioData } =
     useContext(PortfolioContext);
+  const [bgColor, setBgColor] = useState(
+    portfolioData.value.style?.bgColor || "#ffffff"
+  );
 
-  const handleNameInputChange = (event: any) => {
-    setName(event.target.value);
+  const handleColorInputChange = (event: any) => {
+    setBgColor(event.target.value);
   };
   const queryClient = useQueryClient();
 
-  const createElementMutation = useMutation({
-    mutationFn: () =>
-      createElement(portfolioId.value, { name: name, type: "tab" }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId.value]);
-      toaster.push(
-        <Notification>
-          <NotificationContent text={`Pestaña "${name}" creada con éxito`} />
-        </Notification>,
-        defaultToastValues
-      );
-      handleClose();
-    },
-  });
-
-  const editElementMutation = useMutation({
-    mutationFn: () =>
-      updateElement(activeModalData.value.elementId || -1, { name: name }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId.value]);
-      toaster.push(
-        <Notification>
-          <NotificationContent
-            text={`Pestaña "${name}" modificada con éxito`}
-          ></NotificationContent>
-        </Notification>,
-        defaultToastValues
-      );
-      handleClose();
-    },
-  });
 
   const handleClick = (event: any) => {
     event.preventDefault();
-    switch (activeModalData.value.type) {
-      case ModalType.Create:
-        createElementMutation.mutate();
-        break;
-      case ModalType.Edit:
-        editElementMutation.mutate();
-        break;
-    }
+    portfolioData.set({
+      ...portfolioData.value,
+      style: { ...portfolioData.value.style, bgColor },
+    });
+    handleClose();
   };
 
   const handleClose = () => {
     activeModalData.set({ parentId: null, elementId: null, type: null });
   };
 
-  const title = () => {
-    switch (activeModalData.value.type) {
-      case ModalType.Create:
-        return "Crear pestaña";
-      case ModalType.Edit:
-        return "Editar pestaña";
-    }
-  };
-
   return (
     <Modal
       id="newTab"
-      show={
-        activeModalData.value.parentId != null ||
-        activeModalData.value.elementId != null
-      }
+      show={activeModalData.value.type == ModalType.SetSyle}
       onHide={handleClose}
     >
       <Modal.Header closeButton>
-        <Modal.Title>{title()}</Modal.Title>
+        <Modal.Title>Editar estilo</Modal.Title>
       </Modal.Header>
       <Form>
         <Modal.Body>
           <Form.Group controlId="newTabTitle" className="mb-4">
-            <Form.Label>Nombre:</Form.Label>
+            <Form.Label>Color de fondo:</Form.Label>
             <Form.Control
-              type="text"
-              onChange={handleNameInputChange}
+              type="color"
+              onChange={handleColorInputChange}
               required
             />
           </Form.Group>
@@ -107,7 +63,7 @@ export const StyleModal = () => {
             Cancelar
           </Button>
           <Button type="submit" variant="primary" onClick={handleClick}>
-            {title()}
+            Aceptar
           </Button>
         </Modal.Footer>
       </Form>

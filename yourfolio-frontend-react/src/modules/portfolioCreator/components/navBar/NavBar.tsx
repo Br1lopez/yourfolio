@@ -76,7 +76,7 @@ export const NavBar = (props: NavBarProps) => {
                   activeModalProps.set({
                     parentId: portfolioId.value,
                     elementId: 0,
-                    type: ModalType.Create,
+                    type: ModalType.CreateElement,
                   });
                 }}
               >

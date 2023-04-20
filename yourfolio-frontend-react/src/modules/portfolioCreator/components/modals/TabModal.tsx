@@ -57,10 +57,10 @@ export const TabModal = () => {
   const handleClick = (event: any) => {
     event.preventDefault();
     switch (activeModalData.value.type) {
-      case ModalType.Create:
+      case ModalType.CreateElement:
         createElementMutation.mutate();
         break;
-      case ModalType.Edit:
+      case ModalType.EditElement:
         editElementMutation.mutate();
         break;
     }
@@ -72,9 +72,9 @@ export const TabModal = () => {
 
   const title = () => {
     switch (activeModalData.value.type) {
-      case ModalType.Create:
+      case ModalType.CreateElement:
         return "Crear pestaña";
-      case ModalType.Edit:
+      case ModalType.EditElement:
         return "Editar pestaña";
     }
   };

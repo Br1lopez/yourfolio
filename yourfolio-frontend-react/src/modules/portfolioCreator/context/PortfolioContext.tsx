@@ -47,8 +47,9 @@ export interface State<T> {
 }
 
 export enum ModalType {
-  Create,
-  Edit,
+  CreateElement,
+  EditElement,
+  SetSyle
 }
 
 export const usePortfolioContext = () => {
