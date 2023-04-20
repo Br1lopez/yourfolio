@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { createElement, updateElement } from "../../../../api/element";
+import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ModalType,
@@ -29,9 +29,7 @@ export const TabModal = () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
         <Notification>
-          <NotificationContent
-            text={`Pestaña "${name}" creada con éxito`}
-          />
+          <NotificationContent text={`Pestaña "${name}" creada con éxito`} />
         </Notification>,
         defaultToastValues
       );
@@ -45,9 +43,11 @@ export const TabModal = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
-        <NotificationContent
-          text={`Pestaña "${name}" modificada con éxito`}
-        ></NotificationContent>,
+        <Notification>
+          <NotificationContent
+            text={`Pestaña "${name}" modificada con éxito`}
+          ></NotificationContent>
+        </Notification>,
         defaultToastValues
       );
       handleClose();

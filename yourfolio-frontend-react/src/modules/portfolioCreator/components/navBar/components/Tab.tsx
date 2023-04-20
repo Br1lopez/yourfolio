@@ -9,7 +9,7 @@ import {
   PortfolioContext,
 } from "src/modules/portfolioCreator/context/PortfolioContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteElement } from "../../../../../api/element";
+import { deleteElement } from "src/api/element";
 
 export interface TabProps {
   name: string;
