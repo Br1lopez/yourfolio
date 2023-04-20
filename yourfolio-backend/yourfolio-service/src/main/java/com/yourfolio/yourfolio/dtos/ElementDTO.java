@@ -30,6 +30,7 @@ public class ElementDTO implements Serializable {
 
     private List<ElementDTO> elements;
 
+    //TODO forzar a enviarlo
     private StyleDTO style;
 
     private Integer position;

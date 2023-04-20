@@ -29,6 +29,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     queryFn: () => getElement(props.portfolioId),
     onSuccess: (data) => {
       portfolioData.set(data);
+      console.log(portfolioData.value)
     }
   });
 
@@ -54,7 +55,6 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
                 )}
               />
             )}
-            {/* <InterfaceFooter /> */}
           </div>
         </div>
       )}

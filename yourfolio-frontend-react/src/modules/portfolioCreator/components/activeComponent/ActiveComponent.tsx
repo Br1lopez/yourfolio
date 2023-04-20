@@ -6,9 +6,10 @@ export interface ActiveComponentProps {
 }
 
 const ActiveComponent = (props: ActiveComponentProps) => {
-  const { activeElementId, portfolioId } = useContext(PortfolioContext);
+  const { activeElementId, portfolioId, portfolioData } = useContext(PortfolioContext);
   return <div>{props.data? props.data.name : ""}
   {/* {activeElementId}aaa{portfolioId.portfolioId} */}
+  {"aaa " + portfolioData.value.style?.bgColor}
   </div>;
 };
 
