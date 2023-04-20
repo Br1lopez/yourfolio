@@ -29,9 +29,7 @@ export const TabModal = () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
         <Notification>
-          <NotificationContent
-            text={`Pestaña "${name}" creada con éxito`}
-          />
+          <NotificationContent text={`Pestaña "${name}" creada con éxito`} />
         </Notification>,
         defaultToastValues
       );
@@ -39,16 +37,17 @@ export const TabModal = () => {
     },
   });
 
-  const editElementMutation = useMutation(
-    {
+  const editElementMutation = useMutation({
     mutationFn: () =>
       updateElement(activeModalData.value.elementId || -1, { name: name }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
-        <NotificationContent
-          text={`Pestaña "${name}" modificada con éxito`}
-        ></NotificationContent>,
+        <Notification>
+          <NotificationContent
+            text={`Pestaña "${name}" modificada con éxito`}
+          ></NotificationContent>
+        </Notification>,
         defaultToastValues
       );
       handleClose();
