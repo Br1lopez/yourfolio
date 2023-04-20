@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { createElementRequest, updateElementRequest } from "src/api/elementRequests";
+import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ModalType,
@@ -11,22 +11,35 @@ import {
   defaultToastValues,
 } from "../notifications/CloudNotification";
 import { Notification } from "rsuite";
-import { createElement } from "src/api/elementActions";
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");
-  const { activeModalData, portfolioId, toaster, queryClient } =
+  const { activeModalData, portfolioId, toaster } =
     useContext(PortfolioContext);
-
-  const ctx = useContext(PortfolioContext);
 
   const handleNameInputChange = (event: any) => {
     setName(event.target.value);
   };
+  const queryClient = useQueryClient();
+
+  const createElementMutation = useMutation({
+    mutationFn: () =>
+      createElement(portfolioId.value, { name: name, type: "tab" }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      toaster.push(
+        <Notification>
+          <NotificationContent text={`Pestaña "${name}" creada con éxito`} />
+        </Notification>,
+        defaultToastValues
+      );
+      handleClose();
+    },
+  });
 
   const editElementMutation = useMutation({
     mutationFn: () =>
-      updateElementRequest(activeModalData.value.elementId || -1, { name: name }),
+      updateElement(activeModalData.value.elementId || -1, { name: name }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
@@ -45,9 +58,11 @@ export const TabModal = () => {
     event.preventDefault();
     switch (activeModalData.value.type) {
       case ModalType.Create:
-        createElement(ctx, {name: name, type: "tab"}, portfolioId.value, `Pestaña "${name}" creada con éxito`, handleClose);
+        createElementMutation.mutate();
+        break;
       case ModalType.Edit:
-        return editElementMutation.mutate();
+        editElementMutation.mutate();
+        break;
     }
   };
 

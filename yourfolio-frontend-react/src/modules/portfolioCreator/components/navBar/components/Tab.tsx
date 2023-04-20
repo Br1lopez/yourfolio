@@ -9,7 +9,7 @@ import {
   PortfolioContext,
 } from "src/modules/portfolioCreator/context/PortfolioContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteElementRequest } from "src/api/elementRequests";
+import { deleteElement } from "src/api/element";
 
 export interface TabProps {
   name: string;
@@ -39,7 +39,7 @@ const Tab = (props: TabProps) => {
   };
 
   const deleteElementMutation = useMutation({
-    mutationFn: () => deleteElementRequest(props.tabId),
+    mutationFn: () => deleteElement(props.tabId),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
     },
