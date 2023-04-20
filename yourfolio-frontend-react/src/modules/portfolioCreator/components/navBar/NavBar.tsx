@@ -15,8 +15,11 @@ export const NavBar = (props: NavBarProps) => {
   const [showTabmenu, setShowTabmenu] = useState<any>([]);
   const queryClient = useQueryClient();
 
-  const { activeModalData: activeModalProps, portfolioId } =
-    useContext(PortfolioContext);
+  const {
+    activeModalData: activeModalProps,
+    portfolioId,
+    portfolioData,
+  } = useContext(PortfolioContext);
 
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {
@@ -47,7 +50,12 @@ export const NavBar = (props: NavBarProps) => {
 
   return (
     <>
-      <Navbar expand="sm" id="navbar" className="navbar">
+      <Navbar
+        expand="sm"
+        id="navbar"
+        className="navbar"
+        style={{ backgroundColor: portfolioData.value.style.bgColor }}
+      >
         <Navbar.Brand className="navbar__brand" href="index.html">
           {props.title}
         </Navbar.Brand>

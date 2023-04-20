@@ -1,19 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
+import { PortfolioContext } from "../context/PortfolioContext";
 
-interface PortfolioStyleProps {
-  bgColor?: string;
-  textColor?: string;
-}
-
-const PortfolioStyle = (props: PortfolioStyleProps) => {
+const PortfolioStyle = () => {
+  const { portfolioData } = useContext(PortfolioContext);
   const setStyle = (property: string, value: string) => {
     document.documentElement?.style.setProperty(property, value);
   };
 
   useEffect(() => {
-    setStyle("--bg-color", props.bgColor || "black");
-    setStyle("--text-color", props.textColor || "white");
+    setStyle("--bg-color", portfolioData.value.style.bgColor || "black");
+    setStyle("--text-color", portfolioData.value.style.fontColor || "white");
   });
 
   return <div style={{ display: "none" }}>PortfolioStyle</div>;

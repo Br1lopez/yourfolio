@@ -38,7 +38,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
       <DefaultHead></DefaultHead>
       {query.data && (
         <div className="root">
-          <PortfolioStyle bgColor={query.data.style?.bgColor} textColor={query.data.style?.fontColor}/>
+          <PortfolioStyle/>
           <InterfaceBar width={barWidth}/>
           <div className="content" style={{width: `calc(100vw - ${barWidth})`}}>
             <NavBar

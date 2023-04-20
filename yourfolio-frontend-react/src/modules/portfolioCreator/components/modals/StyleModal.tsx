@@ -19,8 +19,13 @@ export const StyleModal = () => {
     portfolioData.value.style?.bgColor || "#ffffff"
   );
 
+  //TODO use debounce
   const handleColorInputChange = (event: any) => {
     setBgColor(event.target.value);
+    portfolioData.set({
+      ...portfolioData.value,
+      style: { ...portfolioData.value.style, bgColor: event.target.value },
+    });
   };
   const queryClient = useQueryClient();
 
@@ -70,7 +75,7 @@ export const StyleModal = () => {
             <Form.Control
               type="color"
               onChange={handleColorInputChange}
-              value={bgColor}
+              value={portfolioData.value.style?.bgColor || "#ffffff"}
               required
             />
           </Form.Group>
