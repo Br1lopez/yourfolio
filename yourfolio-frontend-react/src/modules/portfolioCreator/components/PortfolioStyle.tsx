@@ -2,8 +2,8 @@ import React from "react";
 import { useEffect } from "react";
 
 interface PortfolioStyleProps {
-  bgColor: string;
-  textColor: string;
+  bgColor?: string;
+  textColor?: string;
 }
 
 const PortfolioStyle = (props: PortfolioStyleProps) => {
@@ -12,8 +12,8 @@ const PortfolioStyle = (props: PortfolioStyleProps) => {
   };
 
   useEffect(() => {
-    setStyle("--bg-color", props.bgColor);
-    setStyle("--text-color", props.textColor);
+    setStyle("--bg-color", props.bgColor || "black");
+    setStyle("--text-color", props.textColor || "white");
   });
 
   return <div style={{ display: "none" }}>PortfolioStyle</div>;
