@@ -2,7 +2,9 @@ import axios, { AxiosResponse } from "axios";
 import { API_BASE_URL } from "../globals";
 import { ElementDTO, ElementSaveDTO } from "./elementTypes";
 
-export const getElement = async (elementId: number): Promise<ElementDTO> => {
+export const getElementRequest = async (
+  elementId: number
+): Promise<ElementDTO> => {
   try {
     const response = await axios.get<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}`
@@ -13,22 +15,22 @@ export const getElement = async (elementId: number): Promise<ElementDTO> => {
   }
 };
 
-export const createElement = async (
-  parentId: number,
-  body: ElementSaveDTO
+export const createElementRequest = async (
+  body: ElementSaveDTO,
+  parentId?: number
 ): Promise<ElementDTO> => {
   try {
-    const response = await axios.post<ElementDTO>(
-      `${API_BASE_URL}/elements/${parentId}`,
-      body
-    );
+    const url = parentId
+      ? `${API_BASE_URL}/elements/${parentId}`
+      : `${API_BASE_URL}/elements`;
+    const response = await axios.post<ElementDTO>(url, body);
     return response.data;
   } catch (err) {
     throw new Error("error");
   }
 };
 
-export const updateElement = async (
+export const updateElementRequest = async (
   elementId: number,
   body: ElementSaveDTO
 ): Promise<ElementDTO> => {
@@ -43,7 +45,7 @@ export const updateElement = async (
   }
 };
 
-export const deleteElement = async (elementId: number) => {
+export const deleteElementRequest = async (elementId: number) => {
   const response = await axios
     .delete(`${API_BASE_URL}/elements/${elementId}`)
     .catch((error) => {

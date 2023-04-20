@@ -1,3 +1,4 @@
+import { QueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 export const PortfolioContext = React.createContext<PortfolioCtxData>({
@@ -7,12 +8,14 @@ export const PortfolioContext = React.createContext<PortfolioCtxData>({
     value: { parentId: null, elementId: null, type: null },
     set: () => console.log("set"),
   },
+  queryClient: new QueryClient(),
 });
 
 export interface PortfolioCtxData {
   activeElementId: State<number>;
   portfolioId: State<number>;
   activeModalData: State<ActiveModalCtxData>;
+  queryClient: QueryClient;
   toaster?: any;
 }
 

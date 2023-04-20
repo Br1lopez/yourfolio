@@ -25,6 +25,7 @@ function App() {
           portfolioId: portfolioCtxId,
           activeElementId,
           activeModalData,
+          queryClient,
           toaster: useToaster()
         }}
       >
