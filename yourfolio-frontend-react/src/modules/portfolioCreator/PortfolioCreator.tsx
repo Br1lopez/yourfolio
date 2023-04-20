@@ -17,7 +17,7 @@ export interface PortfolioCreatorProps {
 }
 
 export const PortfolioCreator = (props: PortfolioCreatorProps) => {
-  const { portfolioId, activeElementId } = useContext(PortfolioContext);
+  const { portfolioId, activeElementId, portfolioData } = useContext(PortfolioContext);
   const [barWidth, useBarWidth] = useState<string>("55px")
 
   useEffect(() => {
@@ -28,6 +28,9 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
   const query = useQuery({
     queryKey: ["getElement", props.portfolioId],
     queryFn: () => getElement(props.portfolioId),
+    onSuccess: (data) => {
+      portfolioData.set(data);
+    }
   });
 
   return (
