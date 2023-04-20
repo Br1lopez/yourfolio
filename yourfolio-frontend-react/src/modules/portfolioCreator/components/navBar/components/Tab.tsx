@@ -10,7 +10,11 @@ import {
 } from "src/modules/portfolioCreator/context/PortfolioContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteElement } from "src/api/element";
-
+import { Notification } from "rsuite";
+import {
+  NotificationContent,
+  defaultToastValues,
+} from "../../notifications/CloudNotification";
 export interface TabProps {
   name: string;
   open: boolean;
@@ -21,7 +25,7 @@ export interface TabProps {
 const Tab = (props: TabProps) => {
   const queryClient = useQueryClient();
 
-  const { portfolioId, activeElementId, activeModalData } =
+  const { portfolioId, activeElementId, activeModalData, toaster } =
     useContext(PortfolioContext);
 
   const handleClick = (event: any) => {
@@ -42,6 +46,14 @@ const Tab = (props: TabProps) => {
     mutationFn: () => deleteElement(props.tabId),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      toaster.push(
+        <Notification>
+          <NotificationContent
+            text={`Pestaña "${props.name}" eliminada con éxito`}
+          ></NotificationContent>
+        </Notification>,
+        defaultToastValues
+      );
     },
   });
 
