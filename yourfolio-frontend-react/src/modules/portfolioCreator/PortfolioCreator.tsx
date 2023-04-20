@@ -24,7 +24,6 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     portfolioId.set(props.portfolioId);
   }, []);
 
-  const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: ["getElement", props.portfolioId],
     queryFn: () => getElement(props.portfolioId),

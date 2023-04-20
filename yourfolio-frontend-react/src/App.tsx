@@ -17,14 +17,6 @@ const queryClient = new QueryClient();
 const PORTFOLIO_ID = 33;
 
 function App() {
-  const {
-    portfolioId: portfolioCtxId,
-    activeElementId,
-    activeModalData,
-    portfolioData,
-  } = usePortfolioContext();
-
-
   return (
     <QueryClientProvider client={queryClient}>
       <PortfolioContext.Provider
