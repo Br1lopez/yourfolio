@@ -59,11 +59,14 @@ export const StyleModal = () => {
     activeModalData.set({ parentId: null, elementId: null, type: null });
   };
 
+  //TODO añadir sombra
   return (
     <Modal
       id="newTab"
       show={activeModalData.value.type == ModalType.SetSyle}
       onHide={handleClose}
+      backdrop={false}
+      centered={true}
     >
       <Modal.Header closeButton>
         <Modal.Title>Editar estilo</Modal.Title>
