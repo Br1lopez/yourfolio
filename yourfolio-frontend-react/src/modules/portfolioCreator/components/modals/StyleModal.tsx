@@ -70,6 +70,7 @@ export const StyleModal = () => {
             <Form.Control
               type="color"
               onChange={handleColorInputChange}
+              value={bgColor}
               required
             />
           </Form.Group>
