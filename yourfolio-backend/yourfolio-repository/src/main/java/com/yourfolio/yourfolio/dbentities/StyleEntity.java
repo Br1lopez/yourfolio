@@ -1,9 +1,13 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "style")
 public class StyleEntity {
@@ -21,5 +25,6 @@ public class StyleEntity {
     @OneToOne
     @JoinColumn(name = "portfolio_id")
     private ElementEntity portfolio;
+
 
 }

@@ -6,4 +6,6 @@ import lombok.Data;
 public class StyleDTO {
     private String bgColor;
     private String fontColor;
+
+    private Integer portfolioId;
 }

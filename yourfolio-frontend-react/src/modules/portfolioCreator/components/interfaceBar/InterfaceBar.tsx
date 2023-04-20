@@ -26,8 +26,8 @@ const InterfaceBar = (props: InterfaceBarProps) => {
       <StyleModal />
       <div className="i-bar" style={{ width: props.width }}>
         {/* <AiOutlineMenu className="i-bar__icon top" style={{ width: "30px", height: "30px", color: "white" }}/> */}
-        <FaPaintBrush className="i-bar__icon" />
-        <MdOutlineHelp className="i-bar__icon" onClick={handleStyleClick} />
+        <FaPaintBrush className="i-bar__icon" onClick={handleStyleClick} />
+        <MdOutlineHelp className="i-bar__icon" />
       </div>
     </>
   );

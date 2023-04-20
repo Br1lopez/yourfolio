@@ -24,13 +24,29 @@ export const StyleModal = () => {
   };
   const queryClient = useQueryClient();
 
-
+  const editStyleMutation = useMutation({
+    mutationFn: () =>
+      updateElement(portfolioData.value.id, {
+        ...portfolioData.value,
+        style: { ...portfolioData.value.style, bgColor: bgColor },
+      }),
+    onSuccess: () => {
+      console.log(bgColor);
+      queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      toaster.push(
+        <Notification>
+          <NotificationContent
+            text={`Estilo modificado con éxito`}
+          ></NotificationContent>
+        </Notification>,
+        defaultToastValues
+      );
+      handleClose();
+    },
+  });
   const handleClick = (event: any) => {
     event.preventDefault();
-    portfolioData.set({
-      ...portfolioData.value,
-      style: { ...portfolioData.value.style, bgColor },
-    });
+    editStyleMutation.mutate();
     handleClose();
   };
 

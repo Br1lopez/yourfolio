@@ -16,6 +16,7 @@ export interface ElementDTO {
     position?: number;
     description?: string;
     thumbnailFile?: FileDTO;
+    style?: StyleDTO;
   }
   
   export interface FileDTO {

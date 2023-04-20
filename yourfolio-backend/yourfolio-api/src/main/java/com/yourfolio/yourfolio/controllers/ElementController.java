@@ -21,12 +21,12 @@ public class ElementController {
 
     @PostMapping("/")
     public ResponseEntity<ElementDTO> createElement(@RequestBody ElementDTO elementDto) {
-        return new ResponseEntity<>(elementService.saveElement(elementDto, null), HttpStatus.CREATED);
+        return new ResponseEntity<>(elementService.createElement(elementDto, null), HttpStatus.CREATED);
     }
 
     @PostMapping("/{parentId}")
     public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementDTO elementDto) {
-        return new ResponseEntity<>(elementService.saveElement(elementDto, parentId), HttpStatus.CREATED);
+        return new ResponseEntity<>(elementService.createElement(elementDto, parentId), HttpStatus.CREATED);
     }
 
 

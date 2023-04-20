@@ -6,5 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface StyleMapper {
-    StyleDTO toStyleDTO(StyleEntity styleEntity);
+    StyleDTO toDto(StyleEntity styleEntity);
+
+    StyleEntity toEntity(StyleDTO styleDTO);
 }
