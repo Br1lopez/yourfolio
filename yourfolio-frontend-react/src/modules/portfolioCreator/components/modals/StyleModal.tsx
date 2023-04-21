@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,51 +17,28 @@ import {
   defaultToastValues,
 } from "../notifications/CloudNotification";
 import { Notification } from "rsuite";
-import { useDebounce } from "usehooks-ts";
 import "./modal.scss";
-
-function useThrottle<T>(value: T, interval = 500): T {
-  const [throttledValue, setThrottledValue] = useState<T>(value);
-  const lastExecuted = useRef<number>(Date.now());
-
-  useEffect(() => {
-    if (Date.now() >= lastExecuted.current + interval) {
-      lastExecuted.current = Date.now();
-      setThrottledValue(value);
-    } else {
-      const timerId = setTimeout(() => {
-        lastExecuted.current = Date.now();
-        setThrottledValue(value);
-      }, interval);
-
-      return () => clearTimeout(timerId);
-    }
-  }, [value, interval]);
-
-  return throttledValue;
-}
+import { throttle } from "lodash";
 
 export const StyleModal = () => {
+  const THROTTLE_MS = 100;
   const { activeModalData, portfolioId, toaster, portfolioData } =
     useContext(PortfolioContext);
-  const [bgColor, setBgColor] = useState(
-    portfolioData.value.style?.bgColor || "#ffffff"
+
+  const debouncedFilter = useCallback(
+    throttle(
+      (color) =>
+        portfolioData.set({
+          ...portfolioData.value,
+          style: { ...portfolioData.value.style, bgColor: color },
+        }),
+      THROTTLE_MS
+    ),
+    []
   );
-  const colorDebounced = useThrottle<string>(bgColor, 1000);
 
-  useEffect(() => {
-    portfolioData.set({
-      ...portfolioData.value,
-      style: {
-        ...portfolioData.value.style,
-        bgColor: bgColor,
-      },
-    });
-  }, [colorDebounced]);
-
-  //TODO use debounce
   const handleColorInputChange = (event: any) => {
-    setBgColor(event.target.value);
+    debouncedFilter(event.target.value);
   };
   const queryClient = useQueryClient();
 
@@ -63,7 +46,10 @@ export const StyleModal = () => {
     mutationFn: () =>
       updateElement(portfolioData.value.id, {
         ...portfolioData.value,
-        style: { ...portfolioData.value.style, bgColor: bgColor },
+        style: {
+          ...portfolioData.value.style,
+          bgColor: portfolioData.value.style.bgColor,
+        },
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
@@ -107,7 +93,7 @@ export const StyleModal = () => {
             <Form.Control
               type="color"
               onChange={handleColorInputChange}
-              value={colorDebounced || "#ffffff"}
+              value={portfolioData.value.style.bgColor || "#ffffff"}
               required
             />
           </Form.Group>
