@@ -11,6 +11,7 @@ import {
   defaultToastValues,
 } from "../notifications/CloudNotification";
 import { Notification } from "rsuite";
+import "./modal.scss";
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");

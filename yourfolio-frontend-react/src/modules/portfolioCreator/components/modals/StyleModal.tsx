@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,6 +11,29 @@ import {
   defaultToastValues,
 } from "../notifications/CloudNotification";
 import { Notification } from "rsuite";
+import { useDebounce } from "usehooks-ts";
+import "./modal.scss";
+
+function useThrottle<T>(value: T, interval = 500): T {
+  const [throttledValue, setThrottledValue] = useState<T>(value);
+  const lastExecuted = useRef<number>(Date.now());
+
+  useEffect(() => {
+    if (Date.now() >= lastExecuted.current + interval) {
+      lastExecuted.current = Date.now();
+      setThrottledValue(value);
+    } else {
+      const timerId = setTimeout(() => {
+        lastExecuted.current = Date.now();
+        setThrottledValue(value);
+      }, interval);
+
+      return () => clearTimeout(timerId);
+    }
+  }, [value, interval]);
+
+  return throttledValue;
+}
 
 export const StyleModal = () => {
   const { activeModalData, portfolioId, toaster, portfolioData } =
@@ -18,14 +41,21 @@ export const StyleModal = () => {
   const [bgColor, setBgColor] = useState(
     portfolioData.value.style?.bgColor || "#ffffff"
   );
+  const colorDebounced = useThrottle<string>(bgColor, 1000);
+
+  useEffect(() => {
+    portfolioData.set({
+      ...portfolioData.value,
+      style: {
+        ...portfolioData.value.style,
+        bgColor: bgColor,
+      },
+    });
+  }, [colorDebounced]);
 
   //TODO use debounce
   const handleColorInputChange = (event: any) => {
     setBgColor(event.target.value);
-    portfolioData.set({
-      ...portfolioData.value,
-      style: { ...portfolioData.value.style, bgColor: event.target.value },
-    });
   };
   const queryClient = useQueryClient();
 
@@ -36,7 +66,6 @@ export const StyleModal = () => {
         style: { ...portfolioData.value.style, bgColor: bgColor },
       }),
     onSuccess: () => {
-      console.log(bgColor);
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
         <Notification>
@@ -59,7 +88,6 @@ export const StyleModal = () => {
     activeModalData.set({ parentId: null, elementId: null, type: null });
   };
 
-  //TODO añadir sombra
   return (
     <Modal
       id="newTab"
@@ -67,6 +95,7 @@ export const StyleModal = () => {
       onHide={handleClose}
       backdrop={false}
       centered={true}
+      className="style-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title>Editar estilo</Modal.Title>
@@ -78,7 +107,7 @@ export const StyleModal = () => {
             <Form.Control
               type="color"
               onChange={handleColorInputChange}
-              value={portfolioData.value.style?.bgColor || "#ffffff"}
+              value={colorDebounced || "#ffffff"}
               required
             />
           </Form.Group>
