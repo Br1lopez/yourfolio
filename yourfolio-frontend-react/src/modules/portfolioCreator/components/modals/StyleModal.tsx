@@ -25,30 +25,52 @@ export const StyleModal = () => {
   const { activeModalData, portfolioId, toaster, portfolioData } =
     useContext(PortfolioContext);
 
-  const debouncedFilter = useCallback(
+  const debouncedBgColor = useCallback(
     throttle(
-      (color) =>
+      (bgColor) =>
         portfolioData.set({
           ...portfolioData.value,
-          style: { ...portfolioData.value.style, bgColor: color },
+          style: { ...portfolioData.value.style, bgColor: bgColor },
         }),
       THROTTLE_MS
     ),
     []
   );
 
-  const handleColorInputChange = (event: any) => {
-    debouncedFilter(event.target.value);
+  const debouncedFontColor = useCallback(
+    throttle(
+      (fontColor) =>
+        portfolioData.set({
+          ...portfolioData.value,
+          style: { ...portfolioData.value.style, fontColor: fontColor },
+        }),
+      THROTTLE_MS
+    ),
+    []
+  );
+
+  const handleBgColorInputChange = (event: any) => {
+    console.log(portfolioData.value.style);
+    debouncedBgColor(event.target.value);
+    console.log(portfolioData.value.style);
   };
+
+  const handleFontColorInputChange = (event: any) => {
+    console.log(portfolioData.value.style);
+    debouncedFontColor(event.target.value);
+    console.log(portfolioData.value.style);
+  };
+
   const queryClient = useQueryClient();
 
   const editStyleMutation = useMutation({
     mutationFn: () =>
-      updateElement(portfolioData.value.id, {
+      updateElement(portfolioId.value, {
         ...portfolioData.value,
         style: {
           ...portfolioData.value.style,
           bgColor: portfolioData.value.style.bgColor,
+          fontColor: portfolioData.value.style.fontColor,
         },
       }),
     onSuccess: () => {
@@ -92,8 +114,17 @@ export const StyleModal = () => {
             <Form.Label>Color de fondo:</Form.Label>
             <Form.Control
               type="color"
-              onChange={handleColorInputChange}
+              onChange={handleBgColorInputChange}
               value={portfolioData.value.style.bgColor || "#ffffff"}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="newTabTitle" className="mb-4">
+            <Form.Label>Color de texto:</Form.Label>
+            <Form.Control
+              type="color"
+              onChange={handleFontColorInputChange}
+              value={portfolioData.value.style.fontColor || "#ffffff"}
               required
             />
           </Form.Group>
