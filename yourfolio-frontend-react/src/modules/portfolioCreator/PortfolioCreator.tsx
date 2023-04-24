@@ -17,8 +17,9 @@ export interface PortfolioCreatorProps {
 }
 
 export const PortfolioCreator = (props: PortfolioCreatorProps) => {
-  const { portfolioId, activeElementId, portfolioData } = useContext(PortfolioContext);
-  const [barWidth, useBarWidth] = useState<string>("55px")
+  const { portfolioId, activeElementId, portfolioData } =
+    useContext(PortfolioContext);
+  const [barWidth, useBarWidth] = useState<string>("55px");
 
   useEffect(() => {
     portfolioId.set(props.portfolioId);
@@ -29,8 +30,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     queryFn: () => getElement(props.portfolioId),
     onSuccess: (data) => {
       portfolioData.set(data);
-      console.log(portfolioData.value)
-    }
+    },
   });
 
   return (
@@ -38,9 +38,12 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
       <DefaultHead></DefaultHead>
       {query.data && (
         <div className="root">
-          <PortfolioStyle/>
-          <InterfaceBar width={barWidth}/>
-          <div className="content" style={{width: `calc(100vw - ${barWidth})`}}>
+          <PortfolioStyle />
+          <InterfaceBar width={barWidth} />
+          <div
+            className="content"
+            style={{ width: `calc(100vw - ${barWidth})` }}
+          >
             <NavBar
               title={query.data.name}
               tabs={query.data.elements

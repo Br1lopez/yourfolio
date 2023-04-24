@@ -22,43 +22,28 @@ import { throttle } from "lodash";
 
 export const StyleModal = () => {
   const THROTTLE_MS = 100;
+  const ctx = useContext(PortfolioContext);
   const { activeModalData, portfolioId, toaster, portfolioData } =
     useContext(PortfolioContext);
 
-  const debouncedBgColor = useCallback(
-    throttle(
-      (bgColor) =>
-        portfolioData.set({
-          ...portfolioData.value,
-          style: { ...portfolioData.value.style, bgColor: bgColor },
-        }),
-      THROTTLE_MS
-    ),
-    []
-  );
+  const debouncedBgColor = throttle((bgColor) => {
+    let data = { ...portfolioData.value };
+    data.style.bgColor = bgColor;
+    portfolioData.set(data);
+  }, THROTTLE_MS);
 
-  const debouncedFontColor = useCallback(
-    throttle(
-      (fontColor) =>
-        portfolioData.set({
-          ...portfolioData.value,
-          style: { ...portfolioData.value.style, fontColor: fontColor },
-        }),
-      THROTTLE_MS
-    ),
-    []
-  );
+  const debouncedFontColor = throttle((fontColor) => {
+    let data = { ...portfolioData.value };
+    data.style.fontColor = fontColor;
+    portfolioData.set(data);
+  }, THROTTLE_MS);
 
   const handleBgColorInputChange = (event: any) => {
-    console.log(portfolioData.value.style);
     debouncedBgColor(event.target.value);
-    console.log(portfolioData.value.style);
   };
 
   const handleFontColorInputChange = (event: any) => {
-    console.log(portfolioData.value.style);
     debouncedFontColor(event.target.value);
-    console.log(portfolioData.value.style);
   };
 
   const queryClient = useQueryClient();
