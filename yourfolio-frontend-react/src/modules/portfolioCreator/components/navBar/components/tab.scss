@@ -1,7 +1,12 @@
-.navbar__tabLink {
-    height: min-content;
-    padding: 0 12px;
+.navbar {
+    transition: 0.05s;
+
+    &__tabLink {
+        height: min-content;
+        padding: 0 12px;
+    }
 }
+
 
 $icon-size: 14px;
 

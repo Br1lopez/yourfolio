@@ -20,6 +20,7 @@ import { Notification } from "rsuite";
 import "./modal.scss";
 import { throttle } from "lodash";
 
+//TODO arreglar throttling (hace mil llamadas cuando hay input change)
 export const StyleModal = () => {
   const THROTTLE_MS = 100;
   const ctx = useContext(PortfolioContext);

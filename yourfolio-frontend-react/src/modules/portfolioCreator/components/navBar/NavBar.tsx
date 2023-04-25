@@ -6,6 +6,7 @@ import Tab from "./components/Tab";
 import { PortfolioContext, ModalType } from "../../context/PortfolioContext";
 import { useQueryClient } from "@tanstack/react-query";
 
+//TODO transiciones al borrar y añadir pestañas
 interface NavBarProps {
   title: string;
   tabs?: { name: string; id: number }[];
