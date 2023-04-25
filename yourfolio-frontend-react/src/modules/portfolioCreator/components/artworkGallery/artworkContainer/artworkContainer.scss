@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Labrada:wght@300;500&family=Mynerve&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&family=Tilt+Warp&display=swap');
+@import 'src/vars.scss';
+
+
+
+$artwork-size: 700px;
+$artwork-margin: 50px 0px;
+
+.artworks-parent {
+    @include for-desktop {
+        margin-left: $carousel-width !important;
+        width: calc(100% - $carousel-width);
+    }
+
+    @include flex-column;
+    @include mobile-full-width;
+
+    .artwork {
+        @include mobile-full-width;
+        display: flex;
+
+        padding: 0px 100px;
+
+
+        @include for-mobile {
+            padding: 0;
+            flex-direction: column;
+        }
+
+        &:nth-child(odd) {
+            @include for-desktop {
+                flex-direction: row-reverse;
+            }
+        }
+
+        &>* {
+            padding: 10px 40px;
+            margin: $artwork-margin;
+
+            @include for-mobile {
+                padding: 0;
+                margin: 20px 0;
+            }
+
+            &:first-child {
+                @include for-mobile {
+                    margin-top: 0;
+                }
+            }
+
+            &:last-child {
+                @include for-mobile {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        &__img-parent {
+            display: flex;
+            justify-content: center;
+            flex: 0;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+
+            &__img {
+                max-height: $artwork-size;
+                max-width: $artwork-size;
+                box-shadow: $default-shadow;
+                border-radius: $default-border-radius;
+                @include mobile-full-width;
+            }
+
+        }
+
+        &__text-parent {
+            flex: 1 1 0;
+            position: relative;
+            @include mobile-full-width;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 6em;
+
+            &__title {
+                // text-transform: uppercase;
+                // font-weight: bold;
+                text-align: center;
+                font-size: 3.3em;
+                font-family: $title-font;
+                padding: 0em 0.6em;
+            }
+
+            &__text {
+                padding: 0em 1em;
+                padding-top: 1.6em;
+                font-size: 1.5em;
+                letter-spacing: -1px;
+                font-family: $paragraph-font;
+                font-weight: 200;
+                line-height: 1em;
+                @include break-words;
+                @include mobile-full-width;
+
+                &__paragraph {
+                    margin-bottom: 1.2em;
+                }
+            }
+
+            &__bg {
+                @include mobile-full-width;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1000;
+                filter: blur(3px);
+            }
+        }
+    }
+}

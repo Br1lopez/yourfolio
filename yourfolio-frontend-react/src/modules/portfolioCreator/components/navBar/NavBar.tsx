@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 //TODO transiciones al borrar y añadir pestañas
 interface NavBarProps {
   title: string;
+  height?: string;
   tabs?: { name: string; id: number }[];
 }
 
@@ -55,7 +56,10 @@ export const NavBar = (props: NavBarProps) => {
         expand="sm"
         id="navbar"
         className="navbar"
-        style={{ backgroundColor: portfolioData.value.style.bgColor }}
+        style={{
+          backgroundColor: portfolioData.value.style.bgColor,
+          height: props.height,
+        }}
       >
         <Navbar.Brand className="navbar__brand" href="index.html">
           {props.title}

@@ -1,16 +1,29 @@
 import React, { useContext } from "react";
 import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
+import { getElementByIdRecursive } from "src/utils/functions";
+import { ArtworkGallery } from "../artworkGallery/ArtworkGallery";
 
-export interface ActiveComponentProps {
-  data: any;
+interface ActiveComponentProps {
+  height?: string;
 }
 
 const ActiveComponent = (props: ActiveComponentProps) => {
-  const { activeElementId, portfolioId, portfolioData } = useContext(PortfolioContext);
-  return <div>{props.data? props.data.name : ""}
-  {/* {activeElementId}aaa{portfolioId.portfolioId} */}
-  {"aaa " + portfolioData.value.style?.bgColor}
-  </div>;
+  const { activeElementId, portfolioId, portfolioData } =
+    useContext(PortfolioContext);
+  const element = getElementByIdRecursive(
+    activeElementId.value,
+    portfolioData.value
+  );
+  return (
+    <div className="active-component" style={{ height: props.height }}>
+      {activeElementId && element?.type == "artwork-gallery" ? (
+        <ArtworkGallery galleryData={element} />
+      ) : (
+        "b"
+      )}
+      {/* {activeElementId}aaa{portfolioId.portfolioId} */}
+    </div>
+  );
 };
 
 export default ActiveComponent;

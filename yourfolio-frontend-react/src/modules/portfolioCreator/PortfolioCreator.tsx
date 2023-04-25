@@ -19,7 +19,8 @@ export interface PortfolioCreatorProps {
 export const PortfolioCreator = (props: PortfolioCreatorProps) => {
   const { portfolioId, activeElementId, portfolioData } =
     useContext(PortfolioContext);
-  const [barWidth, useBarWidth] = useState<string>("55px");
+  const [barWidth, setBarWidth] = useState<string>("55px");
+  const [navHeight, setNavHeight] = useState<string>("55px");
 
   useEffect(() => {
     portfolioId.set(props.portfolioId);
@@ -41,22 +42,20 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
           <PortfolioStyle />
           <InterfaceBar width={barWidth} />
           <div
-            className="content"
-            style={{ width: `calc(100vw - ${barWidth})` }}
+            className="portfolio"
+            style={{
+              width: `calc(100vw - ${barWidth})`,
+            }}
           >
             <NavBar
               title={query.data.name}
               tabs={query.data.elements
                 .sort((a: any, b: any) => a.position - b.position)
                 .map((tab: any) => ({ name: tab.name, id: tab.id }))}
+              height={navHeight}
             />
             {query.data.elements.length > 0 && (
-              <ActiveComponent
-                data={getElementByIdRecursive(
-                  activeElementId.value,
-                  query.data
-                )}
-              />
+              <ActiveComponent height={`calc(100vh - ${navHeight})`} />
             )}
           </div>
         </div>
