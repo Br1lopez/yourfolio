@@ -3,10 +3,12 @@
 .artwork-gallery {
     display: flex;
     @include mobile-full-width;
-    // margin-top: $navbar-height;
     height: 100%;
+    width: 100%;
 
-    & artworks-parent {
+    & .artworks-parent {
         @include flex-column;
+        background-color: red;
+        overflow-y: scroll;
     }
 }

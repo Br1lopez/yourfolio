@@ -55,7 +55,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               height={navHeight}
             />
             {query.data.elements.length > 0 && (
-              <ActiveComponent height={`calc(100vh - ${navHeight})`} />
+              <ActiveComponent height={`calc(100vh - ${navHeight}`} />
             )}
           </div>
         </div>

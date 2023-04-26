@@ -15,7 +15,10 @@ const ActiveComponent = (props: ActiveComponentProps) => {
     portfolioData.value
   );
   return (
-    <div className="active-component" style={{ height: props.height }}>
+    <div
+      className="active-component"
+      style={{ backgroundColor: "yellow", height: props.height }}
+    >
       {activeElementId && element?.type == "artwork-gallery" ? (
         <ArtworkGallery galleryData={element} />
       ) : (

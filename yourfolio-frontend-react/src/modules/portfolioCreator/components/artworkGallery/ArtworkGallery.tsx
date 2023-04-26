@@ -19,11 +19,16 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
         <Carousel
           images={data.elements.map((element) => element.files[0].url)}
         ></Carousel>
-        {/* <div className="artworks-parent">
+        <div className="artworks-parent" style={{ width: "100%" }}>
           {data.elements.map((element) => (
-            <ArtworkContainer artworkData={element} i={element.position} />
+            <>
+              <ArtworkContainer artworkData={element} i={element.position} />
+              <ArtworkContainer artworkData={element} i={element.position} />
+              <ArtworkContainer artworkData={element} i={element.position} />
+              <ArtworkContainer artworkData={element} i={element.position} />
+            </>
           ))}
-        </div> */}
+        </div>
       </section>
     );
   }
