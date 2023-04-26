@@ -10,8 +10,10 @@ $artwork-margin: 50px 0px;
     @include mobile-full-width;
     display: flex;
     max-width: 100%;
-    padding: 0px 100px;
+    // padding: 0px 100px;
     height: 500px;
+    justify-content: center;
+
 
     @include for-mobile {
         padding: 0;
@@ -50,8 +52,8 @@ $artwork-margin: 50px 0px;
         // display: flex;
         justify-content: center;
         // flex: auto;
-        width: 100%;
-        height: 100%;
+        // width: 100%;
+        // height: 100%;
         padding-top: 0 !important;
         padding-bottom: 0 !important;
 
@@ -73,11 +75,15 @@ $artwork-margin: 50px 0px;
         display: flex;
         justify-content: center;
         flex-direction: column;
+        min-width: 500px;
+        max-width: 550px;
         // padding: 0 6em;
 
         &__title {
             // text-transform: uppercase;
             // font-weight: bold;
+            min-width: 500px;
+            max-width: 550px;
             text-align: center;
             font-size: 3.3em;
             font-family: $title-font;

@@ -8,7 +8,6 @@
 
     & .artworks-parent {
         @include flex-column;
-        background-color: red;
         overflow-y: scroll;
     }
 }
