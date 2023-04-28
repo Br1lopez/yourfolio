@@ -18,7 +18,6 @@ import FontPicker from "font-picker-react";
 //TODO arreglar throttling (hace mil llamadas cuando hay input change)
 export const StyleModal = () => {
   const THROTTLE_MS = 100;
-  const ctx = useContext(PortfolioContext);
   const { activeModalData, portfolioId, toaster, portfolioData } =
     useContext(PortfolioContext);
 
@@ -77,7 +76,7 @@ export const StyleModal = () => {
   return (
     <Modal
       id="newTab"
-      show={activeModalData.value.type == ModalType.SetSyle}
+      show={activeModalData.value.type === ModalType.SetSyle}
       onHide={handleClose}
       backdrop={false}
       centered={true}

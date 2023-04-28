@@ -1,10 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import { Navbar, Button, Nav, OverlayTrigger } from "react-bootstrap";
+import { Navbar, Button, Nav } from "react-bootstrap";
 import "./navBar.scss";
 import { TabModal } from "../modals/TabModal";
 import Tab from "./components/Tab";
 import { PortfolioContext, ModalType } from "../../context/PortfolioContext";
-import { useQueryClient } from "@tanstack/react-query";
 
 //TODO transiciones al borrar y añadir pestañas
 interface NavBarProps {
@@ -15,7 +14,6 @@ interface NavBarProps {
 
 export const NavBar = (props: NavBarProps) => {
   const [showTabmenu, setShowTabmenu] = useState<any>([]);
-  const queryClient = useQueryClient();
 
   const {
     activeModalData: activeModalProps,

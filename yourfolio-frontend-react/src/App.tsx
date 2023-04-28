@@ -1,17 +1,11 @@
 import "./App.scss";
 import { PortfolioCreator } from "./modules/portfolioCreator/PortfolioCreator";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   PortfolioContext,
   usePortfolioContext,
 } from "./modules/portfolioCreator/context/PortfolioContext";
 import { useToaster } from "rsuite";
-import { getElement } from "./api/element";
 
 const queryClient = new QueryClient();
 const PORTFOLIO_ID = 1;

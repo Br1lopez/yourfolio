@@ -8,15 +8,14 @@ interface ActiveComponentProps {
 }
 
 const ActiveComponent = (props: ActiveComponentProps) => {
-  const { activeElementId, portfolioId, portfolioData } =
-    useContext(PortfolioContext);
+  const { activeElementId, portfolioData } = useContext(PortfolioContext);
   const element = getElementByIdRecursive(
     activeElementId.value,
     portfolioData.value
   );
   return (
     <div className="active-component" style={{ height: props.height }}>
-      {activeElementId && element?.type == "artwork-gallery" ? (
+      {activeElementId && element?.type === "artwork-gallery" ? (
         <ArtworkGallery galleryData={element} />
       ) : (
         "b"

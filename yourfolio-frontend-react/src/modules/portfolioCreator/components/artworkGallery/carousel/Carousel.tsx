@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./carousel.scss";
-import { Link, scroller } from "react-scroll";
+import { Link } from "react-scroll";
 import { IoMdArrowDropupCircle, IoMdArrowDropdownCircle } from "react-icons/io";
 import { ElementDTO } from "src/api/elementTypes";
 
@@ -88,7 +88,7 @@ const Carousel = (props: CarouselProps) => {
         className="carousel__icon"
         style={{
           visibility: arrowsVisible ? "visible" : "hidden",
-          opacity: bottom == 0 ? 0.2 : 1,
+          opacity: bottom === 0 ? 0.2 : 1,
         }}
       >
         <IoMdArrowDropupCircle size={"100%"} onClick={onTopArrowPress} />
@@ -112,6 +112,7 @@ const Carousel = (props: CarouselProps) => {
             >
               <img
                 src={element.files[0].url}
+                alt={element.description}
                 key={`${element.position}`}
                 onLoad={checkArrowsVisibility}
               />

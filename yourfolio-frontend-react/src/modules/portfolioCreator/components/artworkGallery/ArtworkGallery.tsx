@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ArtworkContainer } from "./artworkContainer/ArtworkContainer";
 import "./artworkGallery.scss";
 import Carousel from "./carousel/Carousel";

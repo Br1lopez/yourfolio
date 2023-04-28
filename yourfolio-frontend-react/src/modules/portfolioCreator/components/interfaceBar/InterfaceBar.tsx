@@ -1,9 +1,7 @@
 import React, { useContext } from "react";
 import "./interfaceBar.scss";
-import { IoSettingsSharp, IoColorPaletteSharp } from "react-icons/io5";
 import { FaPaintBrush } from "react-icons/fa";
 import { MdOutlineHelp } from "react-icons/md";
-import { AiOutlineMenu } from "react-icons/ai";
 import { ModalType, PortfolioContext } from "../../context/PortfolioContext";
 import { StyleModal } from "../modals/StyleModal";
 

@@ -1,6 +1,5 @@
 import { ElementDTO } from "src/api/elementTypes";
 import "./artworkContainer.scss";
-import { Element } from "react-scroll";
 
 interface ArtworkContainerProps {
   artworkData: ElementDTO;
