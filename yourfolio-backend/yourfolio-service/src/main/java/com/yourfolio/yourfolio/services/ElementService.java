@@ -69,6 +69,7 @@ public class ElementService {
         StyleEntity styleToSave = entityToSave.getStyle();
         styleToSave.setBgColor(elementDTO.getStyle().getBgColor());
         styleToSave.setFontColor(elementDTO.getStyle().getFontColor());
+        styleToSave.setFontFamily(elementDTO.getStyle().getFontFamily());
 
         entityToSave.setStyle(styleToSave);
 

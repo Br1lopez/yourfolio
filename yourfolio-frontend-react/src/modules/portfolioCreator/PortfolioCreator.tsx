@@ -8,6 +8,7 @@ import { PortfolioContext } from "./context/PortfolioContext";
 import InterfaceBar from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import PortfolioStyle from "./components/PortfolioStyle";
+import FontPicker from "font-picker-react";
 
 export interface PortfolioCreatorProps {
   portfolioId: number;
@@ -32,6 +33,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     },
   });
 
+  //TODO: apply-font class is not being applied when hitting f5 (only applying with the modal open)
   return (
     <>
       <DefaultHead></DefaultHead>
