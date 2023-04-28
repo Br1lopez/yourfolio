@@ -7,4 +7,6 @@ public class StyleDTO {
     private String bgColor;
     private String fontColor;
 
+    private String fontFamily;
+
 }

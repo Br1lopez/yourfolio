@@ -22,7 +22,7 @@ CREATE TABLE file (
 
 create table element (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	type ENUM('portfolio', 'tab', 'project', 'section'),
+	type ENUM('portfolio', 'tab', 'project', 'section', 'artwork-gallery', 'artwork'),
 	name VARCHAR(255),
     description VARCHAR(255),
     user_id INT,
@@ -36,6 +36,7 @@ CREATE TABLE style(
 	bg_color VARCHAR(32),
 	font_color VARCHAR(32),
 	portfolio_id INT,
+	font_family VARCHAR(64),
    FOREIGN KEY (portfolio_id) REFERENCES element(id)
 );
 

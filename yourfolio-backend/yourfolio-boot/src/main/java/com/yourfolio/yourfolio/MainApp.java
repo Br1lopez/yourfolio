@@ -1,8 +1,10 @@
 package com.yourfolio.yourfolio;
 
 import com.yourfolio.yourfolio.controllers.ElementController;
+import com.yourfolio.yourfolio.mappers.StyleMapper;
 import com.yourfolio.yourfolio.repositories.ElementRepository;
 import com.yourfolio.yourfolio.repositories.RelationshipRepository;
+import com.yourfolio.yourfolio.repositories.StyleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +19,10 @@ public class MainApp implements CommandLineRunner {
     private final RelationshipRepository relationshipRepository;
     private final ElementRepository elementRepository;
 
+    private final StyleRepository styleRepository;
+
+    private final StyleMapper styleMapper;
+
     public static void main(String[] args) {
         SpringApplication.run(MainApp.class, args);
     }
@@ -24,9 +30,7 @@ public class MainApp implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        for (int i = 0; i < 8; i++) {
-            System.out.println(elementController.getElementById(1));
-        }
+        System.out.println(styleMapper.toDto(styleRepository.findById(1).get()).getFontFamily());
 
 
     }

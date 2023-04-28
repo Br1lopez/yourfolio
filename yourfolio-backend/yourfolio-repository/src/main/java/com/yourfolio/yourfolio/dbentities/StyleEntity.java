@@ -22,6 +22,9 @@ public class StyleEntity {
     @Column(name = "font_color", length = 32)
     private String fontColor;
 
+    @Column(name = "font_family", length = 64)
+    private String fontFamily;
+
     @OneToOne
     @JoinColumn(name = "portfolio_id")
     private ElementEntity portfolio;
