@@ -26,19 +26,21 @@ public class ElementService {
     private final StyleMapper styleMapper;
 
     public ElementDTO getElement(Integer elementId) {
-        return setChildrenPosition(elementRepository.getReferenceById(elementId));
+        ElementDTO result = elementMapper.toDto(elementRepository.getReferenceById(elementId));
+        setChildrenPosition(result);
+        return result;
 
     }
 
-    public ElementDTO setChildrenPosition(ElementEntity elementEntity) {
-        //TODO: Hacerlo recursivo
-        ElementDTO elementDTO = elementMapper.toDto(elementEntity);
-
+    public void setChildrenPosition(ElementDTO elementDTO) {
         elementDTO.getElements().stream().forEach(
-                e -> e.setPosition(relationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition())
+                e -> {
+                    e.setPosition(relationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition());
+                    if (e.getElements() != null && !e.getElements().isEmpty()) {
+                        setChildrenPosition(e);
+                    }
+                }
         );
-
-        return elementDTO;
     }
 
     public ElementDTO createElement(ElementDTO elementDTO, Integer parentId) {
@@ -69,7 +71,6 @@ public class ElementService {
         styleToSave.setFontColor(elementDTO.getStyle().getFontColor());
 
         entityToSave.setStyle(styleToSave);
-
 
 
         return elementMapper.toDto(elementRepository.save(entityToSave));

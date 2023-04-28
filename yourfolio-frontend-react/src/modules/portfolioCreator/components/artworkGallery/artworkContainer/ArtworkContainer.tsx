@@ -4,16 +4,15 @@ import { Element } from "react-scroll";
 
 interface ArtworkContainerProps {
   artworkData: ElementDTO;
-  i: number;
 }
 export const ArtworkContainer = (props: ArtworkContainerProps) => {
-  const { artworkData, i } = props;
+  const { artworkData } = props;
   return (
-    <article className="artwork" id={`artwork_${i}`}>
+    <article className="artwork" id={`artwork_${artworkData.position}`}>
       <div className="artwork__img-parent">
         {artworkData.files[0] && (
           <img
-            id={`img_${i}`}
+            id={`img_${artworkData.position}`}
             src={artworkData.files[0].url}
             alt={artworkData.name}
             className="artwork__img-parent__img"

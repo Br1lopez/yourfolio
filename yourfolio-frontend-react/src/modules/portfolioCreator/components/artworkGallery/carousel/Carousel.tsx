@@ -2,25 +2,36 @@ import React, { useEffect, useState, useRef } from "react";
 import "./carousel.scss";
 import { Link } from "react-scroll";
 import { IoMdArrowDropupCircle, IoMdArrowDropdownCircle } from "react-icons/io";
+import { ElementDTO } from "src/api/elementTypes";
 
-const Carousel = ({ images }) => {
-  const CAROUSEL_MOVEMENT = () => {
-    return imagesRef.current.offsetHeight * 0.01;
+interface CarouselProps {
+  elements: ElementDTO[];
+}
+
+const Carousel = (props: CarouselProps) => {
+  const { elements } = props;
+  const CAROUSEL_MOVEMENT = (): number => {
+    return imagesRef.current != null
+      ? imagesRef.current.offsetHeight * 0.01
+      : 200;
   };
 
   const [bottom, setBottom] = useState(0);
   const [endReached, setEndReached] = useState(false);
-  const containerRef = useRef(null);
-  const imagesRef = useRef(null);
-  const [arrowsVisible, setArrowsVisible] = useState(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imagesRef = useRef<HTMLDivElement>(null);
+  const [arrowsVisible, setArrowsVisible] = useState<boolean | null>(null);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   const checkArrowsVisibility = () => {
-    if (imagesRef.current.offsetHeight <= containerRef.current.offsetHeight) {
-      setArrowsVisible("hidden");
+    if (
+      (imagesRef.current?.offsetHeight || 0) <=
+      (containerRef.current?.offsetHeight || 0)
+    ) {
+      setArrowsVisible(false);
       setBottom(0);
     } else {
-      setArrowsVisible("visible");
+      setArrowsVisible(true);
     }
   };
 
@@ -33,29 +44,35 @@ const Carousel = ({ images }) => {
   };
 
   const onTopArrowPress = () => {
-    if (imagesRef.current.offsetHeight > containerRef.current.offsetHeight) {
-      if (bottom >= CAROUSEL_MOVEMENT) {
-        setBottom(bottom - CAROUSEL_MOVEMENT);
+    if (
+      (imagesRef.current?.offsetHeight || 0) >
+      (containerRef.current?.offsetHeight || 0)
+    ) {
+      if (bottom >= CAROUSEL_MOVEMENT()) {
+        setBottom(bottom - CAROUSEL_MOVEMENT());
       } else {
         setBottom(0);
       }
     }
     setEndReached(false);
-    console.log(imagesRef.current.offsetHeight);
   };
 
   const onBottomArrowPress = () => {
-    if (imagesRef.current.offsetHeight > containerRef.current.offsetHeight) {
+    if (
+      (imagesRef.current?.offsetHeight || 0) >
+      (containerRef.current?.offsetHeight || 0)
+    ) {
       if (
         bottom <
-        imagesRef.current.offsetHeight -
-          containerRef.current.offsetHeight -
-          CAROUSEL_MOVEMENT
+        (imagesRef.current?.offsetHeight || 0) -
+          (containerRef.current?.offsetHeight || 0) -
+          CAROUSEL_MOVEMENT()
       ) {
-        setBottom(bottom + CAROUSEL_MOVEMENT);
+        setBottom(bottom + CAROUSEL_MOVEMENT());
       } else {
         setBottom(
-          imagesRef.current.offsetHeight - containerRef.current.offsetHeight
+          (imagesRef.current?.offsetHeight || 0) -
+            (containerRef.current?.offsetHeight || 0)
         );
         setEndReached(true);
       }
@@ -69,7 +86,10 @@ const Carousel = ({ images }) => {
     <div className="carousel">
       <div
         className="carousel__icon"
-        style={{ visibility: arrowsVisible, opacity: bottom == 0 ? 0.2 : 1 }}
+        style={{
+          visibility: arrowsVisible ? "visible" : "hidden",
+          opacity: bottom == 0 ? 0.2 : 1,
+        }}
       >
         <IoMdArrowDropupCircle size={"100%"} onClick={onTopArrowPress} />
       </div>
@@ -79,17 +99,21 @@ const Carousel = ({ images }) => {
           ref={imagesRef}
           style={{ bottom: bottom }}
         >
-          {images.map((image, i) => (
+          {elements.map((element) => (
             <Link
               duration={500}
               delay={0}
               smooth={true}
               spy={true}
               offset={-100}
-              to={`artwork_${i}`}
+              to={`artwork_${element.position}`}
               activeClass="active"
             >
-              <img src={image} key={i} onLoad={checkArrowsVisibility} />
+              <img
+                src={element.files[0].url}
+                key={`artwork_${element.position}`}
+                onLoad={checkArrowsVisibility}
+              />
             </Link>
           ))}
         </div>
@@ -98,7 +122,7 @@ const Carousel = ({ images }) => {
         className="carousel__icon"
         onClick={onBottomArrowPress}
         style={{
-          visibility: arrowsVisible,
+          visibility: arrowsVisible ? "visible" : "hidden",
           opacity: endReached ? 0.2 : 1,
         }}
       >
