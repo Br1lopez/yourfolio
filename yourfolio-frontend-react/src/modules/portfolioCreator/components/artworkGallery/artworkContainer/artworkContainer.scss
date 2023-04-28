@@ -4,7 +4,7 @@
 
 
 $artwork-size: min-content;
-$artwork-margin: 50px 0px;
+$artwork-margin: 100px 0px 0px 0px;
 
 .artwork {
     @include mobile-full-width;
@@ -13,6 +13,7 @@ $artwork-margin: 50px 0px;
     // padding: 0px 100px;
     height: 500px;
     justify-content: center;
+    padding: 40px;
 
 
     @include for-mobile {
@@ -27,8 +28,6 @@ $artwork-margin: 50px 0px;
     }
 
     &>* {
-        padding: 10px 40px;
-        margin: $artwork-margin;
 
         @include for-mobile {
             padding: 0;

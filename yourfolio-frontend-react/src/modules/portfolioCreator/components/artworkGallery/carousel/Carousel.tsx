@@ -105,7 +105,6 @@ const Carousel = (props: CarouselProps) => {
               delay={0}
               smooth={true}
               spy={true}
-              offset={-100}
               to={`img_${element.position}`}
               containerId="artworks-parent"
               activeClass="active"
