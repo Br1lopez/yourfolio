@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./carousel.scss";
-import { Link } from "react-scroll";
+import { Link, scroller } from "react-scroll";
 import { IoMdArrowDropupCircle, IoMdArrowDropdownCircle } from "react-icons/io";
 import { ElementDTO } from "src/api/elementTypes";
 
@@ -107,7 +107,9 @@ const Carousel = (props: CarouselProps) => {
               spy={true}
               offset={-100}
               to={`img_${element.position}`}
+              containerId="artworks-parent"
               activeClass="active"
+              key={`link_${element.position}`}
             >
               <img
                 src={element.files[0].url}

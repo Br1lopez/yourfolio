@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ArtworkContainer } from "./artworkContainer/ArtworkContainer";
 import "./artworkGallery.scss";
 import Carousel from "./carousel/Carousel";
@@ -18,11 +18,18 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
     return (
       <section className="artwork-gallery">
         <Carousel elements={data.elements}></Carousel>
-        <div className="artworks-parent" style={{ width: "100%" }}>
+        <div
+          className="artworks-parent"
+          id="artworks-parent"
+          style={{ width: "100%" }}
+        >
           {data.elements
             .sort((a: ElementDTO, b: ElementDTO) => a.position - b.position)
-            .map((element) => (
-              <ArtworkContainer artworkData={element} />
+            .map((element, i) => (
+              <ArtworkContainer
+                artworkData={element}
+                key={`artworkContainer_${i}`}
+              />
             ))}
           <div className="artwork-gallery__add-container">
             <FaPlus className="artwork-gallery__add-container__icon" />

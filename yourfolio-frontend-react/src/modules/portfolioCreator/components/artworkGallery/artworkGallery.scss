@@ -8,7 +8,7 @@
 
     & .artworks-parent {
         @include flex-column;
-        overflow-y: scroll;
+        overflow: scroll;
     }
 
     &__add-container {
