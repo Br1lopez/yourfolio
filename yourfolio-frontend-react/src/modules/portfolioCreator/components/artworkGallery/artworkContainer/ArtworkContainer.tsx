@@ -8,11 +8,11 @@ interface ArtworkContainerProps {
 export const ArtworkContainer = (props: ArtworkContainerProps) => {
   const { artworkData } = props;
   return (
-    <article className="artwork" id={`artwork_${artworkData.position}`}>
+    <article className="artwork" id={`img_${artworkData.position}`}>
       <div className="artwork__img-parent">
         {artworkData.files[0] && (
           <img
-            id={`img_${artworkData.position}`}
+            id={`i_${artworkData.position}`}
             src={artworkData.files[0].url}
             alt={artworkData.name}
             className="artwork__img-parent__img"

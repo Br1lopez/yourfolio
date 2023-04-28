@@ -106,12 +106,12 @@ const Carousel = (props: CarouselProps) => {
               smooth={true}
               spy={true}
               offset={-100}
-              to={`artwork_${element.position}`}
+              to={`img_${element.position}`}
               activeClass="active"
             >
               <img
                 src={element.files[0].url}
-                key={`artwork_${element.position}`}
+                key={`${element.position}`}
                 onLoad={checkArrowsVisibility}
               />
             </Link>
