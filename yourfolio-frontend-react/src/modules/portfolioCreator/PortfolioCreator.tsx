@@ -22,7 +22,6 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     useContext(PortfolioContext);
   const [barWidth, setBarWidth] = useState<string>("55px");
   const [navHeight, setNavHeight] = useState<string>("55px");
-  const [activeFontFamily, setActiveFontFamily] = useState<string>("Open Sans");
 
   useEffect(() => {
     portfolioId.set(props.portfolioId);
@@ -56,13 +55,6 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
                 .map((tab: any) => ({ name: tab.name, id: tab.id }))}
               height={navHeight}
             />
-            <div>
-              <FontPicker
-                apiKey="AIzaSyA7-F6PODGUMyfHXyRvfBfZFRlSJcfmiVE"
-                activeFontFamily={activeFontFamily}
-                onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
-              />
-            </div>
             {query.data.elements.length > 0 && (
               <ActiveComponent height={`calc(100vh - ${navHeight}`} />
             )}

@@ -1,12 +1,6 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { createElement, updateElement } from "src/api/element";
+import { updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ModalType,
@@ -19,6 +13,7 @@ import {
 import { Notification } from "rsuite";
 import "./modal.scss";
 import { throttle } from "lodash";
+import FontPicker from "font-picker-react";
 
 //TODO arreglar throttling (hace mil llamadas cuando hay input change)
 export const StyleModal = () => {
@@ -53,11 +48,7 @@ export const StyleModal = () => {
     mutationFn: () =>
       updateElement(portfolioId.value, {
         ...portfolioData.value,
-        style: {
-          ...portfolioData.value.style,
-          bgColor: portfolioData.value.style.bgColor,
-          fontColor: portfolioData.value.style.fontColor,
-        },
+        style: portfolioData.value.style,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
@@ -82,6 +73,7 @@ export const StyleModal = () => {
     activeModalData.set({ parentId: null, elementId: null, type: null });
   };
 
+  //TODO: arreglar fuentes no guardandose en bd
   return (
     <Modal
       id="newTab"
@@ -112,6 +104,22 @@ export const StyleModal = () => {
               onChange={handleFontColorInputChange}
               value={portfolioData.value.style.fontColor || "#ffffff"}
               required
+            />
+          </Form.Group>
+          <Form.Group controlId="newTabTitle" className="mb-4">
+            <Form.Label>Color de texto:</Form.Label>
+            <FontPicker
+              apiKey="AIzaSyA7-F6PODGUMyfHXyRvfBfZFRlSJcfmiVE"
+              activeFontFamily={portfolioData.value.style.fontFamily}
+              onChange={(nextFont) =>
+                portfolioData.set({
+                  ...portfolioData.value,
+                  style: {
+                    ...portfolioData.value.style,
+                    fontFamily: nextFont.family,
+                  },
+                })
+              }
             />
           </Form.Group>
         </Modal.Body>
