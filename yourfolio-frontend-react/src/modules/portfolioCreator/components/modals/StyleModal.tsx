@@ -107,7 +107,7 @@ export const StyleModal = () => {
           </Form.Group>
           <Form.Group controlId="newTabTitle" className="mb-4">
             <Form.Label>Color de texto:</Form.Label>
-            {//TODO: al cambiar, se vuelve a la fuente por defecto durante un milisegundo}
+            {/*TODO: al cambiar, se vuelve a la fuente por defecto durante un milisegundo*/}
             <FontPicker
               apiKey="AIzaSyA7-F6PODGUMyfHXyRvfBfZFRlSJcfmiVE"
               activeFontFamily={portfolioData.value.style.fontFamily}
