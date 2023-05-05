@@ -8,7 +8,7 @@ import { PortfolioContext } from "./context/PortfolioContext";
 import InterfaceBar from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import PortfolioStyle from "./components/PortfolioStyle";
-import FontPicker from "font-picker-react";
+import { applyFont } from "src/utils/functions";
 
 export interface PortfolioCreatorProps {
   portfolioId: number;
@@ -30,6 +30,8 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     queryFn: () => getElement(props.portfolioId),
     onSuccess: (data) => {
       portfolioData.set(data);
+      applyFont(data.style.fontFamily || "Open Sans");
+      console.log("suuuu", data.style.fontFamily);
     },
   });
 

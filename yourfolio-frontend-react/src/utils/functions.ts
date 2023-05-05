@@ -1,4 +1,6 @@
 import { ElementDTO } from "src/api/elementTypes";
+import { Font, Category, Script, Variant } from "@samuelmeuli/font-manager";
+import { loadActiveFont } from "src/modules/fontManager/loadFonts";
 
 export function getElementByIdRecursive(
   id: number,
@@ -21,4 +23,24 @@ export function getElementByIdRecursive(
   }
 
   return null;
+}
+
+function createFontFromString(fontString: string): Font {
+  const family = fontString;
+  const id = fontString;
+  const category = "" as Category;
+  const scripts = [] as Script[];
+  const variants = [] as Variant[];
+
+  return {
+    family,
+    id,
+    category,
+    scripts,
+    variants,
+  };
+}
+
+export function applyFont(font: string) {
+  loadActiveFont(createFontFromString(font), "", [], [], "");
 }
