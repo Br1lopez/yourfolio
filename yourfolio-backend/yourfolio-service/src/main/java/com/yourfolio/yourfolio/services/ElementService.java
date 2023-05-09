@@ -35,9 +35,7 @@ public class ElementService {
 
         setChildrenPosition(result);
 
-        ElementTypeDTO type = result.getType();
-        type.setPossibleChildren(elementTypeRepository.findChildrenByParentId(type.getId()));
-        result.setType(type);
+        setTypeRecursively(result);
 
         return result;
 
@@ -51,6 +49,24 @@ public class ElementService {
                         setChildrenPosition(e);
                     }
                 }
+        );
+    }
+
+    public void setType(ElementDTO elementDTO) {
+        if (elementDTO.getType() != null) {
+            ElementTypeDTO type = elementDTO.getType();
+            type.setPossibleChildren(elementTypeRepository.findChildrenByParentId(type.getId()));
+            elementDTO.setType(type);
+            if (elementDTO.getType().getPossibleChildren() != null && !elementDTO.getType().getPossibleChildren().isEmpty()) {
+                setChildrenPosition(elementDTO);
+            }
+        }
+    }
+
+    public void setTypeRecursively(ElementDTO elementDTO) {
+        setType(elementDTO);
+        elementDTO.getElements().forEach(
+                this::setType
         );
     }
 

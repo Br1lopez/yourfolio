@@ -118,7 +118,7 @@ export const TabModal = () => {
             >
               <option value=""></option>
               {getElementByIdRecursive(
-                activeElementId.value,
+                activeModalData.value.parentId || activeElementId.value,
                 portfolioData.value
               )?.type.possibleChildren?.map((element) => (
                 <option value={element.id} key={element.id}>

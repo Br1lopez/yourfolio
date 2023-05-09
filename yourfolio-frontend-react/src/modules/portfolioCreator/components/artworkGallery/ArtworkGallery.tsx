@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ArtworkContainer } from "./artworkContainer/ArtworkContainer";
 import "./artworkGallery.scss";
 import Carousel from "./carousel/Carousel";
 import { ElementDTO } from "src/api/elementTypes";
 import { FaPlus } from "react-icons/fa";
+import { ModalType, PortfolioContext } from "../../context/PortfolioContext";
 
 interface ArtworkGalleryProps {
   galleryData: ElementDTO;
@@ -11,6 +12,8 @@ interface ArtworkGalleryProps {
 
 export const ArtworkGallery = (props: ArtworkGalleryProps) => {
   const data = props.galleryData;
+  const { activeModalData: activeModalProps, activeElementId } =
+    useContext(PortfolioContext);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -31,7 +34,16 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
                 key={`artworkContainer_${i}`}
               />
             ))}
-          <div className="artwork-gallery__add-container">
+          <div
+            className="artwork-gallery__add-container"
+            onClick={() => {
+              activeModalProps.set({
+                parentId: activeElementId.value,
+                elementId: 0,
+                modalType: ModalType.CreateElement,
+              });
+            }}
+          >
             <FaPlus className="artwork-gallery__add-container__icon" />
           </div>
         </div>

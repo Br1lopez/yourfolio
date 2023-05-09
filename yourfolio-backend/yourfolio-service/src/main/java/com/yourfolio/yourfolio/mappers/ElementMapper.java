@@ -13,7 +13,6 @@ import java.util.List;
 public interface ElementMapper {
 
     @Mapping(source = "typeId", target = "type", qualifiedByName = "typeIdToType")
-
     ElementEntity toEntity(ElementSaveDTO elementDTO);
 
     ElementDTO toDto(ElementEntity elementEntity);

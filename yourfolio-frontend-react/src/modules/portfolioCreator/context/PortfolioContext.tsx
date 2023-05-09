@@ -36,7 +36,7 @@ export interface PortfolioCtxData {
 
 export interface ActiveModalCtxData {
   parentId: number | null;
-  elementId: number | null;
+  elementId: number | null; //0 if new element
   modalType: ModalType | null;
 }
 

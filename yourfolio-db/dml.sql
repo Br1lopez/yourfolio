@@ -5,6 +5,7 @@ INSERT INTO file (url, description, user_id) VALUES ('https://example.com/file1'
 
 INSERT INTO element_type (id, name) VALUES ('portfolio', 'Portfolio'), ('tab', 'Tab'), ('project', 'Project'), ('section', 'Section'), ('vertical-carousel-gallery', 'Galería (Vertical)'), ('artwork', 'Artwork');
 insert into element_type_children (parent_id, child_id) values ('portfolio', 'vertical-carousel-gallery');
+insert into element_type_children (parent_id, child_id) values ('vertical-carousel-gallery', 'artwork');
 
 INSERT INTO element (element_type_id, name, description, thumbnail_file_id) VALUES ('portfolio', 'Portfolio de Juanjo','Soy Juanjo y este es mi portfolio', 1);
 INSERT INTO element (element_type_id, name, description, thumbnail_file_id) VALUES ('tab', 'Tab 1','Description for Element Group 1', 1);
