@@ -20,13 +20,20 @@ CREATE TABLE file (
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+
+CREATE TABLE element_type (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255)
+);
+
 create table element (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	type ENUM('portfolio', 'tab', 'project', 'section', 'artwork-gallery', 'artwork'),
+	element_type_id VARCHAR(255),
 	name VARCHAR(255),
     description VARCHAR(255),
     user_id INT,
     thumbnail_file_id INT,
+    FOREIGN KEY (element_type_id) REFERENCES element_type(id),
     FOREIGN KEY (thumbnail_file_id) REFERENCES file(id)
 );
 

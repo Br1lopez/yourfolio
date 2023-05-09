@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 public class ElementSaveDTO implements Serializable {
-    private final String type;
+    private final ElementTypeDTO type;
     private final String name;
     private final Integer position;
     private final String description;

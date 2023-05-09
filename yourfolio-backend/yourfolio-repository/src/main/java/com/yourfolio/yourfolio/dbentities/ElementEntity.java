@@ -24,9 +24,9 @@ public class ElementEntity {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Lob
-    @Column(name = "type")
-    private String type;
+    @OneToOne
+    @JoinColumn(name = "element_type_id")
+    private ElementTypeEntity type;
 
     @Column(name = "name")
     private String name;

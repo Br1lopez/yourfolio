@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class ElementDTO implements Serializable {
 
     private Integer id;
-    private String type;
+    private ElementTypeDTO type;
     private String name;
     private String description;
     private FileDTO thumbnailFile;
