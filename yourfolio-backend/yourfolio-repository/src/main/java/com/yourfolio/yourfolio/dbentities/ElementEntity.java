@@ -1,14 +1,9 @@
 package com.yourfolio.yourfolio.dbentities;
 
-import com.yourfolio.yourfolio.repositories.RelationshipRepository;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import com.yourfolio.yourfolio.dbentities.RelationshipEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Builder
 @AllArgsConstructor

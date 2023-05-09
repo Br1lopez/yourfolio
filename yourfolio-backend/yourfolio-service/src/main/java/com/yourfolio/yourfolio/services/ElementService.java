@@ -1,14 +1,14 @@
 package com.yourfolio.yourfolio.services;
 
 import com.yourfolio.yourfolio.dbentities.ElementEntity;
-import com.yourfolio.yourfolio.dbentities.RelationshipEntity;
+import com.yourfolio.yourfolio.dbentities.ElementRelationshipEntity;
 import com.yourfolio.yourfolio.dbentities.StyleEntity;
-import com.yourfolio.yourfolio.dbentities.ids.RelationshipEntityId;
+import com.yourfolio.yourfolio.dbentities.ids.ElementRelationshipEntityId;
 import com.yourfolio.yourfolio.dtos.ElementDTO;
 import com.yourfolio.yourfolio.mappers.ElementMapper;
 import com.yourfolio.yourfolio.mappers.StyleMapper;
 import com.yourfolio.yourfolio.repositories.ElementRepository;
-import com.yourfolio.yourfolio.repositories.RelationshipRepository;
+import com.yourfolio.yourfolio.repositories.ElementRelationshipRepository;
 import com.yourfolio.yourfolio.repositories.StyleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ElementService {
     private final ElementRepository elementRepository;
     private final ElementMapper elementMapper;
-    private final RelationshipRepository relationshipRepository;
+    private final ElementRelationshipRepository elementRelationshipRepository;
     private final StyleRepository styleRepository;
 
     private final StyleMapper styleMapper;
@@ -35,7 +35,7 @@ public class ElementService {
     public void setChildrenPosition(ElementDTO elementDTO) {
         elementDTO.getElements().stream().forEach(
                 e -> {
-                    e.setPosition(relationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition());
+                    e.setPosition(elementRelationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition());
                     if (e.getElements() != null && !e.getElements().isEmpty()) {
                         setChildrenPosition(e);
                     }
@@ -47,11 +47,11 @@ public class ElementService {
         ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
 
         if (parentId != null) {
-            Integer maxPos = relationshipRepository.findMaxPosition(parentId);
+            Integer maxPos = elementRelationshipRepository.findMaxPosition(parentId);
             if (maxPos == null)
                 maxPos = 0;
-            relationshipRepository.save(
-                    RelationshipEntity.builder()
+            elementRelationshipRepository.save(
+                    ElementRelationshipEntity.builder()
                             .parentId(parentId)
                             .childId(response.getId())
                             .position(maxPos + 1)
@@ -78,14 +78,14 @@ public class ElementService {
     }
 
     public void deleteElement(Integer elementId) {
-        for (RelationshipEntity relationship : relationshipRepository.findByChildId(elementId)) {
-            relationshipRepository.delete(relationship);
+        for (ElementRelationshipEntity relationship : elementRelationshipRepository.findByChildId(elementId)) {
+            elementRelationshipRepository.delete(relationship);
         }
         elementRepository.deleteById(elementId);
     }
 
     public void removeChild(Integer parentId, Integer childId) {
-        relationshipRepository.deleteById(RelationshipEntityId.builder()
+        elementRelationshipRepository.deleteById(ElementRelationshipEntityId.builder()
                 .parentId(parentId)
                 .childId(childId)
                 .build());

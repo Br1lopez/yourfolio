@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RelationshipEntityId implements Serializable {
+public class ElementRelationshipEntityId implements Serializable {
     private Integer parentId;
     private Integer childId;
 

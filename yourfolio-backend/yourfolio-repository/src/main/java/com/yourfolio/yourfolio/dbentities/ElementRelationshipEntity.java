@@ -1,6 +1,6 @@
 package com.yourfolio.yourfolio.dbentities;
 
-import com.yourfolio.yourfolio.dbentities.ids.RelationshipEntityId;
+import com.yourfolio.yourfolio.dbentities.ids.ElementRelationshipEntityId;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,9 +11,9 @@ import lombok.*;
 @Setter
 @ToString
 @Entity
-@IdClass(RelationshipEntityId.class)
+@IdClass(ElementRelationshipEntityId.class)
 @Table(name = "element_children")
-public class RelationshipEntity implements Comparable<RelationshipEntity> {
+public class ElementRelationshipEntity implements Comparable<ElementRelationshipEntity> {
 
     @Id
     @Column(name = "parent_id")
@@ -27,7 +27,7 @@ public class RelationshipEntity implements Comparable<RelationshipEntity> {
     private Integer position;
 
     @Override
-    public int compareTo(RelationshipEntity o) {
+    public int compareTo(ElementRelationshipEntity o) {
         return this.getPosition() - o.getPosition();
     }
 }
