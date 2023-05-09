@@ -40,7 +40,7 @@ public class ElementEntity {
 
 
     @ManyToMany
-    @JoinTable(name = "element_element",
+    @JoinTable(name = "element_children",
             joinColumns = @JoinColumn(name = "parent_id"),
             inverseJoinColumns = @JoinColumn(name = "child_id"))
     private Set<ElementEntity> elements = new LinkedHashSet<>();

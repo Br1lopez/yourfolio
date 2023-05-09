@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 @Entity
 @IdClass(RelationshipEntityId.class)
-@Table(name = "element_element")
+@Table(name = "element_children")
 public class RelationshipEntity implements Comparable<RelationshipEntity> {
 
     @Id

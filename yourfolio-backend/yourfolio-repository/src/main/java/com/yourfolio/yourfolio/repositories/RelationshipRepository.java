@@ -17,7 +17,7 @@ public interface RelationshipRepository extends JpaRepository<RelationshipEntity
     List<RelationshipEntity> findByParentIdOrderByPositionAsc(Integer parentId);
 
 
-    @Query(value = "SELECT MAX(position) FROM element_element WHERE parent_id= :parentId", nativeQuery = true)
+    @Query(value = "SELECT MAX(position) FROM element_children WHERE parent_id= :parentId", nativeQuery = true)
     Integer findMaxPosition(@Param("parentId") Integer parentId);
 
 

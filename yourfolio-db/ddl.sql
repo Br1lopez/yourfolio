@@ -21,10 +21,20 @@ CREATE TABLE file (
 );
 
 
+
 CREATE TABLE element_type (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255)
 );
+
+CREATE TABLE element_type_children (
+    parent_id VARCHAR(255),
+    child_id VARCHAR(255),
+    FOREIGN KEY (parent_id) REFERENCES element_type(id),
+    FOREIGN KEY (child_id) REFERENCES element_type(id)
+);
+
+
 
 create table element (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,6 +46,16 @@ create table element (
     FOREIGN KEY (element_type_id) REFERENCES element_type(id),
     FOREIGN KEY (thumbnail_file_id) REFERENCES file(id)
 );
+
+CREATE TABLE element_children (
+    parent_id INT,
+    child_id INT,
+    position INT,
+    PRIMARY KEY (parent_id, child_id),
+    FOREIGN KEY (parent_id) REFERENCES element(id),
+    FOREIGN KEY (child_id) REFERENCES element(id)
+);
+
 
 
 CREATE TABLE style(
@@ -56,11 +76,4 @@ CREATE TABLE element_file (
     FOREIGN KEY (element_id) REFERENCES element(id)
 );
 
-CREATE TABLE element_element (
-    parent_id INT,
-    child_id INT,
-    position INT,
-    PRIMARY KEY (parent_id, child_id),
-    FOREIGN KEY (parent_id) REFERENCES element(id),
-    FOREIGN KEY (child_id) REFERENCES element(id)
-);
+
