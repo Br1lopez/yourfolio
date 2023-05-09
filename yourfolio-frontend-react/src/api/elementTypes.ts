@@ -1,6 +1,6 @@
 export interface ElementDTO {
   id: number;
-  type: string;
+  type: typeDTO;
   name: string;
   description: string;
   thumbnailFile: FileDTO;
@@ -11,7 +11,7 @@ export interface ElementDTO {
 }
 
 export interface ElementSaveDTO {
-  type?: string;
+  typeId?: string;
   name?: string;
   position?: number;
   description?: string;
@@ -29,4 +29,10 @@ export interface StyleDTO {
   bgColor?: string;
   fontColor?: string;
   fontFamily?: string;
+}
+
+export interface typeDTO {
+  id: string;
+  name: string;
+  possibleChildren?: typeDTO[];
 }

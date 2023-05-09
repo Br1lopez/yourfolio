@@ -15,17 +15,15 @@ import "./modal.scss";
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");
-  const { activeModalData, portfolioId, toaster } =
+  const [type, setType] = useState<string>("");
+  const { activeModalData, portfolioId, toaster, portfolioData } =
     useContext(PortfolioContext);
 
-  const handleNameInputChange = (event: any) => {
-    setName(event.target.value);
-  };
   const queryClient = useQueryClient();
 
   const createElementMutation = useMutation({
     mutationFn: () =>
-      createElement(portfolioId.value, { name: name, type: "tab" }),
+      createElement(portfolioId.value, { name: name, typeId: type }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
@@ -55,8 +53,10 @@ export const TabModal = () => {
     },
   });
 
-  const handleClick = (event: any) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
+    console.log("e", name, type);
+
     switch (activeModalData.value.type) {
       case ModalType.CreateElement:
         createElementMutation.mutate();
@@ -92,22 +92,35 @@ export const TabModal = () => {
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Modal.Body>
-          <Form.Group controlId="newTabTitle" className="mb-4">
+          <Form.Group controlId="newElementTitle" className="mb-4">
             <Form.Label>Nombre:</Form.Label>
             <Form.Control
               type="text"
-              onChange={handleNameInputChange}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
+          </Form.Group>
+          <Form.Group controlId="newElementType" className="mb-4">
+            <Form.Label>Tipo de elemento:</Form.Label>
+            <Form.Select
+              aria-label="Select"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </Form.Select>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button type="submit" variant="primary" onClick={handleClick}>
+          <Button type="submit" variant="primary">
             {title()}
           </Button>
         </Modal.Footer>

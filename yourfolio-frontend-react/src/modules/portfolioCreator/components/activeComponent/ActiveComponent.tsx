@@ -15,7 +15,7 @@ const ActiveComponent = (props: ActiveComponentProps) => {
   );
   return (
     <div className="active-component" style={{ height: props.height }}>
-      {activeElementId && element?.type === "artwork-gallery" ? (
+      {activeElementId && element?.type.id === "artwork-gallery" ? (
         <ArtworkGallery galleryData={element} />
       ) : (
         "b"
