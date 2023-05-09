@@ -38,7 +38,7 @@ const Tab = (props: TabProps) => {
     activeModalData.set({
       parentId: null,
       elementId: props.tabId,
-      type: ModalType.EditElement,
+      modalType: ModalType.EditElement,
     });
   };
 

@@ -63,7 +63,7 @@ export const TabModal = () => {
     event.preventDefault();
     console.log("e", name, type);
 
-    switch (activeModalData.value.type) {
+    switch (activeModalData.value.modalType) {
       case ModalType.CreateElement:
         createElementMutation.mutate();
         break;
@@ -74,11 +74,11 @@ export const TabModal = () => {
   };
 
   const handleClose = () => {
-    activeModalData.set({ parentId: null, elementId: null, type: null });
+    activeModalData.set({ parentId: null, elementId: null, modalType: null });
   };
 
   const title = () => {
-    switch (activeModalData.value.type) {
+    switch (activeModalData.value.modalType) {
       case ModalType.CreateElement:
         return "Crear pestaña";
       case ModalType.EditElement:
@@ -116,6 +116,7 @@ export const TabModal = () => {
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
+              <option value=""></option>
               {getElementByIdRecursive(
                 activeElementId.value,
                 portfolioData.value

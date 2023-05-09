@@ -87,7 +87,7 @@ export const NavBar = (props: NavBarProps) => {
                   activeModalProps.set({
                     parentId: portfolioId.value,
                     elementId: 0,
-                    type: ModalType.CreateElement,
+                    modalType: ModalType.CreateElement,
                   });
                 }}
               >

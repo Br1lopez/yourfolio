@@ -69,14 +69,14 @@ export const StyleModal = () => {
   };
 
   const handleClose = () => {
-    activeModalData.set({ parentId: null, elementId: null, type: null });
+    activeModalData.set({ parentId: null, elementId: null, modalType: null });
   };
 
   //TODO: arreglar fuentes no guardandose en bd
   return (
     <Modal
       id="newTab"
-      show={activeModalData.value.type === ModalType.SetSyle}
+      show={activeModalData.value.modalType === ModalType.SetSyle}
       onHide={handleClose}
       backdrop={false}
       centered={true}

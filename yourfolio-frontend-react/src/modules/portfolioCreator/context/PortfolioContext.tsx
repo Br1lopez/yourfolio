@@ -21,7 +21,7 @@ export const PortfolioContext = React.createContext<PortfolioCtxData>({
   portfolioData: { value: EXAMPLE_ELEMENT, set: () => console.log("set") },
 
   activeModalData: {
-    value: { parentId: null, elementId: null, type: null },
+    value: { parentId: null, elementId: null, modalType: null },
     set: () => console.log("set"),
   },
 });
@@ -37,7 +37,7 @@ export interface PortfolioCtxData {
 export interface ActiveModalCtxData {
   parentId: number | null;
   elementId: number | null;
-  type: ModalType | null;
+  modalType: ModalType | null;
 }
 
 export interface State<T> {
@@ -57,7 +57,7 @@ export const usePortfolioContext = () => {
   const [activeModalData, setActiveModalData] = useState<ActiveModalCtxData>({
     parentId: null,
     elementId: null,
-    type: null,
+    modalType: null,
   });
   const [portfolioData, setPortfolioData] =
     useState<ElementDTO>(EXAMPLE_ELEMENT);

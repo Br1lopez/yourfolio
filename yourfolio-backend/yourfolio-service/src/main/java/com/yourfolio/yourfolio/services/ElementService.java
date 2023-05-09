@@ -52,7 +52,7 @@ public class ElementService {
                 }
         );
     }
-
+//TODO implement ElementSaveDTO
     public ElementDTO createElement(ElementDTO elementDTO, Integer parentId) {
         ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
 

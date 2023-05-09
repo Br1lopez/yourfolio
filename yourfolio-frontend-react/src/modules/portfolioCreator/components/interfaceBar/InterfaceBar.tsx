@@ -16,7 +16,7 @@ const InterfaceBar = (props: InterfaceBarProps) => {
     activeModalData.set({
       parentId: null,
       elementId: null,
-      type: ModalType.SetSyle,
+      modalType: ModalType.SetSyle,
     });
   };
   return (
