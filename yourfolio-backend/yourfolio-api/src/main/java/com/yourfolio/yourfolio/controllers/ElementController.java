@@ -1,6 +1,7 @@
 package com.yourfolio.yourfolio.controllers;
 
 import com.yourfolio.yourfolio.dtos.ElementDTO;
+import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import com.yourfolio.yourfolio.services.ElementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,18 +21,18 @@ public class ElementController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ElementDTO> createElement(@RequestBody ElementDTO elementDto) {
+    public ResponseEntity<ElementDTO> createElement(@RequestBody ElementSaveDTO elementDto) {
         return new ResponseEntity<>(elementService.createElement(elementDto, null), HttpStatus.CREATED);
     }
 
     @PostMapping("/{parentId}")
-    public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementDTO elementDto) {
+    public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementSaveDTO elementDto) {
         return new ResponseEntity<>(elementService.createElement(elementDto, parentId), HttpStatus.CREATED);
     }
 
 
     @PutMapping("/{elementId}")
-    public ResponseEntity<ElementDTO> updateElement(@PathVariable Integer elementId, @RequestBody ElementDTO elementDto) {
+    public ResponseEntity<ElementDTO> updateElement(@PathVariable Integer elementId, @RequestBody ElementSaveDTO elementDto) {
         return new ResponseEntity<>(elementService.updateElement(elementDto, elementId), HttpStatus.OK);
     }
 

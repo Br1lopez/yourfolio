@@ -5,6 +5,7 @@ import com.yourfolio.yourfolio.dbentities.ElementRelationshipEntity;
 import com.yourfolio.yourfolio.dbentities.StyleEntity;
 import com.yourfolio.yourfolio.dbentities.ids.ElementRelationshipEntityId;
 import com.yourfolio.yourfolio.dtos.ElementDTO;
+import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import com.yourfolio.yourfolio.dtos.ElementTypeDTO;
 import com.yourfolio.yourfolio.mappers.ElementMapper;
 import com.yourfolio.yourfolio.mappers.StyleMapper;
@@ -52,8 +53,8 @@ public class ElementService {
                 }
         );
     }
-//TODO implement ElementSaveDTO
-    public ElementDTO createElement(ElementDTO elementDTO, Integer parentId) {
+
+    public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId) {
         ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
 
         if (parentId != null) {
@@ -72,7 +73,7 @@ public class ElementService {
         return elementMapper.toDto(response);
     }
 
-    public ElementDTO updateElement(ElementDTO elementDTO, Integer elementId) {
+    public ElementDTO updateElement(ElementSaveDTO elementDTO, Integer elementId) {
         ElementEntity entityToSave = elementRepository.getReferenceById(elementId);
         entityToSave.setName(elementDTO.getName());
 
