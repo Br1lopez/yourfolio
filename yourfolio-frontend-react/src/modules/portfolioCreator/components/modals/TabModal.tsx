@@ -12,12 +12,18 @@ import {
 } from "../notifications/CloudNotification";
 import { Notification } from "rsuite";
 import "./modal.scss";
+import { getElementByIdRecursive } from "src/utils/functions";
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<string>("");
-  const { activeModalData, portfolioId, toaster, portfolioData } =
-    useContext(PortfolioContext);
+  const {
+    activeModalData,
+    portfolioId,
+    toaster,
+    portfolioData,
+    activeElementId,
+  } = useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
 
@@ -110,9 +116,14 @@ export const TabModal = () => {
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              {getElementByIdRecursive(
+                activeElementId.value,
+                portfolioData.value
+              )?.type.possibleChildren?.map((element) => (
+                <option value={element.id} key={element.id}>
+                  {element.name}
+                </option>
+              ))}
             </Form.Select>
           </Form.Group>
         </Modal.Body>
