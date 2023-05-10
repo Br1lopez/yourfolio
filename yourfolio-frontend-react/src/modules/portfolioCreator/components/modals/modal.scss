@@ -4,3 +4,7 @@
     box-shadow: $default-shadow;
     border: none;
 }
+
+.rs-picker-menu {
+    z-index: 2000 !important;
+}

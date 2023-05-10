@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -10,9 +10,20 @@ import {
   NotificationContent,
   defaultToastValues,
 } from "../notifications/CloudNotification";
-import { Notification } from "rsuite";
+import {
+  Notification,
+  Form,
+  ButtonToolbar,
+  Button,
+  Uploader,
+  SelectPicker,
+} from "rsuite";
 import "./modal.scss";
 import { getElementByIdRecursive } from "src/utils/functions";
+import {
+  CustomInputType,
+  getCustomInputs,
+} from "src/modules/portfolioCreator/components/modals/components/customInputs";
 
 export const TabModal = () => {
   const [name, setName] = useState<string>("");
@@ -63,7 +74,6 @@ export const TabModal = () => {
   });
 
   const handleSubmit = (event: any) => {
-    event.preventDefault();
     console.log("e", name, type);
 
     switch (activeModalData.value.modalType) {
@@ -104,20 +114,32 @@ export const TabModal = () => {
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group controlId="newElementTitle" className="mb-4">
-            <Form.Label>Nombre:</Form.Label>
+            <Form.ControlLabel>Nombre:</Form.ControlLabel>
             <Form.Control
-              type="text"
+              name="input"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(v: string, e: any) => setName(v)}
               required
             />
           </Form.Group>
           <Form.Group controlId="newElementType" className="mb-4">
-            <Form.Label>Tipo de elemento:</Form.Label>
-            <Form.Select
+            <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
+            <Form.Control
+              name="selectPicker"
+              accepter={SelectPicker}
+              searchable={false}
               aria-label="Select"
               value={type}
-              onChange={(e) => setType(e.target.value)}
+              onChange={(v: any, e: any) => setType(v)}
+              data={
+                getElementByIdRecursive(
+                  activeModalData.value.parentId || activeElementId.value,
+                  portfolioData.value
+                )?.type.possibleChildren?.map((element) => ({
+                  label: element.name,
+                  value: element.id,
+                })) || []
+              }
             >
               <option value=""></option>
               {getElementByIdRecursive(
@@ -128,16 +150,39 @@ export const TabModal = () => {
                   {element.name}
                 </option>
               ))}
-            </Form.Select>
+            </Form.Control>
           </Form.Group>
+          {getCustomInputs(type).map((input) => {
+            switch (input) {
+              case CustomInputType.Image:
+                return (
+                  <Form.Group controlId="newElementType" className="mb-4">
+                    <Form.ControlLabel>Imagen:</Form.ControlLabel>
+                    <Form.Control
+                      name="uploader"
+                      accepter={Uploader}
+                      action="#"
+                    />
+                  </Form.Group>
+                );
+            }
+          })}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          {/* <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
           <Button type="submit" variant="primary">
             {title()}
-          </Button>
+          </Button> */}
+          <ButtonToolbar>
+            <Button appearance="default" onClick={handleClose}>
+              Cancelar
+            </Button>
+            <Button appearance="primary" onClick={handleSubmit}>
+              {title()}
+            </Button>
+          </ButtonToolbar>
         </Modal.Footer>
       </Form>
     </Modal>

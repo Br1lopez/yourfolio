@@ -5,6 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "isolatedModules": true,
+    // "noImplicitAny": false,
     "jsx": "preserve",
     "target": "es5",
     "lib": [
