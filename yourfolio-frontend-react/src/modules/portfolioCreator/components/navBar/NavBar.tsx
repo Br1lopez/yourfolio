@@ -3,7 +3,11 @@ import { Navbar, Button, Nav } from "react-bootstrap";
 import "./navBar.scss";
 import { TabModal } from "../modals/TabModal";
 import Tab from "./components/Tab";
-import { PortfolioContext, ModalType } from "../../context/PortfolioContext";
+import {
+  PortfolioContext,
+  ModalType,
+  EMPTY_MODAL_CONTENT,
+} from "../../context/PortfolioContext";
 
 //TODO transiciones al borrar y añadir pestañas
 interface NavBarProps {
@@ -88,6 +92,7 @@ export const NavBar = (props: NavBarProps) => {
                     parentId: portfolioId.value,
                     elementId: 0,
                     modalType: ModalType.CreateElement,
+                    modalContent: EMPTY_MODAL_CONTENT,
                   });
                 }}
               >

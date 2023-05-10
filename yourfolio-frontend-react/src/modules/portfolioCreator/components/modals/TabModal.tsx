@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Modal } from "react-bootstrap";
 import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  EMPTY_MODAL_CONTENT,
   ModalType,
   PortfolioContext,
 } from "src/modules/portfolioCreator/context/PortfolioContext";
@@ -26,8 +27,6 @@ import {
 } from "src/modules/portfolioCreator/components/modals/components/customInputs";
 
 export const TabModal = () => {
-  const [name, setName] = useState<string>("");
-  const [type, setType] = useState<string>("");
   const {
     activeModalData,
     portfolioId,
@@ -41,14 +40,16 @@ export const TabModal = () => {
   const createElementMutation = useMutation({
     mutationFn: () =>
       createElement(activeModalData.value.parentId || portfolioId.value, {
-        name: name,
-        typeId: type,
+        name: activeModalData.value.modalContent?.name,
+        typeId: activeModalData.value.modalContent?.elementType,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
         <Notification>
-          <NotificationContent text={`Pestaña "${name}" creada con éxito`} />
+          <NotificationContent
+            text={`Pestaña "${activeModalData.value.modalContent?.name}" creada con éxito`}
+          />
         </Notification>,
         defaultToastValues
       );
@@ -58,13 +59,15 @@ export const TabModal = () => {
 
   const editElementMutation = useMutation({
     mutationFn: () =>
-      updateElement(activeModalData.value.elementId || -1, { name: name }),
+      updateElement(activeModalData.value.elementId || -1, {
+        name: activeModalData.value.modalContent?.name,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(
         <Notification>
           <NotificationContent
-            text={`Pestaña "${name}" modificada con éxito`}
+            text={`Pestaña "${activeModalData.value.modalContent?.name}" modificada con éxito`}
           ></NotificationContent>
         </Notification>,
         defaultToastValues
@@ -85,9 +88,12 @@ export const TabModal = () => {
   };
 
   const handleClose = () => {
-    activeModalData.set({ parentId: null, elementId: null, modalType: null });
-    setName("");
-    setType("");
+    activeModalData.set({
+      parentId: null,
+      elementId: null,
+      modalType: null,
+      modalContent: null,
+    });
   };
 
   const title = () => {
@@ -117,9 +123,17 @@ export const TabModal = () => {
             <Form.ControlLabel>Nombre:</Form.ControlLabel>
             <Form.Control
               name="input"
-              value={name}
-              onChange={(v: string, e: any) => setName(v)}
-              required
+              value={activeModalData.value.modalContent?.name}
+              onChange={(v: string, e: any) =>
+                activeModalData.set({
+                  ...activeModalData.value,
+                  modalContent: {
+                    ...(activeModalData.value.modalContent ||
+                      EMPTY_MODAL_CONTENT),
+                    name: v || "",
+                  },
+                })
+              }
             />
           </Form.Group>
           <Form.Group controlId="newElementType" className="mb-4">
@@ -129,8 +143,17 @@ export const TabModal = () => {
               accepter={SelectPicker}
               searchable={false}
               aria-label="Select"
-              value={type}
-              onChange={(v: any, e: any) => setType(v)}
+              value={activeModalData.value.modalContent?.elementType}
+              onChange={(v: any, e: any) =>
+                activeModalData.set({
+                  ...activeModalData.value,
+                  modalContent: {
+                    ...(activeModalData.value.modalContent ||
+                      EMPTY_MODAL_CONTENT),
+                    elementType: v || "",
+                  },
+                })
+              }
               data={
                 getElementByIdRecursive(
                   activeModalData.value.parentId || activeElementId.value,
@@ -152,7 +175,9 @@ export const TabModal = () => {
               ))}
             </Form.Control>
           </Form.Group>
-          {getCustomInputs(type).map((input) => {
+          {getCustomInputs(
+            activeModalData.value.modalContent?.elementType || ""
+          ).map((input) => {
             switch (input) {
               case CustomInputType.Image:
                 return (
@@ -165,6 +190,8 @@ export const TabModal = () => {
                     />
                   </Form.Group>
                 );
+              default:
+                return null;
             }
           })}
         </Modal.Body>

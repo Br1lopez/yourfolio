@@ -69,7 +69,12 @@ export const StyleModal = () => {
   };
 
   const handleClose = () => {
-    activeModalData.set({ parentId: null, elementId: null, modalType: null });
+    activeModalData.set({
+      parentId: null,
+      elementId: null,
+      modalType: null,
+      modalContent: null,
+    });
   };
 
   //TODO: arreglar fuentes no guardandose en bd

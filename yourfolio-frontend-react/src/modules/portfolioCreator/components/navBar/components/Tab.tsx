@@ -39,6 +39,10 @@ const Tab = (props: TabProps) => {
       parentId: null,
       elementId: props.tabId,
       modalType: ModalType.EditElement,
+      modalContent: {
+        name: props.name,
+        elementType: "",
+      },
     });
   };
 

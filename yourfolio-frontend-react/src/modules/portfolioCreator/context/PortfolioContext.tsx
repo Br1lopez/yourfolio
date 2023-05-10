@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { ElementDTO } from "src/api/elementTypes";
 
+export const EMPTY_MODAL_CONTENT: ModalContent = {
+  name: "",
+  elementType: "",
+};
+
 const EXAMPLE_ELEMENT = {
   id: -1,
   name: "",
@@ -21,7 +26,12 @@ export const PortfolioContext = React.createContext<PortfolioCtxData>({
   portfolioData: { value: EXAMPLE_ELEMENT, set: () => console.log("set") },
 
   activeModalData: {
-    value: { parentId: null, elementId: null, modalType: null },
+    value: {
+      parentId: null,
+      elementId: null,
+      modalType: null,
+      modalContent: null,
+    },
     set: () => console.log("set"),
   },
 });
@@ -38,6 +48,14 @@ export interface ActiveModalCtxData {
   parentId: number | null;
   elementId: number | null; //0 if new element
   modalType: ModalType | null;
+  modalContent: ModalContent | null;
+}
+
+export interface ModalContent {
+  name: string;
+  elementType: string;
+  description?: string;
+  image?: File;
 }
 
 export interface State<T> {
@@ -58,6 +76,7 @@ export const usePortfolioContext = () => {
     parentId: null,
     elementId: null,
     modalType: null,
+    modalContent: null,
   });
   const [portfolioData, setPortfolioData] =
     useState<ElementDTO>(EXAMPLE_ELEMENT);

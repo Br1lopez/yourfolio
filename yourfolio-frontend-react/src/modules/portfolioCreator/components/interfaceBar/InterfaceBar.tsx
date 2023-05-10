@@ -17,6 +17,7 @@ const InterfaceBar = (props: InterfaceBarProps) => {
       parentId: null,
       elementId: null,
       modalType: ModalType.SetSyle,
+      modalContent: null,
     });
   };
   return (

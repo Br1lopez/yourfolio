@@ -4,7 +4,11 @@ import "./artworkGallery.scss";
 import Carousel from "./carousel/Carousel";
 import { ElementDTO } from "src/api/elementTypes";
 import { FaPlus } from "react-icons/fa";
-import { ModalType, PortfolioContext } from "../../context/PortfolioContext";
+import {
+  EMPTY_MODAL_CONTENT,
+  ModalType,
+  PortfolioContext,
+} from "../../context/PortfolioContext";
 
 interface ArtworkGalleryProps {
   galleryData: ElementDTO;
@@ -40,6 +44,7 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
                 parentId: data.id,
                 elementId: 0,
                 modalType: ModalType.CreateElement,
+                modalContent: EMPTY_MODAL_CONTENT,
               });
             }}
           >
