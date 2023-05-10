@@ -29,7 +29,10 @@ export const TabModal = () => {
 
   const createElementMutation = useMutation({
     mutationFn: () =>
-      createElement(portfolioId.value, { name: name, typeId: type }),
+      createElement(activeModalData.value.parentId || portfolioId.value, {
+        name: name,
+        typeId: type,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
       toaster.push(

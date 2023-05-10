@@ -21,7 +21,7 @@ export const ArtworkContainer = (props: ArtworkContainerProps) => {
       <div className="artwork__text-parent">
         <h2 className="artwork__text-parent__title">{artworkData.name}</h2>
         <div className="artwork__text-parent__text">
-          {artworkData.description.split("<br>").map((paragraph, i) => {
+          {artworkData.description?.split("<br>").map((paragraph, i) => {
             return (
               <p
                 className="artwork__text-parent__text__paragraph"

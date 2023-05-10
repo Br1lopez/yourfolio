@@ -12,8 +12,7 @@ interface ArtworkGalleryProps {
 
 export const ArtworkGallery = (props: ArtworkGalleryProps) => {
   const data = props.galleryData;
-  const { activeModalData: activeModalProps, activeElementId } =
-    useContext(PortfolioContext);
+  const { activeModalData: activeModalProps } = useContext(PortfolioContext);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -38,7 +37,7 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
             className="artwork-gallery__add-container"
             onClick={() => {
               activeModalProps.set({
-                parentId: activeElementId.value,
+                parentId: data.id,
                 elementId: 0,
                 modalType: ModalType.CreateElement,
               });

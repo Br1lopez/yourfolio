@@ -111,7 +111,7 @@ const Carousel = (props: CarouselProps) => {
               key={`link_${element.position}`}
             >
               <img
-                src={element.files[0].url}
+                src={element.files[0] && element.files[0]?.url}
                 alt={element.description}
                 key={`${element.position}`}
                 onLoad={checkArrowsVisibility}
