@@ -74,8 +74,6 @@ export const TabModal = () => {
   });
 
   const handleSubmit = (event: any) => {
-    console.log("e", name, type);
-
     switch (activeModalData.value.modalType) {
       case ModalType.CreateElement:
         createElementMutation.mutate();
@@ -88,14 +86,16 @@ export const TabModal = () => {
 
   const handleClose = () => {
     activeModalData.set({ parentId: null, elementId: null, modalType: null });
+    setName("");
+    setType("");
   };
 
   const title = () => {
     switch (activeModalData.value.modalType) {
       case ModalType.CreateElement:
-        return "Crear pestaña";
+        return "Nuevo elemento";
       case ModalType.EditElement:
-        return "Editar pestaña";
+        return "Editar elemento";
     }
   };
 
@@ -169,12 +169,6 @@ export const TabModal = () => {
           })}
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
-            Cancelar
-          </Button>
-          <Button type="submit" variant="primary">
-            {title()}
-          </Button> */}
           <ButtonToolbar>
             <Button appearance="default" onClick={handleClose}>
               Cancelar
