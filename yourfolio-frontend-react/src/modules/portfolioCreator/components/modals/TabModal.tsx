@@ -119,7 +119,7 @@ export const TabModal = () => {
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
-          <Form.Group controlId="newElementTitle" className="mb-4">
+          <Form.Group controlId="newElementTitle">
             <Form.ControlLabel>Nombre:</Form.ControlLabel>
             <Form.Control
               name="input"
@@ -136,7 +136,7 @@ export const TabModal = () => {
               }
             />
           </Form.Group>
-          <Form.Group controlId="newElementType" className="mb-4">
+          <Form.Group controlId="newElementType">
             <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
             <Form.Control
               name="selectPicker"
@@ -163,17 +163,7 @@ export const TabModal = () => {
                   value: element.id,
                 })) || []
               }
-            >
-              <option value=""></option>
-              {getElementByIdRecursive(
-                activeModalData.value.parentId || activeElementId.value,
-                portfolioData.value
-              )?.type.possibleChildren?.map((element) => (
-                <option value={element.id} key={element.id}>
-                  {element.name}
-                </option>
-              ))}
-            </Form.Control>
+            ></Form.Control>
           </Form.Group>
           {getCustomInputs(
             activeModalData.value.modalContent?.elementType || ""
