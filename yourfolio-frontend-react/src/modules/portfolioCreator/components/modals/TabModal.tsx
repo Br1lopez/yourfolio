@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -18,6 +18,7 @@ import {
   Button,
   Uploader,
   SelectPicker,
+  Schema,
 } from "rsuite";
 import "./modal.scss";
 import { getElementByIdRecursive } from "src/utils/functions";
@@ -37,6 +38,8 @@ export const TabModal = () => {
 
   const queryClient = useQueryClient();
 
+  const formRef = useRef<any>(null);
+
   const createElementMutation = useMutation({
     mutationFn: () =>
       createElement(activeModalData.value.parentId || portfolioId.value, {
@@ -53,7 +56,6 @@ export const TabModal = () => {
         </Notification>,
         defaultToastValues
       );
-      handleClose();
     },
   });
 
@@ -72,19 +74,27 @@ export const TabModal = () => {
         </Notification>,
         defaultToastValues
       );
-      handleClose();
     },
   });
 
+  const model = Schema.Model({
+    name: Schema.Types.StringType().isRequired('This field is required.'),
+    type: Schema.Types.StringType().isRequired('Please enter a valid email address.')
+  });
+
   const handleSubmit = (event: any) => {
-    switch (activeModalData.value.modalType) {
-      case ModalType.CreateElement:
-        createElementMutation.mutate();
-        break;
-      case ModalType.EditElement:
-        editElementMutation.mutate();
-        break;
+    if (formRef.current.check()) {
+      switch (activeModalData.value.modalType) {
+        case ModalType.CreateElement:
+          createElementMutation.mutate();
+          break;
+        case ModalType.EditElement:
+          editElementMutation.mutate();
+          break;
+      }
+      handleClose();
     }
+
   };
 
   const handleClose = () => {
@@ -95,6 +105,7 @@ export const TabModal = () => {
       modalContent: null,
     });
   };
+
 
   const title = () => {
     switch (activeModalData.value.modalType) {
@@ -117,12 +128,12 @@ export const TabModal = () => {
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
-      <Form onSubmit={handleSubmit}>
+      <Form model={model} onSubmit={handleSubmit} ref={formRef}>
         <Modal.Body>
           <Form.Group controlId="newElementTitle">
             <Form.ControlLabel>Nombre:</Form.ControlLabel>
             <Form.Control
-              name="input"
+              name="name"
               value={activeModalData.value.modalContent?.name}
               onChange={(v: string, e: any) =>
                 activeModalData.set({
@@ -139,7 +150,7 @@ export const TabModal = () => {
           <Form.Group controlId="newElementType">
             <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
             <Form.Control
-              name="selectPicker"
+              name="type"
               accepter={SelectPicker}
               searchable={false}
               aria-label="Select"
@@ -174,7 +185,7 @@ export const TabModal = () => {
                   <Form.Group controlId="newElementType" className="mb-4">
                     <Form.ControlLabel>Imagen:</Form.ControlLabel>
                     <Form.Control
-                      name="uploader"
+                      name="image"
                       accepter={Uploader}
                       action="#"
                     />
@@ -190,7 +201,7 @@ export const TabModal = () => {
             <Button appearance="default" onClick={handleClose}>
               Cancelar
             </Button>
-            <Button appearance="primary" onClick={handleSubmit}>
+            <Button appearance="primary" type="submit">
               {title()}
             </Button>
           </ButtonToolbar>
