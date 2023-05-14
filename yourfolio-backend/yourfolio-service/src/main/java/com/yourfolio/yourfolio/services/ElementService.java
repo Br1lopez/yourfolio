@@ -2,6 +2,7 @@ package com.yourfolio.yourfolio.services;
 
 import com.yourfolio.yourfolio.dbentities.ElementEntity;
 import com.yourfolio.yourfolio.dbentities.ElementRelationshipEntity;
+import com.yourfolio.yourfolio.dbentities.ElementTypeEntity;
 import com.yourfolio.yourfolio.dbentities.StyleEntity;
 import com.yourfolio.yourfolio.dbentities.ids.ElementRelationshipEntityId;
 import com.yourfolio.yourfolio.dtos.ElementDTO;
@@ -71,12 +72,16 @@ public class ElementService {
     }
 
     public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId) {
-        ElementEntity response = elementRepository.save(elementMapper.toEntity(elementDTO));
+        ElementEntity elementToSave = elementMapper.toEntity(elementDTO);
+        elementToSave.setType(
+                ElementTypeEntity.builder()
+                        .id(elementDTO.getTypeId())
+                        .build());
+
+        ElementEntity response = elementRepository.save(elementToSave);
 
         if (parentId != null) {
-            Integer maxPos = elementRelationshipRepository.findMaxPosition(parentId);
-            if (maxPos == null)
-                maxPos = 0;
+            Integer maxPos = elementRelationshipRepository.getChildrenCount(parentId) + 1;
             elementRelationshipRepository.save(
                     ElementRelationshipEntity.builder()
                             .parentId(parentId)

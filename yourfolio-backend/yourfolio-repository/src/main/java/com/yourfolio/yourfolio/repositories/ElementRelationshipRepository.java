@@ -21,4 +21,6 @@ public interface ElementRelationshipRepository extends JpaRepository<ElementRela
     Integer findMaxPosition(@Param("parentId") Integer parentId);
 
 
+    @Query(value = "SELECT COUNT FROM element_children WHERE parent_id= :parentId", nativeQuery = true)
+    Integer getChildrenCount(@Param("parentId") Integer parentId);
 }
