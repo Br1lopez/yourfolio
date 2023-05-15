@@ -73,15 +73,16 @@ public class ElementService {
 
     public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId) {
         ElementEntity elementToSave = elementMapper.toEntity(elementDTO);
-        elementToSave.setType(
-                ElementTypeEntity.builder()
-                        .id(elementDTO.getTypeId())
-                        .build());
+        ElementTypeEntity elementTypeToSave = ElementTypeEntity.builder()
+                .id(elementDTO.getTypeId())
+                .build();
+        elementToSave.setType(elementTypeToSave);
+
 
         ElementEntity response = elementRepository.save(elementToSave);
 
         if (parentId != null) {
-            Integer maxPos = elementRelationshipRepository.getChildrenCount(parentId) + 1;
+            Integer maxPos = elementRelationshipRepository.findMaxPosition(parentId) + 1;
             elementRelationshipRepository.save(
                     ElementRelationshipEntity.builder()
                             .parentId(parentId)

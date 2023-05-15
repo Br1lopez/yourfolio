@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -37,14 +37,22 @@ export const TabModal = () => {
   } = useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
-
   const formRef = useRef<any>(null);
+  const [name, setName] = useState<string>();
+  const [type, setType] = useState<string>();
+
+  useEffect(() => {
+    if (activeModalData.value.modalContent) {
+      setName(activeModalData.value.modalContent.name);
+      setType(activeModalData.value.modalContent.elementType);
+    }
+  }, [activeModalData.value.modalContent]);
 
   const createElementMutation = useMutation({
     mutationFn: () =>
       createElement(activeModalData.value.parentId || portfolioId.value, {
-        name: activeModalData.value.modalContent?.name,
-        typeId: activeModalData.value.modalContent?.elementType,
+        name: name,
+        typeId: type,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
@@ -62,7 +70,7 @@ export const TabModal = () => {
   const editElementMutation = useMutation({
     mutationFn: () =>
       updateElement(activeModalData.value.elementId || -1, {
-        name: activeModalData.value.modalContent?.name,
+        name: name,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
@@ -78,8 +86,10 @@ export const TabModal = () => {
   });
 
   const model = Schema.Model({
-    name: Schema.Types.StringType().isRequired('This field is required.'),
-    type: Schema.Types.StringType().isRequired('Please enter a valid email address.')
+    name: Schema.Types.StringType().isRequired("This field is required."),
+    type: Schema.Types.StringType().isRequired(
+      "Please enter a valid email address."
+    ),
   });
 
   const handleSubmit = (event: any) => {
@@ -92,9 +102,14 @@ export const TabModal = () => {
           editElementMutation.mutate();
           break;
       }
+      activeModalData.set({
+        parentId: null,
+        elementId: null,
+        modalType: null,
+        modalContent: null,
+      });
       handleClose();
     }
-
   };
 
   const handleClose = () => {
@@ -105,7 +120,6 @@ export const TabModal = () => {
       modalContent: null,
     });
   };
-
 
   const title = () => {
     switch (activeModalData.value.modalType) {
@@ -134,17 +148,8 @@ export const TabModal = () => {
             <Form.ControlLabel>Nombre:</Form.ControlLabel>
             <Form.Control
               name="name"
-              value={activeModalData.value.modalContent?.name}
-              onChange={(v: string, e: any) =>
-                activeModalData.set({
-                  ...activeModalData.value,
-                  modalContent: {
-                    ...(activeModalData.value.modalContent ||
-                      EMPTY_MODAL_CONTENT),
-                    name: v || "",
-                  },
-                })
-              }
+              value={name}
+              onChange={(v: string, e: any) => setName(v)}
             />
           </Form.Group>
           <Form.Group controlId="newElementType">
@@ -154,17 +159,8 @@ export const TabModal = () => {
               accepter={SelectPicker}
               searchable={false}
               aria-label="Select"
-              value={activeModalData.value.modalContent?.elementType}
-              onChange={(v: any, e: any) =>
-                activeModalData.set({
-                  ...activeModalData.value,
-                  modalContent: {
-                    ...(activeModalData.value.modalContent ||
-                      EMPTY_MODAL_CONTENT),
-                    elementType: v || "",
-                  },
-                })
-              }
+              value={type}
+              onChange={(v: any, e: any) => setType(v)}
               data={
                 getElementByIdRecursive(
                   activeModalData.value.parentId || activeElementId.value,
@@ -184,11 +180,7 @@ export const TabModal = () => {
                 return (
                   <Form.Group controlId="newElementType" className="mb-4">
                     <Form.ControlLabel>Imagen:</Form.ControlLabel>
-                    <Form.Control
-                      name="image"
-                      accepter={Uploader}
-                      action="#"
-                    />
+                    <Form.Control name="image" accepter={Uploader} action="#" />
                   </Form.Group>
                 );
               default:

@@ -19,7 +19,7 @@ public class ElementEntity {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "element_type_id")
     private ElementTypeEntity type;
 
