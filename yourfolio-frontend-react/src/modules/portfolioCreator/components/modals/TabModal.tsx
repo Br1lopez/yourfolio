@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   EMPTY_MODAL_CONTENT,
   ModalType,
+  NULL_MODAL_DATA,
   PortfolioContext,
 } from "src/modules/portfolioCreator/context/PortfolioContext";
 import {
@@ -56,11 +57,10 @@ export const TabModal = () => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      activeModalData.set(NULL_MODAL_DATA);
       toaster.push(
         <Notification>
-          <NotificationContent
-            text={`Pestaña "${activeModalData.value.modalContent?.name}" creada con éxito`}
-          />
+          <NotificationContent text={`Pestaña "${name}" creada con éxito`} />
         </Notification>,
         defaultToastValues
       );
@@ -96,29 +96,14 @@ export const TabModal = () => {
     if (formRef.current.check()) {
       switch (activeModalData.value.modalType) {
         case ModalType.CreateElement:
+          console.log(activeModalData.value.parentId);
           createElementMutation.mutate();
           break;
         case ModalType.EditElement:
           editElementMutation.mutate();
           break;
       }
-      activeModalData.set({
-        parentId: null,
-        elementId: null,
-        modalType: null,
-        modalContent: null,
-      });
-      handleClose();
     }
-  };
-
-  const handleClose = () => {
-    activeModalData.set({
-      parentId: null,
-      elementId: null,
-      modalType: null,
-      modalContent: null,
-    });
   };
 
   const title = () => {
@@ -137,7 +122,6 @@ export const TabModal = () => {
         activeModalData.value.parentId != null ||
         activeModalData.value.elementId != null
       }
-      onHide={handleClose}
     >
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
@@ -190,7 +174,10 @@ export const TabModal = () => {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <Button appearance="default" onClick={handleClose}>
+            <Button
+              appearance="default"
+              onClick={() => activeModalData.set(NULL_MODAL_DATA)}
+            >
               Cancelar
             </Button>
             <Button appearance="primary" type="submit">

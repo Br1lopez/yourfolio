@@ -74,12 +74,8 @@ export enum ModalType {
 export const usePortfolioContext = () => {
   const [activeElementId, setActiveElementId] = useState(1);
   const [portfolioId, setPortfolioId] = useState(1);
-  const [activeModalData, setActiveModalData] = useState<ActiveModalCtxData>({
-    parentId: null,
-    elementId: null,
-    modalType: null,
-    modalContent: null,
-  });
+  const [activeModalData, setActiveModalData] =
+    useState<ActiveModalCtxData>(NULL_MODAL_DATA);
   const [portfolioData, setPortfolioData] =
     useState<ElementDTO>(EXAMPLE_ELEMENT);
 

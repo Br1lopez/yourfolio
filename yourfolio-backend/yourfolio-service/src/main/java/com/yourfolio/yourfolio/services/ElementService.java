@@ -77,12 +77,11 @@ public class ElementService {
         ElementEntity response = elementRepository.save(elementToSave);
 
         if (parentId != null) {
-            int maxPos = elementRelationshipRepository.findMaxPosition(parentId) + 1;
             elementRelationshipRepository.save(
                     ElementRelationshipEntity.builder()
                             .parentId(parentId)
                             .childId(response.getId())
-                            .position(maxPos + 1)
+                            .position((int) elementRelationshipRepository.countByParentId(parentId) + 1)
                             .build()
             );
         }
