@@ -8,14 +8,15 @@ import { PortfolioContext } from "./context/PortfolioContext";
 import InterfaceBar from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import PortfolioStyle from "./components/PortfolioStyle";
-import { applyFont } from "src/utils/functions";
+import { applyFont, getElementByIdRecursive } from "src/utils/functions";
 
 export interface PortfolioCreatorProps {
   portfolioId: number;
 }
 
 export const PortfolioCreator = (props: PortfolioCreatorProps) => {
-  const { portfolioId, portfolioData } = useContext(PortfolioContext);
+  const { portfolioId, portfolioData, activeElementId } =
+    useContext(PortfolioContext);
   //eslint-disable-next-line
   const [barWidth, setBarWidth] = useState<string>("55px");
   //eslint-disable-next-line
@@ -49,7 +50,13 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
           >
             <NavBar height={navHeight} tabs={query.data.elements} />
             {query.data.elements.length > 0 && (
-              <ActiveComponent height={`calc(100vh - ${navHeight}`} />
+              <ActiveComponent
+                element={getElementByIdRecursive(
+                  activeElementId.value,
+                  portfolioData.value
+                )}
+                height={`calc(100vh - ${navHeight}`}
+              />
             )}
           </div>
         </div>
