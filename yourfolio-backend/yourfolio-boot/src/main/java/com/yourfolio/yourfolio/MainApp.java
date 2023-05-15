@@ -2,8 +2,8 @@ package com.yourfolio.yourfolio;
 
 import com.yourfolio.yourfolio.controllers.ElementController;
 import com.yourfolio.yourfolio.mappers.StyleMapper;
-import com.yourfolio.yourfolio.repositories.ElementRepository;
 import com.yourfolio.yourfolio.repositories.ElementRelationshipRepository;
+import com.yourfolio.yourfolio.repositories.ElementRepository;
 import com.yourfolio.yourfolio.repositories.ElementTypeRepository;
 import com.yourfolio.yourfolio.repositories.StyleRepository;
 import lombok.AllArgsConstructor;

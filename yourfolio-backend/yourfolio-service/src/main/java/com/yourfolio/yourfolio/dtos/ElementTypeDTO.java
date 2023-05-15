@@ -1,10 +1,8 @@
 package com.yourfolio.yourfolio.dtos;
 
 import com.yourfolio.yourfolio.dbentities.ElementTypeEntity;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
-import java.lang.annotation.ElementType;
 import java.util.List;
 
 @Data

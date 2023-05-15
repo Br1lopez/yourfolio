@@ -3,7 +3,6 @@ package com.yourfolio.yourfolio.dtos;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * A DTO for the {@link com.yourfolio.yourfolio.dbentities.ElementEntity} entity

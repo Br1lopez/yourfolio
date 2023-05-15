@@ -3,7 +3,8 @@ package com.yourfolio.yourfolio.dbentities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor

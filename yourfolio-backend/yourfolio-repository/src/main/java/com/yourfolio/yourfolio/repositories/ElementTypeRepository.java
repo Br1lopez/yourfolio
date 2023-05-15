@@ -1,13 +1,11 @@
 package com.yourfolio.yourfolio.repositories;
 
-import com.yourfolio.yourfolio.dbentities.ElementEntity;
 import com.yourfolio.yourfolio.dbentities.ElementTypeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.lang.annotation.ElementType;
 import java.util.List;
 
 @Repository

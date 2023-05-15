@@ -6,6 +6,13 @@ export const EMPTY_MODAL_CONTENT: ModalContent = {
   elementType: "",
 };
 
+export const NULL_MODAL_DATA = {
+  parentId: null,
+  elementId: null,
+  modalType: null,
+  modalContent: null,
+};
+
 const EXAMPLE_ELEMENT = {
   id: -1,
   name: "",
@@ -26,12 +33,7 @@ export const PortfolioContext = React.createContext<PortfolioCtxData>({
   portfolioData: { value: EXAMPLE_ELEMENT, set: () => console.log("set") },
 
   activeModalData: {
-    value: {
-      parentId: null,
-      elementId: null,
-      modalType: null,
-      modalContent: null,
-    },
+    value: NULL_MODAL_DATA,
     set: () => console.log("set"),
   },
 });

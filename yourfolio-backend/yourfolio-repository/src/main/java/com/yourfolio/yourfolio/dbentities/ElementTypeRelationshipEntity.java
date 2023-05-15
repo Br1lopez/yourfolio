@@ -1,6 +1,5 @@
 package com.yourfolio.yourfolio.dbentities;
 
-import com.yourfolio.yourfolio.dbentities.ids.ElementRelationshipEntityId;
 import com.yourfolio.yourfolio.dbentities.ids.ElementTypeRelationshipEntityId;
 import jakarta.persistence.*;
 import lombok.*;

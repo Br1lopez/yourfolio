@@ -9,11 +9,9 @@ import com.yourfolio.yourfolio.dtos.ElementDTO;
 import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import com.yourfolio.yourfolio.dtos.ElementTypeDTO;
 import com.yourfolio.yourfolio.mappers.ElementMapper;
-import com.yourfolio.yourfolio.mappers.StyleMapper;
-import com.yourfolio.yourfolio.repositories.ElementRepository;
 import com.yourfolio.yourfolio.repositories.ElementRelationshipRepository;
+import com.yourfolio.yourfolio.repositories.ElementRepository;
 import com.yourfolio.yourfolio.repositories.ElementTypeRepository;
-import com.yourfolio.yourfolio.repositories.StyleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +25,6 @@ public class ElementService {
     private final ElementRelationshipRepository elementRelationshipRepository;
 
     private final ElementTypeRepository elementTypeRepository;
-    private final StyleRepository styleRepository;
-
-    private final StyleMapper styleMapper;
 
     public ElementDTO getElement(Integer elementId) {
         ElementDTO result = elementMapper.toDto(elementRepository.getReferenceById(elementId));
@@ -43,7 +38,7 @@ public class ElementService {
     }
 
     public void setChildrenPosition(ElementDTO elementDTO) {
-        elementDTO.getElements().stream().forEach(
+        elementDTO.getElements().forEach(
                 e -> {
                     e.setPosition(elementRelationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition());
                     if (e.getElements() != null && !e.getElements().isEmpty()) {
@@ -82,7 +77,7 @@ public class ElementService {
         ElementEntity response = elementRepository.save(elementToSave);
 
         if (parentId != null) {
-            Integer maxPos = elementRelationshipRepository.findMaxPosition(parentId) + 1;
+            int maxPos = elementRelationshipRepository.findMaxPosition(parentId) + 1;
             elementRelationshipRepository.save(
                     ElementRelationshipEntity.builder()
                             .parentId(parentId)
