@@ -4,7 +4,7 @@ export const NULL_MODAL_GETTER_DATA = {
   modalType: ModalType.CreateElement,
 };
 
-export const EXAMPLE_ELEMENT = {
+export const EMPTY_ELEMENT = {
   id: -1,
   name: "",
   style: {

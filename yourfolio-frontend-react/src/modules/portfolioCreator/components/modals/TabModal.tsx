@@ -11,42 +11,45 @@ import {
   Schema,
 } from "rsuite";
 import "./modal.scss";
-import { getElementByIdRecursive } from "src/utils/functions";
 import {
   CustomInputType,
   getCustomInputs,
 } from "src/modules/portfolioCreator/components/modals/components/customInputs";
 import { useCreateElementMutation } from "src/api/mutations";
 import {
-  ActiveModalDataGetter,
+  ModalDataGetter,
   ModalType,
 } from "../../context/PortfolioContextTypes";
 
 export interface ModalWindowProps {
-  modalProperties: ActiveModalDataGetter;
+  modalProperties: ModalDataGetter | null;
 }
 
 export const ModalWindow = (props: ModalWindowProps) => {
   const { activeModalData } = useContext(PortfolioContext);
   const { modalProperties } = props;
-
-  const formRef = useRef<any>(null);
-  const [parentId, setParentId] = useState<number>();
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<string>("");
+
+  useEffect(() => {
+    setName(modalProperties?.element?.name || "");
+    setType(modalProperties?.element?.type.name || "");
+  }, [modalProperties]);
+
+  const formRef = useRef<any>(null);
   const createElement = useCreateElementMutation(
     {
       name,
       typeId: type,
     },
-    parentId
+    modalProperties?.parentId
   );
   const editElement = useCreateElementMutation(
     {
       name,
       typeId: type,
     },
-    parentId
+    modalProperties?.parentId
   );
 
   const model = Schema.Model({
@@ -58,7 +61,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
 
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
-      switch (modalProperties.modalType) {
+      switch (modalProperties?.modalType) {
         case ModalType.CreateElement:
           createElement.mutate();
           break;
@@ -70,7 +73,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
   };
 
   const title = () => {
-    switch (modalProperties.modalType) {
+    switch (modalProperties?.modalType) {
       case ModalType.CreateElement:
         return "Nuevo elemento";
       case ModalType.EditElement:
@@ -79,7 +82,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
   };
 
   return (
-    <Modal id="newTab" show={modalProperties.element != null}>
+    <Modal id="newTab" show={modalProperties != null}>
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
@@ -103,7 +106,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
               value={type}
               onChange={(v: any, e: any) => setType(v)}
               data={
-                modalProperties.element?.type.possibleChildren?.map(
+                modalProperties?.element?.type.possibleChildren?.map(
                   (possibleChild) => ({
                     label: possibleChild.name,
                     value: possibleChild.id,
@@ -112,7 +115,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
               }
             ></Form.Control>
           </Form.Group>
-          {getCustomInputs(modalProperties.element?.type.name || "").map(
+          {getCustomInputs(modalProperties?.element?.type.name || "").map(
             (input) => {
               switch (input) {
                 case CustomInputType.Image:

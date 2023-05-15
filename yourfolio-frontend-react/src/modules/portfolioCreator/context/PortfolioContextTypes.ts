@@ -10,20 +10,20 @@ export interface PortfolioCtxData {
    * El elemento al que hace referencia la ventana se setea con un id, pero se recupera completo.
    */
   activeModalData: {
-    value: ActiveModalDataGetter;
-    set: (value: ActiveModalDataSetter | null) => void;
+    value: ModalDataGetter | null;
+    set: (value: ModalDataSetter | null) => void;
   };
 
   toaster?: any;
 }
 
-export interface ActiveModalDataGetter {
+export interface ModalDataGetter {
   parentId?: number;
   element?: ElementDTO;
   modalType: ModalType;
 }
 
-export interface ActiveModalDataSetter {
+export interface ModalDataSetter {
   parentId?: number;
   elementId?: number;
   modalType: ModalType;
