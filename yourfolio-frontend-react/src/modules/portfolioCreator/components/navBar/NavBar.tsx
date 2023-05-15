@@ -13,34 +13,29 @@ interface NavBarProps {
 }
 
 export const NavBar = (props: NavBarProps) => {
-  const [showTabmenu, setShowTabmenu] = useState<any>([]);
   const { portfolio, height } = props;
   const { activeModalData, portfolioData } = useContext(PortfolioContext);
+  const [activeTab, setActiveTab] = useState<number | null>(null);
 
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {
       event.preventDefault();
       const target = event.target as HTMLElement;
       if (target.id.includes("navbar__tabLink")) {
-        const index = Number(target.id.replace("navbar__tabLink_", ""));
-        setShowTabmenu(portfolio.elements.map((section, i) => i === index));
+        setActiveTab(Number(target.id.replace("navbar__tabLink_", "")));
       } else {
-        closeAllTabMenus();
+        setActiveTab(null)
       }
     };
 
-    const closeAllTabMenus = () => {
-      setShowTabmenu(portfolio.elements.map(() => false));
-    };
 
     document.addEventListener("contextmenu", handleContextMenu);
-    document.addEventListener("click", closeAllTabMenus);
+    document.addEventListener("click", () => setActiveTab(null));
 
-    closeAllTabMenus();
 
     return () => {
       document.removeEventListener("contextmenu", handleContextMenu);
-      document.removeEventListener("click", closeAllTabMenus);
+      document.removeEventListener("click", () => setActiveTab(null));
     };
   }, [portfolio]);
 
@@ -67,7 +62,7 @@ export const NavBar = (props: NavBarProps) => {
             .sort((a: any, b: any) => a.position - b.position)
             .map((tab, index) => {
               return (
-                <Tab open={showTabmenu[index]} key={index} element={tab}></Tab>
+                <Tab open={activeTab == tab.id} key={index} element={tab}></Tab>
               );
             })}
           <Nav.Link href="#">
