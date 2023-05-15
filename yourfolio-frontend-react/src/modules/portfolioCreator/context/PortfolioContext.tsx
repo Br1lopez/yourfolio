@@ -38,7 +38,8 @@ export const usePortfolioContext = (): PortfolioCtxData => {
 
     setActiveModalDataGetter({
       parentId: activeModalDataSetter.parentId,
-      element:
+      //TODO CREAR ELEMENTO VACIO CUANDO SE LE PASA 0
+      element: activeModalDataSetter.elementId == 0 ?
         getElementByIdRecursive(
           activeModalDataSetter?.elementId || -1,
           portfolioData

@@ -27,6 +27,10 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     portfolioId.set(props.portfolioId);
   }, [portfolioId, props.portfolioId]);
 
+  useEffect(() => {
+    console.log("ctx", activeModalData.value);
+  }, [activeModalData]);
+
   const query = useQuery({
     queryKey: ["getElement", props.portfolioId],
     queryFn: () => getElement(props.portfolioId),
