@@ -27,6 +27,7 @@ public class ElementController {
 
     @PostMapping("/{parentId}")
     public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementSaveDTO elementDto) {
+        System.out.println((elementDto));
         return new ResponseEntity<>(elementService.createElement(elementDto, parentId), HttpStatus.CREATED);
     }
 

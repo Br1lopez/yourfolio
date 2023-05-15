@@ -3,7 +3,6 @@ import { Modal } from "react-bootstrap";
 import { createElement, updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  EMPTY_MODAL_CONTENT,
   ModalType,
   NULL_MODAL_DATA,
   PortfolioContext,
@@ -27,6 +26,7 @@ import {
   CustomInputType,
   getCustomInputs,
 } from "src/modules/portfolioCreator/components/modals/components/customInputs";
+import { useCreateElementMutation } from "src/api/mutations";
 
 export const TabModal = () => {
   const {
@@ -41,6 +41,7 @@ export const TabModal = () => {
   const formRef = useRef<any>(null);
   const [name, setName] = useState<string>();
   const [type, setType] = useState<string>();
+  const createElement = useCreateElementMutation({ name, typeId: type });
 
   useEffect(() => {
     if (activeModalData.value.modalContent) {
@@ -49,22 +50,11 @@ export const TabModal = () => {
     }
   }, [activeModalData.value.modalContent]);
 
-  const createElementMutation = useMutation({
-    mutationFn: () =>
-      createElement(activeModalData.value.parentId || portfolioId.value, {
-        name: name,
-        typeId: type,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId.value]);
-      activeModalData.set(NULL_MODAL_DATA);
-      toaster.push(
-        <Notification>
-          <NotificationContent text={`Pestaña "${name}" creada con éxito`} />
-        </Notification>,
-        defaultToastValues
-      );
-    },
+  const model = Schema.Model({
+    name: Schema.Types.StringType().isRequired("This field is required."),
+    type: Schema.Types.StringType().isRequired(
+      "Please enter a valid email address."
+    ),
   });
 
   const editElementMutation = useMutation({
@@ -85,24 +75,17 @@ export const TabModal = () => {
     },
   });
 
-  const model = Schema.Model({
-    name: Schema.Types.StringType().isRequired("This field is required."),
-    type: Schema.Types.StringType().isRequired(
-      "Please enter a valid email address."
-    ),
-  });
-
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
       switch (activeModalData.value.modalType) {
         case ModalType.CreateElement:
-          console.log(activeModalData.value.parentId);
-          createElementMutation.mutate();
+          createElement.mutate();
           break;
         case ModalType.EditElement:
           editElementMutation.mutate();
           break;
       }
+      activeModalData.set(NULL_MODAL_DATA);
     }
   };
 
