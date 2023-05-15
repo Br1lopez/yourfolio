@@ -18,7 +18,7 @@ export interface PortfolioCtxData {
 }
 
 export interface ModalDataGetter {
-  parentId?: number;
+  parent?: ElementDTO;
   element?: ElementDTO;
   modalType: ModalType;
 }

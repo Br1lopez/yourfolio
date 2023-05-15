@@ -15,7 +15,7 @@ import {
   CustomInputType,
   getCustomInputs,
 } from "src/modules/portfolioCreator/components/modals/components/customInputs";
-import { useCreateElementMutation } from "src/api/mutations";
+import { useCreateElementMutation, useEditElementMutation } from "src/api/mutations";
 import {
   ModalDataGetter,
   ModalType,
@@ -42,14 +42,14 @@ export const ModalWindow = (props: ModalWindowProps) => {
       name,
       typeId: type,
     },
-    modalProperties?.parentId
+    modalProperties?.parent?.id
   );
-  const editElement = useCreateElementMutation(
+  const editElement = useEditElementMutation(
+    modalProperties?.element?.id || -1,
     {
       name,
       typeId: type,
     },
-    modalProperties?.parentId
   );
 
   const model = Schema.Model({
@@ -106,7 +106,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
               value={type}
               onChange={(v: any, e: any) => setType(v)}
               data={
-                modalProperties?.element?.type.possibleChildren?.map(
+                modalProperties?.parent?.type.possibleChildren?.map(
                   (possibleChild) => ({
                     label: possibleChild.name,
                     value: possibleChild.id,

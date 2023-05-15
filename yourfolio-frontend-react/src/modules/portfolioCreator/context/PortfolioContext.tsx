@@ -29,7 +29,9 @@ function modalDataSetterToGetter(modalDataSetter: ModalDataSetter | null, portfo
 
   } else {
     return {
-      parentId: modalDataSetter.parentId,
+      parent: (modalDataSetter.parentId
+        && getElementByIdRecursive(modalDataSetter?.parentId, portfolioData))
+        || EMPTY_ELEMENT,
       element: (modalDataSetter.elementId
         && getElementByIdRecursive(modalDataSetter?.elementId, portfolioData))
         || EMPTY_ELEMENT,
