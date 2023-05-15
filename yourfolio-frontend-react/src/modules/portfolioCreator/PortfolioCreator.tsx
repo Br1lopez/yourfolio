@@ -3,7 +3,7 @@ import { NavBar } from "./components/navBar/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { getElement } from "src/api/element";
 import React, { useContext, useEffect, useState } from "react";
-import ActiveComponent from "./components/activeComponent/ActiveComponent";
+import { ActiveComponent } from "./components/activeComponent/ActiveComponent";
 import { PortfolioContext } from "./context/PortfolioContext";
 import InterfaceBar from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
@@ -48,7 +48,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               width: `calc(100vw - ${barWidth})`,
             }}
           >
-            <NavBar height={navHeight} tabs={query.data.elements} />
+            <NavBar portfolio={query.data} height={navHeight} />
             {query.data.elements.length > 0 && (
               <ActiveComponent
                 element={getElementByIdRecursive(

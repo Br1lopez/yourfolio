@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
-import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
-import { getElementByIdRecursive } from "src/utils/functions";
+import React from "react";
 import { ArtworkGallery } from "../artworkGallery/ArtworkGallery";
 import { ElementDTO } from "src/api/dtoTypes";
-import { createNonNullChain } from "typescript";
 
 interface ActiveComponentProps {
   element: ElementDTO | null;
   height?: string;
 }
 
-const ActiveComponent = (props: ActiveComponentProps) => {
+export const ActiveComponent = (props: ActiveComponentProps) => {
   const { element, height } = props;
   return (
     <div className="active-component" style={{ height }}>
@@ -29,5 +26,3 @@ function getElement(element: ElementDTO | null) {
       return <div>Temporally unavailable</div>;
   }
 }
-
-export default ActiveComponent;
