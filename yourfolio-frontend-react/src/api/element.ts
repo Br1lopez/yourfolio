@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "../globals";
-import { ElementDTO, ElementSaveDTO } from "./elementTypes";
+import { ElementDTO, ElementSaveDTO } from "./dtoTypes";
 
 export const getElement = async (elementId: number): Promise<ElementDTO> => {
   try {
@@ -14,12 +14,12 @@ export const getElement = async (elementId: number): Promise<ElementDTO> => {
 };
 
 export const createElement = async (
-  parentId: number,
-  body: ElementSaveDTO
+  body: ElementSaveDTO,
+  parentId?: number
 ): Promise<ElementDTO> => {
   try {
     const response = await axios.post<ElementDTO>(
-      `${API_BASE_URL}/elements/${parentId}`,
+      `${API_BASE_URL}/elements/${parentId || ""}`,
       body
     );
     return response.data;

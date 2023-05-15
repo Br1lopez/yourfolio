@@ -31,11 +31,9 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     onSuccess: (data) => {
       portfolioData.set(data);
       applyFont(data.style.fontFamily || "Open Sans");
-      console.log("suuuu", data.style.fontFamily);
     },
   });
 
-  //TODO: apply-font class is not being applied when hitting f5 (only applying with the modal open)
   return (
     <>
       <DefaultHead></DefaultHead>
@@ -49,13 +47,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               width: `calc(100vw - ${barWidth})`,
             }}
           >
-            <NavBar
-              title={query.data.name}
-              tabs={query.data.elements
-                .sort((a: any, b: any) => a.position - b.position)
-                .map((tab: any) => ({ name: tab.name, id: tab.id }))}
-              height={navHeight}
-            />
+            <NavBar height={navHeight} tabs={query.data.elements} />
             {query.data.elements.length > 0 && (
               <ActiveComponent height={`calc(100vh - ${navHeight}`} />
             )}

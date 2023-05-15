@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./carousel.scss";
 import { Link } from "react-scroll";
 import { IoMdArrowDropupCircle, IoMdArrowDropdownCircle } from "react-icons/io";
-import { ElementDTO } from "src/api/elementTypes";
+import { ElementDTO } from "src/api/dtoTypes";
 
 interface CarouselProps {
   elements: ElementDTO[];

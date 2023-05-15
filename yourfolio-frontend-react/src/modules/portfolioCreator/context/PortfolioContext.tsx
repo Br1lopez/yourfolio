@@ -1,88 +1,59 @@
-import React, { useState } from "react";
-import { ElementDTO } from "src/api/elementTypes";
+import React, { useEffect, useState } from "react";
+import { ElementDTO } from "src/api/dtoTypes";
+import { getElementByIdRecursive } from "src/utils/functions";
+import {
+  ActiveModalDataGetter,
+  ActiveModalDataSetter,
+  ModalType,
+  PortfolioCtxData,
+} from "./PortfolioContextTypes";
+import { EXAMPLE_ELEMENT } from "./PortfolioContextDefaultObjects";
 
-export const EMPTY_MODAL_CONTENT: ModalContent = {
-  name: "",
-  elementType: "",
-};
-
-export const NULL_MODAL_DATA = {
-  parentId: null,
-  elementId: null,
-  modalType: null,
-  modalContent: null,
-};
-
-const EXAMPLE_ELEMENT = {
-  id: -1,
-  name: "",
-  style: {
-    bgColor: "",
-    fontColor: "",
-  },
-  elements: [],
-  type: { id: "", name: "" },
-  description: "",
-  files: [],
-  thumbnailFile: { id: -1, description: "", url: "" },
-  position: -1,
-};
 export const PortfolioContext = React.createContext<PortfolioCtxData>({
   activeElementId: { value: -1, set: () => console.log("set") },
   portfolioId: { value: -1, set: () => console.log("set") },
   portfolioData: { value: EXAMPLE_ELEMENT, set: () => console.log("set") },
 
   activeModalData: {
-    value: NULL_MODAL_DATA,
+    value: { element: EXAMPLE_ELEMENT, modalType: ModalType.CreateElement },
     set: () => console.log("set"),
   },
 });
 
-export interface PortfolioCtxData {
-  activeElementId: State<number>;
-  portfolioId: State<number>;
-  portfolioData: State<ElementDTO>;
-  activeModalData: State<ActiveModalCtxData>;
-  toaster?: any;
-}
-
-export interface ActiveModalCtxData {
-  parentId: number | null;
-  elementId: number | null; //0 if new element
-  modalType: ModalType | null;
-  modalContent: ModalContent | null;
-}
-
-export interface ModalContent {
-  name: string;
-  elementType: string;
-  description?: string;
-  image?: File;
-}
-
-export interface State<T> {
-  value: T;
-  set: (value: T) => void;
-}
-
-export enum ModalType {
-  CreateElement,
-  EditElement,
-  SetSyle,
-}
-
-export const usePortfolioContext = () => {
+export const usePortfolioContext = (): PortfolioCtxData => {
   const [activeElementId, setActiveElementId] = useState(1);
   const [portfolioId, setPortfolioId] = useState(1);
-  const [activeModalData, setActiveModalData] =
-    useState<ActiveModalCtxData>(NULL_MODAL_DATA);
+  const [activeModalDataSetter, setActiveModalDataSetter] =
+    useState<ActiveModalDataSetter | null>(null);
   const [portfolioData, setPortfolioData] =
     useState<ElementDTO>(EXAMPLE_ELEMENT);
+  const [activeModalDataGetter, setActiveModalDataGetter] =
+    useState<ActiveModalDataGetter | null>(null);
+
+  useEffect(() => {
+    setActiveModalDataGetter(
+      activeModalDataSetter == null
+        ? null
+        : {
+            parentId: activeModalDataSetter.parentId,
+            element:
+              getElementByIdRecursive(
+                activeModalDataSetter?.elementId || -1,
+                portfolioData
+              ) || undefined,
+            modalType:
+              activeModalDataSetter.modalType || ModalType.CreateElement,
+          }
+    );
+  }, [activeModalDataSetter]);
 
   return {
     activeElementId: { value: activeElementId, set: setActiveElementId },
     portfolioId: { value: portfolioId, set: setPortfolioId },
-    activeModalData: { value: activeModalData, set: setActiveModalData },
+    activeModalData: {
+      value: activeModalDataGetter || null,
+      set: setActiveModalDataSetter,
+    },
     portfolioData: { value: portfolioData, set: setPortfolioData },
   };
 };

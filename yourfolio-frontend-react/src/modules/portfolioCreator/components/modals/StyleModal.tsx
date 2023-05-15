@@ -2,20 +2,13 @@ import React, { useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { updateElement } from "src/api/element";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  ModalType,
-  PortfolioContext,
-} from "src/modules/portfolioCreator/context/PortfolioContext";
-import {
-  NotificationContent,
-  defaultToastValues,
-} from "../notifications/CloudNotification";
-import { Notification } from "rsuite";
+import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
+import { pushCloudNotification } from "../notifications/CloudNotification";
 import "./modal.scss";
 import { throttle } from "lodash";
 import FontPicker from "font-picker-react";
+import { ModalType } from "../../context/PortfolioContextTypes";
 
-//TODO arreglar throttling (hace mil llamadas cuando hay input change)
 export const StyleModal = () => {
   const THROTTLE_MS = 100;
   const { activeModalData, portfolioId, toaster, portfolioData } =
@@ -47,42 +40,30 @@ export const StyleModal = () => {
     mutationFn: () =>
       updateElement(portfolioId.value, {
         ...portfolioData.value,
+        typeId: "portfolio",
         style: portfolioData.value.style,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["getElement", portfolioId.value]);
-      toaster.push(
-        <Notification>
-          <NotificationContent
-            text={`Estilo modificado con éxito`}
-          ></NotificationContent>
-        </Notification>,
-        defaultToastValues
+      pushCloudNotification(
+        toaster,
+        activeModalData.value?.element?.name || "",
+        ModalType.SetSyle
       );
-      handleClose();
+      activeModalData.set(null);
     },
   });
   const handleClick = (event: any) => {
     event.preventDefault();
     editStyleMutation.mutate();
-    handleClose();
+    activeModalData.set(null);
   };
 
-  const handleClose = () => {
-    activeModalData.set({
-      parentId: null,
-      elementId: null,
-      modalType: null,
-      modalContent: null,
-    });
-  };
-
-  //TODO: arreglar fuentes no guardandose en bd
   return (
     <Modal
       id="newTab"
-      show={activeModalData.value.modalType === ModalType.SetSyle}
-      onHide={handleClose}
+      show={activeModalData.value?.modalType === ModalType.SetSyle}
+      onHide={() => activeModalData.set(null)}
       backdrop={false}
       centered={true}
       className="style-modal"
@@ -129,7 +110,7 @@ export const StyleModal = () => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => activeModalData.set(null)}>
             Cancelar
           </Button>
           <Button type="submit" variant="primary" onClick={handleClick}>

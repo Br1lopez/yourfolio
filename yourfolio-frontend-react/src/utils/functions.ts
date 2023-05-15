@@ -1,22 +1,22 @@
-import { ElementDTO } from "src/api/elementTypes";
+import { ElementDTO } from "src/api/dtoTypes";
 import { Font, Category, Script, Variant } from "@samuelmeuli/font-manager";
 import { loadActiveFont } from "src/modules/fontManager/loadFonts";
 
 export function getElementByIdRecursive(
-  id: number,
-  element: ElementDTO | null
+  elementId: number,
+  parentElement: ElementDTO | null
 ): ElementDTO | null {
-  if (element === null) {
+  if (parentElement === null) {
     return null;
   }
 
-  if (element.id === id) {
-    return element;
+  if (parentElement.id === elementId) {
+    return parentElement;
   }
 
-  for (let i = 0; i < element.elements.length; i++) {
-    const child = element.elements[i];
-    const result = getElementByIdRecursive(id, child);
+  for (let i = 0; i < parentElement.elements.length; i++) {
+    const child = parentElement.elements[i];
+    const result = getElementByIdRecursive(elementId, child);
     if (result !== null) {
       return result;
     }

@@ -11,8 +11,8 @@ export interface ElementDTO {
 }
 
 export interface ElementSaveDTO {
-  typeId?: string;
-  name?: string;
+  typeId: string;
+  name: string;
   position?: number;
   description?: string;
   thumbnailFile?: FileDTO;

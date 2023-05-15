@@ -2,13 +2,10 @@ import React, { useContext } from "react";
 import { ArtworkContainer } from "./artworkContainer/ArtworkContainer";
 import "./artworkGallery.scss";
 import Carousel from "./carousel/Carousel";
-import { ElementDTO } from "src/api/elementTypes";
+import { ElementDTO } from "src/api/dtoTypes";
 import { FaPlus } from "react-icons/fa";
-import {
-  EMPTY_MODAL_CONTENT,
-  ModalType,
-  PortfolioContext,
-} from "../../context/PortfolioContext";
+import { PortfolioContext } from "../../context/PortfolioContext";
+import { ModalType } from "../../context/PortfolioContextTypes";
 
 interface ArtworkGalleryProps {
   galleryData: ElementDTO;
@@ -44,7 +41,6 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
                 parentId: activeElementId.value,
                 elementId: 0,
                 modalType: ModalType.CreateElement,
-                modalContent: EMPTY_MODAL_CONTENT,
               });
             }}
           >

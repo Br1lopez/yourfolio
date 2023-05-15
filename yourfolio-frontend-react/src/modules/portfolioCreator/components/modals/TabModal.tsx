@@ -1,18 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { createElement, updateElement } from "src/api/element";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
+
 import {
-  ModalType,
-  NULL_MODAL_DATA,
-  PortfolioContext,
-} from "src/modules/portfolioCreator/context/PortfolioContext";
-import {
-  NotificationContent,
-  defaultToastValues,
-} from "../notifications/CloudNotification";
-import {
-  Notification,
   Form,
   ButtonToolbar,
   Button,
@@ -27,28 +17,42 @@ import {
   getCustomInputs,
 } from "src/modules/portfolioCreator/components/modals/components/customInputs";
 import { useCreateElementMutation } from "src/api/mutations";
+import { ModalType } from "../../context/PortfolioContextTypes";
 
 export const TabModal = () => {
-  const {
-    activeModalData,
-    portfolioId,
-    toaster,
-    portfolioData,
-    activeElementId,
-  } = useContext(PortfolioContext);
+  const { activeModalData, portfolioData, activeElementId, portfolioId } =
+    useContext(PortfolioContext);
 
-  const queryClient = useQueryClient();
   const formRef = useRef<any>(null);
-  const [name, setName] = useState<string>();
-  const [type, setType] = useState<string>();
-  const createElement = useCreateElementMutation({ name, typeId: type });
+  const [parentId, setParentId] = useState<number>();
+  const [name, setName] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const createElement = useCreateElementMutation(
+    {
+      name,
+      typeId: type,
+    },
+    parentId
+  );
+  const editElement = useCreateElementMutation(
+    {
+      name,
+      typeId: type,
+    },
+    parentId
+  );
 
   useEffect(() => {
-    if (activeModalData.value.modalContent) {
-      setName(activeModalData.value.modalContent.name);
-      setType(activeModalData.value.modalContent.elementType);
+    if (
+      activeModalData.value?.element?.id != null &&
+      activeModalData.value?.element?.id > 0
+    ) {
+      setParentId(activeModalData.value?.parentId || portfolioId.value);
+      console.log(parentId);
+      setName(activeModalData.value?.element?.name || "");
+      setType(activeModalData.value?.element?.type.name || "");
     }
-  }, [activeModalData.value.modalContent]);
+  }, [activeModalData]);
 
   const model = Schema.Model({
     name: Schema.Types.StringType().isRequired("This field is required."),
@@ -57,40 +61,21 @@ export const TabModal = () => {
     ),
   });
 
-  const editElementMutation = useMutation({
-    mutationFn: () =>
-      updateElement(activeModalData.value.elementId || -1, {
-        name: name,
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId.value]);
-      toaster.push(
-        <Notification>
-          <NotificationContent
-            text={`Pestaña "${activeModalData.value.modalContent?.name}" modificada con éxito`}
-          ></NotificationContent>
-        </Notification>,
-        defaultToastValues
-      );
-    },
-  });
-
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
-      switch (activeModalData.value.modalType) {
+      switch (activeModalData.value?.modalType) {
         case ModalType.CreateElement:
           createElement.mutate();
           break;
         case ModalType.EditElement:
-          editElementMutation.mutate();
+          editElement.mutate();
           break;
       }
-      activeModalData.set(NULL_MODAL_DATA);
     }
   };
 
   const title = () => {
-    switch (activeModalData.value.modalType) {
+    switch (activeModalData.value?.modalType) {
       case ModalType.CreateElement:
         return "Nuevo elemento";
       case ModalType.EditElement:
@@ -99,13 +84,7 @@ export const TabModal = () => {
   };
 
   return (
-    <Modal
-      id="newTab"
-      show={
-        activeModalData.value.parentId != null ||
-        activeModalData.value.elementId != null
-      }
-    >
+    <Modal id="newTab" show={activeModalData.value != null}>
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
@@ -130,7 +109,7 @@ export const TabModal = () => {
               onChange={(v: any, e: any) => setType(v)}
               data={
                 getElementByIdRecursive(
-                  activeModalData.value.parentId || activeElementId.value,
+                  activeModalData.value?.parentId || activeElementId.value,
                   portfolioData.value
                 )?.type.possibleChildren?.map((element) => ({
                   label: element.name,
@@ -140,7 +119,7 @@ export const TabModal = () => {
             ></Form.Control>
           </Form.Group>
           {getCustomInputs(
-            activeModalData.value.modalContent?.elementType || ""
+            activeModalData.value?.element?.type?.name || ""
           ).map((input) => {
             switch (input) {
               case CustomInputType.Image:
@@ -159,7 +138,7 @@ export const TabModal = () => {
           <ButtonToolbar>
             <Button
               appearance="default"
-              onClick={() => activeModalData.set(NULL_MODAL_DATA)}
+              onClick={() => activeModalData.set(null)}
             >
               Cancelar
             </Button>

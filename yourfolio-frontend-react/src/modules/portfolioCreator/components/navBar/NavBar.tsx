@@ -3,21 +3,19 @@ import { Navbar, Button, Nav } from "react-bootstrap";
 import "./navBar.scss";
 import { TabModal } from "../modals/TabModal";
 import Tab from "./components/Tab";
-import {
-  PortfolioContext,
-  ModalType,
-  EMPTY_MODAL_CONTENT,
-} from "../../context/PortfolioContext";
+import { PortfolioContext } from "../../context/PortfolioContext";
+import { ModalType } from "../../context/PortfolioContextTypes";
+import { ElementDTO } from "src/api/dtoTypes";
 
 //TODO transiciones al borrar y añadir pestañas
 interface NavBarProps {
-  title: string;
+  tabs: ElementDTO[];
   height?: string;
-  tabs?: { name: string; id: number }[];
 }
 
 export const NavBar = (props: NavBarProps) => {
   const [showTabmenu, setShowTabmenu] = useState<any>([]);
+  const { tabs, height } = props;
 
   const {
     activeModalData: activeModalProps,
@@ -31,14 +29,14 @@ export const NavBar = (props: NavBarProps) => {
       const target = event.target as HTMLElement;
       if (target.id.includes("navbar__tabLink")) {
         const index = Number(target.id.replace("navbar__tabLink_", ""));
-        setShowTabmenu(props.tabs?.map((section, i) => i === index));
+        setShowTabmenu(tabs.map((section, i) => i === index));
       } else {
         closeAllTabMenus();
       }
     };
 
     const closeAllTabMenus = () => {
-      setShowTabmenu(props.tabs?.map(() => false));
+      setShowTabmenu(tabs.map(() => false));
     };
 
     document.addEventListener("contextmenu", handleContextMenu);
@@ -50,7 +48,7 @@ export const NavBar = (props: NavBarProps) => {
       document.removeEventListener("contextmenu", handleContextMenu);
       document.removeEventListener("click", closeAllTabMenus);
     };
-  }, [props.tabs]);
+  }, [portfolioData.value.elements]);
 
   return (
     <>
@@ -60,11 +58,11 @@ export const NavBar = (props: NavBarProps) => {
         className="navbar"
         style={{
           backgroundColor: portfolioData.value.style.bgColor,
-          height: props.height,
+          height: height,
         }}
       >
         <Navbar.Brand className="navbar__brand" href="index.html">
-          {props.title}
+          {portfolioData.value.name}
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="navCollapse"
@@ -72,17 +70,17 @@ export const NavBar = (props: NavBarProps) => {
         />
         <Navbar.Collapse className="justify-content-end" id="navCollapse">
           <Nav>
-            {props.tabs?.map((tab, index) => {
-              return (
-                <Tab
-                  name={tab.name}
-                  open={showTabmenu[index]}
-                  index={index}
-                  key={index}
-                  tabId={tab.id}
-                ></Tab>
-              );
-            })}
+            {portfolioData.value.elements
+              .sort((a: any, b: any) => a.position - b.position)
+              .map((tab, index) => {
+                return (
+                  <Tab
+                    open={showTabmenu[index]}
+                    key={index}
+                    element={tab}
+                  ></Tab>
+                );
+              })}
             <Nav.Link href="#">
               <Button
                 className="navbar__addTabButton"
@@ -92,7 +90,6 @@ export const NavBar = (props: NavBarProps) => {
                     parentId: portfolioId.value,
                     elementId: 0,
                     modalType: ModalType.CreateElement,
-                    modalContent: EMPTY_MODAL_CONTENT,
                   });
                 }}
               >
