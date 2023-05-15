@@ -1,8 +1,8 @@
-// export const NULL_MODAL_DATA = {
-//   parentId: null,
-//   elementId: null,
-//   modalType: null,
-// };
+import { ModalType } from "./PortfolioContextTypes";
+
+export const NULL_MODAL_GETTER_DATA = {
+  modalType: ModalType.CreateElement,
+};
 
 export const EXAMPLE_ELEMENT = {
   id: -1,

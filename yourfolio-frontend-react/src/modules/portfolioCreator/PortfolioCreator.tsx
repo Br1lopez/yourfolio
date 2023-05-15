@@ -9,13 +9,14 @@ import InterfaceBar from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import PortfolioStyle from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
+import { ModalWindow } from "./components/modals/TabModal";
 
 export interface PortfolioCreatorProps {
   portfolioId: number;
 }
 
 export const PortfolioCreator = (props: PortfolioCreatorProps) => {
-  const { portfolioId, portfolioData, activeElementId } =
+  const { portfolioId, portfolioData, activeElementId, activeModalData } =
     useContext(PortfolioContext);
   //eslint-disable-next-line
   const [barWidth, setBarWidth] = useState<string>("55px");
@@ -59,6 +60,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               />
             )}
           </div>
+          <ModalWindow modalProperties={activeModalData.value} />
         </div>
       )}
     </>

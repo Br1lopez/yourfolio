@@ -17,11 +17,18 @@ import {
   getCustomInputs,
 } from "src/modules/portfolioCreator/components/modals/components/customInputs";
 import { useCreateElementMutation } from "src/api/mutations";
-import { ModalType } from "../../context/PortfolioContextTypes";
+import {
+  ActiveModalDataGetter,
+  ModalType,
+} from "../../context/PortfolioContextTypes";
 
-export const TabModal = () => {
-  const { activeModalData, portfolioData, activeElementId, portfolioId } =
-    useContext(PortfolioContext);
+export interface ModalWindowProps {
+  modalProperties: ActiveModalDataGetter;
+}
+
+export const ModalWindow = (props: ModalWindowProps) => {
+  const { activeModalData } = useContext(PortfolioContext);
+  const { modalProperties } = props;
 
   const formRef = useRef<any>(null);
   const [parentId, setParentId] = useState<number>();
@@ -42,18 +49,6 @@ export const TabModal = () => {
     parentId
   );
 
-  useEffect(() => {
-    if (
-      activeModalData.value?.element?.id != null &&
-      activeModalData.value?.element?.id > 0
-    ) {
-      setParentId(activeModalData.value?.parentId || portfolioId.value);
-      console.log(parentId);
-      setName(activeModalData.value?.element?.name || "");
-      setType(activeModalData.value?.element?.type.name || "");
-    }
-  }, [activeModalData]);
-
   const model = Schema.Model({
     name: Schema.Types.StringType().isRequired("This field is required."),
     type: Schema.Types.StringType().isRequired(
@@ -63,7 +58,7 @@ export const TabModal = () => {
 
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
-      switch (activeModalData.value?.modalType) {
+      switch (modalProperties.modalType) {
         case ModalType.CreateElement:
           createElement.mutate();
           break;
@@ -75,7 +70,7 @@ export const TabModal = () => {
   };
 
   const title = () => {
-    switch (activeModalData.value?.modalType) {
+    switch (modalProperties.modalType) {
       case ModalType.CreateElement:
         return "Nuevo elemento";
       case ModalType.EditElement:
@@ -84,7 +79,7 @@ export const TabModal = () => {
   };
 
   return (
-    <Modal id="newTab" show={activeModalData.value != null}>
+    <Modal id="newTab" show={modalProperties.element != null}>
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
@@ -108,31 +103,34 @@ export const TabModal = () => {
               value={type}
               onChange={(v: any, e: any) => setType(v)}
               data={
-                getElementByIdRecursive(
-                  activeModalData.value?.parentId || activeElementId.value,
-                  portfolioData.value
-                )?.type.possibleChildren?.map((element) => ({
-                  label: element.name,
-                  value: element.id,
-                })) || []
+                modalProperties.element?.type.possibleChildren?.map(
+                  (possibleChild) => ({
+                    label: possibleChild.name,
+                    value: possibleChild.id,
+                  })
+                ) || []
               }
             ></Form.Control>
           </Form.Group>
-          {getCustomInputs(
-            activeModalData.value?.element?.type?.name || ""
-          ).map((input) => {
-            switch (input) {
-              case CustomInputType.Image:
-                return (
-                  <Form.Group controlId="newElementType" className="mb-4">
-                    <Form.ControlLabel>Imagen:</Form.ControlLabel>
-                    <Form.Control name="image" accepter={Uploader} action="#" />
-                  </Form.Group>
-                );
-              default:
-                return null;
+          {getCustomInputs(modalProperties.element?.type.name || "").map(
+            (input) => {
+              switch (input) {
+                case CustomInputType.Image:
+                  return (
+                    <Form.Group controlId="newElementType" className="mb-4">
+                      <Form.ControlLabel>Imagen:</Form.ControlLabel>
+                      <Form.Control
+                        name="image"
+                        accepter={Uploader}
+                        action="#"
+                      />
+                    </Form.Group>
+                  );
+                default:
+                  return null;
+              }
             }
-          })}
+          )}
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>

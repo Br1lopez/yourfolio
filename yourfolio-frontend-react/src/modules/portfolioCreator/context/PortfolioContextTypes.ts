@@ -10,7 +10,7 @@ export interface PortfolioCtxData {
    * El elemento al que hace referencia la ventana se setea con un id, pero se recupera completo.
    */
   activeModalData: {
-    value: ActiveModalDataGetter | null;
+    value: ActiveModalDataGetter;
     set: (value: ActiveModalDataSetter | null) => void;
   };
 

@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Navbar, Button, Nav } from "react-bootstrap";
 import "./navBar.scss";
-import { TabModal } from "../modals/TabModal";
 import Tab from "./components/Tab";
 import { ModalType } from "../../context/PortfolioContextTypes";
 import { ElementDTO } from "src/api/dtoTypes";
@@ -46,56 +45,49 @@ export const NavBar = (props: NavBarProps) => {
   }, [portfolio]);
 
   return (
-    <>
-      <Navbar
-        expand="sm"
-        id="navbar"
-        className="navbar"
-        style={{
-          backgroundColor: portfolioData.value.style.bgColor,
-          height: height,
-        }}
-      >
-        <Navbar.Brand className="navbar__brand" href="index.html">
-          {portfolio.name}
-        </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="navCollapse"
-          className="navbar__collapseButton"
-        />
-        <Navbar.Collapse className="justify-content-end" id="navCollapse">
-          <Nav>
-            {portfolio.elements
-              .sort((a: any, b: any) => a.position - b.position)
-              .map((tab, index) => {
-                return (
-                  <Tab
-                    open={showTabmenu[index]}
-                    key={index}
-                    element={tab}
-                  ></Tab>
-                );
-              })}
-            <Nav.Link href="#">
-              <Button
-                className="navbar__addTabButton"
-                variant="link"
-                onClick={() => {
-                  activeModalData.set({
-                    parentId: portfolio.id,
-                    elementId: 0,
-                    modalType: ModalType.CreateElement,
-                  });
-                }}
-              >
-                <i className="fas fa-plus-circle"></i>
-              </Button>
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <TabModal></TabModal>
-    </>
+    <Navbar
+      expand="sm"
+      id="navbar"
+      className="navbar"
+      style={{
+        backgroundColor: portfolioData.value.style.bgColor,
+        height: height,
+      }}
+    >
+      <Navbar.Brand className="navbar__brand" href="index.html">
+        {portfolio.name}
+      </Navbar.Brand>
+      <Navbar.Toggle
+        aria-controls="navCollapse"
+        className="navbar__collapseButton"
+      />
+      <Navbar.Collapse className="justify-content-end" id="navCollapse">
+        <Nav>
+          {portfolio.elements
+            .sort((a: any, b: any) => a.position - b.position)
+            .map((tab, index) => {
+              return (
+                <Tab open={showTabmenu[index]} key={index} element={tab}></Tab>
+              );
+            })}
+          <Nav.Link href="#">
+            <Button
+              className="navbar__addTabButton"
+              variant="link"
+              onClick={() => {
+                activeModalData.set({
+                  parentId: portfolio.id,
+                  elementId: 0,
+                  modalType: ModalType.CreateElement,
+                });
+              }}
+            >
+              <i className="fas fa-plus-circle"></i>
+            </Button>
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 

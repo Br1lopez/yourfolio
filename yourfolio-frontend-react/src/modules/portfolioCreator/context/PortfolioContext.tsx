@@ -7,7 +7,10 @@ import {
   ModalType,
   PortfolioCtxData,
 } from "./PortfolioContextTypes";
-import { EXAMPLE_ELEMENT } from "./PortfolioContextDefaultObjects";
+import {
+  EXAMPLE_ELEMENT,
+  NULL_MODAL_GETTER_DATA,
+} from "./PortfolioContextDefaultObjects";
 
 export const PortfolioContext = React.createContext<PortfolioCtxData>({
   activeElementId: { value: -1, set: () => console.log("set") },
@@ -28,30 +31,27 @@ export const usePortfolioContext = (): PortfolioCtxData => {
   const [portfolioData, setPortfolioData] =
     useState<ElementDTO>(EXAMPLE_ELEMENT);
   const [activeModalDataGetter, setActiveModalDataGetter] =
-    useState<ActiveModalDataGetter | null>(null);
+    useState<ActiveModalDataGetter>(NULL_MODAL_GETTER_DATA);
 
   useEffect(() => {
-    setActiveModalDataGetter(
-      activeModalDataSetter == null
-        ? null
-        : {
-            parentId: activeModalDataSetter.parentId,
-            element:
-              getElementByIdRecursive(
-                activeModalDataSetter?.elementId || -1,
-                portfolioData
-              ) || undefined,
-            modalType:
-              activeModalDataSetter.modalType || ModalType.CreateElement,
-          }
-    );
+    if (activeModalDataSetter === null) return;
+
+    setActiveModalDataGetter({
+      parentId: activeModalDataSetter.parentId,
+      element:
+        getElementByIdRecursive(
+          activeModalDataSetter?.elementId || -1,
+          portfolioData
+        ) || undefined,
+      modalType: activeModalDataSetter.modalType || ModalType.CreateElement,
+    });
   }, [activeModalDataSetter]);
 
   return {
     activeElementId: { value: activeElementId, set: setActiveElementId },
     portfolioId: { value: portfolioId, set: setPortfolioId },
     activeModalData: {
-      value: activeModalDataGetter || null,
+      value: activeModalDataGetter,
       set: setActiveModalDataSetter,
     },
     portfolioData: { value: portfolioData, set: setPortfolioData },
