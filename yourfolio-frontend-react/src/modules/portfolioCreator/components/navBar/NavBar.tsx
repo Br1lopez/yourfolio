@@ -45,7 +45,7 @@ export const NavBar = (props: NavBarProps) => {
       id="navbar"
       className="navbar"
       style={{
-        backgroundColor: portfolioData.value.style.bgColor,
+        backgroundColor: portfolioData.value.style?.bgColor,
         height: height,
       }}
     >

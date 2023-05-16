@@ -16,13 +16,17 @@ export const StyleModal = () => {
 
   const debouncedBgColor = throttle((bgColor) => {
     let data = { ...portfolioData.value };
-    data.style.bgColor = bgColor;
+    if (data.style) {
+      data.style.bgColor = bgColor;
+    }
     portfolioData.set(data);
   }, THROTTLE_MS);
 
   const debouncedFontColor = throttle((fontColor) => {
     let data = { ...portfolioData.value };
-    data.style.fontColor = fontColor;
+    if (data.style) {
+      data.style.fontColor = fontColor;
+    }
     portfolioData.set(data);
   }, THROTTLE_MS);
 
@@ -78,7 +82,7 @@ export const StyleModal = () => {
             <Form.Control
               type="color"
               onChange={handleBgColorInputChange}
-              value={portfolioData.value.style.bgColor || "#ffffff"}
+              value={portfolioData.value.style?.bgColor || "#ffffff"}
               required
             />
           </Form.Group>
@@ -87,7 +91,7 @@ export const StyleModal = () => {
             <Form.Control
               type="color"
               onChange={handleFontColorInputChange}
-              value={portfolioData.value.style.fontColor || "#ffffff"}
+              value={portfolioData.value.style?.fontColor || "#ffffff"}
               required
             />
           </Form.Group>
@@ -96,7 +100,7 @@ export const StyleModal = () => {
             {/*TODO: al cambiar, se vuelve a la fuente por defecto durante un milisegundo*/}
             <FontPicker
               apiKey="AIzaSyA7-F6PODGUMyfHXyRvfBfZFRlSJcfmiVE"
-              activeFontFamily={portfolioData.value.style.fontFamily}
+              activeFontFamily={portfolioData.value.style?.fontFamily}
               onChange={(nextFont) =>
                 portfolioData.set({
                   ...portfolioData.value,

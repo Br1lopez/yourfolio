@@ -9,8 +9,8 @@ const PortfolioStyle = () => {
   };
 
   useEffect(() => {
-    setStyle("--bg-color", portfolioData.value.style.bgColor || "black");
-    setStyle("--text-color", portfolioData.value.style.fontColor || "white");
+    setStyle("--bg-color", portfolioData.value.style?.bgColor || "black");
+    setStyle("--text-color", portfolioData.value.style?.fontColor || "white");
   });
 
   return <div style={{ display: "none" }}>PortfolioStyle</div>;

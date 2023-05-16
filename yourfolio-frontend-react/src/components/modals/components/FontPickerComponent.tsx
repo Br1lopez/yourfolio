@@ -7,14 +7,16 @@ const FontPickerComponent = () => {
 
   const handleBgColorInputChange = (event: any) => {
     let data = { ...portfolioData.value };
-    data.style.fontFamily = event.target.value;
+    if (data.style) {
+      data.style.fontFamily = event.target.value;
+    }
     portfolioData.set(data);
   };
 
   return (
     <FontPicker
       apiKey="AIzaSyA7-F6PODGUMyfHXyRvfBfZFRlSJcfmiVE"
-      activeFontFamily={portfolioData.value.style.fontFamily}
+      activeFontFamily={portfolioData.value.style?.fontFamily}
       onChange={handleBgColorInputChange}
     />
   );

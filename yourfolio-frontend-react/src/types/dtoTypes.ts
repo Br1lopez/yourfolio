@@ -2,27 +2,21 @@ export interface ElementDTO {
   id: number;
   type: typeDTO;
   name: string;
-  description: string;
-  thumbnailFile: FileDTO;
+  position: number;
   files: Array<FileDTO>;
   elements: Array<ElementDTO>;
-  style: StyleDTO;
-  position: number;
+  description?: string;
+  thumbnailFile?: FileDTO;
+  style?: StyleDTO;
 }
 
 export const EMPTY_ELEMENT_DTO: ElementDTO = {
   id: -1,
   name: "",
-  style: {
-    bgColor: "",
-    fontColor: "",
-  },
-  elements: [],
   type: { id: "", name: "" },
-  description: "",
+  position: 0,
   files: [],
-  thumbnailFile: { id: -1, description: "", url: "" },
-  position: -1,
+  elements: [],
 };
 
 export interface ElementSaveDTO {

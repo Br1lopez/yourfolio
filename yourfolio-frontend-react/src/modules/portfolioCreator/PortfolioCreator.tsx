@@ -36,7 +36,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     queryFn: () => getElement(props.portfolioId),
     onSuccess: (data) => {
       portfolioData.set(data);
-      applyFont(data.style.fontFamily || "Open Sans");
+      applyFont(data.style?.fontFamily || "Open Sans");
     },
   });
 
