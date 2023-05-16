@@ -7,7 +7,7 @@ export const ElementTitleInput = (props: { state: State<ElementDTO> }) => {
     <Form.ControlLabel>Nombre: </Form.ControlLabel>
     <Form.Control
       name="name"
-      value={props.state.value}
+      value={props.state.value.name}
       onChange={(v: string, e: any) => props.state.set({ ...props.state.value, name: v })} />
   </Form.Group>;
 }
@@ -20,7 +20,7 @@ export const ElementTypeInput = (props: { state: State<ElementDTO>, parent?: Ele
       accepter={SelectPicker}
       searchable={false}
       aria-label="Select"
-      value={props.state.value}
+      value={props.state.value.type.id}
       onChange={(v: any, e: any) => props.state.set({ ...props.state.value, type: { ...props.state.value.type, id: v } })}
       data={
         props.parent?.type.possibleChildren?.map(
