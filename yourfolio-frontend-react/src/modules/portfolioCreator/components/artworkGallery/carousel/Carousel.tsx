@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./carousel.scss";
 import { Link } from "react-scroll";
 import { IoMdArrowDropupCircle, IoMdArrowDropdownCircle } from "react-icons/io";
-import { ElementDTO } from "src/api/dtoTypes";
+import { ElementDTO } from "src/types/dtoTypes";
 
 interface CarouselProps {
   elements: ElementDTO[];
@@ -65,14 +65,14 @@ const Carousel = (props: CarouselProps) => {
       if (
         bottom <
         (imagesRef.current?.offsetHeight || 0) -
-          (containerRef.current?.offsetHeight || 0) -
-          CAROUSEL_MOVEMENT()
+        (containerRef.current?.offsetHeight || 0) -
+        CAROUSEL_MOVEMENT()
       ) {
         setBottom(bottom + CAROUSEL_MOVEMENT());
       } else {
         setBottom(
           (imagesRef.current?.offsetHeight || 0) -
-            (containerRef.current?.offsetHeight || 0)
+          (containerRef.current?.offsetHeight || 0)
         );
         setEndReached(true);
       }

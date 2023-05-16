@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
+import { PortfolioContext } from "src/hooks/PortfolioContext";
 import { useContext } from "react";
-import { createElement, updateElement, deleteElement } from "./element";
+import { createElement, updateElement, deleteElement } from "../api/elementRequests";
 
 import { pushCloudNotification } from "src/modules/portfolioCreator/components/notifications/CloudNotification";
-import { ElementSaveDTO } from "./dtoTypes";
-import { ModalType } from "src/modules/portfolioCreator/context/PortfolioContextTypes";
+import { ElementSaveDTO } from "../types/dtoTypes";
+import { ModalType } from "src/types/portfolioContextTypes";
 
 export const useCreateElementMutation = (
   elementSaveDto: ElementSaveDTO,

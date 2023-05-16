@@ -1,4 +1,4 @@
-import { ElementDTO } from "src/api/dtoTypes";
+import { ElementDTO } from "src/types/dtoTypes";
 import { Font, Category, Script, Variant } from "@samuelmeuli/font-manager";
 import { loadActiveFont } from "src/modules/fontManager/loadFonts";
 

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
-import { PortfolioContext } from "../context/PortfolioContext";
+import { PortfolioContext } from "../../../hooks/PortfolioContext";
 
 const PortfolioStyle = () => {
   const { portfolioData } = useContext(PortfolioContext);

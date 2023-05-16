@@ -1,4 +1,4 @@
-import { ElementDTO } from "src/api/dtoTypes";
+import { ElementDTO } from "src/types/dtoTypes";
 import "./artworkContainer.scss";
 
 interface ArtworkContainerProps {

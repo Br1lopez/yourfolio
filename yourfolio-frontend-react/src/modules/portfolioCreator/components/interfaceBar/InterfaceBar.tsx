@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import "./interfaceBar.scss";
 import { FaPaintBrush } from "react-icons/fa";
 import { MdOutlineHelp } from "react-icons/md";
-import { PortfolioContext } from "../../context/PortfolioContext";
+import { PortfolioContext } from "../../../../hooks/PortfolioContext";
 import { StyleModal } from "../modals/StyleModal";
-import { ModalType } from "../../context/PortfolioContextTypes";
+import { ModalType } from "../../../../types/portfolioContextTypes";
 
 interface InterfaceBarProps {
   width?: string;

@@ -4,10 +4,10 @@ import "rsuite/dist/rsuite.min.css";
 import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
-import { useDeleteElementMutation } from "src/api/mutations";
-import { ModalType } from "src/modules/portfolioCreator/context/PortfolioContextTypes";
-import { ElementDTO } from "src/api/dtoTypes";
+import { PortfolioContext } from "src/hooks/PortfolioContext";
+import { useDeleteElementMutation } from "src/hooks/ElementMutations";
+import { ModalType } from "src/types/portfolioContextTypes";
+import { ElementDTO } from "src/types/dtoTypes";
 
 export interface TabProps {
   open: boolean;

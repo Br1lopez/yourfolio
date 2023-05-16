@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from "react";
 import { Navbar, Button, Nav } from "react-bootstrap";
 import "./navBar.scss";
 import Tab from "./components/Tab";
-import { ModalType } from "../../context/PortfolioContextTypes";
-import { ElementDTO } from "src/api/dtoTypes";
-import { PortfolioContext } from "../../context/PortfolioContext";
+import { ModalType } from "../../../../types/portfolioContextTypes";
+import { ElementDTO } from "src/types/dtoTypes";
+import { PortfolioContext } from "../../../../hooks/PortfolioContext";
 
 //TODO transiciones al borrar y añadir pestañas
 interface NavBarProps {

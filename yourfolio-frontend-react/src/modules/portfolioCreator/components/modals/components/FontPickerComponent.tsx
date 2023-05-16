@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import FontPicker from "font-picker-react";
-import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
+import { PortfolioContext } from "src/hooks/PortfolioContext";
 
 const FontPickerComponent = () => {
   const { portfolioData } = useContext(PortfolioContext);

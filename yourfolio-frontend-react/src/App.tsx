@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   PortfolioContext,
   usePortfolioContext,
-} from "./modules/portfolioCreator/context/PortfolioContext";
+} from "./hooks/PortfolioContext";
 import { useToaster } from "rsuite";
 
 const queryClient = new QueryClient();

@@ -1,6 +1,6 @@
 import React from "react";
 import { ArtworkGallery } from "../artworkGallery/ArtworkGallery";
-import { ElementDTO } from "src/api/dtoTypes";
+import { ElementDTO } from "src/types/dtoTypes";
 
 interface ActiveComponentProps {
   element: ElementDTO | null;

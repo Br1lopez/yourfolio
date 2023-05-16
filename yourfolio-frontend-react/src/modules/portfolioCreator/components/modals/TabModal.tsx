@@ -1,25 +1,26 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { PortfolioContext } from "src/modules/portfolioCreator/context/PortfolioContext";
+import { PortfolioContext } from "src/hooks/PortfolioContext";
 
 import {
   Form,
   ButtonToolbar,
   Button,
-  Uploader,
-  SelectPicker,
   Schema,
 } from "rsuite";
 import "./modal.scss";
 import {
-  CustomInputType,
-  getCustomInputs,
-} from "src/modules/portfolioCreator/components/modals/components/customInputs";
-import { useCreateElementMutation, useEditElementMutation } from "src/api/mutations";
+  CustomElementInputs,
+  ElementTitleInput,
+  ElementTypeInput,
+} from "src/modules/portfolioCreator/components/modals/components/elementInputs";
+import { useCreateElementMutation, useEditElementMutation } from "src/hooks/ElementMutations";
 import {
   ModalDataGetter,
   ModalType,
-} from "../../context/PortfolioContextTypes";
+} from "../../../../types/portfolioContextTypes";
+import { ElementDTO, EMPTY_ELEMENT_DTO, mapElementDtoToElementSaveDto } from "src/types/dtoTypes";
+
 
 export interface ModalWindowProps {
   modalProperties: ModalDataGetter | null;
@@ -28,36 +29,26 @@ export interface ModalWindowProps {
 export const ModalWindow = (props: ModalWindowProps) => {
   const { activeModalData } = useContext(PortfolioContext);
   const { modalProperties } = props;
-  const [name, setName] = useState<string>("");
-  const [type, setType] = useState<string>("");
-
-  useEffect(() => {
-    setName(modalProperties?.element?.name || "");
-    setType(modalProperties?.element?.type.name || "");
-  }, [modalProperties]);
-
+  const [element, setElement] = useState<ElementDTO>(EMPTY_ELEMENT_DTO);
   const formRef = useRef<any>(null);
   const createElement = useCreateElementMutation(
-    {
-      name,
-      typeId: type,
-    },
+    mapElementDtoToElementSaveDto(element),
     modalProperties?.parent?.id
   );
   const editElement = useEditElementMutation(
     modalProperties?.element?.id || -1,
-    {
-      name,
-      typeId: type,
-    },
+    mapElementDtoToElementSaveDto(element),
   );
-
   const model = Schema.Model({
     name: Schema.Types.StringType().isRequired("This field is required."),
     type: Schema.Types.StringType().isRequired(
       "Please enter a valid email address."
     ),
   });
+
+  useEffect(() => {
+    setElement(modalProperties?.element || EMPTY_ELEMENT_DTO);
+  }, [modalProperties]);
 
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
@@ -78,6 +69,8 @@ export const ModalWindow = (props: ModalWindowProps) => {
         return "Nuevo elemento";
       case ModalType.EditElement:
         return "Editar elemento";
+      case ModalType.SetSyle:
+        return "Editar estilo";
     }
   };
 
@@ -88,52 +81,9 @@ export const ModalWindow = (props: ModalWindowProps) => {
       </Modal.Header>
       <Form model={model} onSubmit={handleSubmit} ref={formRef}>
         <Modal.Body>
-          <Form.Group controlId="newElementTitle">
-            <Form.ControlLabel>Nombre:</Form.ControlLabel>
-            <Form.Control
-              name="name"
-              value={name}
-              onChange={(v: string, e: any) => setName(v)}
-            />
-          </Form.Group>
-          <Form.Group controlId="newElementType">
-            <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
-            <Form.Control
-              name="type"
-              accepter={SelectPicker}
-              searchable={false}
-              aria-label="Select"
-              value={type}
-              onChange={(v: any, e: any) => setType(v)}
-              data={
-                modalProperties?.parent?.type.possibleChildren?.map(
-                  (possibleChild) => ({
-                    label: possibleChild.name,
-                    value: possibleChild.id,
-                  })
-                ) || []
-              }
-            ></Form.Control>
-          </Form.Group>
-          {getCustomInputs(modalProperties?.element?.type.name || "").map(
-            (input) => {
-              switch (input) {
-                case CustomInputType.Image:
-                  return (
-                    <Form.Group controlId="newElementType" className="mb-4">
-                      <Form.ControlLabel>Imagen:</Form.ControlLabel>
-                      <Form.Control
-                        name="image"
-                        accepter={Uploader}
-                        action="#"
-                      />
-                    </Form.Group>
-                  );
-                default:
-                  return null;
-              }
-            }
-          )}
+          <ElementTitleInput state={{ value: element, set: setElement }} />
+          <ElementTypeInput state={{ value: element, set: setElement }} parent={activeModalData.value?.parent} />
+          <CustomElementInputs state={{ value: element, set: setElement }} />
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>

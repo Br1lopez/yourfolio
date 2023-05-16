@@ -2,7 +2,7 @@ import React from "react";
 import { Notification } from "rsuite";
 import { BsFillCloudCheckFill } from "react-icons/bs";
 import "./cloudNotification.scss";
-import { ModalType } from "../../context/PortfolioContextTypes";
+import { ModalType } from "../../../../types/portfolioContextTypes";
 
 export function pushCloudNotification(
   toaster: any,
