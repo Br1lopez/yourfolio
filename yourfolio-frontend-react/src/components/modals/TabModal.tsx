@@ -13,12 +13,12 @@ import {
   CustomElementInputs,
   ElementTitleInput,
   ElementTypeInput,
-} from "src/modules/portfolioCreator/components/modals/components/elementInputs";
+} from "src/components/modals/components/elementInputs";
 import { useCreateElementMutation, useEditElementMutation } from "src/hooks/ElementMutations";
 import {
   ModalDataGetter,
   ModalType,
-} from "../../../../types/portfolioContextTypes";
+} from "src/types/portfolioContextTypes";
 import { ElementDTO, EMPTY_ELEMENT_DTO, mapElementDtoToElementSaveDto } from "src/types/dtoTypes";
 
 

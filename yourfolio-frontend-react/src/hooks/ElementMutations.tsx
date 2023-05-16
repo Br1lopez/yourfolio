@@ -3,7 +3,7 @@ import { PortfolioContext } from "src/hooks/PortfolioContext";
 import { useContext } from "react";
 import { createElement, updateElement, deleteElement } from "../api/elementRequests";
 
-import { pushCloudNotification } from "src/modules/portfolioCreator/components/notifications/CloudNotification";
+import { pushCloudNotification } from "src/components/notifications/CloudNotification";
 import { ElementSaveDTO } from "../types/dtoTypes";
 import { ModalType } from "src/types/portfolioContextTypes";
 

@@ -3,7 +3,7 @@ import "./interfaceBar.scss";
 import { FaPaintBrush } from "react-icons/fa";
 import { MdOutlineHelp } from "react-icons/md";
 import { PortfolioContext } from "../../../../hooks/PortfolioContext";
-import { StyleModal } from "../modals/StyleModal";
+import { StyleModal } from "src/components/modals/StyleModal";
 import { ModalType } from "../../../../types/portfolioContextTypes";
 
 interface InterfaceBarProps {

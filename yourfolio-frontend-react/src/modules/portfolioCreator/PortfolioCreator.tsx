@@ -9,7 +9,7 @@ import InterfaceBar from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import PortfolioStyle from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
-import { ModalWindow } from "./components/modals/TabModal";
+import { ModalWindow } from "src/components/modals/TabModal";
 
 export interface PortfolioCreatorProps {
   portfolioId: number;

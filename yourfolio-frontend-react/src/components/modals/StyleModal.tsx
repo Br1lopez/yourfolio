@@ -3,11 +3,11 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { updateElement } from "src/api/elementRequests";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
-import { pushCloudNotification } from "../notifications/CloudNotification";
+import { pushCloudNotification } from "src/components/notifications/CloudNotification";
 import "./modal.scss";
 import { throttle } from "lodash";
 import FontPicker from "font-picker-react";
-import { ModalType } from "../../../../types/portfolioContextTypes";
+import { ModalType } from "src/types/portfolioContextTypes";
 
 export const StyleModal = () => {
   const THROTTLE_MS = 100;
