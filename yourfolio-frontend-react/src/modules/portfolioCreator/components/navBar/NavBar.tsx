@@ -14,7 +14,7 @@ interface NavBarProps {
 
 export const NavBar = (props: NavBarProps) => {
   const { portfolio, height } = props;
-  const { activeModalData, portfolioData } = useContext(PortfolioContext);
+  const { modalWindowData } = useContext(PortfolioContext);
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
   useEffect(() => {
@@ -45,7 +45,6 @@ export const NavBar = (props: NavBarProps) => {
       id="navbar"
       className="navbar"
       style={{
-        backgroundColor: portfolioData.value.style?.bgColor,
         height: height,
       }}
     >
@@ -70,7 +69,7 @@ export const NavBar = (props: NavBarProps) => {
               className="navbar__addTabButton"
               variant="link"
               onClick={() => {
-                activeModalData.set({
+                modalWindowData.set({
                   parentId: portfolio.id,
                   elementId: 0,
                   modalType: ModalType.CreateElement,

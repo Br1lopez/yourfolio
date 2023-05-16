@@ -11,7 +11,7 @@ import { ModalType } from "src/types/portfolioContextTypes";
 
 export const StyleModal = () => {
   const THROTTLE_MS = 100;
-  const { activeModalData, portfolioId, toaster, portfolioData } =
+  const { modalWindowData: activeModalData, portfolioId, toaster, portfolioData } =
     useContext(PortfolioContext);
 
   const debouncedBgColor = throttle((bgColor) => {

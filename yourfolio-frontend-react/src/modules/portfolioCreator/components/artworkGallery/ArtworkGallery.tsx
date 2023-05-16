@@ -13,7 +13,7 @@ interface ArtworkGalleryProps {
 
 export const ArtworkGallery = (props: ArtworkGalleryProps) => {
   const data = props.galleryData;
-  const { activeModalData, activeElementId } = useContext(PortfolioContext);
+  const { modalWindowData: activeModalData, activeElementId } = useContext(PortfolioContext);
 
   if (!data) {
     return <div>Loading...</div>;

@@ -15,13 +15,14 @@ export interface TabProps {
 }
 
 const Tab = (props: TabProps) => {
-  const { activeElementId, activeModalData } = useContext(PortfolioContext);
+  const { activeElementId, modalWindowData: activeModalData } = useContext(PortfolioContext);
   const { open, element } = props;
 
   const deleteElement = useDeleteElementMutation(element.id);
 
   const handleClick = (event: any) => {
     event.preventDefault();
+    console.log("clicked", element.id);
     activeElementId.set(element.id);
   };
 

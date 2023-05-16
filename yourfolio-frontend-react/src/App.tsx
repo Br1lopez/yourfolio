@@ -5,7 +5,6 @@ import {
   PortfolioContext,
   usePortfolioContext,
 } from "./hooks/PortfolioContext";
-import { useToaster } from "rsuite";
 
 const queryClient = new QueryClient();
 const PORTFOLIO_ID = 1;
@@ -14,10 +13,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <PortfolioContext.Provider
-        value={{
-          ...usePortfolioContext(),
-          toaster: useToaster(),
-        }}
+        value={usePortfolioContext()}
       >
         <PortfolioCreator portfolioId={PORTFOLIO_ID}></PortfolioCreator>
       </PortfolioContext.Provider>

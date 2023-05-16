@@ -13,13 +13,14 @@ import {
   CustomElementInputs,
   ElementTitleInput,
   ElementTypeInput,
-} from "src/components/modals/components/elementInputs";
+} from "src/components/modals/components/ElementInputs";
 import { useCreateElementMutation, useEditElementMutation } from "src/hooks/ElementMutations";
 import {
   ModalDataGetter,
   ModalType,
 } from "src/types/portfolioContextTypes";
-import { ElementDTO, EMPTY_ELEMENT_DTO, mapElementDtoToElementSaveDto } from "src/types/dtoTypes";
+import { ElementDTO, EMPTY_ELEMENT_DTO, mapElementDtoToElementSaveDto, StyleDTO } from "src/types/dtoTypes";
+import { BgColorInput, FontColorInput } from "./components/StyleInputs";
 
 
 export interface ModalWindowProps {
@@ -27,18 +28,27 @@ export interface ModalWindowProps {
 }
 
 export const ModalWindow = (props: ModalWindowProps) => {
-  const { activeModalData } = useContext(PortfolioContext);
+  const { modalWindowData: activeModalData, portfolioData } = useContext(PortfolioContext);
   const { modalProperties } = props;
-  const [element, setElement] = useState<ElementDTO>(EMPTY_ELEMENT_DTO);
+
+  const [element, setElement] = useState<ElementDTO>((modalProperties?.element || EMPTY_ELEMENT_DTO));
+  const [style, setStyle] = useState<StyleDTO>(portfolioData.value.style);
   const formRef = useRef<any>(null);
+
+
   const createElement = useCreateElementMutation(
     mapElementDtoToElementSaveDto(element),
-    modalProperties?.parent?.id
-  );
+    modalProperties?.parent?.id);
+
   const editElement = useEditElementMutation(
     modalProperties?.element?.id || -1,
-    mapElementDtoToElementSaveDto(element),
-  );
+    mapElementDtoToElementSaveDto(element));
+
+  const editStyle = useEditElementMutation(
+    portfolioData.value.id,
+    mapElementDtoToElementSaveDto({ ...portfolioData.value, style }));
+
+
   const model = Schema.Model({
     name: Schema.Types.StringType().isRequired("This field is required."),
     type: Schema.Types.StringType().isRequired(
@@ -50,6 +60,16 @@ export const ModalWindow = (props: ModalWindowProps) => {
     setElement(modalProperties?.element || EMPTY_ELEMENT_DTO);
   }, [modalProperties]);
 
+  useEffect(() => {
+    if (portfolioData.value.style)
+      setStyle(portfolioData.value.style);
+  }, [portfolioData.value]);
+
+
+  useEffect(() => {
+    portfolioData.set({ ...portfolioData.value, style })
+  }, [style]);
+
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
       switch (modalProperties?.modalType) {
@@ -58,6 +78,10 @@ export const ModalWindow = (props: ModalWindowProps) => {
           break;
         case ModalType.EditElement:
           editElement.mutate();
+          break;
+        case ModalType.SetSyle:
+          console.log("hiu");
+          editStyle.mutate();
           break;
       }
     }
@@ -74,17 +98,30 @@ export const ModalWindow = (props: ModalWindowProps) => {
     }
   };
 
+  const modalBody = () => {
+    switch (modalProperties?.modalType) {
+      case ModalType.CreateElement:
+      case ModalType.EditElement:
+        return <Modal.Body>
+          <ElementTitleInput state={{ value: element, set: setElement }} />
+          <ElementTypeInput state={{ value: element, set: setElement }} parent={activeModalData.value?.parent} />
+          <CustomElementInputs state={{ value: element, set: setElement }} />
+        </Modal.Body>
+      case ModalType.SetSyle:
+        return <Modal.Body>
+          <BgColorInput state={{ value: style, set: setStyle }} />
+          <FontColorInput state={{ value: style, set: setStyle }} />
+        </Modal.Body>
+    }
+  };
+
   return (
     <Modal id="newTab" show={modalProperties != null}>
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
       <Form model={model} onSubmit={handleSubmit} ref={formRef}>
-        <Modal.Body>
-          <ElementTitleInput state={{ value: element, set: setElement }} />
-          <ElementTypeInput state={{ value: element, set: setElement }} parent={activeModalData.value?.parent} />
-          <CustomElementInputs state={{ value: element, set: setElement }} />
-        </Modal.Body>
+        {modalBody()}
         <Modal.Footer>
           <ButtonToolbar>
             <Button

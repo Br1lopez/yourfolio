@@ -11,7 +11,7 @@ interface InterfaceBarProps {
 }
 
 const InterfaceBar = (props: InterfaceBarProps) => {
-  const { activeModalData } = useContext(PortfolioContext);
+  const { modalWindowData: activeModalData } = useContext(PortfolioContext);
   const handleStyleClick = (e: any) => {
     e.preventDefault();
     activeModalData.set({
@@ -19,14 +19,13 @@ const InterfaceBar = (props: InterfaceBarProps) => {
     });
   };
   return (
-    <>
-      <StyleModal />
-      <div className="i-bar" style={{ width: props.width }}>
-        {/* <AiOutlineMenu className="i-bar__icon top" style={{ width: "30px", height: "30px", color: "white" }}/> */}
-        <FaPaintBrush className="i-bar__icon" onClick={handleStyleClick} />
-        <MdOutlineHelp className="i-bar__icon" />
-      </div>
-    </>
+
+    <div className="i-bar" style={{ width: props.width }}>
+      {/* <AiOutlineMenu className="i-bar__icon top" style={{ width: "30px", height: "30px", color: "white" }}/> */}
+      <FaPaintBrush className="i-bar__icon" onClick={handleStyleClick} />
+      <MdOutlineHelp className="i-bar__icon" />
+    </div>
+
   );
 };
 

@@ -7,13 +7,14 @@ export interface ElementDTO {
   elements: Array<ElementDTO>;
   description?: string;
   thumbnailFile?: FileDTO;
-  style?: StyleDTO;
+  style: StyleDTO;
 }
 
 export const EMPTY_ELEMENT_DTO: ElementDTO = {
   id: -1,
   name: "",
   type: { id: "", name: "" },
+  style: { bgColor: "black", fontColor: "white" },
   position: 0,
   files: [],
   elements: [],

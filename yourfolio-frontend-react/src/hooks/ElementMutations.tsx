@@ -11,7 +11,7 @@ export const useCreateElementMutation = (
   elementSaveDto: ElementSaveDTO,
   parentId?: number
 ) => {
-  const { activeModalData, portfolioId, toaster } =
+  const { modalWindowData: activeModalData, portfolioId, toaster } =
     useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
@@ -34,7 +34,7 @@ export const useEditElementMutation = (
   elementId: number,
   elementProperties: ElementSaveDTO
 ) => {
-  const { activeModalData, portfolioId, toaster } =
+  const { modalWindowData: activeModalData, portfolioId, toaster } =
     useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
@@ -54,7 +54,7 @@ export const useEditElementMutation = (
 };
 
 export const useDeleteElementMutation = (elementId: number) => {
-  const { activeModalData, portfolioId, toaster } =
+  const { modalWindowData: activeModalData, portfolioId, toaster } =
     useContext(PortfolioContext);
   const queryClient = useQueryClient();
 
