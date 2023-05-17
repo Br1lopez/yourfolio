@@ -14,39 +14,40 @@ import {
   ElementTitleInput,
   ElementTypeInput,
 } from "src/components/modals/components/ElementInputs";
-import { useCreateElementMutation, useEditElementMutation } from "src/hooks/ElementMutations";
+import { useCreateElementMutation, useEditElementMutation, useEditElementStyleMutation } from "src/hooks/ElementMutations";
 import {
-  ModalDataGetter,
   ModalType,
+  ModalWindowData
 } from "src/types/portfolioContextTypes";
-import { ElementDTO, EMPTY_ELEMENT_DTO, mapElementDtoToElementSaveDto, StyleDTO } from "src/types/dtoTypes";
+import { ElementDTO, ElementSaveDTO, EMPTY_ELEMENT_DTO, EMPTY_ELEMENT_SAVE_DTO, mapElementDtoToElementSaveDto, StyleDTO } from "src/types/dtoTypes";
 import { BgColorInput, FontColorInput } from "./components/StyleInputs";
 
 
 export interface ModalWindowProps {
-  modalProperties: ModalDataGetter | null;
+  modalProperties: ModalWindowData | null;
+  portfolioId: number;
 }
 
 export const ModalWindow = (props: ModalWindowProps) => {
-  const { modalWindowData: activeModalData, portfolioData } = useContext(PortfolioContext);
+  const { modalWindowData, styleData } = useContext(PortfolioContext);
   const { modalProperties } = props;
 
-  const [element, setElement] = useState<ElementDTO>((modalProperties?.element || EMPTY_ELEMENT_DTO));
-  const [style, setStyle] = useState<StyleDTO>(portfolioData.value.style);
+  const [element, setElement] = useState<ElementSaveDTO>((modalProperties?.values || EMPTY_ELEMENT_SAVE_DTO));
+  const [style, setStyle] = useState<StyleDTO>(styleData.value || {});
   const formRef = useRef<any>(null);
 
 
   const createElement = useCreateElementMutation(
-    mapElementDtoToElementSaveDto(element),
-    modalProperties?.parent?.id);
+    element,
+    modalProperties?.parentId);
 
   const editElement = useEditElementMutation(
-    modalProperties?.element?.id || -1,
-    mapElementDtoToElementSaveDto(element));
+    modalProperties?.elementId || -1,
+    element);
 
-  const editStyle = useEditElementMutation(
-    portfolioData.value.id,
-    mapElementDtoToElementSaveDto({ ...portfolioData.value, style }));
+  const editStyle = useEditElementStyleMutation(
+    props.portfolioId,
+    style);
 
 
   const model = Schema.Model({
@@ -56,19 +57,6 @@ export const ModalWindow = (props: ModalWindowProps) => {
     ),
   });
 
-  useEffect(() => {
-    setElement(modalProperties?.element || EMPTY_ELEMENT_DTO);
-  }, [modalProperties]);
-
-  useEffect(() => {
-    if (portfolioData.value.style)
-      setStyle(portfolioData.value.style);
-  }, [portfolioData.value]);
-
-
-  useEffect(() => {
-    portfolioData.set({ ...portfolioData.value, style })
-  }, [style]);
 
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
@@ -104,7 +92,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
       case ModalType.EditElement:
         return <Modal.Body>
           <ElementTitleInput state={{ value: element, set: setElement }} />
-          <ElementTypeInput state={{ value: element, set: setElement }} parent={activeModalData.value?.parent} />
+          <ElementTypeInput state={{ value: element, set: setElement }} />
           <CustomElementInputs state={{ value: element, set: setElement }} />
         </Modal.Body>
       case ModalType.SetSyle:
@@ -126,7 +114,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
           <ButtonToolbar>
             <Button
               appearance="default"
-              onClick={() => activeModalData.set(null)}
+              onClick={() => modalWindowData.set(null)}
             >
               Cancelar
             </Button>

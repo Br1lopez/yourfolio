@@ -1,6 +1,6 @@
 export interface ElementDTO {
   id: number;
-  type: typeDTO;
+  type: ElementTypeDTO;
   name: string;
   position: number;
   files: Array<FileDTO>;
@@ -46,10 +46,10 @@ export interface StyleDTO {
   fontFamily?: string;
 }
 
-export interface typeDTO {
+export interface ElementTypeDTO {
   id: string;
   name: string;
-  possibleChildren?: typeDTO[];
+  possibleChildren?: ElementTypeDTO[];
 }
 
 

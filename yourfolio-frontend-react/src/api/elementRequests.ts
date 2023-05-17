@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "../globals";
-import { ElementDTO, ElementSaveDTO } from "../types/dtoTypes";
+import { ElementDTO, ElementSaveDTO, StyleDTO } from "../types/dtoTypes";
 
 export const getElement = async (elementId: number): Promise<ElementDTO> => {
   try {
@@ -23,7 +23,7 @@ export const createElement = async (
       body
     );
     return response.data;
-  } catch (err) {
+  } catch (error) {
     throw new Error("error");
   }
 };
@@ -38,9 +38,23 @@ export const updateElement = async (
       `${API_BASE_URL}/elements/${elementId}`,
       body
     );
-    console.log(response.data);
     return response.data;
-  } catch (err) {
+  } catch (error) {
+    throw new Error("error");
+  }
+};
+
+export const updateElementStyle = async (
+  elementId: number,
+  style: StyleDTO
+): Promise<ElementDTO> => {
+  try {
+    const response = await axios.put<ElementDTO>(
+      `${API_BASE_URL}/elements/${elementId}/style`,
+      style
+    );
+    return response.data;
+  } catch (error) {
     throw new Error("error");
   }
 };

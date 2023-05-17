@@ -38,8 +38,6 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
             className="artwork-gallery__add-container"
             onClick={() => {
               activeModalData.set({
-                parentId: activeElementId.value,
-                elementId: 0,
                 modalType: ModalType.CreateElement,
               });
             }}

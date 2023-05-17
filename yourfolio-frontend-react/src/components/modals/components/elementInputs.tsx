@@ -1,8 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Form, SelectPicker, Uploader } from "rsuite"
-import { ElementDTO } from "src/types/dtoTypes";
+import { getElementType } from "src/api/elementTypeRequests";
+import { ElementSaveDTO, ElementTypeDTO } from "src/types/dtoTypes";
 import { State } from "src/types/portfolioContextTypes";
 
-export const ElementTitleInput = (props: { state: State<ElementDTO> }) => {
+export const ElementTitleInput = (props: { state: State<ElementSaveDTO> }) => {
   return <Form.Group controlId="newElementTitle">
     <Form.ControlLabel>Nombre: </Form.ControlLabel>
     <Form.Control
@@ -12,7 +15,17 @@ export const ElementTitleInput = (props: { state: State<ElementDTO> }) => {
   </Form.Group>;
 }
 
-export const ElementTypeInput = (props: { state: State<ElementDTO>, parent?: ElementDTO }) => {
+export const ElementTypeInput = (props: { state: State<ElementSaveDTO> }) => {
+  const [possibleChildren, setPossibleChildren] = useState<ElementTypeDTO[]>([]);
+
+  const query = useQuery({
+    queryKey: ["getType", props.state.value.typeId],
+    queryFn: () => getElementType(props.state.value.typeId),
+    onSuccess: (data) => {
+      setPossibleChildren(data.possibleChildren || [])
+    },
+  });
+
   return <Form.Group controlId="newElementType">
     <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
     <Form.Control
@@ -20,10 +33,10 @@ export const ElementTypeInput = (props: { state: State<ElementDTO>, parent?: Ele
       accepter={SelectPicker}
       searchable={false}
       aria-label="Select"
-      value={props.state.value.type.id}
-      onChange={(v: any, e: any) => props.state.set({ ...props.state.value, type: { ...props.state.value.type, id: v } })}
+      value={props.state.value.typeId}
+      onChange={(v: any, e: any) => props.state.set({ ...props.state.value, typeId: v })}
       data={
-        props.parent?.type.possibleChildren?.map(
+        possibleChildren.map(
           (possibleChild) => ({
             label: possibleChild.name,
             value: possibleChild.id,
@@ -34,7 +47,7 @@ export const ElementTypeInput = (props: { state: State<ElementDTO>, parent?: Ele
   </Form.Group>
 }
 
-export const ElementImageInput = (props: { state?: State<ElementDTO> }) => {
+export const ElementImageInput = (props: { state?: State<ElementSaveDTO> }) => {
   return <Form.Group controlId="newElementType" className="mb-4">
     <Form.ControlLabel>Imagen:</Form.ControlLabel>
     <Form.Control
@@ -46,10 +59,17 @@ export const ElementImageInput = (props: { state?: State<ElementDTO> }) => {
 }
 
 
-export const CustomElementInputs = (props: { state: State<ElementDTO>, parent?: ElementDTO }) => {
-  const elementType = props.state.value.type.name;
+export const CustomElementInputs = (props: { state: State<ElementSaveDTO> }) => {
+  const [type, setType] = useState<ElementTypeDTO | undefined>(undefined);
+  const query = useQuery({
+    queryKey: ["getType", props.state.value.typeId],
+    queryFn: () => getElementType(props.state.value.typeId),
+    onSuccess: (data) => {
+      setType(data)
+    },
+  });
 
-  switch (elementType) {
+  switch (type?.name) {
     case "vertical-carousel-gallery":
       return <ElementImageInput />;
     default:

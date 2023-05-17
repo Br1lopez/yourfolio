@@ -8,7 +8,9 @@ import com.yourfolio.yourfolio.dbentities.ids.ElementRelationshipEntityId;
 import com.yourfolio.yourfolio.dtos.ElementDTO;
 import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import com.yourfolio.yourfolio.dtos.ElementTypeDTO;
+import com.yourfolio.yourfolio.dtos.StyleDTO;
 import com.yourfolio.yourfolio.mappers.ElementMapper;
+import com.yourfolio.yourfolio.mappers.StyleMapper;
 import com.yourfolio.yourfolio.repositories.ElementRelationshipRepository;
 import com.yourfolio.yourfolio.repositories.ElementRepository;
 import com.yourfolio.yourfolio.repositories.ElementTypeRepository;
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ElementService {
     private final ElementRepository elementRepository;
     private final ElementMapper elementMapper;
+    private final StyleMapper styleMapper;
     private final ElementRelationshipRepository elementRelationshipRepository;
 
     private final ElementTypeRepository elementTypeRepository;
@@ -103,7 +106,11 @@ public class ElementService {
 
         return elementMapper.toDto(elementRepository.save(entityToSave));
     }
-
+    public ElementDTO updateElementStyle(StyleDTO styleDto, Integer elementId) {
+        ElementEntity entityToSave = elementRepository.getReferenceById(elementId);
+        entityToSave.setStyle(styleMapper.toEntity(styleDto));
+        return elementMapper.toDto(elementRepository.save(entityToSave));
+    }
     public void deleteElement(Integer elementId) {
         for (ElementRelationshipEntity relationship : elementRelationshipRepository.findByChildId(elementId)) {
             elementRelationshipRepository.delete(relationship);
@@ -117,4 +124,6 @@ public class ElementService {
                 .childId(childId)
                 .build());
     }
+
+
 }

@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
 import { useContext } from "react";
-import { createElement, updateElement, deleteElement } from "../api/elementRequests";
+import { createElement, updateElement, deleteElement, updateElementStyle } from "../api/elementRequests";
 
 import { pushCloudNotification } from "src/components/notifications/CloudNotification";
-import { ElementSaveDTO } from "../types/dtoTypes";
+import { ElementSaveDTO, StyleDTO } from "../types/dtoTypes";
 import { ModalType } from "src/types/portfolioContextTypes";
 
 export const useCreateElementMutation = (
   elementSaveDto: ElementSaveDTO,
   parentId?: number
 ) => {
-  const { modalWindowData: activeModalData, portfolioId, toaster } =
+  const { modalWindowData: activeModalData, toaster } =
     useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
@@ -24,7 +24,7 @@ export const useCreateElementMutation = (
         elementSaveDto.name,
         ModalType.CreateElement
       );
-      queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      queryClient.invalidateQueries(["getPortfolio"]);
       activeModalData.set(null);
     },
   });
@@ -32,39 +32,63 @@ export const useCreateElementMutation = (
 
 export const useEditElementMutation = (
   elementId: number,
-  elementProperties: ElementSaveDTO
+  elementSaveDto: ElementSaveDTO
 ) => {
-  const { modalWindowData: activeModalData, portfolioId, toaster } =
+  const { modalWindowData: activeModalData, toaster } =
     useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => updateElement(elementId, elementProperties),
+    mutationFn: () => updateElement(elementId, elementSaveDto),
     onSuccess: () => {
       pushCloudNotification(
         toaster,
-        activeModalData.value?.element?.name || "",
+        elementSaveDto.name,
         ModalType.EditElement
       );
-      queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      queryClient.invalidateQueries(["getPortfolio"]);
       activeModalData.set(null);
     },
   });
 };
 
-export const useDeleteElementMutation = (elementId: number) => {
-  const { modalWindowData: activeModalData, portfolioId, toaster } =
+export const useEditElementStyleMutation = (
+  elementId: number,
+  styleDto: StyleDTO
+) => {
+  const { modalWindowData: activeModalData, toaster } =
+    useContext(PortfolioContext);
+
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => updateElementStyle(elementId, styleDto),
+    onSuccess: () => {
+      pushCloudNotification(
+        toaster,
+        "",
+        ModalType.EditElement
+      );
+      queryClient.invalidateQueries(["getPortfolio"]);
+      activeModalData.set(null);
+    },
+  });
+};
+
+
+export const useDeleteElementMutation = (elementId: number, name?: string) => {
+  const { modalWindowData: activeModalData, toaster } =
     useContext(PortfolioContext);
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => deleteElement(elementId),
     onSuccess: () => {
-      queryClient.invalidateQueries(["getElement", portfolioId.value]);
+      queryClient.invalidateQueries(["getPortfolio"]);
       pushCloudNotification(
         toaster,
-        activeModalData.value?.element?.name || "",
+        name || "",
         ModalType.DeleteElement
       );
     },

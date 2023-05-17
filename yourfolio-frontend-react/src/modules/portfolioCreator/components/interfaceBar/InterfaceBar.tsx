@@ -3,18 +3,17 @@ import "./interfaceBar.scss";
 import { FaPaintBrush } from "react-icons/fa";
 import { MdOutlineHelp } from "react-icons/md";
 import { PortfolioContext } from "../../../../hooks/PortfolioContext";
-import { StyleModal } from "src/components/modals/StyleModal";
 import { ModalType } from "../../../../types/portfolioContextTypes";
 
 interface InterfaceBarProps {
   width?: string;
 }
 
-const InterfaceBar = (props: InterfaceBarProps) => {
-  const { modalWindowData: activeModalData } = useContext(PortfolioContext);
+export const InterfaceBar = (props: InterfaceBarProps) => {
+  const { modalWindowData } = useContext(PortfolioContext);
   const handleStyleClick = (e: any) => {
     e.preventDefault();
-    activeModalData.set({
+    modalWindowData.set({
       modalType: ModalType.SetSyle,
     });
   };
@@ -28,5 +27,3 @@ const InterfaceBar = (props: InterfaceBarProps) => {
 
   );
 };
-
-export default InterfaceBar;

@@ -3,20 +3,16 @@ import FontPicker from "font-picker-react";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
 
 const FontPickerComponent = () => {
-  const { portfolioData } = useContext(PortfolioContext);
+  const { styleData } = useContext(PortfolioContext);
 
   const handleBgColorInputChange = (event: any) => {
-    let data = { ...portfolioData.value };
-    if (data.style) {
-      data.style.fontFamily = event.target.value;
-    }
-    portfolioData.set(data);
-  };
+    styleData.set({ ...styleData.value, fontFamily: event.target.value });
+  }
 
   return (
     <FontPicker
       apiKey="AIzaSyA7-F6PODGUMyfHXyRvfBfZFRlSJcfmiVE"
-      activeFontFamily={portfolioData.value.style?.fontFamily}
+      activeFontFamily={styleData.value?.fontFamily}
       onChange={handleBgColorInputChange}
     />
   );

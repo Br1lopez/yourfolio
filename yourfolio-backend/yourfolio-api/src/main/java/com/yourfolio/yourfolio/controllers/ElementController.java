@@ -2,6 +2,7 @@ package com.yourfolio.yourfolio.controllers;
 
 import com.yourfolio.yourfolio.dtos.ElementDTO;
 import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
+import com.yourfolio.yourfolio.dtos.StyleDTO;
 import com.yourfolio.yourfolio.services.ElementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,11 @@ public class ElementController {
     @PutMapping("/{elementId}")
     public ResponseEntity<ElementDTO> updateElement(@PathVariable Integer elementId, @RequestBody ElementSaveDTO elementDto) {
         return new ResponseEntity<>(elementService.updateElement(elementDto, elementId), HttpStatus.OK);
+    }
+
+    @PutMapping("/{elementId}/style")
+    public ResponseEntity<ElementDTO> updateElementStyle(@PathVariable Integer elementId, @RequestBody StyleDTO styleDto) {
+        return new ResponseEntity<>(elementService.updateElementStyle(styleDto, elementId), HttpStatus.OK);
     }
 
 

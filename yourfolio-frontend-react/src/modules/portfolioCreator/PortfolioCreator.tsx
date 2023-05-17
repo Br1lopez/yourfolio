@@ -5,7 +5,7 @@ import { getElement } from "src/api/elementRequests";
 import React, { useContext, useEffect, useState } from "react";
 import { ActiveComponent } from "./components/activeComponent/ActiveComponent";
 import { PortfolioContext } from "../../hooks/PortfolioContext";
-import InterfaceBar from "./components/interfaceBar/InterfaceBar";
+import { InterfaceBar } from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import { PortfolioStyle } from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
@@ -26,7 +26,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
 
 
   const query = useQuery({
-    queryKey: ["getElement", props.portfolioId],
+    queryKey: ["getPortfolio"],
     queryFn: () => getElement(props.portfolioId),
     onSuccess: (data) => {
       applyFont(data.style?.fontFamily || "Open Sans");
@@ -57,7 +57,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               />
             )}
           </div>
-          <ModalWindow modalProperties={modalWindowData.value} />
+          <ModalWindow modalProperties={modalWindowData.value} portfolioId={props.portfolioId} />
         </div>
       )}
     </>
