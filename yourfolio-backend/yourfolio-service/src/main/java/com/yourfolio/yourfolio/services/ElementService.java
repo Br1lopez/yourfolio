@@ -95,16 +95,6 @@ public class ElementService {
 
     public ElementDTO updateElement(ElementSaveDTO elementDTO, Integer elementId) {
         ElementEntity entityToSave = elementRepository.getReferenceById(elementId);
-        entityToSave.setName(elementDTO.getName());
-
-        StyleEntity styleToSave = entityToSave.getStyle();
-        styleToSave.setBgColor(elementDTO.getStyle().getBgColor());
-        styleToSave.setFontColor(elementDTO.getStyle().getFontColor());
-        styleToSave.setFontFamily(elementDTO.getStyle().getFontFamily());
-
-        entityToSave.setStyle(styleToSave);
-
-
         return elementMapper.toDto(elementRepository.save(entityToSave));
     }
     public StyleDTO updateElementStyle(StyleDTO styleDto, Integer elementId) {

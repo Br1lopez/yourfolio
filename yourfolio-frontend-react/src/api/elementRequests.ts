@@ -33,7 +33,7 @@ export const updateElement = async (
   body: ElementSaveDTO
 ): Promise<ElementDTO> => {
   try {
-    console.log(body);
+    console.log(elementId, body);
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}`,
       body

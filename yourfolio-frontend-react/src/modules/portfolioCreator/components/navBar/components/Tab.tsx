@@ -7,7 +7,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
 import { useDeleteElementMutation } from "src/hooks/ElementMutations";
 import { ModalType } from "src/types/portfolioContextTypes";
-import { ElementDTO } from "src/types/dtoTypes";
+import { ElementDTO, mapElementDtoToElementSaveDto } from "src/types/dtoTypes";
 
 export interface TabProps {
   open: boolean;
@@ -27,7 +27,7 @@ const Tab = (props: TabProps) => {
 
   const handleEditClick = (event: any) => {
     modalWindowData.set({
-      ...modalWindowData.value,
+      values: mapElementDtoToElementSaveDto(element),
       elementId: element.id,
       modalType: ModalType.EditElement,
     });

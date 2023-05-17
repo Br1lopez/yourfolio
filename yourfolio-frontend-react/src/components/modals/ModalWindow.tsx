@@ -43,8 +43,8 @@ export const ModalWindow = (props: ModalWindowProps) => {
     modalProperties?.value?.parentId);
 
   const editElement = useEditElementMutation(
-    modalProperties?.value?.elementId || -1,
-    modalProperties?.value?.values || EMPTY_ELEMENT_SAVE_DTO);
+    modalProperties.value.elementId || -1,
+    modalProperties.value.values);
 
   const editStyle = useEditElementStyleMutation(
     props.portfolioId,
