@@ -15,19 +15,19 @@ export interface TabProps {
 }
 
 const Tab = (props: TabProps) => {
-  const { activeElementId, modalWindowData: activeModalData } = useContext(PortfolioContext);
+  const { activeElementId, modalWindowData } = useContext(PortfolioContext);
   const { open, element } = props;
 
   const deleteElement = useDeleteElementMutation(element.id);
 
   const handleClick = (event: any) => {
     event.preventDefault();
-    console.log("clicked", element.id);
     activeElementId.set(element.id);
   };
 
   const handleEditClick = (event: any) => {
-    activeModalData.set({
+    modalWindowData.set({
+      ...modalWindowData.value,
       elementId: element.id,
       modalType: ModalType.EditElement,
     });

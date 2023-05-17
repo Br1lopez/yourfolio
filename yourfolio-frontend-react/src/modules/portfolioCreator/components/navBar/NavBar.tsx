@@ -70,6 +70,7 @@ export const NavBar = (props: NavBarProps) => {
               variant="link"
               onClick={() => {
                 modalWindowData.set({
+                  ...modalWindowData.value,
                   parentId: portfolio.id,
                   elementId: 0,
                   modalType: ModalType.CreateElement,

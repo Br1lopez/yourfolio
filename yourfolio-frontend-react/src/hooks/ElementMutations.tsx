@@ -5,7 +5,7 @@ import { createElement, updateElement, deleteElement, updateElementStyle } from 
 
 import { pushCloudNotification } from "src/components/notifications/CloudNotification";
 import { ElementSaveDTO, StyleDTO } from "../types/dtoTypes";
-import { ModalType } from "src/types/portfolioContextTypes";
+import { ModalType, NULL_MODAL_WINDOW_DATA } from "src/types/portfolioContextTypes";
 
 export const useCreateElementMutation = (
   elementSaveDto: ElementSaveDTO,
@@ -25,7 +25,7 @@ export const useCreateElementMutation = (
         ModalType.CreateElement
       );
       queryClient.invalidateQueries(["getPortfolio"]);
-      activeModalData.set(null);
+      activeModalData.set(NULL_MODAL_WINDOW_DATA);
     },
   });
 };
@@ -48,14 +48,14 @@ export const useEditElementMutation = (
         ModalType.EditElement
       );
       queryClient.invalidateQueries(["getPortfolio"]);
-      activeModalData.set(null);
+      activeModalData.set(NULL_MODAL_WINDOW_DATA);
     },
   });
 };
 
 export const useEditElementStyleMutation = (
   elementId: number,
-  styleDto: StyleDTO
+  styleDto: StyleDTO | null
 ) => {
   const { modalWindowData: activeModalData, toaster } =
     useContext(PortfolioContext);
@@ -71,7 +71,7 @@ export const useEditElementStyleMutation = (
         ModalType.EditElement
       );
       queryClient.invalidateQueries(["getPortfolio"]);
-      activeModalData.set(null);
+      activeModalData.set(NULL_MODAL_WINDOW_DATA);
     },
   });
 };

@@ -17,14 +17,17 @@ import {
 import { useCreateElementMutation, useEditElementMutation, useEditElementStyleMutation } from "src/hooks/ElementMutations";
 import {
   ModalType,
-  ModalWindowData
+  ModalWindowData,
+  NULL_MODAL_WINDOW_DATA,
+  NULL_STATE,
+  State
 } from "src/types/portfolioContextTypes";
-import { ElementDTO, ElementSaveDTO, EMPTY_ELEMENT_DTO, EMPTY_ELEMENT_SAVE_DTO, mapElementDtoToElementSaveDto, StyleDTO } from "src/types/dtoTypes";
+import { EMPTY_ELEMENT_SAVE_DTO, mapElementDtoToElementSaveDto, StyleDTO } from "src/types/dtoTypes";
 import { BgColorInput, FontColorInput } from "./components/StyleInputs";
 
 
 export interface ModalWindowProps {
-  modalProperties: ModalWindowData | null;
+  modalProperties: State<ModalWindowData>;
   portfolioId: number;
 }
 
@@ -32,35 +35,24 @@ export const ModalWindow = (props: ModalWindowProps) => {
   const { modalWindowData, styleData } = useContext(PortfolioContext);
   const { modalProperties } = props;
 
-  const [element, setElement] = useState<ElementSaveDTO>((modalProperties?.values || EMPTY_ELEMENT_SAVE_DTO));
-  const [style, setStyle] = useState<StyleDTO>(styleData.value || {});
   const formRef = useRef<any>(null);
 
 
   const createElement = useCreateElementMutation(
-    element,
-    modalProperties?.parentId);
+    modalProperties?.value?.values || EMPTY_ELEMENT_SAVE_DTO,
+    modalProperties?.value?.parentId);
 
   const editElement = useEditElementMutation(
-    modalProperties?.elementId || -1,
-    element);
+    modalProperties?.value?.elementId || -1,
+    modalProperties?.value?.values || EMPTY_ELEMENT_SAVE_DTO);
 
   const editStyle = useEditElementStyleMutation(
     props.portfolioId,
-    style);
-
-
-  const model = Schema.Model({
-    name: Schema.Types.StringType().isRequired("This field is required."),
-    type: Schema.Types.StringType().isRequired(
-      "Please enter a valid email address."
-    ),
-  });
-
+    styleData.value);
 
   const handleSubmit = (event: any) => {
     if (formRef.current.check()) {
-      switch (modalProperties?.modalType) {
+      switch (modalProperties.value.modalType) {
         case ModalType.CreateElement:
           createElement.mutate();
           break;
@@ -68,15 +60,16 @@ export const ModalWindow = (props: ModalWindowProps) => {
           editElement.mutate();
           break;
         case ModalType.SetSyle:
-          console.log("hiu");
           editStyle.mutate();
           break;
       }
+    } else {
+      console.log(formRef.current.check());
     }
   };
 
   const title = () => {
-    switch (modalProperties?.modalType) {
+    switch (modalProperties?.value?.modalType) {
       case ModalType.CreateElement:
         return "Nuevo elemento";
       case ModalType.EditElement:
@@ -87,34 +80,38 @@ export const ModalWindow = (props: ModalWindowProps) => {
   };
 
   const modalBody = () => {
-    switch (modalProperties?.modalType) {
+    switch (modalProperties?.value?.modalType) {
       case ModalType.CreateElement:
       case ModalType.EditElement:
+
         return <Modal.Body>
-          <ElementTitleInput state={{ value: element, set: setElement }} />
-          <ElementTypeInput state={{ value: element, set: setElement }} />
-          <CustomElementInputs state={{ value: element, set: setElement }} />
+          <ElementTitleInput modalState={modalProperties} />
+          <ElementTypeInput modalState={modalProperties} />
+          <CustomElementInputs modalState={modalProperties} />
         </Modal.Body>
+
       case ModalType.SetSyle:
-        return <Modal.Body>
-          <BgColorInput state={{ value: style, set: setStyle }} />
-          <FontColorInput state={{ value: style, set: setStyle }} />
-        </Modal.Body>
+        if (styleData.value) {
+          return <Modal.Body>
+            <BgColorInput state={{ value: styleData.value, set: styleData.set }} />
+            <FontColorInput state={{ value: styleData.value, set: styleData.set }} />
+          </Modal.Body>
+        }
     }
   };
 
   return (
-    <Modal id="newTab" show={modalProperties != null}>
+    <Modal id="newTab" show={modalProperties.value.modalType != ModalType.Hide}>
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
-      <Form model={model} onSubmit={handleSubmit} ref={formRef}>
-        {modalBody()}
+      <Form onSubmit={handleSubmit} ref={formRef}>
+        {modalProperties.value && modalBody()}
         <Modal.Footer>
           <ButtonToolbar>
             <Button
               appearance="default"
-              onClick={() => modalWindowData.set(null)}
+              onClick={() => modalWindowData.set({ ...NULL_MODAL_WINDOW_DATA, modalType: ModalType.Hide })}
             >
               Cancelar
             </Button>
@@ -124,6 +121,6 @@ export const ModalWindow = (props: ModalWindowProps) => {
           </ButtonToolbar>
         </Modal.Footer>
       </Form>
-    </Modal>
+    </Modal >
   );
 };

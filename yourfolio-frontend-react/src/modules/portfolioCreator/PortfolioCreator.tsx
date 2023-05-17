@@ -10,6 +10,8 @@ import "./portfolioCreator.scss";
 import { PortfolioStyle } from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
 import { ModalWindow } from "src/components/modals/ModalWindow";
+import { ElementDTO } from "src/types/dtoTypes";
+import { ModalWindowData, State } from "src/types/portfolioContextTypes";
 
 export interface PortfolioCreatorProps {
   portfolioId: number;
@@ -25,10 +27,12 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
 
 
 
+
   const query = useQuery({
     queryKey: ["getPortfolio"],
     queryFn: () => getElement(props.portfolioId),
     onSuccess: (data) => {
+      styleData.set(data.style);
       applyFont(data.style?.fontFamily || "Open Sans");
     },
   });
@@ -57,7 +61,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               />
             )}
           </div>
-          <ModalWindow modalProperties={modalWindowData.value} portfolioId={props.portfolioId} />
+          <ModalWindow modalProperties={modalWindowData} portfolioId={props.portfolioId} />
         </div>
       )}
     </>

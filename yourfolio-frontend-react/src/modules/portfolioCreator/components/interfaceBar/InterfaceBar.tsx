@@ -14,6 +14,7 @@ export const InterfaceBar = (props: InterfaceBarProps) => {
   const handleStyleClick = (e: any) => {
     e.preventDefault();
     modalWindowData.set({
+      ...modalWindowData.value,
       modalType: ModalType.SetSyle,
     });
   };

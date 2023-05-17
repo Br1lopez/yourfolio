@@ -46,7 +46,7 @@ export const updateElement = async (
 
 export const updateElementStyle = async (
   elementId: number,
-  style: StyleDTO
+  style: StyleDTO | null
 ): Promise<ElementDTO> => {
   try {
     const response = await axios.put<ElementDTO>(

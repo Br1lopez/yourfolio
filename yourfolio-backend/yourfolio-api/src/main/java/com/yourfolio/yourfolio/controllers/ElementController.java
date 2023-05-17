@@ -39,7 +39,7 @@ public class ElementController {
     }
 
     @PutMapping("/{elementId}/style")
-    public ResponseEntity<ElementDTO> updateElementStyle(@PathVariable Integer elementId, @RequestBody StyleDTO styleDto) {
+    public ResponseEntity<StyleDTO> updateElementStyle(@PathVariable Integer elementId, @RequestBody StyleDTO styleDto) {
         return new ResponseEntity<>(elementService.updateElementStyle(styleDto, elementId), HttpStatus.OK);
     }
 

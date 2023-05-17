@@ -16,7 +16,7 @@ export const BgColorInput = (props: { state: State<StyleDTO> }) => {
         <Form.Control
             name="bgColor"
             type="color"
-            // onChange={(v: any, e: any) => debouncedBgColor(v)}
+            onChange={(v: any, e: any) => debouncedBgColor(v)}
             value={props.state.value.bgColor}
             required
         />
@@ -34,7 +34,7 @@ export const FontColorInput = (props: { state: State<StyleDTO> }) => {
         <Form.Control
             name="fontColor"
             type="color"
-            // onChange={(v: any, e: any) => debouncedFontColor(v)}
+            onChange={(v: any, e: any) => debouncedFontColor(v)}
             value={props.state.value.fontColor}
             required
         />

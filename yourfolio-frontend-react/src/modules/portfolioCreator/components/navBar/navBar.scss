@@ -3,7 +3,8 @@
 .navbar {
     margin: 0;
     padding: 5px 20px;
-    // background-color: var(--bg-color);
+    background-color: var(--bg-color);
+    color: var(--font-color) !important;
     transition: 0.05s;
     box-shadow: $default-shadow;
 
@@ -16,7 +17,7 @@
     &__tabLink,
     &__brand,
     &__collapseButton {
-        color: var(--text-color) !important;
+        color: var(--font-color) !important;
     }
 
     &__tabLink {
@@ -44,7 +45,7 @@
             border-color: rgba(0, 0, 0, 0);
             background-color: rgba(0, 0, 0, 0);
             font-size: 1.5em;
-            color: var(--text-color);
+            color: var(--font-color);
         }
     }
 

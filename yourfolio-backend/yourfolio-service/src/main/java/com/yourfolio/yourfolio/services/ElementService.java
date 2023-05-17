@@ -14,6 +14,7 @@ import com.yourfolio.yourfolio.mappers.StyleMapper;
 import com.yourfolio.yourfolio.repositories.ElementRelationshipRepository;
 import com.yourfolio.yourfolio.repositories.ElementRepository;
 import com.yourfolio.yourfolio.repositories.ElementTypeRepository;
+import com.yourfolio.yourfolio.repositories.StyleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +27,8 @@ public class ElementService {
     private final ElementMapper elementMapper;
     private final StyleMapper styleMapper;
     private final ElementRelationshipRepository elementRelationshipRepository;
-
     private final ElementTypeRepository elementTypeRepository;
+    private final StyleRepository styleRepository;
 
     public ElementDTO getElement(Integer elementId) {
         ElementDTO result = elementMapper.toDto(elementRepository.getReferenceById(elementId));
@@ -106,10 +107,12 @@ public class ElementService {
 
         return elementMapper.toDto(elementRepository.save(entityToSave));
     }
-    public ElementDTO updateElementStyle(StyleDTO styleDto, Integer elementId) {
-        ElementEntity entityToSave = elementRepository.getReferenceById(elementId);
-        entityToSave.setStyle(styleMapper.toEntity(styleDto));
-        return elementMapper.toDto(elementRepository.save(entityToSave));
+    public StyleDTO updateElementStyle(StyleDTO styleDto, Integer elementId) {
+        int styleId = styleRepository.findByPortfolio_Id(elementId).getId();
+        StyleEntity styleEntitytoSave = styleMapper.toEntity(styleDto);
+        styleEntitytoSave.setId(styleId);
+        styleEntitytoSave.setPortfolio(ElementEntity.builder().id(elementId).build());
+        return styleMapper.toDto(styleRepository.save(styleEntitytoSave));
     }
     public void deleteElement(Integer elementId) {
         for (ElementRelationshipEntity relationship : elementRelationshipRepository.findByChildId(elementId)) {
