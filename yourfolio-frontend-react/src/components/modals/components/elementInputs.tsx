@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, SelectPicker, Uploader } from "rsuite"
+import { getElement } from "src/api/elementRequests";
 import { getElementType } from "src/api/elementTypeRequests";
 import { EMPTY_ELEMENT_SAVE_DTO, ElementSaveDTO, ElementTypeDTO } from "src/types/dtoTypes";
 import { ModalWindowData, State } from "src/types/portfolioContextTypes";
@@ -16,24 +17,26 @@ export const ElementTitleInput = (props: { modalState: State<ModalWindowData> })
           {
             ...props.modalState.value,
             values:
-              props.modalState.value.values ?
-                { ...props.modalState.value.values, name: v }
-                : EMPTY_ELEMENT_SAVE_DTO
+              { ...props.modalState.value.values, name: v }
           })}
     />
   </Form.Group>;
 }
 
 export const ElementTypeInput = (props: { modalState: State<ModalWindowData> }) => {
-  const [possibleChildren, setPossibleChildren] = useState<ElementTypeDTO[]>([]);
+  const [possibleChildren, setPossibleChildren] = useState<ElementTypeDTO[]>();
 
   const query = useQuery({
-    queryKey: ["getType", props.modalState.value.values?.typeId || "portfolio"],
-    queryFn: () => getElementType(props.modalState.value.values?.typeId || "portfolio"),
+    queryKey: ["getType", props.modalState.value.values.typeId],
+    queryFn: () => getElement(props.modalState.value.parentId || -1),
     onSuccess: (data) => {
-      setPossibleChildren(data.possibleChildren || [])
+      setPossibleChildren(data.type.possibleChildren || [])
     },
   });
+
+  useEffect(() => {
+    console.log("rkt", props.modalState.value.values.typeId)
+  }, [props.modalState.value]);
 
   return <Form.Group controlId="newElementType">
     <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
@@ -42,18 +45,16 @@ export const ElementTypeInput = (props: { modalState: State<ModalWindowData> }) 
       accepter={SelectPicker}
       searchable={false}
       aria-label="Select"
-      value={props.modalState.value.values?.typeId || ""}
+      value={props.modalState.value.values.typeId}
       onChange={(v: any, e: any) =>
         props.modalState.set(
           {
             ...props.modalState.value,
             values:
-              props.modalState.value.values ?
-                { ...props.modalState.value.values, typeId: v }
-                : EMPTY_ELEMENT_SAVE_DTO
+              { ...props.modalState.value.values, typeId: v }
           })}
       data={
-        possibleChildren.map(
+        possibleChildren && possibleChildren.map(
           (possibleChild) => ({
             label: possibleChild.name,
             value: possibleChild.id,

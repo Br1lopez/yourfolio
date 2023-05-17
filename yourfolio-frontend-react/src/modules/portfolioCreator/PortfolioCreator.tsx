@@ -2,7 +2,7 @@ import DefaultHead from "../../components/DefaultHead";
 import { NavBar } from "./components/navBar/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { getElement } from "src/api/elementRequests";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ActiveComponent } from "./components/activeComponent/ActiveComponent";
 import { PortfolioContext } from "../../hooks/PortfolioContext";
 import { InterfaceBar } from "./components/interfaceBar/InterfaceBar";
@@ -10,8 +10,6 @@ import "./portfolioCreator.scss";
 import { PortfolioStyle } from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
 import { ModalWindow } from "src/components/modals/ModalWindow";
-import { ElementDTO } from "src/types/dtoTypes";
-import { ModalWindowData, State } from "src/types/portfolioContextTypes";
 
 export interface PortfolioCreatorProps {
   portfolioId: number;
