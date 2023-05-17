@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ArtworkContainer } from "./artworkContainer/ArtworkContainer";
 import "./artworkGallery.scss";
 import Carousel from "./carousel/Carousel";
-import { ElementDTO } from "src/types/dtoTypes";
+import { EMPTY_ELEMENT_SAVE_DTO, ElementDTO } from "src/types/dtoTypes";
 import { FaPlus } from "react-icons/fa";
 import { PortfolioContext } from "../../../../hooks/PortfolioContext";
 import { ModalType } from "../../../../types/portfolioContextTypes";
@@ -38,8 +38,9 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
             className="artwork-gallery__add-container"
             onClick={() => {
               modalWindowData.set({
-                ...modalWindowData.value,
+                parentId: data.id,
                 modalType: ModalType.CreateElement,
+                values: EMPTY_ELEMENT_SAVE_DTO
               });
             }}
           >
