@@ -5,6 +5,7 @@ import { getElement } from "src/api/elementRequests";
 import { getElementType } from "src/api/elementTypeRequests";
 import { EMPTY_ELEMENT_SAVE_DTO, ElementSaveDTO, ElementTypeDTO } from "src/types/dtoTypes";
 import { ModalWindowData, State } from "src/types/portfolioContextTypes";
+import { requiredInput } from "./InputValidations";
 
 export const ElementTitleInput = (props: { modalState: State<ModalWindowData> }) => {
   return <Form.Group controlId="newElementTitle">
@@ -19,6 +20,7 @@ export const ElementTitleInput = (props: { modalState: State<ModalWindowData> })
             values:
               { ...props.modalState.value.values, name: v }
           })}
+      rule={requiredInput}
     />
   </Form.Group>;
 }
@@ -61,7 +63,8 @@ export const ElementTypeInput = (props: { modalState: State<ModalWindowData> }) 
           })
         ) || []
       }
-    ></Form.Control>
+      rule={requiredInput}
+    />
   </Form.Group>
 }
 
