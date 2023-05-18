@@ -12,28 +12,38 @@ export function pushCloudNotification(
   type: ModalType,
   elementType?: ElementTypeDTO
 ) {
-  let text = "";
+  let text;
   switch (type) {
     case ModalType.CreateElement:
-      text = `${elementType?.name || ""} "${name}" ${elementType?.male ? "creado" : "creada"} con éxito`;
+      text = <div className="cloud-notification__text">
+        <span className="cloud-notification__text__element">{elementType?.name || ""} <b>{name}</b>:</span>
+        <span className="cloud-notification__text__action">{elementType?.male ? "creado" : "creada"} con éxito</span>
+      </div>
       break;
     case ModalType.EditElement:
-      text = `${elementType?.name || ""} "${name}" ${elementType?.male ? "modificado" : "modificada"} con éxito`;
+      text = <div className="cloud-notification__text">
+        <span className="cloud-notification__text__element">{elementType?.name || ""} <b>{name}</b>:</span>
+        <span className="cloud-notification__text__action">{elementType?.male ? "modificado" : "modificada"} con éxito</span>
+      </div>;
       break;
     case ModalType.DeleteElement:
-      text = `${elementType?.name || ""} "${name}" ${elementType?.male ? "eliminado" : "eliminada"} con éxito`;
+      text = <div className="cloud-notification__text">
+        <span className="cloud-notification__text__element">{elementType?.name || ""} <b>{name}</b>:</span>
+        <span className="cloud-notification__text__action">{elementType?.male ? "eliminado" : "eliminada"} con éxito</span>
+      </div>;
       break;
     case ModalType.SetSyle:
-      text = `Estilos modificados con éxito`;
+      text = <div className="cloud-notification__text">Estilos modificados con éxito</div>;
       break;
   }
 
+
   toaster.push(
-    <Notification>
-      <BsFillCloudCheckFill className="cloudIcon" /> {text}
+    <Notification className="cloud-notification">
+      <BsFillCloudCheckFill className="cloud-notification__icon" />{text}
     </Notification>,
     defaultToastValues
   );
 }
 
-export const defaultToastValues = { placement: "bottomEnd" };
+export const defaultToastValues = { placement: "bottomEnd", duration: 30000 };

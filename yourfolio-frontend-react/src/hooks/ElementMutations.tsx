@@ -66,7 +66,7 @@ export const useEditElementStyleMutation = (
 
   return useMutation({
     mutationFn: () => updateElementStyle(elementId, styleDto),
-    onSuccess: () => {
+    onSuccess: (data) => {
       pushCloudNotification(
         toaster,
         "",
@@ -79,7 +79,7 @@ export const useEditElementStyleMutation = (
 };
 
 
-export const useDeleteElementMutation = (elementId: number, name?: string) => {
+export const useDeleteElementMutation = (elementId: number) => {
   const { modalWindowData: activeModalData, toaster } =
     useContext(PortfolioContext);
   const queryClient = useQueryClient();
@@ -90,7 +90,7 @@ export const useDeleteElementMutation = (elementId: number, name?: string) => {
       queryClient.invalidateQueries(["getPortfolio"]);
       pushCloudNotification(
         toaster,
-        name || "",
+        data?.name || "",
         ModalType.DeleteElement,
         data?.type
       );
