@@ -10,7 +10,7 @@ import {
 } from "rsuite";
 import "./modal.scss";
 import {
-  CustomElementInputs,
+  customElementInputs,
   ElementTitleInput,
   ElementTypeInput,
 } from "src/components/modals/inputs/ElementInputs";
@@ -86,13 +86,13 @@ export const ModalWindow = (props: ModalWindowProps) => {
         return <Modal.Body>
           <ElementTitleInput modalState={modalProperties} />
           <ElementTypeInput modalState={modalProperties} />
-          <CustomElementInputs modalState={modalProperties} />
+          {customElementInputs(modalProperties)}
         </Modal.Body>
       case ModalType.EditElement:
         return <Modal.Body>
           <ElementTitleInput modalState={modalProperties} />
           <ElementTypeInput disabled={true} modalState={modalProperties} />
-          <CustomElementInputs modalState={modalProperties} />
+          {customElementInputs(modalProperties)}
         </Modal.Body>
 
       case ModalType.SetSyle:

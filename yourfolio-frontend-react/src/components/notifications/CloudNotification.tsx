@@ -46,4 +46,4 @@ export function pushCloudNotification(
   );
 }
 
-export const defaultToastValues = { placement: "bottomEnd", duration: 30000 };
+export const defaultToastValues = { placement: "bottomEnd" };

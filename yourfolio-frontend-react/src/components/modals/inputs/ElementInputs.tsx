@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { Form, SelectPicker, Uploader } from "rsuite"
+import { useState } from "react";
+import { Form, Input, SelectPicker, Uploader } from "rsuite"
 import { getElement } from "src/api/elementRequests";
-import { getElementType } from "src/api/elementTypeRequests";
 import { ElementTypeDTO } from "src/types/dtoTypes";
 import { ModalWindowData, State } from "src/types/portfolioContextTypes";
 import { requiredInput } from "../validations/InputValidations";
+import React from "react";
+const Textarea = React.forwardRef((props, ref: any) => <Input {...props} as="textarea" ref={ref} />);
 
 export const ElementTitleInput = (props: { modalState: State<ModalWindowData> }) => {
   return <Form.Group controlId="newElementTitle">
@@ -36,10 +37,6 @@ export const ElementTypeInput = (props: { modalState: State<ModalWindowData>, di
     },
   });
 
-  useEffect(() => {
-    console.log("rkt", props.modalState.value.values.typeId)
-  }, [props.modalState.value]);
-
   return <Form.Group controlId="newElementType">
     <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
     <Form.Control
@@ -69,6 +66,24 @@ export const ElementTypeInput = (props: { modalState: State<ModalWindowData>, di
   </Form.Group>
 }
 
+export const ElementDescriptionInput = (props: { modalState: State<ModalWindowData> }) => {
+  return <Form.Group controlId="newElementTitle">
+    <Form.ControlLabel>Descripción: </Form.ControlLabel>
+    <Form.Control
+      name="description"
+      value={props.modalState.value.values?.description}
+      accepter={Textarea}
+      onChange={(v: any, e: any) =>
+        props.modalState.set(
+          {
+            ...props.modalState.value,
+            values:
+              { ...props.modalState.value.values, description: v }
+          })}
+    />
+  </Form.Group>;
+}
+
 export const ElementImageInput = (props: { modalState?: State<ModalWindowData> }) => {
   return <Form.Group controlId="newElementType" className="mb-4">
     <Form.ControlLabel>Imagen:</Form.ControlLabel>
@@ -81,20 +96,11 @@ export const ElementImageInput = (props: { modalState?: State<ModalWindowData> }
 }
 
 
-export const CustomElementInputs = (props: { modalState: State<ModalWindowData> }) => {
-  const [type, setType] = useState<ElementTypeDTO | undefined>(undefined);
-  const query = useQuery({
-    queryKey: ["getType", props.modalState.value.values?.typeId || ""],
-    queryFn: () => getElementType(props.modalState.value.values?.typeId || ""),
-    onSuccess: (data) => {
-      setType(data)
-    },
-  });
-
-  switch (type?.name) {
-    case "vertical-carousel-gallery":
-      return <ElementImageInput />;
+export const customElementInputs = (modalState: State<ModalWindowData>) => {
+  switch (modalState?.value.values?.typeId) {
+    case "artwork":
+      return [<ElementDescriptionInput modalState={modalState} />, <ElementImageInput />];
     default:
-      return <></>;
+      return [];
   }
 }
