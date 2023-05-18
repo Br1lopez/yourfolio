@@ -1,13 +1,15 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "image")

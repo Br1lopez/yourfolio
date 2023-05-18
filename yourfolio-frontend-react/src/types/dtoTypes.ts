@@ -3,10 +3,10 @@ export interface ElementDTO {
   type: ElementTypeDTO;
   name: string;
   position: number;
-  files: Array<FileDTO>;
+  files: Array<ImageDTO>;
   elements: Array<ElementDTO>;
   description?: string;
-  thumbnailFile?: FileDTO;
+  thumbnailFile?: ImageDTO;
   style: StyleDTO;
 }
 
@@ -25,7 +25,7 @@ export interface ElementSaveDTO {
   name: string;
   position?: number;
   description?: string;
-  thumbnailFile?: FileDTO;
+  thumbnailFile?: ImageDTO;
   style?: StyleDTO;
 }
 
@@ -34,7 +34,7 @@ export const EMPTY_ELEMENT_SAVE_DTO: ElementSaveDTO = {
   name: ""
 };
 
-export interface FileDTO {
+export interface ImageDTO {
   id: number;
   url: string;
   description: string;
