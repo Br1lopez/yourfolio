@@ -19,10 +19,9 @@ import {
   ModalType,
   ModalWindowData,
   NULL_MODAL_WINDOW_DATA,
-  NULL_STATE,
   State
 } from "src/types/portfolioContextTypes";
-import { EMPTY_ELEMENT_SAVE_DTO, mapElementDtoToElementSaveDto, StyleDTO } from "src/types/dtoTypes";
+import { EMPTY_ELEMENT_SAVE_DTO } from "src/types/dtoTypes";
 import { BgColorInput, FontColorInput } from "./components/StyleInputs";
 
 

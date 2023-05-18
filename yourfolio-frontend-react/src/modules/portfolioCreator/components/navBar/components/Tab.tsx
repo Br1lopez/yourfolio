@@ -12,11 +12,12 @@ import { ElementDTO, mapElementDtoToElementSaveDto } from "src/types/dtoTypes";
 export interface TabProps {
   open: boolean;
   element: ElementDTO;
+  parentId: number;
 }
 
 const Tab = (props: TabProps) => {
   const { activeElementId, modalWindowData } = useContext(PortfolioContext);
-  const { open, element } = props;
+  const { open, element, parentId } = props;
 
   const deleteElement = useDeleteElementMutation(element.id);
 
@@ -27,6 +28,7 @@ const Tab = (props: TabProps) => {
 
   const handleEditClick = (event: any) => {
     modalWindowData.set({
+      parentId: parentId,
       values: mapElementDtoToElementSaveDto(element),
       elementId: element.id,
       modalType: ModalType.EditElement,

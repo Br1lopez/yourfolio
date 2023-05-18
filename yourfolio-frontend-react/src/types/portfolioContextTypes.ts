@@ -26,12 +26,13 @@ export interface PortfolioCtxData {
 
 
 export const NULL_MODAL_WINDOW_DATA = {
+  parentId: -1,
   values: EMPTY_ELEMENT_SAVE_DTO,
   modalType: ModalType.Hide,
 };
 
 export interface ModalWindowData {
-  parentId?: number;
+  parentId: number;
   elementId?: number;
   values: ElementSaveDTO;
   modalType: ModalType;

@@ -61,7 +61,7 @@ export const NavBar = (props: NavBarProps) => {
             .sort((a: any, b: any) => a.position - b.position)
             .map((tab, index) => {
               return (
-                <Tab open={activeTab == tab.id} key={index} element={tab}></Tab>
+                <Tab open={activeTab == tab.id} key={index} element={tab} parentId={portfolio.id}></Tab>
               );
             })}
           <Nav.Link href="#">
