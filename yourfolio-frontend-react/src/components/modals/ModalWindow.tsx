@@ -13,7 +13,7 @@ import {
   CustomElementInputs,
   ElementTitleInput,
   ElementTypeInput,
-} from "src/components/modals/components/ElementInputs";
+} from "src/components/modals/inputs/ElementInputs";
 import { useCreateElementMutation, useEditElementMutation, useEditElementStyleMutation } from "src/hooks/ElementMutations";
 import {
   ModalType,
@@ -22,7 +22,7 @@ import {
   State
 } from "src/types/portfolioContextTypes";
 import { EMPTY_ELEMENT_SAVE_DTO } from "src/types/dtoTypes";
-import { BgColorInput, FontColorInput } from "./components/StyleInputs";
+import { ColorInputs, FontPickerComponent } from "./inputs/StyleInputs";
 
 
 export interface ModalWindowProps {
@@ -96,9 +96,15 @@ export const ModalWindow = (props: ModalWindowProps) => {
 
       case ModalType.SetSyle:
         if (styleData.value) {
-          return <Modal.Body>
-            <BgColorInput state={{ value: styleData.value, set: styleData.set }} />
-            <FontColorInput state={{ value: styleData.value, set: styleData.set }} />
+          return <Modal.Body style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "20px"
+          }}>
+            <ColorInputs state={{ value: styleData.value, set: styleData.set }} />
+            {/* <BgColorInput state={{ value: styleData.value, set: styleData.set }} />
+            <FontColorInput state={{ value: styleData.value, set: styleData.set }} /> */}
+            <FontPickerComponent state={{ value: styleData.value, set: styleData.set }} />
           </Modal.Body>
         }
     }
