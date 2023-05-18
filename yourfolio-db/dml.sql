@@ -3,7 +3,7 @@ use yourfolio;
 INSERT INTO user (name, email, surname1, surname2, password) VALUES ('John', 'john@example.com', 'Doe', 'Smith', 'password123');
 INSERT INTO file (url, description, user_id) VALUES ('https://example.com/file1', 'Description for File 1', 1);
 
-INSERT INTO element_type (id, name) VALUES ('portfolio', 'Portfolio'), ('tab', 'Tab'), ('project', 'Project'), ('section', 'Section'), ('vertical-carousel-gallery', 'Galería (Vertical)'), ('artwork', 'Artwork');
+INSERT INTO element_type (id, name, male) VALUES ('portfolio', 'Portfolio', true), ('tab', 'Tab', false), ('project', 'Project', true), ('section', 'Section', false), ('vertical-carousel-gallery', 'Galería (Vertical)', false), ('artwork', 'Imagen con título y descripción', false);
 insert into element_type_children (parent_id, child_id) values ('portfolio', 'vertical-carousel-gallery');
 insert into element_type_children (parent_id, child_id) values ('vertical-carousel-gallery', 'artwork');
 

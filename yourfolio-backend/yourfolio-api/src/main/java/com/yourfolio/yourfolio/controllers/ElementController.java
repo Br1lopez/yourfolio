@@ -1,5 +1,6 @@
 package com.yourfolio.yourfolio.controllers;
 
+import com.yourfolio.yourfolio.dbentities.ElementEntity;
 import com.yourfolio.yourfolio.dtos.ElementDTO;
 import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import com.yourfolio.yourfolio.dtos.StyleDTO;
@@ -28,7 +29,6 @@ public class ElementController {
 
     @PostMapping("/{parentId}")
     public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementSaveDTO elementDto) {
-        System.out.println((elementDto));
         return new ResponseEntity<>(elementService.createElement(elementDto, parentId), HttpStatus.CREATED);
     }
 
@@ -45,9 +45,10 @@ public class ElementController {
 
 
     @DeleteMapping("/{elementId}")
-    public ResponseEntity<Boolean> deleteElementById(@PathVariable Integer elementId) {
+    public ResponseEntity<ElementDTO> deleteElementById(@PathVariable Integer elementId) {
+        ElementDTO deletedElement = elementService.getElement(elementId);
         elementService.deleteElement(elementId);
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(deletedElement, HttpStatus.OK);
     }
 
 }

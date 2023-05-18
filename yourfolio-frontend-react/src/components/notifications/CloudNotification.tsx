@@ -3,22 +3,25 @@ import { Notification } from "rsuite";
 import { BsFillCloudCheckFill } from "react-icons/bs";
 import "./cloudNotification.scss";
 import { ModalType } from "../../types/portfolioContextTypes";
+import { ElementTypeDTO } from "src/types/dtoTypes";
+
 
 export function pushCloudNotification(
   toaster: any,
   name: string,
-  type: ModalType
+  type: ModalType,
+  elementType?: ElementTypeDTO
 ) {
   let text = "";
   switch (type) {
     case ModalType.CreateElement:
-      text = `Pestaña "${name}" creada con éxito`;
+      text = `${elementType?.name || ""} "${name}" ${elementType?.male ? "creado" : "creada"} con éxito`;
       break;
     case ModalType.EditElement:
-      text = `Pestaña "${name}" modificada con éxito`;
+      text = `${elementType?.name || ""} "${name}" ${elementType?.male ? "modificado" : "modificada"} con éxito`;
       break;
     case ModalType.DeleteElement:
-      text = `Pestaña "${name}" eliminada con éxito`;
+      text = `${elementType?.name || ""} "${name}" ${elementType?.male ? "eliminado" : "eliminada"} con éxito`;
       break;
     case ModalType.SetSyle:
       text = `Estilos modificados con éxito`;

@@ -13,7 +13,7 @@ export interface ElementDTO {
 export const EMPTY_ELEMENT_DTO: ElementDTO = {
   id: -1,
   name: "",
-  type: { id: "", name: "" },
+  type: { id: "", name: "", male: true },
   style: { bgColor: "black", fontColor: "white" },
   position: 0,
   files: [],
@@ -49,6 +49,7 @@ export interface StyleDTO {
 export interface ElementTypeDTO {
   id: string;
   name: string;
+  male: boolean;
   possibleChildren?: ElementTypeDTO[];
 }
 

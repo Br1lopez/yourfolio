@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { API_BASE_URL } from "../globals";
 import { ElementDTO, ElementSaveDTO, StyleDTO } from "../types/dtoTypes";
 
@@ -22,6 +22,7 @@ export const createElement = async (
       `${API_BASE_URL}/elements/${parentId || ""}`,
       body
     );
+    console.log(response.data)
     return response.data;
   } catch (error) {
     throw new Error("error");
@@ -59,12 +60,17 @@ export const updateElementStyle = async (
   }
 };
 
-export const deleteElement = async (elementId: number) => {
-  const response = await axios
-    .delete(`${API_BASE_URL}/elements/${elementId}`)
-    .catch((error) => {
-      console.log(error);
-    });
+export const deleteElement = async (elementId: number): Promise<ElementDTO | null> => {
+  try {
+    const response = await axios
+      .delete<ElementDTO>(`${API_BASE_URL}/elements/${elementId}`)
+      .catch((error) => {
+        console.log(error);
+      });
 
-  return response;
+
+    return (response instanceof Object ? response.data : null);
+  } catch (error) {
+    throw new Error("error");
+  }
 };

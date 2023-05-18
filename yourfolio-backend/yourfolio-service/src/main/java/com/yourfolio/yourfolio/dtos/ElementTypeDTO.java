@@ -15,6 +15,8 @@ public class ElementTypeDTO {
 
     private String name;
 
+    private boolean male;
+
     private List<ElementTypeEntity> possibleChildren;
 
 }

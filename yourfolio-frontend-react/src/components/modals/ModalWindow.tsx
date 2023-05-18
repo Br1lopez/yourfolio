@@ -51,6 +51,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
     styleData.value);
 
   const handleSubmit = (event: any) => {
+    console.log("form", modalProperties.value.values);
     if (formRef.current.check()) {
       switch (modalProperties.value.modalType) {
         case ModalType.CreateElement:

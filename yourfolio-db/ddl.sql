@@ -24,7 +24,8 @@ CREATE TABLE file (
 
 CREATE TABLE element_type (
     id VARCHAR(255) PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255),
+    male BOOL
 );
 
 CREATE TABLE element_type_children (

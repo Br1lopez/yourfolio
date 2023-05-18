@@ -22,4 +22,6 @@ public class ElementTypeEntity {
 
     private String name;
 
+    private boolean male;
+
 }

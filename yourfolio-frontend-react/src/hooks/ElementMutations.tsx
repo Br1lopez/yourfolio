@@ -18,11 +18,12 @@ export const useCreateElementMutation = (
 
   return useMutation({
     mutationFn: () => createElement(elementSaveDto, parentId),
-    onSuccess: () => {
+    onSuccess: (data) => {
       pushCloudNotification(
         toaster,
         elementSaveDto.name,
-        ModalType.CreateElement
+        ModalType.CreateElement,
+        data.type
       );
       queryClient.invalidateQueries(["getPortfolio"]);
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
@@ -41,11 +42,12 @@ export const useEditElementMutation = (
 
   return useMutation({
     mutationFn: () => updateElement(elementId, elementSaveDto),
-    onSuccess: () => {
+    onSuccess: (data) => {
       pushCloudNotification(
         toaster,
         elementSaveDto.name,
-        ModalType.EditElement
+        ModalType.EditElement,
+        data.type
       );
       queryClient.invalidateQueries(["getPortfolio"]);
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
@@ -68,7 +70,7 @@ export const useEditElementStyleMutation = (
       pushCloudNotification(
         toaster,
         "",
-        ModalType.EditElement
+        ModalType.SetSyle
       );
       queryClient.invalidateQueries(["getPortfolio"]);
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
@@ -84,12 +86,13 @@ export const useDeleteElementMutation = (elementId: number, name?: string) => {
 
   return useMutation({
     mutationFn: () => deleteElement(elementId),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(["getPortfolio"]);
       pushCloudNotification(
         toaster,
         name || "",
-        ModalType.DeleteElement
+        ModalType.DeleteElement,
+        data?.type
       );
     },
   });

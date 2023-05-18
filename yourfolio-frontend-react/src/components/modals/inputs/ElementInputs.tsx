@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Form, SelectPicker, Uploader } from "rsuite"
 import { getElement } from "src/api/elementRequests";
 import { getElementType } from "src/api/elementTypeRequests";
-import { EMPTY_ELEMENT_SAVE_DTO, ElementSaveDTO, ElementTypeDTO } from "src/types/dtoTypes";
+import { ElementTypeDTO } from "src/types/dtoTypes";
 import { ModalWindowData, State } from "src/types/portfolioContextTypes";
 import { requiredInput } from "../validations/InputValidations";
 
@@ -44,7 +44,6 @@ export const ElementTypeInput = (props: { modalState: State<ModalWindowData>, di
     <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
     <Form.Control
       disabled={props.disabled}
-      plaintext={props.disabled}
       name="type"
       accepter={SelectPicker}
       searchable={false}
@@ -65,7 +64,7 @@ export const ElementTypeInput = (props: { modalState: State<ModalWindowData>, di
           })
         ) || []
       }
-      rule={requiredInput}
+      rule={props.disabled ? undefined : requiredInput}
     />
   </Form.Group>
 }

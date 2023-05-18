@@ -42,14 +42,16 @@ public class ElementService {
     }
 
     public void setChildrenPosition(ElementDTO elementDTO) {
-        elementDTO.getElements().forEach(
-                e -> {
-                    e.setPosition(elementRelationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition());
-                    if (e.getElements() != null && !e.getElements().isEmpty()) {
-                        setChildrenPosition(e);
+        if (elementDTO.getElements() != null) {
+            elementDTO.getElements().forEach(
+                    e -> {
+                        e.setPosition(elementRelationshipRepository.findByParentIdAndChildId(elementDTO.getId(), e.getId()).getPosition());
+                        if (e.getElements() != null && !e.getElements().isEmpty()) {
+                            setChildrenPosition(e);
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 
     public void setType(ElementDTO elementDTO) {
@@ -65,9 +67,11 @@ public class ElementService {
 
     public void setTypeRecursively(ElementDTO elementDTO) {
         setType(elementDTO);
-        elementDTO.getElements().forEach(
-                this::setType
-        );
+        if (elementDTO.getElements() != null) {
+            elementDTO.getElements().forEach(
+                    this::setType
+            );
+        }
     }
 
     public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId) {
@@ -90,6 +94,8 @@ public class ElementService {
             );
         }
 
+        response.setType(elementTypeRepository.getReferenceById(elementTypeToSave.getId()));
+
         return elementMapper.toDto(response);
     }
 
@@ -98,6 +104,7 @@ public class ElementService {
         entityToSave.setId(elementId);
         return elementMapper.toDto(elementRepository.save(entityToSave));
     }
+
     public StyleDTO updateElementStyle(StyleDTO styleDto, Integer elementId) {
         int styleId = styleRepository.findByPortfolio_Id(elementId).getId();
         StyleEntity styleEntitytoSave = styleMapper.toEntity(styleDto);
@@ -105,6 +112,7 @@ public class ElementService {
         styleEntitytoSave.setPortfolio(ElementEntity.builder().id(elementId).build());
         return styleMapper.toDto(styleRepository.save(styleEntitytoSave));
     }
+
     public void deleteElement(Integer elementId) {
         for (ElementRelationshipEntity relationship : elementRelationshipRepository.findByChildId(elementId)) {
             elementRelationshipRepository.delete(relationship);
