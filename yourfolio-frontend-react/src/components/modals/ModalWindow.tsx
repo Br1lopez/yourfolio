@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal } from "rsuite";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
 
 import {
@@ -33,6 +33,7 @@ export interface ModalWindowProps {
 export const ModalWindow = (props: ModalWindowProps) => {
   const { modalWindowData, styleData } = useContext(PortfolioContext);
   const { modalProperties } = props;
+  const [open, setOpen] = useState<boolean>(false);
 
   const formRef = useRef<any>(null);
 
@@ -99,8 +100,22 @@ export const ModalWindow = (props: ModalWindowProps) => {
     }
   };
 
+  useEffect(() => {
+    if (modalProperties.value.modalType != ModalType.Hide) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [modalProperties.value.modalType]);
+
   return (
-    <Modal id="newTab" show={modalProperties.value.modalType != ModalType.Hide}>
+    <Modal id="newTab"
+      open={open}
+      onClose={() => setOpen(false)}
+      onExited={
+        () => modalWindowData.set(
+          { ...NULL_MODAL_WINDOW_DATA, modalType: ModalType.Hide })}
+      backdrop='static'>
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
@@ -110,7 +125,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
           <ButtonToolbar>
             <Button
               appearance="default"
-              onClick={() => modalWindowData.set({ ...NULL_MODAL_WINDOW_DATA, modalType: ModalType.Hide })}
+              onClick={() => setOpen(false)}
             >
               Cancelar
             </Button>
