@@ -8,8 +8,8 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "file")
-public class FileEntity {
+@Table(name = "image")
+public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -26,8 +26,8 @@ public class FileEntity {
     private UserEntity user;
 
     @ManyToMany
-    @JoinTable(name = "element_file",
-            joinColumns = @JoinColumn(name = "file_id"),
+    @JoinTable(name = "element_image",
+            joinColumns = @JoinColumn(name = "image_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id"))
     private Set<ElementEntity> elements = new LinkedHashSet<>();
 

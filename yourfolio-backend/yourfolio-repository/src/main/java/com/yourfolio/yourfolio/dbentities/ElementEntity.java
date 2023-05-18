@@ -31,8 +31,8 @@ public class ElementEntity {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "thumbnail_file_id")
-    private FileEntity thumbnailFile;
+    @JoinColumn(name = "thumbnail_image_id")
+    private ImageEntity thumbnailImage;
 
 
     @ManyToMany
@@ -42,11 +42,11 @@ public class ElementEntity {
     private Set<ElementEntity> elements = new LinkedHashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "element_file",
+    @JoinTable(name = "element_image",
             joinColumns = @JoinColumn(name = "element_id"),
-            inverseJoinColumns = @JoinColumn(name = "file_id"))
+            inverseJoinColumns = @JoinColumn(name = "image_id"))
 
-    private Set<FileEntity> files = new LinkedHashSet<>();
+    private Set<ImageEntity> images = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "portfolio", orphanRemoval = true)
     private StyleEntity style;

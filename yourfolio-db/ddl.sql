@@ -12,7 +12,7 @@ CREATE TABLE user (
     password VARCHAR(32)
 );
 
-CREATE TABLE file (
+CREATE TABLE image (
     id INT AUTO_INCREMENT PRIMARY KEY,
     url VARCHAR(255),
     description VARCHAR(255),
@@ -43,9 +43,9 @@ create table element (
 	name VARCHAR(255),
     description VARCHAR(255),
     user_id INT,
-    thumbnail_file_id INT,
+    thumbnail_image_id INT,
     FOREIGN KEY (element_type_id) REFERENCES element_type(id),
-    FOREIGN KEY (thumbnail_file_id) REFERENCES file(id)
+    FOREIGN KEY (thumbnail_image_id) REFERENCES image(id)
 );
 
 CREATE TABLE element_children (
@@ -69,11 +69,11 @@ CREATE TABLE style(
 );
 
 
-CREATE TABLE element_file (
-    file_id INT,
+CREATE TABLE element_image (
+    image_id INT,
     element_id INT,
-    PRIMARY KEY (file_id, element_id),
-    FOREIGN KEY (file_id) REFERENCES file(id),
+    PRIMARY KEY (image_id, element_id),
+    FOREIGN KEY (image_id) REFERENCES image(id),
     FOREIGN KEY (element_id) REFERENCES element(id)
 );
 

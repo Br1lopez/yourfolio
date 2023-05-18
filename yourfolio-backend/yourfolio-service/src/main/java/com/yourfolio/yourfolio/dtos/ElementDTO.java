@@ -1,7 +1,6 @@
 package com.yourfolio.yourfolio.dtos;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,14 +17,10 @@ public class ElementDTO implements Serializable {
     private ElementTypeDTO type;
     private String name;
     private String description;
-    private FileDTO thumbnailFile;
-    private List<FileDTO> files;
-
+    private ImageDTO thumbnailImage;
+    private List<ImageDTO> images;
     private List<ElementDTO> elements;
-
-    //TODO forzar a enviarlo
     private StyleDTO style;
-
     private Integer position;
 
     }

@@ -13,7 +13,7 @@ public class ElementSaveDTO implements Serializable {
     private final String name;
     private final Integer position;
     private final String description;
-    private final FileDTO thumbnailFile;
+    private final ImageDTO thumbnailFile;
 
     private final StyleDTO style;
 
