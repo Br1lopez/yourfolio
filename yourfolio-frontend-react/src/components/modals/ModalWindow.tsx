@@ -82,11 +82,15 @@ export const ModalWindow = (props: ModalWindowProps) => {
   const modalBody = () => {
     switch (modalProperties?.value?.modalType) {
       case ModalType.CreateElement:
-      case ModalType.EditElement:
-
         return <Modal.Body>
           <ElementTitleInput modalState={modalProperties} />
           <ElementTypeInput modalState={modalProperties} />
+          <CustomElementInputs modalState={modalProperties} />
+        </Modal.Body>
+      case ModalType.EditElement:
+        return <Modal.Body>
+          <ElementTitleInput modalState={modalProperties} />
+          <ElementTypeInput disabled={true} modalState={modalProperties} />
           <CustomElementInputs modalState={modalProperties} />
         </Modal.Body>
 

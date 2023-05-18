@@ -25,7 +25,7 @@ export const ElementTitleInput = (props: { modalState: State<ModalWindowData> })
   </Form.Group>;
 }
 
-export const ElementTypeInput = (props: { modalState: State<ModalWindowData> }) => {
+export const ElementTypeInput = (props: { modalState: State<ModalWindowData>, disabled?: boolean }) => {
   const [possibleChildren, setPossibleChildren] = useState<ElementTypeDTO[]>();
 
   const query = useQuery({
@@ -43,6 +43,7 @@ export const ElementTypeInput = (props: { modalState: State<ModalWindowData> }) 
   return <Form.Group controlId="newElementType">
     <Form.ControlLabel>Tipo de elemento:</Form.ControlLabel>
     <Form.Control
+      disabled={props.disabled}
       name="type"
       accepter={SelectPicker}
       searchable={false}
