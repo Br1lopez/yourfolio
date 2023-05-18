@@ -1,3 +1,4 @@
 import { Schema } from "rsuite";
 
-export const requiredInput = Schema.Types.StringType().minLength(1, 'Campo obligatorio.')
+//TODO obliga a cambiar cuando se edita
+export const requiredInput = Schema.Types.StringType().isRequired('Campo obligatorio.')
