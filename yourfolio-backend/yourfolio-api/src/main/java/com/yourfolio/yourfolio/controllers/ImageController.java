@@ -1,7 +1,11 @@
 package com.yourfolio.yourfolio.controllers;
 
+import com.yourfolio.yourfolio.dtos.ElementTypeDTO;
+import com.yourfolio.yourfolio.dtos.ImageDTO;
 import com.yourfolio.yourfolio.services.ImageService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,8 +17,8 @@ public class ImageController {
 
     private final ImageService imageService;
     @PostMapping("/upload")
-    public String uploadImage(@RequestParam("image") MultipartFile image) {
-        return imageService.uploadImage(image);
+    public ResponseEntity<ImageDTO> uploadImage(@RequestParam("image") MultipartFile image) {
+        return new ResponseEntity<>(imageService.uploadImage(image), HttpStatus.CREATED);
     }
 
 }

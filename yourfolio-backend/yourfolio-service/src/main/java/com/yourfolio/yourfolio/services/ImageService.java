@@ -1,7 +1,10 @@
 package com.yourfolio.yourfolio.services;
 
+import com.yourfolio.yourfolio.dbentities.ImageEntity;
+import com.yourfolio.yourfolio.dtos.ImageDTO;
+import com.yourfolio.yourfolio.mappers.ImageMapper;
+import com.yourfolio.yourfolio.repositories.ImageRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +19,9 @@ import java.io.IOException;
 public class ImageService {
 
     private final Environment env;
-    public String uploadImage(MultipartFile image) {
+    private final ImageRepository imageRepository;
+    private final ImageMapper imageMapper;
+    public ImageDTO uploadImage(MultipartFile image) {
         String uploadDir = env.getProperty("image.upload-dir");
         // Save the image file to a directory on the server
         String fileName = image.getOriginalFilename();
@@ -28,10 +33,12 @@ public class ImageService {
             // Handle exception
         }
 
-        // Save the path to the image file in the database
 
-
-        return "Image uploaded successfully";
+        return imageMapper.toImageDTO(
+                imageRepository.save(
+                        ImageEntity.builder()
+                                .url(imagePath)
+                                .build()));
     }
 
 }

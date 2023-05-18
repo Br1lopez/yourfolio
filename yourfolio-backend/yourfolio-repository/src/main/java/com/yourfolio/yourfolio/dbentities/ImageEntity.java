@@ -1,12 +1,14 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
+@Builder
 @Entity
 @Table(name = "image")
 public class ImageEntity {
