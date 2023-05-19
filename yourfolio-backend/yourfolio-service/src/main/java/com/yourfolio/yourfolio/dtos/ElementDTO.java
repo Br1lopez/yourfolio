@@ -17,8 +17,8 @@ public class ElementDTO implements Serializable {
     private ElementTypeDTO type;
     private String name;
     private String description;
-    private ImageDTO thumbnailImage;
-    private List<ImageDTO> images;
+    private FileDTO thumbnailImage;
+    private List<FileDTO> files;
     private List<ElementDTO> elements;
     private StyleDTO style;
     private Integer position;

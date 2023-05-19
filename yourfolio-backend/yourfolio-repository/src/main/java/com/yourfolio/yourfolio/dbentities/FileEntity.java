@@ -12,8 +12,8 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "image")
-public class ImageEntity {
+@Table(name = "file")
+public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -30,8 +30,8 @@ public class ImageEntity {
     private UserEntity user;
 
     @ManyToMany
-    @JoinTable(name = "element_image",
-            joinColumns = @JoinColumn(name = "image_id"),
+    @JoinTable(name = "element_file",
+            joinColumns = @JoinColumn(name = "file_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id"))
     private Set<ElementEntity> elements = new LinkedHashSet<>();
 

@@ -94,6 +94,10 @@ public class ElementService {
             );
         }
 
+        if(elementDTO.getThumbnailFile() != null){
+
+        }
+
         response.setType(elementTypeRepository.getReferenceById(elementTypeToSave.getId()));
 
         return elementMapper.toDto(response);

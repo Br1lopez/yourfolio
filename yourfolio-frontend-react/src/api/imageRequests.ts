@@ -1,18 +1,13 @@
 import axios from "axios";
 import { API_BASE_URL } from "src/globals";
-import { ImageDTO } from "src/types/dtoTypes";
+import { FileDTO } from "src/types/dtoTypes";
 
-export const createImage = async (
-    body: ImageDTO
-): Promise<ImageDTO> => {
-    try {
-        const response = await axios.post<ImageDTO>(
-            `${API_BASE_URL}/images/`,
-            body
-        );
-        console.log(response.data)
-        return response.data;
-    } catch (error) {
-        throw new Error("error");
-    }
+export const createImage = async (body: FileDTO): Promise<FileDTO> => {
+  try {
+    const response = await axios.post<FileDTO>(`${API_BASE_URL}/images/`, body);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error("error");
+  }
 };

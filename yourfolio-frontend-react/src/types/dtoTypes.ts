@@ -3,10 +3,10 @@ export interface ElementDTO {
   type: ElementTypeDTO;
   name: string;
   position: number;
-  files: Array<ImageDTO>;
+  files: Array<FileDTO>;
   elements: Array<ElementDTO>;
   description?: string;
-  thumbnailFile?: ImageDTO;
+  thumbnailImage?: FileDTO;
   style: StyleDTO;
 }
 
@@ -25,16 +25,16 @@ export interface ElementSaveDTO {
   name: string;
   position?: number;
   description?: string;
-  thumbnailFile?: ImageDTO;
+  thumbnailFile?: FileDTO;
   style?: StyleDTO;
 }
 
 export const EMPTY_ELEMENT_SAVE_DTO: ElementSaveDTO = {
   typeId: "portfolio",
-  name: ""
+  name: "",
 };
 
-export interface ImageDTO {
+export interface FileDTO {
   id: number;
   url: string;
   description: string;
@@ -53,14 +53,15 @@ export interface ElementTypeDTO {
   possibleChildren?: ElementTypeDTO[];
 }
 
-
-export function mapElementDtoToElementSaveDto(elementDto: ElementDTO): ElementSaveDTO {
+export function mapElementDtoToElementSaveDto(
+  elementDto: ElementDTO
+): ElementSaveDTO {
   return {
     typeId: elementDto.type.id,
     name: elementDto.name,
     position: elementDto.position,
     description: elementDto.description,
-    thumbnailFile: elementDto.thumbnailFile,
+    thumbnailFile: elementDto.thumbnailImage,
     style: elementDto.style,
-  }
+  };
 }
