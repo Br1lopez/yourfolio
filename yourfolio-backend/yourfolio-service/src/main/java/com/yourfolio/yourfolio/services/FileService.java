@@ -54,6 +54,10 @@ public class FileService {
 
 
         try {
+            File resourcesDirectory = new File(getResourcesPath() + uploadDir);
+            if (!resourcesDirectory.exists()){
+                resourcesDirectory.mkdirs();
+            }
             File imageFile = new File(getResourcesPath() + imagePath);
             image.transferTo(imageFile);
 
