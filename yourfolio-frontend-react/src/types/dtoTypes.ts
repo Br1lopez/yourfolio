@@ -25,6 +25,7 @@ export interface ElementSaveDTO {
   name: string;
   position?: number;
   description?: string;
+  files?: Array<FileDTO>;
   thumbnailFile?: FileDTO;
   style?: StyleDTO;
 }

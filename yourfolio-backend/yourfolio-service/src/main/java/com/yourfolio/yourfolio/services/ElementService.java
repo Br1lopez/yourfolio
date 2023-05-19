@@ -1,23 +1,20 @@
 package com.yourfolio.yourfolio.services;
 
-import com.yourfolio.yourfolio.dbentities.ElementEntity;
-import com.yourfolio.yourfolio.dbentities.ElementRelationshipEntity;
-import com.yourfolio.yourfolio.dbentities.ElementTypeEntity;
-import com.yourfolio.yourfolio.dbentities.StyleEntity;
+import com.yourfolio.yourfolio.dbentities.*;
 import com.yourfolio.yourfolio.dbentities.ids.ElementRelationshipEntityId;
-import com.yourfolio.yourfolio.dtos.ElementDTO;
-import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
-import com.yourfolio.yourfolio.dtos.ElementTypeDTO;
-import com.yourfolio.yourfolio.dtos.StyleDTO;
+import com.yourfolio.yourfolio.dtos.*;
 import com.yourfolio.yourfolio.mappers.ElementMapper;
+import com.yourfolio.yourfolio.mappers.FileMapper;
 import com.yourfolio.yourfolio.mappers.StyleMapper;
-import com.yourfolio.yourfolio.repositories.ElementRelationshipRepository;
-import com.yourfolio.yourfolio.repositories.ElementRepository;
-import com.yourfolio.yourfolio.repositories.ElementTypeRepository;
-import com.yourfolio.yourfolio.repositories.StyleRepository;
+import com.yourfolio.yourfolio.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -29,6 +26,9 @@ public class ElementService {
     private final ElementRelationshipRepository elementRelationshipRepository;
     private final ElementTypeRepository elementTypeRepository;
     private final StyleRepository styleRepository;
+    private final ElementFileRepository elementFileRepository;
+    private final FileRepository fileRepository;
+    private final FileMapper fileMapper;
 
     public ElementDTO getElement(Integer elementId) {
         ElementDTO result = elementMapper.toDto(elementRepository.getReferenceById(elementId));
@@ -75,12 +75,19 @@ public class ElementService {
     }
 
     public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId) {
+        boolean hasFiles = elementDTO.getFiles() != null && !elementDTO.getFiles().isEmpty();
         ElementEntity elementToSave = elementMapper.toEntity(elementDTO);
         ElementTypeEntity elementTypeToSave = ElementTypeEntity.builder()
                 .id(elementDTO.getTypeId())
                 .build();
         elementToSave.setType(elementTypeToSave);
 
+        Set<FileEntity> filesToSave = new HashSet<>();
+        if (hasFiles) {
+            elementDTO.getFiles().forEach(fileDTO ->
+                    filesToSave.add(fileRepository.save(fileMapper.toEntity(fileDTO))));
+        }
+        elementToSave.setFiles(filesToSave);
 
         ElementEntity response = elementRepository.save(elementToSave);
 
@@ -90,13 +97,15 @@ public class ElementService {
                             .parentId(parentId)
                             .childId(response.getId())
                             .position((int) elementRelationshipRepository.countByParentId(parentId) + 1)
-                            .build()
-            );
+                            .build());
         }
 
-        if(elementDTO.getThumbnailFile() != null){
-
-        }
+        elementToSave.getFiles().forEach(savedFile ->
+                elementFileRepository.save(
+                        ElementFileEntity.builder()
+                                .elementId(response.getId())
+                                .fileId(savedFile.getId())
+                                .build()));
 
         response.setType(elementTypeRepository.getReferenceById(elementTypeToSave.getId()));
 

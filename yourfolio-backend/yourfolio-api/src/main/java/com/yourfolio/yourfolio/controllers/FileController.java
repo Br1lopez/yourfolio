@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("images")
+@RequestMapping("files")
 @AllArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FileController {
