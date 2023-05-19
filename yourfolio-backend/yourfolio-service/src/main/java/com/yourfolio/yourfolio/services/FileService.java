@@ -21,18 +21,23 @@ public class FileService {
     private final Environment env;
     private final FileRepository fileRepository;
     private final FileMapper fileMapper;
+
+    public String getRealPath(String filePath){
+        String resourcesPath = Thread.currentThread().getContextClassLoader().getResource(".").getFile()
+                .replace("target/classes","src/main/resources/public");
+        return resourcesPath.contains("backend") ? resourcesPath : "" + filePath;
+    }
     public FileDTO uploadImage(MultipartFile image) {
         String uploadDir = env.getProperty("image.upload-dir");
         // Save the image file to a directory on the server
         String fileName = image.getOriginalFilename();
         String imagePath = uploadDir + fileName;
-        File imageFile = new File(imagePath);
+        File imageFile = new File(getRealPath(imagePath));
         try {
             image.transferTo(imageFile);
         } catch (IOException e) {
-            // Handle exception
+            System.out.println(e);
         }
-
 
         return fileMapper.toDto(
                 fileRepository.save(

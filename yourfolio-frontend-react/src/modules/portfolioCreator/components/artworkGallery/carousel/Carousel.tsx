@@ -3,6 +3,7 @@ import "./carousel.scss";
 import { Link } from "react-scroll";
 import { IoMdArrowDropupCircle, IoMdArrowDropdownCircle } from "react-icons/io";
 import { ElementDTO } from "src/types/dtoTypes";
+import { API_BASE_URL } from "src/globals";
 
 interface CarouselProps {
   elements: ElementDTO[];
@@ -112,7 +113,7 @@ const Carousel = (props: CarouselProps) => {
             >
               {element.files && element.files[0] ? (
                 <img
-                  src={element.files[0]?.url}
+                  src={`${API_BASE_URL}/${element.files[0].url}`}
                   alt={element.description}
                   key={`${element.position}`}
                   onLoad={checkArrowsVisibility}

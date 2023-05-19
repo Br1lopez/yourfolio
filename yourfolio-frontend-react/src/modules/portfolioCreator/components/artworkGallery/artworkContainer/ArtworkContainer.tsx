@@ -1,5 +1,6 @@
 import { ElementDTO } from "src/types/dtoTypes";
 import "./artworkContainer.scss";
+import { API_BASE_URL } from "src/globals";
 
 interface ArtworkContainerProps {
   artworkData: ElementDTO;
@@ -12,7 +13,7 @@ export const ArtworkContainer = (props: ArtworkContainerProps) => {
         {artworkData.files && artworkData.files[0] ? (
           <img
             id={`i_${artworkData.position}`}
-            src={artworkData.files[0].url}
+            src={`${API_BASE_URL}/${artworkData.files[0].url}`}
             alt={artworkData.name}
             className="artwork__img-parent__img"
           />
