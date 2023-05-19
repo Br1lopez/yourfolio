@@ -65,14 +65,14 @@ const Carousel = (props: CarouselProps) => {
       if (
         bottom <
         (imagesRef.current?.offsetHeight || 0) -
-        (containerRef.current?.offsetHeight || 0) -
-        CAROUSEL_MOVEMENT()
+          (containerRef.current?.offsetHeight || 0) -
+          CAROUSEL_MOVEMENT()
       ) {
         setBottom(bottom + CAROUSEL_MOVEMENT());
       } else {
         setBottom(
           (imagesRef.current?.offsetHeight || 0) -
-          (containerRef.current?.offsetHeight || 0)
+            (containerRef.current?.offsetHeight || 0)
         );
         setEndReached(true);
       }
@@ -110,12 +110,14 @@ const Carousel = (props: CarouselProps) => {
               activeClass="active"
               key={`link_${element.position}`}
             >
-              <img
-                src={element.files[0] && element.files[0]?.url}
-                alt={element.description}
-                key={`${element.position}`}
-                onLoad={checkArrowsVisibility}
-              />
+              {element.files && element.files[0] ? (
+                <img
+                  src={element.files[0]?.url}
+                  alt={element.description}
+                  key={`${element.position}`}
+                  onLoad={checkArrowsVisibility}
+                />
+              ) : null}
             </Link>
           ))}
         </div>

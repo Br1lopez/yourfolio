@@ -9,14 +9,14 @@ export const ArtworkContainer = (props: ArtworkContainerProps) => {
   return (
     <article className="artwork" id={`img_${artworkData.position}`}>
       <div className="artwork__img-parent">
-        {artworkData.files[0] && (
+        {artworkData.files && artworkData.files[0] ? (
           <img
             id={`i_${artworkData.position}`}
             src={artworkData.files[0].url}
             alt={artworkData.name}
             className="artwork__img-parent__img"
           />
-        )}
+        ) : null}
       </div>
       <div className="artwork__text-parent">
         <h2 className="artwork__text-parent__title">{artworkData.name}</h2>
