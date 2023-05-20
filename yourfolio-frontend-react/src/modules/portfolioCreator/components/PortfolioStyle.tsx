@@ -60,6 +60,7 @@ export const PortfolioStyle = (props: PortfolioStyleProps) => {
     if (props.style) {
       setStyle("--bg-color", props.style.bgColor || "black");
       setStyle("--bg-color-light", hexToRgba(props.style.bgColor || "black", 0.1));
+      // setStyle("--card-bg", `rgba(255,255,255,${0.15 + hexToLuminance(props.style.bgColor || "black") * 0.85})`);
       setStyle("--font-color", props.style.fontColor || "white");
       setStyle("--font-color-titles", hexToLuminance(props.style.fontColor || "white") > 0.6 ? "black" : props.style.fontColor || "white");
 
