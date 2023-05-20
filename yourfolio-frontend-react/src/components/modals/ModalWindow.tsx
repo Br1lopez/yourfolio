@@ -23,6 +23,7 @@ import {
 } from "src/types/portfolioContextTypes";
 import { EMPTY_ELEMENT_SAVE_DTO } from "src/types/dtoTypes";
 import { ColorInputs, FontPickerComponent } from "./inputs/StyleInputs";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 export interface ModalWindowProps {
@@ -37,6 +38,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
 
   const formRef = useRef<any>(null);
 
+  const queryClient = useQueryClient();
 
   const createElement = useCreateElementMutation(
     modalProperties?.value?.values || EMPTY_ELEMENT_SAVE_DTO,
@@ -66,6 +68,15 @@ export const ModalWindow = (props: ModalWindowProps) => {
       }
     } else {
       console.log(formRef.current.check());
+    }
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+    switch (modalProperties.value.modalType) {
+      case ModalType.SetSyle:
+        queryClient.invalidateQueries(["getPortfolio"]);
+        break;
     }
   };
 
@@ -136,7 +147,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
           <ButtonToolbar>
             <Button
               appearance="default"
-              onClick={() => setOpen(false)}
+              onClick={handleCancel}
             >
               Cancelar
             </Button>
