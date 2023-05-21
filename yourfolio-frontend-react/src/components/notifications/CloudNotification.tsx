@@ -6,44 +6,51 @@ import { ModalType } from "../../types/portfolioContextTypes";
 import { ElementTypeDTO } from "src/types/dtoTypes";
 
 
+
+
 export function pushCloudNotification(
   toaster: any,
   name: string,
   type: ModalType,
   elementType?: ElementTypeDTO
 ) {
-  let text;
+
+  const getActionNotification = (action: string) => {
+    return <Notification className="cloud-notification">
+      <div className="cloud-notification__action">
+        <BsFillCloudCheckFill className="cloud-notification__action__icon" />
+        <span className="cloud-notification__action__text">{action} con éxito</span>
+      </div>
+      <span className="cloud-notification__element-name">{name}</span>
+      <span className="cloud-notification__element-type">{elementType?.name || ""}</span>
+    </Notification>
+  }
+
+  let notification;
+
+
   switch (type) {
     case ModalType.CreateElement:
-      text = <div className="cloud-notification__text">
-        <span className="cloud-notification__text__element">{elementType?.name || ""} <b>{name}</b>:</span>
-        <span className="cloud-notification__text__action">{elementType?.male ? "creado" : "creada"} con éxito</span>
-      </div>
+      notification = getActionNotification("creado");
       break;
     case ModalType.EditElement:
-      text = <div className="cloud-notification__text">
-        <span className="cloud-notification__text__element">{elementType?.name || ""} <b>{name}</b>:</span>
-        <span className="cloud-notification__text__action">{elementType?.male ? "modificado" : "modificada"} con éxito</span>
-      </div>;
+      notification = getActionNotification("editado");
       break;
     case ModalType.DeleteElement:
-      text = <div className="cloud-notification__text">
-        <span className="cloud-notification__text__element">{elementType?.name || ""} <b>{name}</b>:</span>
-        <span className="cloud-notification__text__action">{elementType?.male ? "eliminado" : "eliminada"} con éxito</span>
-      </div>;
+      notification = getActionNotification("eliminado");
       break;
     case ModalType.SetSyle:
-      text = <div className="cloud-notification__text">Estilos modificados con éxito</div>;
+      notification =
+        <Notification className="cloud-notification">
+          <div className="cloud-notification__action">
+            <BsFillCloudCheckFill className="cloud-notification__action__icon" />
+            <span className="cloud-notification__action__text">Estilos modificados con éxito</span>
+          </div>
+        </Notification>
       break;
   }
 
 
-  toaster.push(
-    <Notification className="cloud-notification">
-      <BsFillCloudCheckFill className="cloud-notification__icon" />{text}
-    </Notification>,
-    defaultToastValues
+  toaster.push(notification, { placement: "bottomEnd" }
   );
 }
-
-export const defaultToastValues = { placement: "bottomEnd" };

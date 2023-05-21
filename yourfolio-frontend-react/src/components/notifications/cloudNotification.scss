@@ -4,34 +4,50 @@ $cloudIconSize: 24px;
 
 .cloud-notification {
 
+
+
     & .rs-notification-description {
         display: flex;
-        align-items: center;
-    }
-
-    &__icon {
-        width: $cloudIconSize;
-        height: $cloudIconSize;
-        margin-right: 10px;
-        color: #219487;
-    }
-
-    &__text {
         display: flex;
         flex-direction: column;
+        min-width: 300px;
+    }
 
-        &__element {
-            text-transform: uppercase;
-            font-size: 16px;
-            cursor: pointer;
+    &__element-name {
+        font-size: 32px;
+        font-weight: bold;
+        // line-height: 24px;
+        // text-transform: uppercase;
+    }
+
+    &__element-type {
+        font-size: 12px;
+        // font-weight: bold;
+        font-style: italic;
+        text-transform: uppercase;
+
+
+    }
+
+    &__action {
+        display: flex;
+        flex-direction: row;
+        font-weight: bold;
+
+        &__icon {
+            width: $cloudIconSize;
+            height: $cloudIconSize;
+            margin-right: 8px;
+            color: #219487;
         }
 
-        &__action {
-            margin-top: 6px;
+        &__text {
+            margin-top: 1px;
+            font-size: 15px;
+            display: flex;
+            flex-direction: column;
             text-transform: uppercase;
-            font-style: italic;
-            font-size: 20px;
-            cursor: pointer;
         }
     }
+
 }

@@ -113,8 +113,11 @@ public class ElementService {
     }
 
     public ElementDTO updateElement(ElementSaveDTO elementDTO, Integer elementId) {
+        ElementEntity currentEntity = elementRepository.getReferenceById(elementId);
         ElementEntity entityToSave = elementMapper.toEntity(elementDTO);
         entityToSave.setId(elementId);
+        entityToSave.setElements(currentEntity.getElements());
+
         return elementMapper.toDto(elementRepository.save(entityToSave));
     }
 
