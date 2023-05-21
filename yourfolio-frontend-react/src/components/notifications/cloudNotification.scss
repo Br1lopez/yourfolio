@@ -4,8 +4,6 @@ $cloudIconSize: 24px;
 
 .cloud-notification {
 
-
-
     & .rs-notification-description {
         display: flex;
         display: flex;
@@ -25,8 +23,6 @@ $cloudIconSize: 24px;
         // font-weight: bold;
         font-style: italic;
         text-transform: uppercase;
-
-
     }
 
     &__action {
@@ -38,7 +34,15 @@ $cloudIconSize: 24px;
             width: $cloudIconSize;
             height: $cloudIconSize;
             margin-right: 8px;
-            color: #219487;
+
+
+            &.blue {
+                color: #4687e3;
+            }
+
+            &.green {
+                color: #219487;
+            }
         }
 
         &__text {
@@ -47,6 +51,23 @@ $cloudIconSize: 24px;
             display: flex;
             flex-direction: column;
             text-transform: uppercase;
+
+        }
+    }
+
+    &__description {
+        margin-top: 8px;
+
+        line-height: 16px;
+
+        &:first-of-type {
+            margin-top: 12px;
+
+        }
+
+        & svg {
+            margin-top: -2px;
+
         }
     }
 

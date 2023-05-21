@@ -6,7 +6,6 @@ import {
   Form,
   ButtonToolbar,
   Button,
-  Schema,
 } from "rsuite";
 import "./modal.scss";
 import {
@@ -123,7 +122,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
   };
 
   useEffect(() => {
-    if (modalProperties.value.modalType != ModalType.Hide) {
+    if (modalProperties.value.modalType !== ModalType.Hide) {
       setOpen(true);
     } else {
       setOpen(false);

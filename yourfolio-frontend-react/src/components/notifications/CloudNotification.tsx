@@ -18,7 +18,7 @@ export function pushCloudNotification(
   const getActionNotification = (action: string) => {
     return <Notification className="cloud-notification">
       <div className="cloud-notification__action">
-        <BsFillCloudCheckFill className="cloud-notification__action__icon" />
+        <BsFillCloudCheckFill className="cloud-notification__action__icon green" />
         <span className="cloud-notification__action__text">{action} con éxito</span>
       </div>
       <span className="cloud-notification__element-name">{name}</span>
