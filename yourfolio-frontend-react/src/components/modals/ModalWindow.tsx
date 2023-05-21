@@ -57,6 +57,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
     if (formRef.current.check()) {
       switch (modalProperties.value.modalType) {
         case ModalType.CreateElement:
+          console.log("create", modalProperties.value.values.description);
           createElement.mutate();
           break;
         case ModalType.EditElement:

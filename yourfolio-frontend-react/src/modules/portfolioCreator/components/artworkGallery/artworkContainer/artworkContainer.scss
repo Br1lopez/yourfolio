@@ -9,14 +9,14 @@ $artwork-margin: 100px 0px 0px 0px;
 .artwork {
     @include mobile-full-width;
     display: flex;
-    width: 90%;
+    width: $carousel-vertical-artwork-width;
     // padding: 0px 100px;
     height: 500px;
     justify-content: center;
     padding: 30px 30px;
     // background-color: var(--card-bg);
     background-color: rgba(255, 255, 255, 0.33);
-    margin: 10px 0px;
+    margin: $carousel-vertical-artwork-margin;
     border-radius: $default-border-radius;
     box-shadow: $default-shadow;
 
@@ -109,6 +109,7 @@ $artwork-margin: 100px 0px 0px 0px;
             line-height: 1em;
             @include break-words;
             @include mobile-full-width;
+            white-space: pre-line;
 
             &__paragraph {
                 margin-bottom: 1.2em;
