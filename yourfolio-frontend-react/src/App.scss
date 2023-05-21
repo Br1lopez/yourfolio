@@ -1,6 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
+@import './vars.scss';
 
-* {
+:root {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @include paragraph-font;
 }

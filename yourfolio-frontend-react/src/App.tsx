@@ -1,25 +1,35 @@
+import { useEffect } from "react";
 import "./App.scss";
-import { PortfolioCreator } from "./modules/portfolioCreator/PortfolioCreator";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  PortfolioContext,
-  usePortfolioContext,
-} from "./hooks/PortfolioContext";
+import { PortfolioCreatorWrapper } from "./modules/portfolioCreator/PortfolioCreatorWrapper";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { UserRegister } from "./modules/user/components/userRegistration/UserRegister";
 
-const queryClient = new QueryClient();
-const PORTFOLIO_ID = 1;
+
+const ROUTES = [
+  {
+    path: "/",
+    component: <PortfolioCreatorWrapper portfolioId={1} />,
+  },
+  {
+    path: "/register",
+    component: <UserRegister />,
+  },
+];
 
 function App() {
+  useEffect(() => {
+    document.title = "YOURFOLIO";
+  }, []);
   return (
-    <QueryClientProvider client={queryClient}>
-      <PortfolioContext.Provider
-        value={usePortfolioContext()}
-      >
-        <PortfolioCreator portfolioId={PORTFOLIO_ID}></PortfolioCreator>
-      </PortfolioContext.Provider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <Routes>
+        {ROUTES.map((route, i) => (
+          <Route path={route.path} key={i} element={route.component} />
+        ))}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-//TODO pagina de 404
+

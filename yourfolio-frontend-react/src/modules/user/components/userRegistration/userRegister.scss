@@ -1,0 +1,67 @@
+@import 'src/vars.scss';
+
+.register-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url('/img/bg/register-bg.jpg');
+    height: 100vh;
+
+    &__slogan {
+        @include yourfolio-font;
+        font-size: 90px;
+        font-weight: bold;
+        margin-right: 10vw;
+        margin-top: 50px;
+        color: BLACK;
+        text-shadow: 3px 3px rgba(255, 255, 255, 1),
+            4px 4px 10px rgba(255, 255, 255, 0.469),
+        ;
+        text-align: right;
+    }
+
+    &__container {
+        padding: 40px;
+        width: min-content;
+        border-radius: $default-border-radius;
+        box-shadow: $default-shadow;
+        margin-top: 50px;
+        margin-left: 20vw;
+        background-color: white;
+
+
+
+        h1 {
+            @include yourfolio-font;
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: black;
+            text-align: center;
+        }
+
+        form {
+            width: 400px;
+            @include paragraph-font;
+            font-weight: 400;
+            font-size: 16px;
+
+            .rs-form-group {
+                margin-bottom: 20px;
+            }
+
+            .rs-control-label {
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+        }
+
+        button {
+            @include paragraph-font;
+            font-weight: 400;
+            font-size: 16px;
+        }
+    }
+
+
+}

@@ -34,8 +34,10 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     },
   });
 
+
   useEffect(() => {
     pushWelcomeNotification(toaster);
+    //eslint-disable-next-line
   }, [])
 
   return (

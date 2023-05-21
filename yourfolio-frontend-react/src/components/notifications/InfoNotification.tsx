@@ -1,4 +1,6 @@
+//eslint-disable-next-line
 import React, { useEffect } from "react";
+//eslint-disable-next-line
 import { Button, Notification } from "rsuite";
 import { AiFillBulb } from "react-icons/ai";
 import "./cloudNotification.scss";
@@ -17,8 +19,8 @@ export function pushWelcomeNotification(
         <MdOutlineHelp className="cloud-notification__action__icon blue" />
         <span className="cloud-notification__action__text">Bienvenido al creador de portfolios</span>
       </div>
-      <p className="cloud-notification__description">{'\u2022'} Haz clic en el botón de <FaPlusCircle /> para añadir nuevo elementos.</p>
-      <p className="cloud-notification__description">{'\u2022'} Una vez creado un elemento, podrás editarlo o borrarlo haciendo clic derecho sobre él.</p>
+      <p className="cloud-notification__description">{'\u2022'} Haz clic en el botón <FaPlusCircle /> para crear un nuevo elemento.</p>
+      <p className="cloud-notification__description">{'\u2022'} Haz clic derecho sobre un elemento ya existente para editarlo o borrarlo.</p>
       {/* <Button onClick={() => setClosed(true)}>Entendido</Button> */}
     </Notification>
 
