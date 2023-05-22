@@ -17,9 +17,8 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UserDTO registerUser(UserSaveDTO userSaveDTO) {
-        System.out.println(userSaveDTO);
-        return(userMapper.toDto(
+        return userMapper.toDto(
                 userRepository.save(
-                        userMapper.toEntity(userSaveDTO))));
+                        userMapper.toEntity(userSaveDTO)));
     }
 }

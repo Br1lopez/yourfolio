@@ -1,15 +1,14 @@
 package com.yourfolio.yourfolio.dbentities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Builder
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
@@ -24,11 +23,13 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "surname1")
-    private String surname1;
+    //TODO: decidir si quitar apellidos o no
 
-    @Column(name = "surname2")
-    private String surname2;
+//    @Column(name = "surname1")
+//    private String surname1;
+//
+//    @Column(name = "surname2")
+//    private String surname2;
 
     @Column(name = "password", length = 32)
     private String password;
