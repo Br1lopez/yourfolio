@@ -9,7 +9,7 @@ CREATE TABLE user (
     email VARCHAR(255),
     surname1 VARCHAR(255),
     surname2 VARCHAR(255),
-    password VARCHAR(32)
+    password VARCHAR(255)
 );
 
 CREATE TABLE file (

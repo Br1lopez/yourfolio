@@ -24,9 +24,11 @@
         <java.version>17</java.version>
         <revision>0.0.1-SNAPSHOT</revision>
 
+
         <!-- VERSIONES DE DEPENDENCIAS -->
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+        <spring-security.version>6.1.0</spring-security.version>
     </properties>
 
     <dependencies>
@@ -42,6 +44,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>6.1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
@@ -67,6 +79,7 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
+
     </dependencies>
 
     <build>
