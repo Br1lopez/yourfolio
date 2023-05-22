@@ -5,4 +5,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     @include paragraph-font;
+    --rs-btn-primary-bg: #272727 !important;
+    --rs-btn-primary-hover-bg: black !important;
+    // --rs-input-focus-border: blue;
+    // --rs-picker-value: blue;
+}
+
+button {
+    box-shadow: $default-second-shadow;
 }

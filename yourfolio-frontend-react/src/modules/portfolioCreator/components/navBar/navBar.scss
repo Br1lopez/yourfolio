@@ -7,6 +7,7 @@
     color: var(--font-color) !important;
     transition: 0.05s;
     box-shadow: $default-shadow;
+    text-shadow: $default-text-shadow;
 
     &-nav {
         @include for-desktop {

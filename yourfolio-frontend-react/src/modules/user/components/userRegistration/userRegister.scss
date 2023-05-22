@@ -4,8 +4,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-image: url('/img/bg/register-bg.jpg');
+    background-image: url('/img/bg/register-bg.webp');
+    background-size: cover;
+    background-position: center bottom;
     height: 100vh;
+    @include mobile-full-width;
+
+    @include for-mobile {
+        @include flex-column;
+    }
 
     &__slogan {
         @include yourfolio-font;
@@ -21,45 +28,57 @@
     }
 
     &__container {
-        padding: 40px;
-        width: min-content;
-        border-radius: $default-border-radius;
-        box-shadow: $default-shadow;
         margin-top: 50px;
         margin-left: 20vw;
-        background-color: white;
+        @include mobile-full-width;
 
+        @include for-mobile {
+            @include flex-column;
+        }
 
 
         h1 {
             @include yourfolio-font;
-            font-size: 42px;
+            text-shadow: $default-shadow;
+            font-size: 50px;
             font-weight: bold;
-            margin-bottom: 30px;
-            color: black;
+            margin-bottom: 36px;
+            color: white;
             text-align: center;
         }
 
-        form {
+        &__form {
             width: 400px;
             @include paragraph-font;
+            @include card;
             font-weight: 400;
             font-size: 16px;
 
-            .rs-form-group {
+            & .rs-form-group {
                 margin-bottom: 20px;
+
+                & .rs-form-control-label {}
+
+                & input {
+                    font-weight: bold;
+                }
             }
 
-            .rs-control-label {
-                font-weight: bold;
-                margin-bottom: 8px;
+            &__footer {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 0px;
+                margin-top: 40px;
             }
+
         }
 
         button {
             @include paragraph-font;
             font-weight: 400;
             font-size: 16px;
+            background-color: black;
+            box-shadow: $default-second-shadow;
         }
     }
 

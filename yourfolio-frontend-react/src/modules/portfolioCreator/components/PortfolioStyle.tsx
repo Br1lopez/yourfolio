@@ -31,27 +31,18 @@ function hexToLuminance(hex: string): number {
   const bsrgb = b / 255;
 
   const rl =
-    rsrgb <= 0.03928
-      ? rsrgb / 12.92
-      : ((rsrgb + 0.055) / 1.055) ** 2.4;
+    rsrgb <= 0.03928 ? rsrgb / 12.92 : ((rsrgb + 0.055) / 1.055) ** 2.4;
   const gl =
-    gsrgb <= 0.03928
-      ? gsrgb / 12.92
-      : ((gsrgb + 0.055) / 1.055) ** 2.4;
+    gsrgb <= 0.03928 ? gsrgb / 12.92 : ((gsrgb + 0.055) / 1.055) ** 2.4;
   const bl =
-    bsrgb <= 0.03928
-      ? bsrgb / 12.92
-      : ((bsrgb + 0.055) / 1.055) ** 2.4;
+    bsrgb <= 0.03928 ? bsrgb / 12.92 : ((bsrgb + 0.055) / 1.055) ** 2.4;
 
   const luminance = 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
 
   return luminance;
 }
 
-
-
 export const PortfolioStyle = (props: PortfolioStyleProps) => {
-
   const setStyle = (property: string, value: string) => {
     document.documentElement?.style.setProperty(property, value);
   };
@@ -59,11 +50,18 @@ export const PortfolioStyle = (props: PortfolioStyleProps) => {
   useEffect(() => {
     if (props.style) {
       setStyle("--bg-color", props.style.bgColor || "black");
-      setStyle("--bg-color-light", hexToRgba(props.style.bgColor || "black", 0.1));
+      setStyle(
+        "--bg-color-light",
+        hexToRgba(props.style.bgColor || "black", 0.1)
+      );
       // setStyle("--card-bg", `rgba(255,255,255,${0.15 + hexToLuminance(props.style.bgColor || "black") * 0.85})`);
       setStyle("--font-color", props.style.fontColor || "white");
-      setStyle("--font-color-titles", hexToLuminance(props.style.fontColor || "white") > 0.6 ? "black" : props.style.fontColor || "white");
-
+      setStyle(
+        "--font-color-titles",
+        hexToLuminance(props.style.fontColor || "white") > 0.6
+          ? "black"
+          : props.style.fontColor || "white"
+      );
     }
   }, [props.style]);
 
