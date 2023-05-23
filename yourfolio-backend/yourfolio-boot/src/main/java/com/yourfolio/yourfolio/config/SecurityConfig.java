@@ -12,7 +12,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
+        http.cors().and().csrf().disable()
+                .authorizeHttpRequests()
+                .anyRequest()
+                .permitAll();
+                /*
+                .authorizeHttpRequests()
+                .requestMatchers("/login")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("http://localhost:3000/login");*/
         return http.build();
     }
 }
