@@ -16,7 +16,8 @@ public class UserController {
 
     private final UserService userService;
 
-
+//todo: administrar error de usuario repetido
+@CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@RequestBody UserSaveDTO userSaveDTO){
         return new ResponseEntity<>(userService.registerUser(userSaveDTO), HttpStatus.CREATED);

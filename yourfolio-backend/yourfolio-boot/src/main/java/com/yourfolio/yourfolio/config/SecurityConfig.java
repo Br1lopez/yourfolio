@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -35,10 +36,12 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/users/**", configuration);
         return source;
     }
 
@@ -47,7 +50,7 @@ public class SecurityConfig {
         http
                 .cors(withDefaults())
                 .csrf().disable()
-                .addFilterBefore(deactivateCorsFilter(), SessionManagementFilter.class)
+              //  .addFilterBefore(deactivateCorsFilter(), SessionManagementFilter.class)
                 .authorizeHttpRequests()
                     .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
                     .requestMatchers(HttpMethod.POST).authenticated()

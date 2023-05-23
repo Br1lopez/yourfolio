@@ -6,9 +6,7 @@ use yourfolio;
 CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
-    email VARCHAR(255),
-    /* surname1 VARCHAR(255),
-     surname2 VARCHAR(255),*/
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255)
 );
 

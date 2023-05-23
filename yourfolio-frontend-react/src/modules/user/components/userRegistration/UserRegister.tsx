@@ -7,18 +7,19 @@ import {
   passwordValidation,
   requiredInput,
 } from "src/components/modals/validations/InputValidations";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "src/api/userRequests";
 
 export const UserRegister = () => {
   const [formData, setFormData] = useState({
     name: "",
-    // surnames: "",
     email: "",
     password: "",
     repeatPassword: "",
   });
 
   const formRef = useRef<any>(null);
+  const navigate = useNavigate();
 
   const handleChange = (value: any, event: any) => {
     setFormData({ ...formData, [event.target.name]: value });
@@ -27,7 +28,13 @@ export const UserRegister = () => {
   const handleSubmit = () => {
     console.log("Form data:", formData);
     if (formRef.current.check()) {
-      alert("yes");
+      registerUser(formData).then((result) => {
+        if (result) {
+          navigate("/")
+        } else {
+          alert("Error al iniciar sesión")
+        }
+      });
     }
   };
 
