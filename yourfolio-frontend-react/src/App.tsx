@@ -3,6 +3,8 @@ import "./App.scss";
 import { PortfolioCreatorWrapper } from "./modules/portfolioCreator/PortfolioCreatorWrapper";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserRegister } from "./modules/user/components/userRegistration/UserRegister";
+import { UserLogin } from "./modules/user/components/userLogin/UserLogin";
+
 
 
 const ROUTES = [
@@ -13,6 +15,10 @@ const ROUTES = [
   {
     path: "/register",
     component: <UserRegister />,
+  },
+  {
+    path: "/login",
+    component: <UserLogin />,
   },
 ];
 

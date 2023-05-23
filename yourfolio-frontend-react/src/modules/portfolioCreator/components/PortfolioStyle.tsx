@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { StyleDTO } from "src/types/dtoTypes";
 

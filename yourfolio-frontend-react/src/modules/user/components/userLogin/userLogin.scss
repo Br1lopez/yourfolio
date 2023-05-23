@@ -1,0 +1,93 @@
+@import 'src/vars.scss';
+
+.login-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url('/img/bg/register-bg.webp');
+    background-size: cover;
+    background-position: center bottom;
+    height: 100vh;
+    @include mobile-full-width;
+
+    @include for-mobile {
+        @include flex-column;
+    }
+
+    &__slogan {
+        @include yourfolio-font;
+        font-size: 90px;
+        font-weight: bold;
+        margin-right: 10vw;
+        margin-top: 50px;
+        color: BLACK;
+        text-shadow: 3px 3px rgba(255, 255, 255, 1),
+            4px 4px 10px rgba(255, 255, 255, 0.469),
+        ;
+        text-align: right;
+    }
+
+    &__container {
+        margin-top: 50px;
+        margin-left: 20vw;
+        @include mobile-full-width;
+
+        @include for-mobile {
+            @include flex-column;
+        }
+
+
+        h1 {
+            @include yourfolio-font;
+            text-shadow: $default-shadow;
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 36px;
+            color: white;
+            text-align: center;
+        }
+
+        &__form {
+            width: 400px;
+            @include paragraph-font;
+            @include card;
+            font-weight: 400;
+            font-size: 16px;
+
+            & .rs-form-group {
+                margin-bottom: 20px;
+
+                & .rs-form-control-label {}
+
+                & input {
+                    font-weight: bold;
+                }
+            }
+
+            &__footer {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 0px;
+                margin-top: 40px;
+            }
+
+            padding-bottom: 20px;
+
+            &__register {
+                margin-top: 20px;
+                font-size: 14px;
+            }
+
+        }
+
+        button {
+            @include paragraph-font;
+            font-weight: 400;
+            font-size: 16px;
+            background-color: black;
+            box-shadow: $default-second-shadow;
+        }
+    }
+
+
+}
