@@ -62,7 +62,7 @@ export const UserLogin = () => {
               Iniciar sesión
             </Button>
           </div>
-          <div className="login-page__container__form__register">
+          <div className="login-page__container__form__bottom-text">
             <Link to="/register">¿No tienes cuenta? Regístrate aquí.</Link>
           </div>
         </Form>

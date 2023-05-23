@@ -7,6 +7,7 @@ import {
   passwordValidation,
   requiredInput,
 } from "src/components/modals/validations/InputValidations";
+import { Link } from "react-router-dom";
 
 export const UserRegister = () => {
   const [formData, setFormData] = useState({
@@ -90,6 +91,9 @@ export const UserRegister = () => {
             <Button appearance="primary" type="submit">
               Registrarse
             </Button>
+          </div>
+          <div className="login-page__container__form__bottom-text">
+            <Link to="/login">¿Ya tienes cuenta? Entra aquí.</Link>
           </div>
         </Form>
       </div>
