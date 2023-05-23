@@ -12,15 +12,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().permitAll();
-                /*
-                .requestMatchers("/login")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("http://localhost:3000/login");*/
+        http.cors().and().csrf().disable();
         return http.build();
     }
 }
