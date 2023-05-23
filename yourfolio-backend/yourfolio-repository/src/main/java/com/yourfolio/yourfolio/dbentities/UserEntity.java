@@ -29,7 +29,7 @@ public class UserEntity implements UserDetails {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "password", length = 32)
+    @Column(name = "password")
     private String password;
 
     @Override
