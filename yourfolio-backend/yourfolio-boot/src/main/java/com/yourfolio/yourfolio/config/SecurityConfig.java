@@ -1,5 +1,7 @@
 package com.yourfolio.yourfolio.config;
 
+import com.yourfolio.yourfolio.handlers.LoginFailureHandler;
+import com.yourfolio.yourfolio.handlers.LoginSuccesHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,21 +17,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
-                .requestMatchers(HttpMethod.POST).authenticated()
-                .anyRequest()
-                .permitAll()
-                .and()
-                .formLogin();
-                /*
-                .authorizeHttpRequests()
-                .requestMatchers("/login")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
+                    .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
+                    .requestMatchers(HttpMethod.POST).authenticated()
+                    .anyRequest().permitAll()
+                    .and()
                 .formLogin()
-                .loginPage("http://localhost:3000/login");*/
+                    .successHandler(new LoginSuccesHandler())
+                    .failureHandler(new LoginFailureHandler());
         return http.build();
     }
 }
