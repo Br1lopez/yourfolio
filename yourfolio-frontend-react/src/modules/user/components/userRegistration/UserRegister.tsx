@@ -52,14 +52,6 @@ export const UserRegister = () => {
               rule={requiredInput}
             />
           </Form.Group>
-          {/* <Form.Group>
-            <Form.ControlLabel>Apellidos:</Form.ControlLabel>
-            <Form.Control
-              name="surnames"
-              onChange={handleChange}
-              rule={requiredInput}
-            />
-          </Form.Group> */}
           <Form.Group>
             <Form.ControlLabel>Email:</Form.ControlLabel>
             <Form.Control

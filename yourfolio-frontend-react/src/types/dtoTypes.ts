@@ -54,6 +54,23 @@ export interface ElementTypeDTO {
   possibleChildren?: ElementTypeDTO[];
 }
 
+export interface UserSaveDTO {
+  name: string;
+  password: string;
+  email: string;
+}
+
+export interface UserDTO {
+  id: number
+  name: string;
+  email: string;
+}
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
 export function mapElementDtoToElementSaveDto(
   elementDto: ElementDTO
 ): ElementSaveDTO {
@@ -66,3 +83,4 @@ export function mapElementDtoToElementSaveDto(
     style: elementDto.style,
   };
 }
+
