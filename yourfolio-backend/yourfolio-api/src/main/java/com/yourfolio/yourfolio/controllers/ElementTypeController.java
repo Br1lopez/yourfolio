@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("elementTypes")
 @AllArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ElementTypeController {
     private final ElementTypeService elementTypeService;
 

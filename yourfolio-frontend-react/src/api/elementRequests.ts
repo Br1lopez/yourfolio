@@ -1,11 +1,13 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { API_BASE_URL } from "../globals";
 import { ElementDTO, ElementSaveDTO, StyleDTO } from "../types/dtoTypes";
+import { defaultHeaders } from "src/modules/user/components/userLogin/UserLogin";
 
 export const getElement = async (elementId: number): Promise<ElementDTO> => {
   try {
     const response = await axios.get<ElementDTO>(
-      `${API_BASE_URL}/elements/${elementId}`
+      `${API_BASE_URL}/elements/${elementId}`,
+      defaultHeaders()
     );
     return response.data;
   } catch (err) {
@@ -20,9 +22,10 @@ export const createElement = async (
   try {
     const response = await axios.post<ElementDTO>(
       `${API_BASE_URL}/elements/${parentId || ""}`,
-      body
+      body,
+      defaultHeaders()
     );
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error("error");
@@ -37,7 +40,8 @@ export const updateElement = async (
     console.log(elementId, body);
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}`,
-      body
+      body,
+      defaultHeaders()
     );
     return response.data;
   } catch (error) {
@@ -52,7 +56,8 @@ export const updateElementStyle = async (
   try {
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}/style`,
-      style
+      style,
+      defaultHeaders()
     );
     return response.data;
   } catch (error) {
@@ -60,16 +65,20 @@ export const updateElementStyle = async (
   }
 };
 
-export const deleteElement = async (elementId: number): Promise<ElementDTO | null> => {
+export const deleteElement = async (
+  elementId: number
+): Promise<ElementDTO | null> => {
   try {
     const response = await axios
-      .delete<ElementDTO>(`${API_BASE_URL}/elements/${elementId}`)
+      .delete<ElementDTO>(
+        `${API_BASE_URL}/elements/${elementId}`,
+        defaultHeaders()
+      )
       .catch((error) => {
         console.log(error);
       });
 
-
-    return (response instanceof Object ? response.data : null);
+    return response instanceof Object ? response.data : null;
   } catch (error) {
     throw new Error("error");
   }

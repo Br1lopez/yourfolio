@@ -61,14 +61,19 @@ export interface UserSaveDTO {
 }
 
 export interface UserDTO {
-  id: number
+  id: number;
   name: string;
   email: string;
 }
 
-export interface LoginData {
+export interface LoginRequestData {
   email: string;
   password: string;
+}
+
+export interface LoginResponseDTO {
+  success: boolean;
+  token: string;
 }
 
 export function mapElementDtoToElementSaveDto(
@@ -83,4 +88,3 @@ export function mapElementDtoToElementSaveDto(
     style: elementDto.style,
   };
 }
-

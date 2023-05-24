@@ -27,8 +27,10 @@ public class ElementEntity {
     @Column(name = "name")
     private String name;
 
+
     @Column(name = "description")
     private String description;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "thumbnail_image_id")
@@ -50,5 +52,9 @@ public class ElementEntity {
 
     @OneToOne(mappedBy = "portfolio", orphanRemoval = true)
     private StyleEntity style;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 }

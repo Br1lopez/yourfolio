@@ -6,6 +6,8 @@ import com.yourfolio.yourfolio.dtos.ElementDTO;
 import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ElementMapper {
 
@@ -13,6 +15,8 @@ public interface ElementMapper {
     ElementEntity toEntity(ElementSaveDTO elementDTO);
 
     ElementDTO toDto(ElementEntity elementEntity);
+
+    List<ElementDTO> toDtoList(List<ElementEntity> elementEntityList);
 
     @Named("typeIdToType")
     default ElementTypeEntity typeIdToType(String typeId) {

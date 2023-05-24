@@ -1,9 +1,7 @@
 import { useRef, useState } from "react";
 import { Form, Button } from "rsuite";
 import "./userLogin.scss";
-import {
-  requiredInput,
-} from "src/components/modals/validations/InputValidations";
+import { requiredInput } from "src/components/modals/validations/InputValidations";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "src/api/userRequests";
 
@@ -24,13 +22,13 @@ export const UserLogin = () => {
     console.log("Form data:", formData);
     if (formRef.current.check()) {
       loginUser(formData).then((result) => {
-        if (result) {
-          navigate("/")
+        if (result.success) {
+          localStorage.setItem("JSESSIONID", result.token);
+          navigate("/");
         } else {
-          alert("Error al iniciar sesión")
+          alert("Error al iniciar sesión");
         }
       });
-
     }
   };
 
@@ -76,4 +74,13 @@ export const UserLogin = () => {
       </div>
     </div>
   );
+};
+
+export let defaultHeaders = () => {
+  return {
+    withCredentials: true,
+    // headers: {
+    //   // Cookie: `JSESSIONID=${localStorage.getItem("JSESSIONID")}`,
+    // },
+  };
 };
