@@ -8,6 +8,7 @@ export interface ElementDTO {
   description?: string;
   thumbnailImage?: FileDTO;
   style: StyleDTO;
+  user: UserDTO;
 }
 
 export const EMPTY_ELEMENT_DTO: ElementDTO = {
@@ -18,6 +19,7 @@ export const EMPTY_ELEMENT_DTO: ElementDTO = {
   position: 0,
   files: [],
   elements: [],
+  user: { id: -1, name: "", email: "" },
 };
 
 export interface ElementSaveDTO {

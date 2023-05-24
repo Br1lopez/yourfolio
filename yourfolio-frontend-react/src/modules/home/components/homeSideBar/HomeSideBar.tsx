@@ -1,16 +1,11 @@
 import React, { useContext } from "react";
-import "./interfaceBar.scss";
+import "./homeSideBar.scss";
 import { FaPaintBrush } from "react-icons/fa";
 import { MdOutlineHelp } from "react-icons/md";
 import { PortfolioContext } from "../../../../hooks/PortfolioContext";
 import { ModalType } from "../../../../types/portfolioContextTypes";
 
-//TODO: descartar width
-interface InterfaceBarProps {
-  width?: string;
-}
-
-export const InterfaceBar = (props: InterfaceBarProps) => {
+export const HomeSidebar = () => {
   const { modalWindowData } = useContext(PortfolioContext);
   const handleStyleClick = (e: any) => {
     e.preventDefault();
@@ -20,10 +15,13 @@ export const InterfaceBar = (props: InterfaceBarProps) => {
     });
   };
   return (
-    <div className="i-bar" style={{ width: props.width }}>
+    <div className="yourfolio-home__sidebar">
       {/* <AiOutlineMenu className="i-bar__icon top" style={{ width: "30px", height: "30px", color: "white" }}/> */}
-      <FaPaintBrush className="i-bar__icon" onClick={handleStyleClick} />
-      <MdOutlineHelp className="i-bar__icon" />
+      <FaPaintBrush
+        className="yourfolio-home__sidebar"
+        onClick={handleStyleClick}
+      />
+      <MdOutlineHelp className="yourfolio-home__sidebar" />
     </div>
   );
 };

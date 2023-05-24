@@ -1,0 +1,30 @@
+@import 'src/vars.scss';
+
+.yourfolio-root {
+    display: flex;
+}
+
+.yourfolio-home {
+    width: calc(100vw - 55px);
+
+    &__content {
+        &__title {
+            @include yourfolio-font;
+            text-transform: capitalize;
+            color: black;
+            margin: 20px;
+            padding: 20px 60px;
+        }
+
+        &__portfolios {
+            display: flex;
+            padding: 20px 60px;
+
+            &__portfolio {
+                @include card;
+                margin: 20px;
+            }
+        }
+    }
+
+}

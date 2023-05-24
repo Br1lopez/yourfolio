@@ -1,5 +1,6 @@
 package com.yourfolio.yourfolio.dtos;
 
+import com.yourfolio.yourfolio.dbentities.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -22,5 +23,7 @@ public class ElementDTO implements Serializable {
     private List<ElementDTO> elements;
     private StyleDTO style;
     private Integer position;
+
+    private UserDTO user;
 
     }
