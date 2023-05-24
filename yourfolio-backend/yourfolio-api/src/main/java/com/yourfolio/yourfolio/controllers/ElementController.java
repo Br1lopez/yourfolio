@@ -8,6 +8,7 @@ import com.yourfolio.yourfolio.services.ElementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,13 +23,14 @@ public class ElementController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ElementDTO> createElement(@RequestBody ElementSaveDTO elementDto) {
-        return new ResponseEntity<>(elementService.createElement(elementDto, null), HttpStatus.CREATED);
+    public ResponseEntity<ElementDTO> createElement(@RequestBody ElementSaveDTO elementDto, Authentication authentication) {
+        System.out.println(authentication.getName());
+        return new ResponseEntity<>(elementService.createElement(elementDto, null, authentication.getName()), HttpStatus.CREATED);
     }
 
     @PostMapping("/{parentId}")
-    public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementSaveDTO elementDto) {
-        return new ResponseEntity<>(elementService.createElement(elementDto, parentId), HttpStatus.CREATED);
+    public ResponseEntity<ElementDTO> createElement(@PathVariable Integer parentId, @RequestBody ElementSaveDTO elementDto, Authentication authentication) {
+        return new ResponseEntity<>(elementService.createElement(elementDto, parentId, authentication.getName()), HttpStatus.CREATED);
     }
 
 

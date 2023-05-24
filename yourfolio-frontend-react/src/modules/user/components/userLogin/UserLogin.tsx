@@ -77,11 +77,3 @@ export const UserLogin = () => {
     </div>
   );
 };
-
-export let defaultHeaders = () => {
-  return {
-    headers: {
-      UserdToken: localStorage.getItem("JSESSIONID"),
-    },
-  };
-};

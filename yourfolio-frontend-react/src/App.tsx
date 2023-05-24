@@ -4,8 +4,7 @@ import { PortfolioCreatorWrapper } from "./modules/portfolioCreator/PortfolioCre
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserRegister } from "./modules/user/components/userRegistration/UserRegister";
 import { UserLogin } from "./modules/user/components/userLogin/UserLogin";
-
-
+import axios from "axios";
 
 const ROUTES = [
   {
@@ -25,6 +24,7 @@ const ROUTES = [
 function App() {
   useEffect(() => {
     document.title = "YOURFOLIO";
+    axios.defaults.withCredentials = true;
   }, []);
   return (
     <BrowserRouter>
@@ -38,4 +38,3 @@ function App() {
 }
 
 export default App;
-

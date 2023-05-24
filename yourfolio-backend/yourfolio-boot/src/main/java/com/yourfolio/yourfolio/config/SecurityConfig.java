@@ -53,7 +53,6 @@ public class SecurityConfig {
         http
                 .cors(withDefaults())
                 .csrf().disable()
-              //  .addFilterBefore(deactivateCorsFilter(), SessionManagementFilter.class)
                 .authorizeHttpRequests()
                     .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
                     .requestMatchers(HttpMethod.POST).authenticated()

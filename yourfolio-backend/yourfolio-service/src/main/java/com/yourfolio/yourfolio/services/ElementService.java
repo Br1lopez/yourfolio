@@ -30,6 +30,8 @@ public class ElementService {
     private final FileRepository fileRepository;
     private final FileMapper fileMapper;
 
+    private final UserRepository userRepository;
+
     public ElementDTO getElement(Integer elementId) {
         ElementDTO result = elementMapper.toDto(elementRepository.getReferenceById(elementId));
 
@@ -74,13 +76,17 @@ public class ElementService {
         }
     }
 
-    public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId) {
+    public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId, String userEmail) {
         boolean hasFiles = elementDTO.getFiles() != null && !elementDTO.getFiles().isEmpty();
         ElementEntity elementToSave = elementMapper.toEntity(elementDTO);
+
         ElementTypeEntity elementTypeToSave = ElementTypeEntity.builder()
                 .id(elementDTO.getTypeId())
                 .build();
         elementToSave.setType(elementTypeToSave);
+
+        if (userEmail != null)
+            elementToSave.setUser(userRepository.findByEmail(userEmail));
 
         Set<FileEntity> filesToSave = new HashSet<>();
         if (hasFiles) {

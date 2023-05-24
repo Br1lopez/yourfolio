@@ -22,7 +22,7 @@ public class LoginSuccesHandler implements AuthenticationSuccessHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         String myDtoJson = objectMapper.writeValueAsString(authenticationResponse);
 
-        RequestLogger.logRequest(request);
+//        RequestLogger.logRequest(request);
 
         response.getWriter().write(myDtoJson);
     }

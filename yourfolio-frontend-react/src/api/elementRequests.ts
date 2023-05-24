@@ -1,13 +1,11 @@
 import axios from "axios";
 import { API_BASE_URL } from "../globals";
 import { ElementDTO, ElementSaveDTO, StyleDTO } from "../types/dtoTypes";
-import { defaultHeaders } from "src/modules/user/components/userLogin/UserLogin";
 
 export const getElement = async (elementId: number): Promise<ElementDTO> => {
   try {
     const response = await axios.get<ElementDTO>(
-      `${API_BASE_URL}/elements/${elementId}`,
-      defaultHeaders()
+      `${API_BASE_URL}/elements/${elementId}`
     );
     return response.data;
   } catch (err) {
@@ -22,8 +20,7 @@ export const createElement = async (
   try {
     const response = await axios.post<ElementDTO>(
       `${API_BASE_URL}/elements/${parentId || ""}`,
-      body,
-      { withCredentials: true }
+      body
     );
     console.log(response.data);
     return response.data;
@@ -40,8 +37,7 @@ export const updateElement = async (
     console.log(elementId, body);
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}`,
-      body,
-      defaultHeaders()
+      body
     );
     return response.data;
   } catch (error) {
@@ -56,8 +52,7 @@ export const updateElementStyle = async (
   try {
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}/style`,
-      style,
-      defaultHeaders()
+      style
     );
     return response.data;
   } catch (error) {
@@ -70,10 +65,7 @@ export const deleteElement = async (
 ): Promise<ElementDTO | null> => {
   try {
     const response = await axios
-      .delete<ElementDTO>(
-        `${API_BASE_URL}/elements/${elementId}`,
-        defaultHeaders()
-      )
+      .delete<ElementDTO>(`${API_BASE_URL}/elements/${elementId}`)
       .catch((error) => {
         console.log(error);
       });

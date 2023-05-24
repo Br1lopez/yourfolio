@@ -19,9 +19,9 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String myDtoJson = objectMapper.writeValueAsString(authenticationResponse);
-        System.out.println(request);
 
-        RequestLogger.logRequest(request);
+
+//        RequestLogger.logRequest(request);
 
         response.getWriter().write(myDtoJson);
     }
