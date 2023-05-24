@@ -4,6 +4,7 @@ import "./userLogin.scss";
 import { requiredInput } from "src/components/modals/validations/InputValidations";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "src/api/userRequests";
+import Cookies from "universal-cookie";
 
 export const UserLogin = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +24,8 @@ export const UserLogin = () => {
     if (formRef.current.check()) {
       loginUser(formData).then((result) => {
         if (result.success) {
-          localStorage.setItem("JSESSIONID", result.token);
+          const cookies = new Cookies();
+          cookies.set("JSESSIONID", result.token, { path: "/" });
           navigate("/");
         } else {
           alert("Error al iniciar sesión");
@@ -78,9 +80,8 @@ export const UserLogin = () => {
 
 export let defaultHeaders = () => {
   return {
-    withCredentials: true,
-    // headers: {
-    //   // Cookie: `JSESSIONID=${localStorage.getItem("JSESSIONID")}`,
-    // },
+    headers: {
+      UserdToken: localStorage.getItem("JSESSIONID"),
+    },
   };
 };

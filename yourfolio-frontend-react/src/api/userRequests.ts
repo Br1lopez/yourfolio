@@ -23,6 +23,7 @@ export const loginUser = async (
       `${API_BASE_URL}/login`,
       loginData,
       {
+        withCredentials: true,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },

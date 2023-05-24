@@ -24,6 +24,7 @@ public class RequestLogger {
             System.out.println(parameterName + ": " + request.getParameter(parameterName));
         }
 
+
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {

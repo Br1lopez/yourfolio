@@ -23,7 +23,7 @@ export const createElement = async (
     const response = await axios.post<ElementDTO>(
       `${API_BASE_URL}/elements/${parentId || ""}`,
       body,
-      defaultHeaders()
+      { withCredentials: true }
     );
     console.log(response.data);
     return response.data;
