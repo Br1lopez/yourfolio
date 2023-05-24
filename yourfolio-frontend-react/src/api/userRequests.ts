@@ -6,7 +6,7 @@ import { LoginRequestData, UserDTO, UserSaveDTO } from "src/types/dtoTypes";
 export const registerUser = async (body: UserSaveDTO): Promise<UserDTO> => {
   try {
     const response = await axios.post<UserDTO>(
-      `${API_BASE_URL}/users/register`,
+      `${API_BASE_URL}/register`,
       body
     );
     return response.data;

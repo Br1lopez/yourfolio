@@ -24,7 +24,6 @@ public class ElementController {
 
     @PostMapping("/")
     public ResponseEntity<ElementDTO> createElement(@RequestBody ElementSaveDTO elementDto, Authentication authentication) {
-        System.out.println(authentication.getName());
         return new ResponseEntity<>(elementService.createElement(elementDto, null, authentication.getName()), HttpStatus.CREATED);
     }
 
