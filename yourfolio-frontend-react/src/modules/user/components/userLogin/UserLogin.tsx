@@ -26,7 +26,7 @@ export const UserLogin = () => {
         if (result.success) {
           const cookies = new Cookies();
           cookies.set("JSESSIONID", result.token, { path: "/" });
-          navigate("/");
+          navigate("/home");
         } else {
           alert("Error al iniciar sesión");
         }

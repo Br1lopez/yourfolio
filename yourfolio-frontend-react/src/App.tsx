@@ -1,15 +1,21 @@
 import { useEffect } from "react";
 import "./App.scss";
-import { PortfolioCreatorWrapper } from "./modules/portfolioCreator/PortfolioCreatorWrapper";
+import { PortfolioCreator } from "./modules/portfolioCreator/PortfolioCreator";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserRegister } from "./modules/user/components/userRegistration/UserRegister";
 import { UserLogin } from "./modules/user/components/userLogin/UserLogin";
 import axios from "axios";
+import Home from "./modules/home/Home";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  PortfolioContext,
+  usePortfolioContext,
+} from "./hooks/PortfolioContext";
 
 const ROUTES = [
   {
-    path: "/",
-    component: <PortfolioCreatorWrapper portfolioId={1} />,
+    path: "/portfolio/:portfolioId",
+    component: <PortfolioCreator />,
   },
   {
     path: "/register",
@@ -19,7 +25,13 @@ const ROUTES = [
     path: "/login",
     component: <UserLogin />,
   },
+  {
+    path: "/home",
+    component: <Home />,
+  },
 ];
+
+const queryClient = new QueryClient();
 
 function App() {
   useEffect(() => {
@@ -27,13 +39,17 @@ function App() {
     axios.defaults.withCredentials = true;
   }, []);
   return (
-    <BrowserRouter>
-      <Routes>
-        {ROUTES.map((route, i) => (
-          <Route path={route.path} key={i} element={route.component} />
-        ))}
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <PortfolioContext.Provider value={usePortfolioContext()}>
+        <BrowserRouter>
+          <Routes>
+            {ROUTES.map((route, i) => (
+              <Route path={route.path} key={i} element={route.component} />
+            ))}
+          </Routes>
+        </BrowserRouter>
+      </PortfolioContext.Provider>
+    </QueryClientProvider>
   );
 }
 

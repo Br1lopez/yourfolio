@@ -30,9 +30,9 @@ export const UserRegister = () => {
     if (formRef.current.check()) {
       registerUser(formData).then((result) => {
         if (result) {
-          navigate("/")
+          navigate("/login");
         } else {
-          alert("Error al iniciar sesión")
+          alert("Error al iniciar sesión");
         }
       });
     }

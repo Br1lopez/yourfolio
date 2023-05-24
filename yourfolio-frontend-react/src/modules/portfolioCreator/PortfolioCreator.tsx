@@ -11,34 +11,30 @@ import { PortfolioStyle } from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
 import { ModalWindow } from "src/components/modals/ModalWindow";
 import { pushWelcomeNotification } from "src/components/notifications/InfoNotification";
+import { useParams } from "react-router-dom";
 
-export interface PortfolioCreatorProps {
-  portfolioId: number;
-}
-
-export const PortfolioCreator = (props: PortfolioCreatorProps) => {
+export const PortfolioCreator = () => {
   const { styleData, activeElementId, modalWindowData, toaster } =
     useContext(PortfolioContext);
   //eslint-disable-next-line
   const [barWidth, setBarWidth] = useState<string>("55px");
   //eslint-disable-next-line
   const [navHeight, setNavHeight] = useState<string>("55px");
-
+  const { portfolioId } = useParams();
 
   const query = useQuery({
     queryKey: ["getPortfolio"],
-    queryFn: () => getElement(props.portfolioId),
+    queryFn: () => getElement(parseInt(portfolioId || "-1")),
     onSuccess: (data) => {
       styleData.set(data.style);
       applyFont(data.style?.fontFamily || "Open Sans");
     },
   });
 
-
   useEffect(() => {
     pushWelcomeNotification(toaster);
     //eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <>
@@ -64,7 +60,10 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               />
             )}
           </div>
-          <ModalWindow modalProperties={modalWindowData} portfolioId={props.portfolioId} />
+          <ModalWindow
+            modalProperties={modalWindowData}
+            portfolioId={parseInt(portfolioId || "-1")}
+          />
         </div>
       )}
     </>
