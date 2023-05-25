@@ -44,7 +44,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-        source.registerCorsConfiguration("/users/**", configuration);
+        //source.registerCorsConfiguration("/user/**", configuration);
         return source;
     }
 
@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf().disable()
                 .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
                     .requestMatchers(HttpMethod.POST).authenticated()
                     .anyRequest().permitAll()
                     .and()

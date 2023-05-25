@@ -14,21 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("user")
 @AllArgsConstructor
-public class UserController {
+public class AuthenticatedUserController {
 
     private final UserService userService;
 
 //todo: administrar error de usuario repetido
 @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody UserSaveDTO userSaveDTO){
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserSaveDTO userSaveDTO, Authentication authentication){
         return new ResponseEntity<>(userService.registerUser(userSaveDTO), HttpStatus.CREATED);
-    }
-
-    @PostMapping("/users/{userId}/portfolios")
-    public ResponseEntity<List<ElementDTO>> getUserPortfoliosById(@PathVariable Integer userId){
-        return new ResponseEntity<>(userService.getUserPortfolios(userId), HttpStatus.OK);
     }
 
     @GetMapping("/portfolios")
@@ -38,5 +34,14 @@ public class UserController {
     else
         return new ResponseEntity<>(userService.getUserPortfolios(authentication.getName()), HttpStatus.OK);
     }
+
+    @GetMapping("/info")
+    public ResponseEntity<UserDTO> getAuthenticatedUserInfo(Authentication authentication) throws LoginNeededException {
+        if (authentication == null)
+            throw new LoginNeededException();
+        else
+            return new ResponseEntity<>(userService.getUserByEmail(authentication.getName()), HttpStatus.OK);
+    }
+
 
 }

@@ -3,7 +3,7 @@ import { Form, Button } from "rsuite";
 import "./userLogin.scss";
 import { requiredInput } from "src/components/modals/validations/InputValidations";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "src/api/userRequests";
+import { loginUser } from "src/api/authenticatedUserRequests";
 import Cookies from "universal-cookie";
 
 export const UserLogin = () => {

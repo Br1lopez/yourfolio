@@ -1,33 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getPortfolios } from "src/api/elementRequests";
+import { getPortfolios, getUserInfo } from "src/api/authenticatedUserRequests";
 import { HomeSidebar } from "./components/homeSideBar/HomeSideBar";
 import "./home.scss";
 
-//TODO: AÑADIR GETuSER() PARA NOMBRE
 const Home = () => {
-  const query = useQuery({
+  const userQuery = useQuery({
+    queryKey: ["getUserInfo"],
+    queryFn: () => getUserInfo(),
+  });
+
+  const portfoliosQuery = useQuery({
     queryKey: ["getPortfolios"],
     queryFn: () => getPortfolios(),
   });
+
   return (
     <div className="yourfolio-root">
       <HomeSidebar></HomeSidebar>
       <div className="yourfolio-home__content">
-        <h1 className="yourfolio-home__content__title">Bienvenido</h1>
+        <h1 className="yourfolio-home__content__title">Bienvenido, {userQuery.data?.name}</h1>
         <div className="yourfolio-home__content__portfolios">
-          {query.data?.map((portfolio) => (
+          {portfoliosQuery.data?.map((portfolio) => (
             <div
               key={`portfolio_${portfolio.id}}`}
               className="yourfolio-home__content__portfolios__portfolio"
             >
               <div
                 className="yourfolio-home__content__portfolios__portfolio__thumbnail"
-                style={{ backgroundColor: portfolio.style?.bgColor || "grey" }}
+                style={{ backgroundColor: (portfolio.style?.bgColor || "red") }}
               ></div>
-              <span className="yourfolio-home__content__portfolios__portfolio__title">
+              <div className="yourfolio-home__content__portfolios__portfolio__title">
                 {portfolio.name}
-              </span>
+              </div>
             </div>
           ))}
         </div>

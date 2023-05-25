@@ -37,4 +37,8 @@ public class UserService {
     public List<ElementDTO> getUserPortfolios(String userEmail) {
         return elementMapper.toDtoList(elementRepository.findByUser_EmailAndType_Id(userEmail, "portfolio"));
     }
+
+    public UserDTO getUserByEmail(String email){
+        return userMapper.toDto(userRepository.findByEmail(email));
+    }
 }

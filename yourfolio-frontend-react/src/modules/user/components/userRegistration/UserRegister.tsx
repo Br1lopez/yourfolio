@@ -8,7 +8,7 @@ import {
   requiredInput,
 } from "src/components/modals/validations/InputValidations";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "src/api/userRequests";
+import { registerUser } from "src/api/authenticatedUserRequests";
 
 export const UserRegister = () => {
   const [formData, setFormData] = useState({

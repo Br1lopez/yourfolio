@@ -13,17 +13,6 @@ export const getElement = async (elementId: number): Promise<ElementDTO> => {
   }
 };
 
-export const getPortfolios = async (): Promise<ElementDTO[]> => {
-  try {
-    const response = await axios.get<ElementDTO[]>(
-      `${API_BASE_URL}/portfolios`
-    );
-    return response.data;
-  } catch (err) {
-    throw new Error("error");
-  }
-};
-
 export const createElement = async (
   body: ElementSaveDTO,
   parentId?: number
