@@ -4,15 +4,20 @@ import { Helmet } from "react-helmet";
 function DefaultHead() {
   return (
     <Helmet>
-      <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js" crossorigin></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"
+        crossorigin
+      ></script>
 
       <script
         src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
-        crossorigin></script>
+        crossorigin
+      ></script>
 
       <script
         src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
-        crossorigin></script>
+        crossorigin
+      ></script>
 
       {/* <script>var Alert = ReactBootstrap.Alert;</script> */}
       <script
@@ -28,15 +33,8 @@ function DefaultHead() {
         data-noprefix
         crossorigin
       />
-      <link
-        rel="stylesheet"
-        href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-        crossorigin="anonymous"
-      />
-      <link rel="stylesheet" href="style.css" />
     </Helmet>
-  )
+  );
 }
 
 export default DefaultHead;

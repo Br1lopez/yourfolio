@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { Navbar, Button, Nav } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import "./navBar.scss";
 import Tab from "./components/Tab";
 import { ModalType } from "../../../../types/portfolioContextTypes";
 import { ElementDTO } from "src/types/dtoTypes";
 import { PortfolioContext } from "../../../../hooks/PortfolioContext";
+import { FaPlusCircle } from "react-icons/fa";
 
 //TODO transiciones al borrar y añadir pestañas
 interface NavBarProps {
@@ -24,14 +25,12 @@ export const NavBar = (props: NavBarProps) => {
       if (target.id.includes("navbar__tabLink")) {
         setActiveTab(Number(target.id.replace("navbar__tabLink_", "")));
       } else {
-        setActiveTab(null)
+        setActiveTab(null);
       }
     };
 
-
     document.addEventListener("contextmenu", handleContextMenu);
     document.addEventListener("click", () => setActiveTab(null));
-
 
     return () => {
       document.removeEventListener("contextmenu", handleContextMenu);
@@ -61,24 +60,27 @@ export const NavBar = (props: NavBarProps) => {
             .sort((a: any, b: any) => a.position - b.position)
             .map((tab, index) => {
               return (
-                <Tab open={activeTab == tab.id} key={index} element={tab} parentId={portfolio.id}></Tab>
+                <Tab
+                  open={activeTab == tab.id}
+                  key={index}
+                  element={tab}
+                  parentId={portfolio.id}
+                ></Tab>
               );
             })}
-          <Nav.Link href="#">
-            <Button
-              className="navbar__addTabButton"
-              variant="link"
-              onClick={() => {
-                modalWindowData.set({
-                  ...modalWindowData.value,
-                  parentId: portfolio.id,
-                  elementId: 0,
-                  modalType: ModalType.CreateElement,
-                });
-              }}
-            >
-              <i className="fas fa-plus-circle"></i>
-            </Button>
+          <Nav.Link
+            href="#"
+            className="navbar__addTabButton"
+            onClick={() => {
+              modalWindowData.set({
+                ...modalWindowData.value,
+                parentId: portfolio.id,
+                elementId: 0,
+                modalType: ModalType.CreateElement,
+              });
+            }}
+          >
+            <FaPlusCircle />
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

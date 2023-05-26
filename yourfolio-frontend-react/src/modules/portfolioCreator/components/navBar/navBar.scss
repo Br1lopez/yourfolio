@@ -23,6 +23,12 @@
 
     &__tabLink {
         font-size: 1.2em;
+
+        &.active,
+        &:hover {
+            font-weight: bold;
+            text-decoration: none;
+        }
     }
 
     &__brand {
@@ -41,12 +47,16 @@
         justify-self: flex-end;
         padding: 0;
         margin-top: 5px;
+        width: 50px;
 
-        & i {
+
+        & svg {
             border-color: rgba(0, 0, 0, 0);
             background-color: rgba(0, 0, 0, 0);
-            font-size: 1.5em;
+            font-size: 1.8em;
+            vertical-align: center;
             color: var(--font-color);
+            margin-bottom: 3px;
         }
     }
 
