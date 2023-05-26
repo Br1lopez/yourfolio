@@ -61,7 +61,7 @@ export const NavBar = (props: NavBarProps) => {
             .map((tab, index) => {
               return (
                 <Tab
-                  open={activeTab == tab.id}
+                  open={activeTab === tab.id}
                   key={index}
                   element={tab}
                   parentId={portfolio.id}

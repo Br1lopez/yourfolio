@@ -24,11 +24,9 @@ public class ElementEntity {
     @JoinColumn(name = "element_type_id")
     private ElementTypeEntity type;
 
-    @Column(name = "name")
+
     private String name;
 
-
-    @Column(name = "description")
     private String description;
 
 
@@ -56,5 +54,8 @@ public class ElementEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    private boolean home;
+    private boolean hidden;
 
 }

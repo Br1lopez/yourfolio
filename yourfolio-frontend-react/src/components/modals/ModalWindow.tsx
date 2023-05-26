@@ -5,7 +5,7 @@ import { PortfolioContext } from "src/hooks/PortfolioContext";
 import { Form, ButtonToolbar, Button } from "rsuite";
 import "./modal.scss";
 import {
-  customElementInputs,
+  CustomElementInputs,
   ElementTitleInput,
   ElementTypeInput,
 } from "src/components/modals/inputs/ElementInputs";
@@ -100,7 +100,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
             {modalProperties?.value.parentId && (
               <ElementTypeInput modalState={modalProperties} />
             )}
-            {customElementInputs(modalProperties)}
+            <CustomElementInputs modalState={modalProperties} />
           </Modal.Body>
         );
       case ModalType.EditElement:
@@ -110,7 +110,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
             {modalProperties?.value.parentId && (
               <ElementTypeInput disabled={true} modalState={modalProperties} />
             )}
-            {customElementInputs(modalProperties)}
+            <CustomElementInputs modalState={modalProperties} />
           </Modal.Body>
         );
 
@@ -162,7 +162,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
-      <Form onSubmit={handleSubmit} ref={formRef}>
+      <Form onSubmit={handleSubmit} ref={formRef} className="modal-window-form">
         {modalProperties.value && modalBody()}
         <Modal.Footer>
           <ButtonToolbar>

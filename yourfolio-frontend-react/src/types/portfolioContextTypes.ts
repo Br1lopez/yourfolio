@@ -1,18 +1,15 @@
 import {
-  ElementDTO,
   ElementSaveDTO,
-  EMPTY_ELEMENT_DTO,
   EMPTY_ELEMENT_SAVE_DTO,
   StyleDTO,
 } from "src/types/dtoTypes";
-import { getElementByIdRecursive } from "src/utils/functions";
 
 export interface State<T> {
   value: T;
   set: (value: T) => void;
 }
 
-export const NULL_STATE = { value: null, set: () => {} };
+export const NULL_STATE = { value: null, set: () => { } };
 
 export enum ModalType {
   Hide,

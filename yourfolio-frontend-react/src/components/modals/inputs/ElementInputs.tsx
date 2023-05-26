@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Form, Input, SelectPicker, Uploader } from "rsuite";
+import { Form, Input, SelectPicker, Toggle, Uploader } from "rsuite";
 import { getElement } from "src/api/elementRequests";
 import { ElementTypeDTO, FileDTO } from "src/types/dtoTypes";
 import { ModalWindowData, State } from "src/types/portfolioContextTypes";
@@ -8,6 +8,7 @@ import { requiredInput } from "../validations/InputValidations";
 import React from "react";
 import { API_BASE_URL } from "src/globals";
 import { FileType } from "rsuite/esm/Uploader";
+import { useLocation, useParams } from "react-router-dom";
 const Textarea = React.forwardRef((props, ref: any) => (
   <Input {...props} as="textarea" ref={ref} />
 ));
@@ -39,7 +40,7 @@ export const ElementTypeInput = (props: {
 }) => {
   const [possibleChildren, setPossibleChildren] = useState<ElementTypeDTO[]>();
 
-  const query = useQuery({
+  useQuery({
     queryKey: ["getType", props.modalState.value.values.typeId],
     queryFn: () => getElement(props.modalState.value.parentId || -1),
     onSuccess: (data) => {
@@ -122,14 +123,61 @@ export const ElementImageInput = (props: {
   );
 };
 
-export const customElementInputs = (modalState: State<ModalWindowData>) => {
+export const HideElementInput = (props: {
+  modalState: State<ModalWindowData>;
+}) => {
+  return (<Form.Group controlId="hideElement" className="mb-4">
+    <Form.ControlLabel>Ocultar</Form.ControlLabel>
+    <Toggle
+      checked={props.modalState.value.values.hidden}
+      onChange={(checked, event) => {
+        props.modalState.set({
+          ...props.modalState.value,
+          values: { ...props.modalState.value.values, hidden: checked },
+        })
+      }} />    </Form.Group>
+  );
+};
+
+export const HomeElementInput = (props: {
+  modalState: State<ModalWindowData>;
+}) => {
+  return (<Form.Group controlId="homeElement" className="mb-4">
+    <Form.ControlLabel>Página de inicio</Form.ControlLabel>
+    <Toggle
+      checked={props.modalState.value.values.home}
+      onChange={(checked, event) => {
+        props.modalState.set({
+          ...props.modalState.value,
+          values: { ...props.modalState.value.values, home: checked },
+        })
+      }} /></Form.Group >
+  );
+};
+
+export const CustomElementInputs = (props: {
+  modalState: State<ModalWindowData>;
+}) => {
+  const location = useLocation();
+  const pathnameParts = location.pathname.split('/');
+  const portfolioId = pathnameParts[2];
+  const modalState = props.modalState;
+
+  let result = [];
+
+  console.log(modalState?.value.parentId, portfolioId);
+  if (modalState?.value.parentId === parseInt(portfolioId || "-1")) {
+    result.push(<HomeElementInput modalState={modalState} />);
+    result.push(<HideElementInput modalState={modalState} />);
+  }
   switch (modalState?.value.values?.typeId) {
     case "artwork":
-      return [
-        <ElementDescriptionInput modalState={modalState} />,
-        <ElementImageInput modalState={modalState} />,
-      ];
+      result.push(<ElementDescriptionInput modalState={modalState} />);
+      result.push(<ElementImageInput modalState={modalState} />);
+      break;
     default:
-      return [];
+      break;
   }
+
+  return <>{result}</>;
 };

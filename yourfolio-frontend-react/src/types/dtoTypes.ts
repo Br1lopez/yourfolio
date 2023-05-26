@@ -9,6 +9,8 @@ export interface ElementDTO {
   thumbnailImage?: FileDTO;
   style: StyleDTO;
   user: UserDTO;
+  hidden?: boolean;
+  home?: boolean;
 }
 
 export const EMPTY_ELEMENT_DTO: ElementDTO = {
@@ -30,6 +32,8 @@ export interface ElementSaveDTO {
   files?: Array<FileDTO>;
   thumbnailFile?: FileDTO;
   style?: StyleDTO;
+  hidden?: boolean;
+  home?: boolean;
 }
 
 export const EMPTY_ELEMENT_SAVE_DTO: ElementSaveDTO = {
@@ -88,5 +92,7 @@ export function mapElementDtoToElementSaveDto(
     description: elementDto.description,
     thumbnailFile: elementDto.thumbnailImage,
     style: elementDto.style,
+    hidden: elementDto.hidden,
+    home: elementDto.home,
   };
 }

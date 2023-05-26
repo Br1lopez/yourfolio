@@ -8,8 +8,8 @@ insert into element_type_children (parent_id, child_id) values ('portfolio', 've
 insert into element_type_children (parent_id, child_id) values ('vertical-carousel-gallery', 'artwork');
 
 INSERT INTO `element` (element_type_id, name, description, thumbnail_image_id) VALUES ('portfolio', 'Portfolio de Juanjo','Soy Juanjo y este es mi portfolio', 1);
-INSERT INTO `element` (element_type_id, name, description, thumbnail_image_id) VALUES ('tab', 'Tab 1','Description for Element Group 1', 1);
-INSERT INTO `element` (element_type_id, name, description, thumbnail_image_id) VALUES ('project', 'project 1','Description for Element Group 1', 1);
+INSERT INTO `element` (element_type_id, name, description, thumbnail_image_id, home, hidden) VALUES ('vertical-carousel-gallery', 'Mis dibujos','Description for Element Group 1', 1, true, true);
+INSERT INTO `element` (element_type_id, name, description, thumbnail_image_id) VALUES ('artwork', 'project 1','Description for Element Group 1', 1);
 INSERT INTO `style` (font_family, bg_color, font_color, portfolio_id) VALUES ('Montserrat', '#FFFFFF', '#000000', 1);
 INSERT INTO element_file (file_id, element_id) VALUES (1, 3);
 INSERT INTO element_children (parent_id, child_id, position) VALUES (1, 2, 1);

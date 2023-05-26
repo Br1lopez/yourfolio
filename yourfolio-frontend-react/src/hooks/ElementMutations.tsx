@@ -85,7 +85,7 @@ export const useEditElementStyleMutation = (
 };
 
 export const useDeleteElementMutation = (elementId: number) => {
-  const { modalWindowData: activeModalData, toaster } =
+  const { toaster } =
     useContext(PortfolioContext);
   const queryClient = useQueryClient();
 

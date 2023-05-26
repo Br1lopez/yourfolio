@@ -23,7 +23,7 @@ public class ElementDTO implements Serializable {
     private List<ElementDTO> elements;
     private StyleDTO style;
     private Integer position;
-
     private UserDTO user;
-
+    private boolean home;
+    private boolean hidden;
     }

@@ -42,6 +42,8 @@ create table element (
     description VARCHAR(255),
     user_id INT,
     thumbnail_image_id INT,
+    home BOOL default false,
+    hidden BOOL default false,
     FOREIGN KEY (element_type_id) REFERENCES element_type(id),
     FOREIGN KEY (thumbnail_image_id) REFERENCES file(id)
 );
