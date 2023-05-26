@@ -7,8 +7,13 @@ import { UserLogin } from "./modules/user/components/userLogin/UserLogin";
 import Home from "./modules/home/Home";
 import { PortfolioContext } from "./hooks/PortfolioContext";
 import { ModalWindow } from "./components/modals/ModalWindow";
+import LandingPage from "./modules/landingPage/LandingPage";
 
 const ROUTES = [
+  {
+    path: "/",
+    component: <LandingPage />,
+  },
   {
     path: "/portfolio/:portfolioId/edit",
     component: <PortfolioCreator />,
