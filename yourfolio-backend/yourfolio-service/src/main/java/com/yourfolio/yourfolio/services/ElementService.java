@@ -80,14 +80,17 @@ public class ElementService {
         boolean hasFiles = elementDTO.getFiles() != null && !elementDTO.getFiles().isEmpty();
         ElementEntity elementToSave = elementMapper.toEntity(elementDTO);
 
+        // TIPO:
         ElementTypeEntity elementTypeToSave = ElementTypeEntity.builder()
                 .id(elementDTO.getTypeId())
                 .build();
         elementToSave.setType(elementTypeToSave);
 
+        // USUARIO:
         if (userEmail != null)
             elementToSave.setUser(userRepository.findByEmail(userEmail));
 
+        // ARCHIVOS:
         Set<FileEntity> filesToSave = new HashSet<>();
         if (hasFiles) {
             elementDTO.getFiles().forEach(fileDTO ->
@@ -95,8 +98,17 @@ public class ElementService {
         }
         elementToSave.setFiles(filesToSave);
 
+        // GUARDADO DEL ELEMENTO:
         ElementEntity response = elementRepository.save(elementToSave);
 
+        // ESTILO:
+        StyleEntity styleToSave = elementDTO.getStyle() == null ?
+                StyleEntity.builder().portfolio(response).bgColor("#e4e7eb").fontColor("black").build()
+                : styleMapper.toEntity(elementDTO.getStyle());
+
+        styleRepository.save(styleToSave);
+
+        // TABLAS N:M
         if (parentId != null) {
             elementRelationshipRepository.save(
                     ElementRelationshipEntity.builder()

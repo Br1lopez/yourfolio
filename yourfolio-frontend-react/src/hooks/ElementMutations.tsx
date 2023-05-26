@@ -33,7 +33,9 @@ export const useCreateElementMutation = (
         ModalType.CreateElement,
         data.type
       );
-      queryClient.invalidateQueries(["getPortfolio", "getPortfolios"]);
+      queryClient.invalidateQueries(["getPortfolio"]);
+      queryClient.invalidateQueries(["getPortfolios"]);
+
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
     },
   });
