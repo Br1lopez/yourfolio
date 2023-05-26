@@ -4,15 +4,18 @@ import { FaPaintBrush } from "react-icons/fa";
 import { MdOutlineHelp } from "react-icons/md";
 import { PortfolioContext } from "../../../../hooks/PortfolioContext";
 import { ModalType } from "../../../../types/portfolioContextTypes";
+import { AiFillHome } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 //TODO: descartar width
 interface InterfaceBarProps {
   portfolioId: number;
-  width?: string;
 }
 
 export const InterfaceBar = (props: InterfaceBarProps) => {
   const { modalWindowData } = useContext(PortfolioContext);
+  const navigate = useNavigate();
+
   const handleStyleClick = (e: any) => {
     e.preventDefault();
     modalWindowData.set({
@@ -21,9 +24,14 @@ export const InterfaceBar = (props: InterfaceBarProps) => {
       modalType: ModalType.SetSyle,
     });
   };
+
   return (
-    <div className="i-bar" style={{ width: props.width }}>
-      {/* <AiOutlineMenu className="i-bar__icon top" style={{ width: "30px", height: "30px", color: "white" }}/> */}
+    <div className="i-bar">
+      <AiFillHome
+        className="i-bar__icon top"
+        // style={{ width: "30px", height: "30px", color: "white" }}
+        onClick={() => navigate("/home")}
+      />
       <FaPaintBrush className="i-bar__icon" onClick={handleStyleClick} />
       <MdOutlineHelp className="i-bar__icon" />
     </div>

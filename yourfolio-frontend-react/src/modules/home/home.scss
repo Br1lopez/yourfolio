@@ -37,6 +37,7 @@
             padding: 0;
             width: 200px;
             height: 200px;
+            cursor: pointer;
 
             &__thumbnail {
                 border-radius: $default-border-radius $default-border-radius 0 0;

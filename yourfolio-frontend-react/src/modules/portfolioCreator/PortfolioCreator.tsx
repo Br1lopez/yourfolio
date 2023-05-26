@@ -17,8 +17,6 @@ export const PortfolioCreator = () => {
   const { styleData, activeElementId, modalWindowData, toaster } =
     useContext(PortfolioContext);
   //eslint-disable-next-line
-  const [barWidth, setBarWidth] = useState<string>("55px");
-  //eslint-disable-next-line
   const [navHeight, setNavHeight] = useState<string>("55px");
   const { portfolioId } = useParams();
 
@@ -41,16 +39,8 @@ export const PortfolioCreator = () => {
       {query.data && (
         <div className="root apply-font">
           <PortfolioStyle style={styleData.value || undefined} />
-          <InterfaceBar
-            width={barWidth}
-            portfolioId={parseInt(portfolioId || "-1")}
-          />
-          <div
-            className="portfolio"
-            style={{
-              width: `calc(100vw - ${barWidth})`,
-            }}
-          >
+          <InterfaceBar portfolioId={parseInt(portfolioId || "-1")} />
+          <div className="portfolio">
             <NavBar portfolio={query.data} height={navHeight} />
             {activeElementId.value && query.data.elements.length > 0 && (
               <ActiveComponent

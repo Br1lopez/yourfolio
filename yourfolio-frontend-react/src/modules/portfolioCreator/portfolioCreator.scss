@@ -2,4 +2,8 @@
 
 .root {
     display: flex;
+
+    & .portfolio {
+        width: calc(100vw - $sidebar-width);
+    }
 }
