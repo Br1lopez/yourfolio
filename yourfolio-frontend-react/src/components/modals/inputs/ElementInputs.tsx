@@ -110,6 +110,7 @@ export const ElementImageInput = (props: {
         name="image"
         accepter={Uploader}
         action={`${API_BASE_URL}/files/upload`}
+        withCredentials={true}
         onSuccess={(response: FileDTO, file: FileType) => {
           props.modalState.set({
             ...props.modalState.value,
