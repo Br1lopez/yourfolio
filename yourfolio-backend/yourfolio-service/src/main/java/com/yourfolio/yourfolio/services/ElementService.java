@@ -88,7 +88,6 @@ public class ElementService {
             ElementEntity existingElement = elementRepository.findById(elementId).orElseThrow(() -> new RuntimeException("Element not found"));
             elementToSave.setElements(existingElement.getElements());
         }
-        ;
 
         boolean hasFiles = elementDTO.getFiles() != null && !elementDTO.getFiles().isEmpty();
 
@@ -113,6 +112,18 @@ public class ElementService {
                                     : fileMapper.toEntity(fileDTO)));
         }
         elementToSave.setFiles(filesToSave);
+
+        //Si se enciende home, apagar en los hermanos:
+        if (elementDTO.isHome() && parentId != null){
+            elementRepository.getReferenceById(parentId).getElements().forEach(
+                    sibling -> {
+                        if (sibling.isHome()){
+                            sibling.setHome(false);
+                            elementRepository.save(sibling);
+                        }
+                    }
+            );
+        }
 
         // GUARDADO DEL ELEMENTO:
         ElementEntity response = elementRepository.save(elementToSave);
@@ -158,7 +169,8 @@ public class ElementService {
         }
 
         public ElementDTO updateElement (ElementSaveDTO elementDTO, Integer elementId){
-            return saveElement(elementDTO, elementId, null, null);
+            int parentId = elementRelationshipRepository.findByChildId(elementId).get(0).getParentId();
+            return saveElement(elementDTO, elementId, parentId, null);
         }
 
         public StyleDTO updateElementStyle (StyleDTO styleDto, Integer elementId){

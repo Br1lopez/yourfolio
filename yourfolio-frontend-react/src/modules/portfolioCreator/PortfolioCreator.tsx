@@ -40,15 +40,19 @@ export const PortfolioCreator = () => {
           <InterfaceBar portfolioId={parseInt(portfolioId || "-1")} />
           <div className="portfolio">
             <NavBar portfolio={query.data} height={navHeight} />
-            {activeElementId.value && query.data.elements.length > 0 && (
-              <ActiveComponent
-                element={getElementByIdRecursive(
-                  activeElementId.value,
-                  query.data
-                )}
-                height={`calc(100vh - ${navHeight}`}
-              />
-            )}
+            {query.data.elements.length > 0 &&
+
+
+
+              (
+                <ActiveComponent
+                  element={getElementByIdRecursive(
+                    activeElementId.value || query.data.elements.find((e) => e.home)?.id || -1,
+                    query.data
+                  )}
+                  height={`calc(100vh - ${navHeight}`}
+                />
+              )}
           </div>
         </div>
       )}

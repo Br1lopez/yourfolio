@@ -22,5 +22,6 @@ public interface ElementRelationshipRepository extends JpaRepository<ElementRela
 
     long countByParentId(Integer parentId);
 
+    List<ElementRelationshipEntity> findByParentId(Integer childId);
 
 }
