@@ -43,7 +43,7 @@ export const FontPickerComponent = (props: { state: State<StyleDTO> }) => {
 
 
     return (<Form.Group controlId="fontPicker" style={{ minHeight: "250px" }}>
-        <Form.ControlLabel>Color de texto:</Form.ControlLabel>
+        <Form.ControlLabel>Fuente:</Form.ControlLabel>
         <FontPicker
             apiKey="AIzaSyA7-F6PODGUMyfHXyRvfBfZFRlSJcfmiVE"
             activeFontFamily={styleData.value?.fontFamily}
