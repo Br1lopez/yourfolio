@@ -7,6 +7,7 @@ import { ModalType } from "../../../../types/portfolioContextTypes";
 
 //TODO: descartar width
 interface InterfaceBarProps {
+  portfolioId: number;
   width?: string;
 }
 
@@ -16,6 +17,7 @@ export const InterfaceBar = (props: InterfaceBarProps) => {
     e.preventDefault();
     modalWindowData.set({
       ...modalWindowData.value,
+      elementId: props.portfolioId,
       modalType: ModalType.SetSyle,
     });
   };

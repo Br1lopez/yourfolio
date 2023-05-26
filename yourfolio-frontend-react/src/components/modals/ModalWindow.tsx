@@ -2,32 +2,30 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Modal } from "rsuite";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
 
-import {
-  Form,
-  ButtonToolbar,
-  Button,
-} from "rsuite";
+import { Form, ButtonToolbar, Button } from "rsuite";
 import "./modal.scss";
 import {
   customElementInputs,
   ElementTitleInput,
   ElementTypeInput,
 } from "src/components/modals/inputs/ElementInputs";
-import { useCreateElementMutation, useEditElementMutation, useEditElementStyleMutation } from "src/hooks/ElementMutations";
+import {
+  useCreateElementMutation,
+  useEditElementMutation,
+  useEditElementStyleMutation,
+} from "src/hooks/ElementMutations";
 import {
   ModalType,
   ModalWindowData,
   NULL_MODAL_WINDOW_DATA,
-  State
+  State,
 } from "src/types/portfolioContextTypes";
 import { EMPTY_ELEMENT_SAVE_DTO } from "src/types/dtoTypes";
 import { ColorInputs, FontPickerComponent } from "./inputs/StyleInputs";
 import { useQueryClient } from "@tanstack/react-query";
 
-
 export interface ModalWindowProps {
   modalProperties: State<ModalWindowData>;
-  portfolioId: number;
 }
 
 export const ModalWindow = (props: ModalWindowProps) => {
@@ -41,15 +39,18 @@ export const ModalWindow = (props: ModalWindowProps) => {
 
   const createElement = useCreateElementMutation(
     modalProperties?.value?.values || EMPTY_ELEMENT_SAVE_DTO,
-    modalProperties?.value?.parentId);
+    modalProperties?.value?.parentId
+  );
 
   const editElement = useEditElementMutation(
     modalProperties.value.elementId || -1,
-    modalProperties.value.values);
+    modalProperties.value.values
+  );
 
   const editStyle = useEditElementStyleMutation(
-    props.portfolioId,
-    styleData.value);
+    modalProperties.value.elementId || -1,
+    styleData.value
+  );
 
   const handleSubmit = (event: any) => {
     console.log("form", modalProperties.value.values);
@@ -93,30 +94,46 @@ export const ModalWindow = (props: ModalWindowProps) => {
   const modalBody = () => {
     switch (modalProperties?.value?.modalType) {
       case ModalType.CreateElement:
-        return <Modal.Body>
-          <ElementTitleInput modalState={modalProperties} />
-          <ElementTypeInput modalState={modalProperties} />
-          {customElementInputs(modalProperties)}
-        </Modal.Body>
+        return (
+          <Modal.Body>
+            <ElementTitleInput modalState={modalProperties} />
+            {modalProperties?.value.parentId && (
+              <ElementTypeInput modalState={modalProperties} />
+            )}
+            {customElementInputs(modalProperties)}
+          </Modal.Body>
+        );
       case ModalType.EditElement:
-        return <Modal.Body>
-          <ElementTitleInput modalState={modalProperties} />
-          <ElementTypeInput disabled={true} modalState={modalProperties} />
-          {customElementInputs(modalProperties)}
-        </Modal.Body>
+        return (
+          <Modal.Body>
+            <ElementTitleInput modalState={modalProperties} />
+            {modalProperties?.value.parentId && (
+              <ElementTypeInput disabled={true} modalState={modalProperties} />
+            )}
+            {customElementInputs(modalProperties)}
+          </Modal.Body>
+        );
 
       case ModalType.SetSyle:
         if (styleData.value) {
-          return <Modal.Body style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "20px"
-          }}>
-            <ColorInputs state={{ value: styleData.value, set: styleData.set }} />
-            {/* <BgColorInput state={{ value: styleData.value, set: styleData.set }} />
+          return (
+            <Modal.Body
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "20px",
+              }}
+            >
+              <ColorInputs
+                state={{ value: styleData.value, set: styleData.set }}
+              />
+              {/* <BgColorInput state={{ value: styleData.value, set: styleData.set }} />
             <FontColorInput state={{ value: styleData.value, set: styleData.set }} /> */}
-            <FontPickerComponent state={{ value: styleData.value, set: styleData.set }} />
-          </Modal.Body>
+              <FontPickerComponent
+                state={{ value: styleData.value, set: styleData.set }}
+              />
+            </Modal.Body>
+          );
         }
     }
   };
@@ -130,13 +147,18 @@ export const ModalWindow = (props: ModalWindowProps) => {
   }, [modalProperties.value.modalType]);
 
   return (
-    <Modal id="newTab"
+    <Modal
+      id="newTab"
       open={open}
       onClose={() => setOpen(false)}
-      onExited={
-        () => modalWindowData.set(
-          { ...NULL_MODAL_WINDOW_DATA, modalType: ModalType.Hide })}
-      backdrop='static'>
+      onExited={() =>
+        modalWindowData.set({
+          ...NULL_MODAL_WINDOW_DATA,
+          modalType: ModalType.Hide,
+        })
+      }
+      backdrop="static"
+    >
       <Modal.Header closeButton>
         <Modal.Title>{title()}</Modal.Title>
       </Modal.Header>
@@ -144,10 +166,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
         {modalProperties.value && modalBody()}
         <Modal.Footer>
           <ButtonToolbar>
-            <Button
-              appearance="default"
-              onClick={handleCancel}
-            >
+            <Button appearance="default" onClick={handleCancel}>
               Cancelar
             </Button>
             <Button appearance="primary" type="submit">
@@ -156,6 +175,6 @@ export const ModalWindow = (props: ModalWindowProps) => {
           </ButtonToolbar>
         </Modal.Footer>
       </Form>
-    </Modal >
+    </Modal>
   );
 };

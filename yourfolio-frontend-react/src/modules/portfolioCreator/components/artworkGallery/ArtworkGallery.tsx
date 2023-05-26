@@ -13,7 +13,7 @@ interface ArtworkGalleryProps {
 
 export const ArtworkGallery = (props: ArtworkGalleryProps) => {
   const data = props.galleryData;
-  const { modalWindowData, activeElementId } = useContext(PortfolioContext);
+  const { modalWindowData } = useContext(PortfolioContext);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -40,7 +40,7 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
               modalWindowData.set({
                 parentId: data.id,
                 modalType: ModalType.CreateElement,
-                values: EMPTY_ELEMENT_SAVE_DTO
+                values: EMPTY_ELEMENT_SAVE_DTO,
               });
             }}
           >

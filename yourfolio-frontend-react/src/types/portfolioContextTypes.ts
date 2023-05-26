@@ -1,4 +1,10 @@
-import { ElementDTO, ElementSaveDTO, EMPTY_ELEMENT_DTO, EMPTY_ELEMENT_SAVE_DTO, StyleDTO } from "src/types/dtoTypes";
+import {
+  ElementDTO,
+  ElementSaveDTO,
+  EMPTY_ELEMENT_DTO,
+  EMPTY_ELEMENT_SAVE_DTO,
+  StyleDTO,
+} from "src/types/dtoTypes";
 import { getElementByIdRecursive } from "src/utils/functions";
 
 export interface State<T> {
@@ -6,8 +12,7 @@ export interface State<T> {
   set: (value: T) => void;
 }
 
-export const NULL_STATE = { value: null, set: () => { } }
-
+export const NULL_STATE = { value: null, set: () => {} };
 
 export enum ModalType {
   Hide,
@@ -24,7 +29,6 @@ export interface PortfolioCtxData {
   toaster?: any;
 }
 
-
 export const NULL_MODAL_WINDOW_DATA = {
   parentId: -1,
   values: EMPTY_ELEMENT_SAVE_DTO,
@@ -32,7 +36,7 @@ export const NULL_MODAL_WINDOW_DATA = {
 };
 
 export interface ModalWindowData {
-  parentId: number;
+  parentId?: number;
   elementId?: number;
   values: ElementSaveDTO;
   modalType: ModalType;

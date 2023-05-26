@@ -9,17 +9,27 @@
 
     background-color: rgb(247, 248, 243);
 
+    & hr {
+        margin: 0;
+        color: black;
+        height: 2px;
+    }
+
     &__title {
         @include yourfolio-font;
         text-transform: capitalize;
         color: black;
         margin: 20px;
         padding: 20px 60px;
+
+        &.portfolios {
+            margin-bottom: 0;
+        }
     }
 
     &__portfolios {
         display: flex;
-        padding: 20px 60px;
+        padding: 0px 60px;
 
         &__portfolio {
             @include card;
@@ -44,6 +54,24 @@
                 width: 200px;
                 height: 50px;
             }
+        }
+
+        &__add-portfolio {
+            @include card;
+            margin: 20px;
+            padding: 0;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &__icon {
+                width: 50px;
+                height: 50px;
+            }
+
         }
     }
 }

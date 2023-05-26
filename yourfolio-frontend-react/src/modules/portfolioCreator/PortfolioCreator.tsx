@@ -38,11 +38,13 @@ export const PortfolioCreator = () => {
 
   return (
     <>
-      <DefaultHead></DefaultHead>
       {query.data && (
         <div className="root apply-font">
           <PortfolioStyle style={styleData.value || undefined} />
-          <InterfaceBar width={barWidth} />
+          <InterfaceBar
+            width={barWidth}
+            portfolioId={parseInt(portfolioId || "-1")}
+          />
           <div
             className="portfolio"
             style={{
@@ -60,10 +62,6 @@ export const PortfolioCreator = () => {
               />
             )}
           </div>
-          <ModalWindow
-            modalProperties={modalWindowData}
-            portfolioId={parseInt(portfolioId || "-1")}
-          />
         </div>
       )}
     </>

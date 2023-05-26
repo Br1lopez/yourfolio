@@ -1,20 +1,16 @@
-import { useEffect } from "react";
+import { useContext } from "react";
 import "./App.scss";
 import { PortfolioCreator } from "./modules/portfolioCreator/PortfolioCreator";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserRegister } from "./modules/user/components/userRegistration/UserRegister";
 import { UserLogin } from "./modules/user/components/userLogin/UserLogin";
-import axios from "axios";
 import Home from "./modules/home/Home";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  PortfolioContext,
-  usePortfolioContext,
-} from "./hooks/PortfolioContext";
+import { PortfolioContext } from "./hooks/PortfolioContext";
+import { ModalWindow } from "./components/modals/ModalWindow";
 
 const ROUTES = [
   {
-    path: "/portfolio/:portfolioId",
+    path: "/portfolio/:portfolioId/edit",
     component: <PortfolioCreator />,
   },
   {
@@ -31,25 +27,18 @@ const ROUTES = [
   },
 ];
 
-const queryClient = new QueryClient();
-
 function App() {
-  useEffect(() => {
-    document.title = "YOURFOLIO";
-    axios.defaults.withCredentials = true;
-  }, []);
+  const { modalWindowData } = useContext(PortfolioContext);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <PortfolioContext.Provider value={usePortfolioContext()}>
-        <BrowserRouter>
-          <Routes>
-            {ROUTES.map((route, i) => (
-              <Route path={route.path} key={i} element={route.component} />
-            ))}
-          </Routes>
-        </BrowserRouter>
-      </PortfolioContext.Provider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <ModalWindow modalProperties={modalWindowData} />
+      <Routes>
+        {ROUTES.map((route, i) => (
+          <Route path={route.path} key={i} element={route.component} />
+        ))}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
