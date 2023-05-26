@@ -11,9 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -77,8 +75,23 @@ public class ElementService {
     }
 
     public ElementDTO createElement(ElementSaveDTO elementDTO, Integer parentId, String userEmail) {
-        boolean hasFiles = elementDTO.getFiles() != null && !elementDTO.getFiles().isEmpty();
+        return saveElement(elementDTO, null, parentId, userEmail);
+    }
+
+    public ElementDTO saveElement(ElementSaveDTO elementDTO, Integer elementId, Integer parentId, String userEmail) {
+        // Creamos la entidad a guardar a partir del DTO
         ElementEntity elementToSave = elementMapper.toEntity(elementDTO);
+
+        //Si la id no es nula, vamos a actualizar (seteando el id de la entidad).
+        if (elementId != null)
+        {
+            elementToSave.setId(elementId);
+            ElementEntity existingElement = elementRepository.findById(elementId).orElseThrow(() -> new RuntimeException("Element not found"));
+            elementToSave.setElements(existingElement.getElements());
+        };
+
+        boolean hasFiles = elementDTO.getFiles() != null && !elementDTO.getFiles().isEmpty();
+
 
         // TIPO:
         ElementTypeEntity elementTypeToSave = ElementTypeEntity.builder()
@@ -94,7 +107,10 @@ public class ElementService {
         Set<FileEntity> filesToSave = new HashSet<>();
         if (hasFiles) {
             elementDTO.getFiles().forEach(fileDTO ->
-                    filesToSave.add(fileRepository.save(fileMapper.toEntity(fileDTO))));
+                    filesToSave.add(
+                            fileDTO.getId() == null ?
+                                    fileRepository.save(fileMapper.toEntity(fileDTO))
+                                    : fileMapper.toEntity(fileDTO)));
         }
         elementToSave.setFiles(filesToSave);
 
@@ -102,14 +118,15 @@ public class ElementService {
         ElementEntity response = elementRepository.save(elementToSave);
 
         // ESTILO:
+        /*
         StyleEntity styleToSave = elementDTO.getStyle() == null ?
                 StyleEntity.builder().portfolio(response).bgColor("#e4e7eb").fontColor("black").build()
                 : styleMapper.toEntity(elementDTO.getStyle());
-
-        styleRepository.save(styleToSave);
+        styleRepository.save(styleToSave);*/
 
         // TABLAS N:M
-        if (parentId != null) {
+        if (parentId != null &&
+                elementRelationshipRepository.findByParentIdAndChildId(parentId, response.getId()) == null) {
             elementRelationshipRepository.save(
                     ElementRelationshipEntity.builder()
                             .parentId(parentId)
@@ -118,12 +135,16 @@ public class ElementService {
                             .build());
         }
 
-        elementToSave.getFiles().forEach(savedFile ->
+        elementToSave.getFiles().forEach(savedFile -> {
+            if (elementFileRepository.findByFileIdAndElementId(savedFile.getId(), response.getId()) == null) {
+
                 elementFileRepository.save(
                         ElementFileEntity.builder()
                                 .elementId(response.getId())
                                 .fileId(savedFile.getId())
-                                .build()));
+                                .build());
+            }
+        });
 
         response.setType(elementTypeRepository.getReferenceById(elementTypeToSave.getId()));
 
@@ -131,12 +152,7 @@ public class ElementService {
     }
 
     public ElementDTO updateElement(ElementSaveDTO elementDTO, Integer elementId) {
-        ElementEntity currentEntity = elementRepository.getReferenceById(elementId);
-        ElementEntity entityToSave = elementMapper.toEntity(elementDTO);
-        entityToSave.setId(elementId);
-        entityToSave.setElements(currentEntity.getElements());
-
-        return elementMapper.toDto(elementRepository.save(entityToSave));
+        return saveElement(elementDTO, elementId, null, null);
     }
 
     public StyleDTO updateElementStyle(StyleDTO styleDto, Integer elementId) {

@@ -1,6 +1,5 @@
 package com.yourfolio.yourfolio.controllers;
 
-import com.yourfolio.yourfolio.dbentities.ElementEntity;
 import com.yourfolio.yourfolio.dtos.ElementDTO;
 import com.yourfolio.yourfolio.dtos.ElementSaveDTO;
 import com.yourfolio.yourfolio.dtos.StyleDTO;

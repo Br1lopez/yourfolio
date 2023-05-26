@@ -48,7 +48,7 @@ public class ElementEntity {
 
     private Set<FileEntity> files = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "portfolio", orphanRemoval = true)
+    @OneToOne(mappedBy = "portfolio", orphanRemoval = true, cascade = CascadeType.ALL)
     private StyleEntity style;
 
     @ManyToOne

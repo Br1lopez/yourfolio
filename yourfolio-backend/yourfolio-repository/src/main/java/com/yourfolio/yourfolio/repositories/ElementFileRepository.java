@@ -12,6 +12,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ElementFileRepository extends JpaRepository<ElementFileEntity, ElementFileEntityId> {
-
+    ElementFileEntity findByFileIdAndElementId(Integer fileId, Integer elementId);
 
 }
