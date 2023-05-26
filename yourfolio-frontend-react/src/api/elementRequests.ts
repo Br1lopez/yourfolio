@@ -52,7 +52,13 @@ export const updateElementStyle = async (
   try {
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}/style`,
-      style
+      style,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
     return response.data;
   } catch (error) {

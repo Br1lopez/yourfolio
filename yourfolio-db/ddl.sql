@@ -61,10 +61,10 @@ CREATE TABLE element_children (
 
 CREATE TABLE style(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	bg_color VARCHAR(32),
-	font_color VARCHAR(32),
+	bg_color VARCHAR(32) default "black",
+	font_color VARCHAR(32) default "white",
 	portfolio_id INT,
-	font_family VARCHAR(64),
+	font_family VARCHAR(64) default "Montserrat",
    FOREIGN KEY (portfolio_id) REFERENCES element(id)
 );
 

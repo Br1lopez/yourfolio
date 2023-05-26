@@ -7,6 +7,7 @@ import {
   usePortfolioContext,
 } from "./hooks/PortfolioContext";
 import App from "./App";
+import { API_BASE_URL } from "./globals";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,8 @@ function AppWrapper() {
   useEffect(() => {
     document.title = "YOURFOLIO";
     axios.defaults.withCredentials = true;
+    // axios.defaults.headers.common['Content-Type'] = 'application/json';
+    // axios.defaults.baseURL = API_BASE_URL;
   }, []);
   return (
     <QueryClientProvider client={queryClient}>

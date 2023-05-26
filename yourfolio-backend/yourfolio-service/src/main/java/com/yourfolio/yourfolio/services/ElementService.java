@@ -83,12 +83,12 @@ public class ElementService {
         ElementEntity elementToSave = elementMapper.toEntity(elementDTO);
 
         //Si la id no es nula, vamos a actualizar (seteando el id de la entidad).
-        if (elementId != null)
-        {
+        if (elementId != null) {
             elementToSave.setId(elementId);
             ElementEntity existingElement = elementRepository.findById(elementId).orElseThrow(() -> new RuntimeException("Element not found"));
             elementToSave.setElements(existingElement.getElements());
-        };
+        }
+        ;
 
         boolean hasFiles = elementDTO.getFiles() != null && !elementDTO.getFiles().isEmpty();
 
@@ -118,64 +118,70 @@ public class ElementService {
         ElementEntity response = elementRepository.save(elementToSave);
 
         // ESTILO:
-        /*
-        StyleEntity styleToSave = elementDTO.getStyle() == null ?
-                StyleEntity.builder().portfolio(response).bgColor("#e4e7eb").fontColor("black").build()
-                : styleMapper.toEntity(elementDTO.getStyle());
-        styleRepository.save(styleToSave);*/
 
-        // TABLAS N:M
-        if (parentId != null &&
-                elementRelationshipRepository.findByParentIdAndChildId(parentId, response.getId()) == null) {
-            elementRelationshipRepository.save(
-                    ElementRelationshipEntity.builder()
-                            .parentId(parentId)
-                            .childId(response.getId())
-                            .position((int) elementRelationshipRepository.countByParentId(parentId) + 1)
+        if (elementDTO.getStyle() == null) {
+            styleRepository.save(
+                    StyleEntity
+                            .builder()
+                            .portfolio(response)
+                            .bgColor("#e4e7eb")
+                            .fontColor("black")
+                            .fontFamily("Montserrat")
                             .build());
         }
 
-        elementToSave.getFiles().forEach(savedFile -> {
-            if (elementFileRepository.findByFileIdAndElementId(savedFile.getId(), response.getId()) == null) {
-
-                elementFileRepository.save(
-                        ElementFileEntity.builder()
-                                .elementId(response.getId())
-                                .fileId(savedFile.getId())
+            // TABLAS N:M
+            if (parentId != null &&
+                    elementRelationshipRepository.findByParentIdAndChildId(parentId, response.getId()) == null) {
+                elementRelationshipRepository.save(
+                        ElementRelationshipEntity.builder()
+                                .parentId(parentId)
+                                .childId(response.getId())
+                                .position((int) elementRelationshipRepository.countByParentId(parentId) + 1)
                                 .build());
             }
-        });
 
-        response.setType(elementTypeRepository.getReferenceById(elementTypeToSave.getId()));
+            elementToSave.getFiles().forEach(savedFile -> {
+                if (elementFileRepository.findByFileIdAndElementId(savedFile.getId(), response.getId()) == null) {
 
-        return elementMapper.toDto(response);
-    }
+                    elementFileRepository.save(
+                            ElementFileEntity.builder()
+                                    .elementId(response.getId())
+                                    .fileId(savedFile.getId())
+                                    .build());
+                }
+            });
 
-    public ElementDTO updateElement(ElementSaveDTO elementDTO, Integer elementId) {
-        return saveElement(elementDTO, elementId, null, null);
-    }
+            response.setType(elementTypeRepository.getReferenceById(elementTypeToSave.getId()));
 
-    public StyleDTO updateElementStyle(StyleDTO styleDto, Integer elementId) {
-        int styleId = styleRepository.findByPortfolio_Id(elementId).getId();
-        StyleEntity styleEntitytoSave = styleMapper.toEntity(styleDto);
-        styleEntitytoSave.setId(styleId);
-        styleEntitytoSave.setPortfolio(ElementEntity.builder().id(elementId).build());
-        return styleMapper.toDto(styleRepository.save(styleEntitytoSave));
-    }
-
-    public void deleteElement(Integer elementId) {
-        for (ElementRelationshipEntity relationship : elementRelationshipRepository.findByChildId(elementId)) {
-            elementRelationshipRepository.delete(relationship);
+            return elementMapper.toDto(response);
         }
-        elementRepository.deleteById(elementId);
+
+        public ElementDTO updateElement (ElementSaveDTO elementDTO, Integer elementId){
+            return saveElement(elementDTO, elementId, null, null);
+        }
+
+        public StyleDTO updateElementStyle (StyleDTO styleDto, Integer elementId){
+            int styleId = styleRepository.findByPortfolio_Id(elementId).getId();
+            StyleEntity styleEntitytoSave = styleMapper.toEntity(styleDto);
+            styleEntitytoSave.setId(styleId);
+            styleEntitytoSave.setPortfolio(ElementEntity.builder().id(elementId).build());
+            return styleMapper.toDto(styleRepository.save(styleEntitytoSave));
+        }
+
+        public void deleteElement (Integer elementId){
+            for (ElementRelationshipEntity relationship : elementRelationshipRepository.findByChildId(elementId)) {
+                elementRelationshipRepository.delete(relationship);
+            }
+            elementRepository.deleteById(elementId);
+        }
+
+        public void removeChild (Integer parentId, Integer childId){
+            elementRelationshipRepository.deleteById(ElementRelationshipEntityId.builder()
+                    .parentId(parentId)
+                    .childId(childId)
+                    .build());
+        }
+
+
     }
-
-    public void removeChild(Integer parentId, Integer childId) {
-        elementRelationshipRepository.deleteById(ElementRelationshipEntityId.builder()
-                .parentId(parentId)
-                .childId(childId)
-                .build());
-    }
-
-
-}
