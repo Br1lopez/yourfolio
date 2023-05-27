@@ -36,6 +36,10 @@
         &__brand,
         &__collapseButton {
             color: var(--font-color) !important;
+
+            &.active {
+                font-weight: bold;
+            }
         }
 
         &__tabLink {

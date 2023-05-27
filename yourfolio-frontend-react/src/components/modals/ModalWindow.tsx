@@ -52,6 +52,7 @@ export const ModalWindow = (props: ModalWindowProps) => {
     styleData.value
   );
 
+
   const handleSubmit = (event: any) => {
     console.log("form", modalProperties.value.values);
     if (formRef.current.check()) {

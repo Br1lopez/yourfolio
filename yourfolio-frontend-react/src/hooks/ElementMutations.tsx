@@ -14,8 +14,6 @@ import {
   ModalType,
   NULL_MODAL_WINDOW_DATA,
 } from "src/types/portfolioContextTypes";
-import { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const useCreateElementMutation = (
   elementSaveDto: ElementSaveDTO,
@@ -25,7 +23,6 @@ export const useCreateElementMutation = (
     useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: () => createElement(elementSaveDto, parentId),
     onSuccess: (response) => {

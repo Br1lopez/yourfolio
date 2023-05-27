@@ -13,7 +13,7 @@ interface NavBarProps {
 
 export const NavBar = (props: NavBarProps) => {
   const { portfolio } = props;
-  const { modalWindowData, editMode } = useContext(PortfolioContext);
+  const { modalWindowData, editMode, activeElementId } = useContext(PortfolioContext);
   const [activeTab, setActiveTab] = useState<number | null>(null);
   const [dropdownClick, setDropdownClick] = useState(false);
 
@@ -43,7 +43,8 @@ export const NavBar = (props: NavBarProps) => {
       className={dropdownClick ? "navbar" : "navbar dropdown"}
     >
       <div className="navbar__content">
-        <div className="navbar__content__brand">
+        <div className="navbar__content__brand"
+          onClick={() => { activeElementId.set(portfolio.elements.find((e) => e.home)?.id || -1) }}>
           {portfolio.name}
         </div>
 

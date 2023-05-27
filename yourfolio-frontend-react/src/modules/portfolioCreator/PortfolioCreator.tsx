@@ -1,5 +1,5 @@
 import { NavBar } from "./components/navBar/NavBar";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getElement } from "src/api/elementRequests";
 import React, { useContext, useEffect, useState } from "react";
 import { ActiveComponent } from "./components/activeComponent/ActiveComponent";
@@ -24,7 +24,6 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
   const [navHeight, setNavHeight] = useState<string>("55px");
   const { portfolioId } = useParams();
 
-
   const portfolioQuery = useQuery({
     queryKey: ["getPortfolio"],
     queryFn: () => getElement(parseInt(portfolioId || "-1")),
@@ -45,7 +44,6 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
 
   useEffect(() => {
     pushWelcomeNotification(toaster);
-
     //eslint-disable-next-line
   }, []);
 

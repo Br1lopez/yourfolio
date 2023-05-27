@@ -45,7 +45,7 @@ const Tab = (props: TabProps) => {
       open={open}
       speaker={
         <Popover>
-          <div className="action-buttons-container">
+          <div>
             <span className="action-button">
               <FaEdit onClick={handleEditClick} />
             </span>
@@ -57,13 +57,13 @@ const Tab = (props: TabProps) => {
       }
     >
       <div
-        className="navbar__content__tabLink"
+        className={activeElementId.value === element.id ? "navbar__content__tabLink active" : "navbar__content__tabLink"}
         id={`navbar__tabLink_${element.id}`}
         onClick={handleClick}
       >
         {element.name}
       </div>
-    </Whisper>
+    </Whisper >
   );
 };
 
