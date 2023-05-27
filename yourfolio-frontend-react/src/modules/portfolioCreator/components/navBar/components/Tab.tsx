@@ -45,7 +45,7 @@ const Tab = (props: TabProps) => {
       open={open}
       speaker={
         <Popover>
-          <div>
+          <div className="action-buttons-container">
             <span className="action-button">
               <FaEdit onClick={handleEditClick} />
             </span>
