@@ -16,19 +16,22 @@ const Textarea = React.forwardRef((props, ref: any) => (
 export const ElementTitleInput = (props: {
   modalState: State<ModalWindowData>;
 }) => {
+  const [changed, setChanged] = useState<boolean>(false);
   return (
     <Form.Group controlId="newElementTitle">
       <Form.ControlLabel>Nombre: </Form.ControlLabel>
       <Form.Control
         name="name"
         value={props.modalState.value.values?.name}
-        onChange={(v: any, e: any) =>
+        onChange={(v: any, e: any) => {
           props.modalState.set({
             ...props.modalState.value,
             values: { ...props.modalState.value.values, name: v },
-          })
+          });
+          setChanged(true);
         }
-        rule={requiredInput}
+        }
+        rule={changed ? requiredInput : undefined}
       />
     </Form.Group>
   );
