@@ -23,6 +23,7 @@ export interface PortfolioCtxData {
   activeElementId: State<number | null>;
   modalWindowData: State<ModalWindowData>;
   styleData: State<StyleDTO | null>;
+  editMode: State<boolean>;
   toaster?: any;
 }
 

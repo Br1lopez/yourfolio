@@ -10,15 +10,22 @@ import { PortfolioStyle } from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
 import { pushWelcomeNotification } from "src/components/notifications/InfoNotification";
 import { useParams } from "react-router-dom";
+import { get } from "lodash";
+import { getUserInfo } from "src/api/authenticatedUserRequests";
 
-export const PortfolioCreator = () => {
-  const { styleData, activeElementId, toaster } =
+export interface PortfolioCreatorProps {
+  editMode?: boolean;
+}
+
+export const PortfolioCreator = (props: PortfolioCreatorProps) => {
+  const { styleData, activeElementId, toaster, editMode } =
     useContext(PortfolioContext);
   //eslint-disable-next-line
   const [navHeight, setNavHeight] = useState<string>("55px");
   const { portfolioId } = useParams();
 
-  const query = useQuery({
+
+  const portfolioQuery = useQuery({
     queryKey: ["getPortfolio"],
     queryFn: () => getElement(parseInt(portfolioId || "-1")),
     onSuccess: (response) => {
@@ -27,28 +34,35 @@ export const PortfolioCreator = () => {
     },
   });
 
+  const userQuery = useQuery({
+    queryKey: ["getUserInfo"],
+    queryFn: () => getUserInfo(),
+    onSuccess: (response) => {
+      editMode.set((props.editMode || false) && response.id === portfolioQuery.data?.data.user.id);
+    },
+    enabled: !!portfolioQuery.data
+  });
+
   useEffect(() => {
     pushWelcomeNotification(toaster);
+
     //eslint-disable-next-line
   }, []);
 
   return (
     <>
-      {query.data && (
+      {portfolioQuery.data && (
         <div className="root apply-font">
           <PortfolioStyle style={styleData.value || undefined} />
-          <InterfaceBar portfolioId={parseInt(portfolioId || "-1")} />
+          {editMode.value && <InterfaceBar portfolioId={parseInt(portfolioId || "-1")} />}
           <div className="portfolio">
-            <NavBar portfolio={query.data.data} height={navHeight} />
-            {query.data.data.elements.length > 0 &&
-
-
-
+            <NavBar portfolio={portfolioQuery.data.data} height={navHeight} />
+            {portfolioQuery.data.data.elements.length > 0 &&
               (
                 <ActiveComponent
                   element={getElementByIdRecursive(
-                    activeElementId.value || query.data.data.elements.find((e) => e.home)?.id || -1,
-                    query.data.data
+                    activeElementId.value || portfolioQuery.data.data.elements.find((e) => e.home)?.id || -1,
+                    portfolioQuery.data.data
                   )}
                   height={`calc(100vh - ${navHeight}`}
                 />

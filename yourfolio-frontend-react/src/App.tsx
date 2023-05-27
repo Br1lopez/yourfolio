@@ -19,7 +19,11 @@ const ROUTES = [
   },
   {
     path: "/portfolio/:portfolioId/edit",
-    component: <PortfolioCreator />,
+    component: <PortfolioCreator editMode={true} />,
+  },
+  {
+    path: "/portfolio/:portfolioId",
+    component: <PortfolioCreator editMode={false} />,
   },
   {
     path: "/register",

@@ -35,6 +35,7 @@ export const getUserInfo = async (): Promise<UserDTO> => {
   }
 };
 
+//todo: cambiar al tipo ApiResponse
 export const loginUser = async (
   loginData: LoginRequestData
 ): Promise<LoginResponseDTO> => {

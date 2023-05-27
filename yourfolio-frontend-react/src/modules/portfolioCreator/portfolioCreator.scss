@@ -4,6 +4,6 @@
     display: flex;
 
     & .portfolio {
-        width: calc(100vw - $sidebar-width);
+        width: 100vw;
     }
 }

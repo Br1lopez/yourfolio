@@ -13,7 +13,7 @@ interface ArtworkGalleryProps {
 
 export const ArtworkGallery = (props: ArtworkGalleryProps) => {
   const data = props.galleryData;
-  const { modalWindowData } = useContext(PortfolioContext);
+  const { modalWindowData, editMode } = useContext(PortfolioContext);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -34,18 +34,19 @@ export const ArtworkGallery = (props: ArtworkGalleryProps) => {
                 key={`artworkContainer_${i}`}
               />
             ))}
-          <div
-            className="artwork-gallery__add-container"
-            onClick={() => {
-              modalWindowData.set({
-                parentId: data.id,
-                modalType: ModalType.CreateElement,
-                values: EMPTY_ELEMENT_SAVE_DTO,
-              });
-            }}
-          >
-            <FaPlus className="artwork-gallery__add-container__icon" />
-          </div>
+          {editMode.value && (
+            <div
+              className="artwork-gallery__add-container"
+              onClick={() => {
+                modalWindowData.set({
+                  parentId: data.id,
+                  modalType: ModalType.CreateElement,
+                  values: EMPTY_ELEMENT_SAVE_DTO,
+                });
+              }}
+            >
+              <FaPlus className="artwork-gallery__add-container__icon" />
+            </div>)}
         </div>
       </section>
     );

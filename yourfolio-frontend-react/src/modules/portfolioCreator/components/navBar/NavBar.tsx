@@ -15,7 +15,7 @@ interface NavBarProps {
 
 export const NavBar = (props: NavBarProps) => {
   const { portfolio, height } = props;
-  const { modalWindowData } = useContext(PortfolioContext);
+  const { modalWindowData, editMode } = useContext(PortfolioContext);
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
   useEffect(() => {
@@ -68,20 +68,22 @@ export const NavBar = (props: NavBarProps) => {
                 ></Tab>
               );
             })}
-          <Nav.Link
-            href="#"
-            className="navbar__addTabButton"
-            onClick={() => {
-              modalWindowData.set({
-                ...modalWindowData.value,
-                parentId: portfolio.id,
-                elementId: 0,
-                modalType: ModalType.CreateElement,
-              });
-            }}
-          >
-            <FaPlusCircle />
-          </Nav.Link>
+
+          {editMode.value && (
+            <Nav.Link
+              href="#"
+              className="navbar__addTabButton"
+              onClick={() => {
+                modalWindowData.set({
+                  ...modalWindowData.value,
+                  parentId: portfolio.id,
+                  elementId: 0,
+                  modalType: ModalType.CreateElement,
+                });
+              }}
+            >
+              <FaPlusCircle />
+            </Nav.Link>)}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
