@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { ModalContentProps, ModalWindowProps } from '../ModalWindow';
+import React, { useRef } from 'react'
+import { ModalContentProps } from '../ModalWindow';
 import { Button, ButtonToolbar, Form, Modal } from 'rsuite';
 import { ModalType } from 'src/types/portfolioContextTypes';
 import { CustomElementInputs, ElementTitleInput, ElementTypeInput } from '../inputs/ElementInputs';

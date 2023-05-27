@@ -44,7 +44,9 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
   });
 
   useEffect(() => {
-    modalWindowData.set({ ...modalWindowData.value, modalType: ModalType.Intro });
+    if (localStorage.getItem("instructionsShown") !== "true") {
+      modalWindowData.set({ ...modalWindowData.value, modalType: ModalType.Intro });
+    }
     // pushWelcomeNotification(toaster);
     //eslint-disable-next-line
   }, []);

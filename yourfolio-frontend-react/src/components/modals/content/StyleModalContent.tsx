@@ -1,8 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import { ModalContentProps } from '../ModalWindow';
 import { Button, ButtonToolbar, Form, Modal } from 'rsuite';
-import { ModalType } from 'src/types/portfolioContextTypes';
-import { CustomElementInputs, ElementTitleInput, ElementTypeInput } from '../inputs/ElementInputs';
 import { useEditElementStyleMutation } from 'src/hooks/ElementMutations';
 import { PortfolioContext } from 'src/hooks/PortfolioContext';
 import { useQueryClient } from '@tanstack/react-query';
