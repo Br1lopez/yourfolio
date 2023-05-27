@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Popover, Whisper } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
-import { Nav } from "react-bootstrap";
 import "./tab.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
@@ -57,14 +56,13 @@ const Tab = (props: TabProps) => {
         </Popover>
       }
     >
-      <Nav.Link
-        className="navbar__tabLink"
-        href="#"
+      <div
+        className="navbar__content__tabLink"
         id={`navbar__tabLink_${element.id}`}
         onClick={handleClick}
       >
         {element.name}
-      </Nav.Link>
+      </div>
     </Whisper>
   );
 };

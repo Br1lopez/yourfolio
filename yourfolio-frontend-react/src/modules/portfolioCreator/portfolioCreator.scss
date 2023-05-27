@@ -4,6 +4,9 @@
     display: flex;
 
     & .portfolio {
-        width: 100vw;
+        flex: auto;
+        width: 2px;
+        display: flex;
+        flex-direction: column;
     }
 }

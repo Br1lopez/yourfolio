@@ -1,16 +1,16 @@
 import React from "react";
 import { ArtworkGallery } from "../artworkGallery/ArtworkGallery";
 import { ElementDTO } from "src/types/dtoTypes";
+import "./activeComponent.scss";
 
 interface ActiveComponentProps {
   element: ElementDTO | null;
-  height?: string;
 }
 
 export const ActiveComponent = (props: ActiveComponentProps) => {
-  const { element, height } = props;
+  const { element } = props;
   return (
-    <div className="active-component" style={{ height }}>
+    <div className="active-component">
       {getElement(element)}
     </div>
   );

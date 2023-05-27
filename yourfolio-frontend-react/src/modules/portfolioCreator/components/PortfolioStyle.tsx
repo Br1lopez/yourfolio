@@ -4,6 +4,7 @@ import { StyleDTO } from "src/types/dtoTypes";
 
 export interface PortfolioStyleProps {
   style?: StyleDTO;
+  navbarHeight?: string;
 }
 
 function hexToRgba(hex: string, alpha: number): string {
@@ -49,6 +50,7 @@ export const PortfolioStyle = (props: PortfolioStyleProps) => {
 
   useEffect(() => {
     if (props.style) {
+      setStyle("--navbar-height", props.navbarHeight || "55px");
       setStyle("--bg-color", props.style.bgColor || "black");
       setStyle(
         "--bg-color-light",

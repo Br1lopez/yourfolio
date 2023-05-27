@@ -8,56 +8,117 @@
     transition: 0.05s;
     box-shadow: $default-shadow;
     text-shadow: $default-text-shadow;
+    transition: 0.05s;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    height: var(--navbar-height);
 
-    &-nav {
-        @include for-desktop {
+    @include for-mobile {
+        padding-right: 0;
+        align-items: start;
+        height: auto;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex: auto;
+        transition: $quick-transition;
+
+        @include for-mobile {
+            flex-direction: column;
             align-items: center;
         }
-    }
 
-    &__tabLink,
-    &__brand,
-    &__collapseButton {
-        color: var(--font-color) !important;
-    }
+        &__tabLink,
+        &__brand,
+        &__collapseButton {
+            color: var(--font-color) !important;
+        }
 
-    &__tabLink {
-        font-size: 1.2em;
+        &__tabLink {
+            font-size: 1.2em;
+            height: min-content;
+            padding: 0 12px;
+            cursor: pointer;
+            user-select: none;
+            transition: $quick-transition;
+            vertical-align: middle;
 
-        &.active,
-        &:hover {
-            font-weight: bold;
-            text-decoration: none;
+            @include for-mobile {
+                display: flex;
+                height: var(--navbar-height);
+                align-items: center;
+            }
+
+            &.active,
+            &:hover {
+                font-weight: bold;
+                text-decoration: none;
+            }
+        }
+
+        &__brand {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-right: 20px;
+            text-transform: uppercase;
+            margin-right: auto;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        & .navbar-toggler-icon {
+            // background-image: none;
+            // TODO enlazar un svg local al que se le cambie el color
+        }
+
+        &__addTabButton {
+            justify-self: flex-end;
+            padding: 0;
+            margin-top: 5px;
+            margin-left: 4px;
+
+
+            & svg {
+                border-color: rgba(0, 0, 0, 0);
+                background-color: rgba(0, 0, 0, 0);
+                font-size: 1.8em;
+                vertical-align: center;
+                color: var(--font-color);
+                margin-bottom: 3px;
+            }
         }
     }
 
-    &__brand {
-        font-size: 1.5em;
-        font-weight: 600;
-        margin-right: 20px;
-        text-transform: uppercase;
-    }
+    &__dropdownIcon {
+        @include for-desktop {
+            display: none;
+        }
 
-    & .navbar-toggler-icon {
-        // background-image: none;
-        // TODO enlazar un svg local al que se le cambie el color
-    }
-
-    &__addTabButton {
-        justify-self: flex-end;
+        margin-left: 10px;
+        margin-right: 10px;
         padding: 0;
-        margin-top: 5px;
-        margin-left: 4px;
-
-
-        & svg {
-            border-color: rgba(0, 0, 0, 0);
-            background-color: rgba(0, 0, 0, 0);
-            font-size: 1.8em;
-            vertical-align: center;
-            color: var(--font-color);
-            margin-bottom: 3px;
-        }
+        font-size: 1.5em;
+        cursor: pointer;
+        user-select: none;
     }
 
+}
+
+.dropdown .navbar {
+    &__content {
+
+        &__tabLink,
+        &__collapseButton,
+        &__addTabButton {
+            @include for-mobile {
+                height: 0;
+                opacity: 0;
+            }
+
+        }
+    }
 }

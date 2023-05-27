@@ -53,10 +53,10 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     <>
       {portfolioQuery.data && (
         <div className="root apply-font">
-          <PortfolioStyle style={styleData.value || undefined} />
+          <PortfolioStyle style={styleData.value || undefined} navbarHeight={navHeight} />
           {editMode.value && <InterfaceBar portfolioId={parseInt(portfolioId || "-1")} />}
           <div className="portfolio">
-            <NavBar portfolio={portfolioQuery.data.data} height={navHeight} />
+            <NavBar portfolio={portfolioQuery.data.data} />
             {portfolioQuery.data.data.elements.length > 0 &&
               (
                 <ActiveComponent
@@ -64,7 +64,6 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
                     activeElementId.value || portfolioQuery.data.data.elements.find((e) => e.home)?.id || -1,
                     portfolioQuery.data.data
                   )}
-                  height={`calc(100vh - ${navHeight}`}
                 />
               )}
           </div>
