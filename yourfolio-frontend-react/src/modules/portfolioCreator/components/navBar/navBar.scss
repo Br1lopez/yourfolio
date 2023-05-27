@@ -52,6 +52,10 @@
             transition: $quick-transition;
             vertical-align: middle;
 
+            &.hidden {
+                opacity: 0.5;
+            }
+
             @include for-mobile {
                 display: flex;
                 height: var(--navbar-height);

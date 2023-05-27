@@ -50,6 +50,7 @@ export const NavBar = (props: NavBarProps) => {
 
         {portfolio.elements
           .sort((a: any, b: any) => a.position - b.position)
+          .filter((e: any) => editMode.value || !e.hidden)
           .map((tab, index) => {
             return (
               <Tab

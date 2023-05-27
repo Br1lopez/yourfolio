@@ -57,7 +57,9 @@ const Tab = (props: TabProps) => {
       }
     >
       <div
-        className={activeElementId.value === element.id ? "navbar__content__tabLink active" : "navbar__content__tabLink"}
+        className={`navbar__content__tabLink 
+        ${activeElementId.value === element.id ? "active" : ""} 
+        ${element.hidden ? "hidden" : ""}`}
         id={`navbar__tabLink_${element.id}`}
         onClick={handleClick}
       >
