@@ -43,36 +43,35 @@ function App() {
   const { modalWindowData } = useContext(PortfolioContext);
   const navigate = useNavigate();
 
-  const queryClient = new QueryClient(
-    {
-      defaultOptions: {
-        mutations: {
-          onSettled:
-            (data, error, variables, context) => {
-              if (error && (error as AxiosError).response) {
-                switch ((error as AxiosError).response?.status) {
-                  case 401:
-                    navigate("/login");
-                    break;
-                }
+  const queryClient = useQueryClient();
 
-                modalWindowData.set(NULL_MODAL_WINDOW_DATA);
+  queryClient.setDefaultOptions(
+    {
+      mutations: {
+        onSettled:
+          (data, error, variables, context) => {
+            if (error && (error as AxiosError).response) {
+              switch ((error as AxiosError).response?.status) {
+                case 401:
+                  navigate("/login");
+                  break;
               }
+
+              modalWindowData.set(NULL_MODAL_WINDOW_DATA);
             }
-        },
-      }
-    }
-  );
+          }
+      },
+    });
+
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <ModalWindow modalProperties={modalWindowData} />
       <Routes>
         {ROUTES.map((route, i) => (
           <Route path={route.path} key={i} element={route.component} />
         ))}
-      </Routes>
-    </QueryClientProvider>
+      </Routes></>
   );
 }
 

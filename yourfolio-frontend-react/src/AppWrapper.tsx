@@ -7,10 +7,11 @@ import {
 } from "./hooks/PortfolioContext";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
 
-
+const queryClient = new QueryClient();
 
 function AppWrapper() {
 
@@ -23,11 +24,13 @@ function AppWrapper() {
     // axios.defaults.baseURL = API_BASE_URL;
   }, []);
   return (
-    <PortfolioContext.Provider value={usePortfolioContext()}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </PortfolioContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <PortfolioContext.Provider value={usePortfolioContext()}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PortfolioContext.Provider>
+    </QueryClientProvider>
   );
 }
 
