@@ -16,14 +16,6 @@ export const InterfaceBar = (props: InterfaceBarProps) => {
   const { modalWindowData } = useContext(PortfolioContext);
   const navigate = useNavigate();
 
-  const handleStyleClick = (e: any) => {
-    e.preventDefault();
-    modalWindowData.set({
-      ...modalWindowData.value,
-      elementId: props.portfolioId,
-      modalType: ModalType.SetSyle,
-    });
-  };
 
   return (
     <div className="i-bar">
@@ -32,8 +24,21 @@ export const InterfaceBar = (props: InterfaceBarProps) => {
         // style={{ width: "30px", height: "30px", color: "white" }}
         onClick={() => navigate("/home")}
       />
-      <FaPaintBrush className="i-bar__icon" onClick={handleStyleClick} />
-      <MdOutlineHelp className="i-bar__icon" />
+      <FaPaintBrush className="i-bar__icon" onClick={() => {
+        modalWindowData.set({
+          ...modalWindowData.value,
+          elementId: props.portfolioId,
+          modalType: ModalType.SetSyle,
+        });
+      }} />
+      <MdOutlineHelp className="i-bar__icon"
+        onClick={() => {
+          modalWindowData.set({
+            ...modalWindowData.value,
+            modalType: ModalType.Intro,
+          });
+        }}
+      />
     </div>
   );
 };
