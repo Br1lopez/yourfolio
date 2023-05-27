@@ -1,5 +1,5 @@
 import { NavBar } from "./components/navBar/NavBar";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getElement } from "src/api/elementRequests";
 import React, { useContext, useEffect, useState } from "react";
 import { ActiveComponent } from "./components/activeComponent/ActiveComponent";
@@ -8,17 +8,16 @@ import { InterfaceBar } from "./components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import { PortfolioStyle } from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";
-import { pushWelcomeNotification } from "src/components/notifications/InfoNotification";
 import { useParams } from "react-router-dom";
-import { get } from "lodash";
 import { getUserInfo } from "src/api/authenticatedUserRequests";
+import { ModalType } from "src/types/portfolioContextTypes";
 
 export interface PortfolioCreatorProps {
   editMode?: boolean;
 }
 
 export const PortfolioCreator = (props: PortfolioCreatorProps) => {
-  const { styleData, activeElementId, toaster, editMode } =
+  const { styleData, activeElementId, modalWindowData, editMode } =
     useContext(PortfolioContext);
   //eslint-disable-next-line
   const [navHeight, setNavHeight] = useState<string>("55px");
@@ -44,7 +43,8 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
   });
 
   useEffect(() => {
-    pushWelcomeNotification(toaster);
+    modalWindowData.set({ ...modalWindowData.value, modalType: ModalType.Intro });
+    // pushWelcomeNotification(toaster);
     //eslint-disable-next-line
   }, []);
 

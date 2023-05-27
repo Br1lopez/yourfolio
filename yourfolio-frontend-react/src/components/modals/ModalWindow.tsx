@@ -23,6 +23,9 @@ import {
 import { EMPTY_ELEMENT_SAVE_DTO } from "src/types/dtoTypes";
 import { ColorInputs, FontPickerComponent } from "./inputs/StyleInputs";
 import { useQueryClient } from "@tanstack/react-query";
+import { FaEdit, FaPaintBrush, FaPlusCircle, FaTrashAlt } from "react-icons/fa";
+import { AiFillHome } from "react-icons/ai";
+import { MdOutlineHelp } from "react-icons/md";
 
 export interface ModalWindowProps {
   modalProperties: State<ModalWindowData>;
@@ -92,6 +95,20 @@ export const ModalWindow = (props: ModalWindowProps) => {
     }
   };
 
+
+  const modalHeader = () => {
+    switch (modalProperties?.value?.modalType) {
+      case ModalType.Intro:
+        return <Modal.Header closeButton>
+          <Modal.Title>BIENVENIDO AL CREADOR DE PORTFOLIOS</Modal.Title>
+        </Modal.Header>
+      default:
+        return <Modal.Header closeButton>
+          <Modal.Title>{title()}</Modal.Title>
+        </Modal.Header>
+    }
+  }
+
   const modalBody = () => {
     switch (modalProperties?.value?.modalType) {
       case ModalType.CreateElement:
@@ -136,8 +153,53 @@ export const ModalWindow = (props: ModalWindowProps) => {
             </Modal.Body>
           );
         }
+      case ModalType.Intro:
+        return (
+          <Modal.Body className="info">
+            <p style={{ marginTop: "24px" }}>Así es como puedes comenzar a crear tu portfolio:</p>
+            <h4>1. Barra de navegación superior:</h4>
+            <p >{'\u2022'} Haz clic en el botón <FaPlusCircle /> para crear una nueva página de tu portfolio.</p>
+            <p >{'\u2022'} Haz <b style={{ color: "black" }}>clic derecho sobre su nombre</b> para editarla o borrarla.</p>
+
+            <h4>2. Elementos:</h4>
+            <p >{'\u2022'} Haz clic en <FaPlusCircle /> para añadir un elemento.</p>
+            <p >{'\u2022'} Haz clic en <FaEdit /> o <FaTrashAlt /> para editarlo o borrarlo.</p>
+
+            <h4>3. Menú lateral:</h4>
+            <p >{'\u2022'} <AiFillHome />: accede a tu página principal. Ahí podrás ver todos tus portfolios.</p>
+            <p >{'\u2022'} <FaPaintBrush />: edita el estilo de este portfolio.</p>
+            <p >{'\u2022'} <MdOutlineHelp />: vuelve a consultar estas instrucciones.</p>
+
+          </Modal.Body>
+        );
+
     }
   };
+
+  const modalFooter = () => {
+    switch (modalProperties?.value?.modalType) {
+      case ModalType.Intro:
+        return <Modal.Footer>
+          <ButtonToolbar>
+            <Button appearance="primary" onClick={() => { setOpen(false); localStorage.setItem("instructionsShown", "true") }}>
+              Entendido
+            </Button>
+          </ButtonToolbar>
+        </Modal.Footer>
+      default:
+        return <Modal.Footer>
+          <ButtonToolbar>
+            <Button appearance="default" onClick={handleCancel}>
+              Cancelar
+            </Button>
+            <Button appearance="primary" type="submit">
+              {title()}
+            </Button>
+          </ButtonToolbar>
+        </Modal.Footer>
+    }
+  }
+
 
   useEffect(() => {
     if (modalProperties.value.modalType !== ModalType.Hide) {
@@ -160,21 +222,10 @@ export const ModalWindow = (props: ModalWindowProps) => {
       }
       backdrop="static"
     >
-      <Modal.Header closeButton>
-        <Modal.Title>{title()}</Modal.Title>
-      </Modal.Header>
+      {modalProperties.value && modalHeader()}
       <Form onSubmit={handleSubmit} ref={formRef} className="modal-window-form">
         {modalProperties.value && modalBody()}
-        <Modal.Footer>
-          <ButtonToolbar>
-            <Button appearance="default" onClick={handleCancel}>
-              Cancelar
-            </Button>
-            <Button appearance="primary" type="submit">
-              {title()}
-            </Button>
-          </ButtonToolbar>
-        </Modal.Footer>
+        {modalProperties.value && modalFooter()}
       </Form>
     </Modal>
   );

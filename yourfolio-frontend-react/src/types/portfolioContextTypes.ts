@@ -17,6 +17,7 @@ export enum ModalType {
   EditElement,
   DeleteElement,
   SetSyle,
+  Intro,
 }
 
 export interface PortfolioCtxData {
