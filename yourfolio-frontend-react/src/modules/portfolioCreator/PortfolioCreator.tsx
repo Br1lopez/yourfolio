@@ -23,6 +23,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
   const [navHeight, setNavHeight] = useState<string>("55px");
   const { portfolioId } = useParams();
 
+
   const portfolioQuery = useQuery({
     queryKey: ["getPortfolio"],
     queryFn: () => getElement(parseInt(portfolioId || "-1")),

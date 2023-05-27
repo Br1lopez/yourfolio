@@ -26,180 +26,23 @@ import { useQueryClient } from "@tanstack/react-query";
 import { FaEdit, FaPaintBrush, FaPlusCircle, FaTrashAlt } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { MdOutlineHelp } from "react-icons/md";
+import { ElementModalContent } from "./content/ElementModalContent";
+import { StyleModalContent } from "./content/StyleModalContent";
+import { IntroModalContent } from "./content/IntroModalContent";
 
 export interface ModalWindowProps {
   modalProperties: State<ModalWindowData>;
 }
 
+export interface ModalContentProps {
+  modalProperties: State<ModalWindowData>;
+  open: State<boolean>;
+}
+
+
 export const ModalWindow = (props: ModalWindowProps) => {
-  const { modalWindowData, styleData } = useContext(PortfolioContext);
   const { modalProperties } = props;
   const [open, setOpen] = useState<boolean>(false);
-
-  const formRef = useRef<any>(null);
-
-  const queryClient = useQueryClient();
-
-  const createElement = useCreateElementMutation(
-    modalProperties?.value?.values || EMPTY_ELEMENT_SAVE_DTO,
-    modalProperties?.value?.parentId
-  );
-
-  const editElement = useEditElementMutation(
-    modalProperties.value.elementId || -1,
-    modalProperties.value.values
-  );
-
-  const editStyle = useEditElementStyleMutation(
-    modalProperties.value.elementId || -1,
-    styleData.value
-  );
-
-
-  const handleSubmit = (event: any) => {
-    console.log("form", modalProperties.value.values);
-    if (formRef.current.check()) {
-      switch (modalProperties.value.modalType) {
-        case ModalType.CreateElement:
-          createElement.mutate();
-          break;
-        case ModalType.EditElement:
-          editElement.mutate();
-          break;
-        case ModalType.SetSyle:
-          editStyle.mutate();
-          break;
-      }
-    } else {
-      console.log(formRef.current.check());
-    }
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-    switch (modalProperties.value.modalType) {
-      case ModalType.SetSyle:
-        queryClient.invalidateQueries(["getPortfolio"]);
-        break;
-    }
-  };
-
-  const title = () => {
-    switch (modalProperties?.value?.modalType) {
-      case ModalType.CreateElement:
-        return "Nuevo elemento";
-      case ModalType.EditElement:
-        return "Editar elemento";
-      case ModalType.SetSyle:
-        return "Editar estilo";
-    }
-  };
-
-
-  const modalHeader = () => {
-    switch (modalProperties?.value?.modalType) {
-      case ModalType.Intro:
-        return <Modal.Header closeButton>
-          <Modal.Title>BIENVENIDO AL CREADOR DE PORTFOLIOS</Modal.Title>
-        </Modal.Header>
-      default:
-        return <Modal.Header closeButton>
-          <Modal.Title>{title()}</Modal.Title>
-        </Modal.Header>
-    }
-  }
-
-  const modalBody = () => {
-    switch (modalProperties?.value?.modalType) {
-      case ModalType.CreateElement:
-        return (
-          <Modal.Body>
-            <ElementTitleInput modalState={modalProperties} />
-            {modalProperties?.value.parentId && (
-              <ElementTypeInput modalState={modalProperties} />
-            )}
-            <CustomElementInputs modalState={modalProperties} />
-          </Modal.Body>
-        );
-      case ModalType.EditElement:
-        return (
-          <Modal.Body>
-            <ElementTitleInput modalState={modalProperties} />
-            {modalProperties?.value.parentId && (
-              <ElementTypeInput disabled={true} modalState={modalProperties} />
-            )}
-            <CustomElementInputs modalState={modalProperties} />
-          </Modal.Body>
-        );
-
-      case ModalType.SetSyle:
-        if (styleData.value) {
-          return (
-            <Modal.Body
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "20px",
-              }}
-            >
-              <ColorInputs
-                state={{ value: styleData.value, set: styleData.set }}
-              />
-              {/* <BgColorInput state={{ value: styleData.value, set: styleData.set }} />
-            <FontColorInput state={{ value: styleData.value, set: styleData.set }} /> */}
-              <FontPickerComponent
-                state={{ value: styleData.value, set: styleData.set }}
-              />
-            </Modal.Body>
-          );
-        }
-      case ModalType.Intro:
-        return (
-          <Modal.Body className="info">
-            <p style={{ marginTop: "24px" }}>Así es como puedes comenzar a crear tu portfolio:</p>
-            <h4>1. Barra de navegación superior:</h4>
-            <p >{'\u2022'} Haz clic en el botón <FaPlusCircle /> para crear una nueva página de tu portfolio.</p>
-            <p >{'\u2022'} Haz <b style={{ color: "black" }}>clic derecho sobre su nombre</b> para editarla o borrarla.</p>
-
-            <h4>2. Elementos:</h4>
-            <p >{'\u2022'} Haz clic en <FaPlusCircle /> para añadir un elemento.</p>
-            <p >{'\u2022'} Haz clic en <FaEdit /> o <FaTrashAlt /> para editarlo o borrarlo.</p>
-
-            <h4>3. Menú lateral:</h4>
-            <p >{'\u2022'} <AiFillHome />: accede a tu página principal. Ahí podrás ver todos tus portfolios.</p>
-            <p >{'\u2022'} <FaPaintBrush />: edita el estilo de este portfolio.</p>
-            <p >{'\u2022'} <MdOutlineHelp />: vuelve a consultar estas instrucciones.</p>
-
-          </Modal.Body>
-        );
-
-    }
-  };
-
-  const modalFooter = () => {
-    switch (modalProperties?.value?.modalType) {
-      case ModalType.Intro:
-        return <Modal.Footer>
-          <ButtonToolbar>
-            <Button appearance="primary" onClick={() => { setOpen(false); localStorage.setItem("instructionsShown", "true") }}>
-              Entendido
-            </Button>
-          </ButtonToolbar>
-        </Modal.Footer>
-      default:
-        return <Modal.Footer>
-          <ButtonToolbar>
-            <Button appearance="default" onClick={handleCancel}>
-              Cancelar
-            </Button>
-            <Button appearance="primary" type="submit">
-              {title()}
-            </Button>
-          </ButtonToolbar>
-        </Modal.Footer>
-    }
-  }
-
 
   useEffect(() => {
     if (modalProperties.value.modalType !== ModalType.Hide) {
@@ -209,24 +52,32 @@ export const ModalWindow = (props: ModalWindowProps) => {
     }
   }, [modalProperties.value.modalType]);
 
+  const modalContent = () => {
+    switch (modalProperties.value.modalType) {
+      case ModalType.CreateElement:
+      case ModalType.EditElement:
+        return <ElementModalContent modalProperties={modalProperties} open={{ value: open, set: setOpen }} />;
+      case ModalType.SetSyle:
+        return <StyleModalContent modalProperties={modalProperties} open={{ value: open, set: setOpen }} />;
+      case ModalType.Intro:
+        return <IntroModalContent modalProperties={modalProperties} open={{ value: open, set: setOpen }} />;
+    }
+  };
+
   return (
     <Modal
       id="newTab"
       open={open}
       onClose={() => setOpen(false)}
       onExited={() =>
-        modalWindowData.set({
+        modalProperties.set({
           ...NULL_MODAL_WINDOW_DATA,
           modalType: ModalType.Hide,
         })
       }
       backdrop="static"
     >
-      {modalProperties.value && modalHeader()}
-      <Form onSubmit={handleSubmit} ref={formRef} className="modal-window-form">
-        {modalProperties.value && modalBody()}
-        {modalProperties.value && modalFooter()}
-      </Form>
+      {modalContent()}
     </Modal>
   );
 };
