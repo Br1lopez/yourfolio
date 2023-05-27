@@ -25,7 +25,6 @@ export const useCreateElementMutation = (
     useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: () => createElement(elementSaveDto, parentId),
@@ -40,14 +39,6 @@ export const useCreateElementMutation = (
       queryClient.invalidateQueries(["getPortfolio"]);
       queryClient.invalidateQueries(["getPortfolios"]);
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
-    },
-
-    onSettled: (data, error, variables, context) => {
-      switch ((error as AxiosError).response?.status) {
-        case 401:
-          navigate("/login");
-          break;
-      }
     }
   });
 };
