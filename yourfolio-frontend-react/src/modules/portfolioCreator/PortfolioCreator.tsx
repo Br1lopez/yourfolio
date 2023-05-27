@@ -30,6 +30,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     onSuccess: (response) => {
       styleData.set(response.data.style);
       applyFont(response.data.style?.fontFamily || "Open Sans");
+      activeElementId.set(response.data.elements.find((e) => e.home)?.id || -1);
     },
   });
 
@@ -59,7 +60,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
               (
                 <ActiveComponent
                   element={getElementByIdRecursive(
-                    activeElementId.value || portfolioQuery.data.data.elements.find((e) => e.home)?.id || -1,
+                    activeElementId.value || -1,
                     portfolioQuery.data.data
                   )}
                 />
