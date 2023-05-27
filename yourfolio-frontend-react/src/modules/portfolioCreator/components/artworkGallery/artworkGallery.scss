@@ -9,7 +9,7 @@
 
     & .artworks-parent {
         @include flex-column;
-        overflow: scroll;
+        overflow-y: scroll;
     }
 
     &__add-container {
