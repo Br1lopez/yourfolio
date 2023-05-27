@@ -12,7 +12,7 @@ interface ArtworkContainerProps {
 }
 export const ArtworkContainer = (props: ArtworkContainerProps) => {
   const { artworkData } = props;
-  const { modalWindowData } = useContext(PortfolioContext);
+  const { modalWindowData, editMode } = useContext(PortfolioContext);
   const deleteElement = useDeleteElementMutation(artworkData.id);
   return (
     <div className="artwork-parent" >
@@ -41,7 +41,9 @@ export const ArtworkContainer = (props: ArtworkContainerProps) => {
           </div>
           <div className="artwork__text-parent__bg"></div>
         </div>
-      </article><div className="edit-footer">
+      </article>
+
+      {editMode.value && <div className="edit-footer">
 
         <span className="action-button">
           <FaEdit onClick={() => {
@@ -56,7 +58,7 @@ export const ArtworkContainer = (props: ArtworkContainerProps) => {
           <FaTrashAlt onClick={() => { deleteElement.mutate(); }} />
         </span>
 
-      </div>
+      </div>}
     </div>
   );
 };
