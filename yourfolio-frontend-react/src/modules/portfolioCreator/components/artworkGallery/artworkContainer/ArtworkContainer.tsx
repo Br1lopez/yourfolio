@@ -35,6 +35,7 @@ export const ArtworkContainer = (props: ArtworkContainerProps) => {
                 <p
                   className="artwork__text-parent__text__paragraph"
                   dangerouslySetInnerHTML={{ __html: paragraph }}
+                  key={i}
                 />
               );
             })}

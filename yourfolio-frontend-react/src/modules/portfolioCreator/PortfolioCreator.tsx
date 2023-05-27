@@ -40,7 +40,7 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     queryKey: ["getUserInfo"],
     queryFn: () => getUserInfo(),
     onSuccess: (response) => {
-      editMode.set((props.editMode || false) && response.data.id === portfolioQuery.data?.data.user.id);
+      editMode.set((props.editMode || false) && response.data?.id === portfolioQuery.data?.data.user?.id);
     },
     enabled: !!portfolioQuery.data
   });
