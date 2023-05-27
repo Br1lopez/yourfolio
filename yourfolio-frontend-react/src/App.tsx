@@ -1,17 +1,16 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import "./App.scss";
 import { PortfolioCreator } from "./modules/portfolioCreator/PortfolioCreator";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { UserRegister } from "./modules/user/components/userRegistration/UserRegister";
 import { UserLogin } from "./modules/user/components/userLogin/UserLogin";
 import Home from "./modules/home/Home";
 import { PortfolioContext } from "./hooks/PortfolioContext";
 import { ModalWindow } from "./components/modals/ModalWindow";
 import LandingPage from "./modules/landingPage/LandingPage";
-import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
-import { AxiosError, AxiosResponse } from "axios";
+import { useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { NULL_MODAL_WINDOW_DATA } from "./types/portfolioContextTypes";
-import { ApiResponse } from "./types/apiTypes";
 
 const ROUTES = [
   {
@@ -40,6 +39,7 @@ const ROUTES = [
   },
 ];
 
+//TODO: implemetar loader
 function App() {
   const { modalWindowData } = useContext(PortfolioContext);
   const navigate = useNavigate();

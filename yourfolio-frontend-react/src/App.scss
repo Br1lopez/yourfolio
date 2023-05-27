@@ -14,3 +14,12 @@
 button {
     box-shadow: $default-second-shadow;
 }
+
+.rs-loader-backdrop {
+    z-index: 1;
+}
+
+.rs-loader-content {
+    font-family: $title-font;
+    color: rgba(#272727, 0.7);
+}
