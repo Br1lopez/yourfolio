@@ -26,6 +26,7 @@
         align-items: center;
         flex: auto;
         transition: $quick-transition;
+        margin-top: 2px;
 
         @include for-mobile {
             flex-direction: column;
@@ -45,7 +46,7 @@
         &__tabLink {
             font-size: 1.2em;
             height: min-content;
-            padding: 0 12px;
+            padding: 0 8px;
             cursor: pointer;
             user-select: none;
             transition: $quick-transition;
@@ -82,9 +83,14 @@
         &__addTabButton {
             justify-self: flex-end;
             padding: 0;
-            margin-top: 5px;
-            margin-left: 4px;
+            margin-left: 8px;
+            cursor: pointer;
 
+            @include for-mobile {
+                display: flex;
+                height: var(--navbar-height);
+                align-items: center;
+            }
 
             & svg {
                 border-color: rgba(0, 0, 0, 0);
@@ -93,6 +99,12 @@
                 vertical-align: center;
                 color: var(--font-color);
                 margin-bottom: 3px;
+
+                @include for-mobile {
+                    font-size: 2.2em;
+                    margin: 0;
+
+                }
             }
         }
     }
