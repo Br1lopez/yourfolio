@@ -4,7 +4,7 @@ import { getElement } from "src/api/elementRequests";
 import React, { useContext, useEffect, useState } from "react";
 import { ActiveComponent } from "./components/activeComponent/ActiveComponent";
 import { PortfolioContext } from "../../hooks/PortfolioContext";
-import { InterfaceBar } from "./components/interfaceBar/InterfaceBar";
+import { InterfaceBar } from "../../components/interfaceBar/InterfaceBar";
 import "./portfolioCreator.scss";
 import { PortfolioStyle } from "./components/PortfolioStyle";
 import { applyFont, getElementByIdRecursive } from "src/utils/functions";

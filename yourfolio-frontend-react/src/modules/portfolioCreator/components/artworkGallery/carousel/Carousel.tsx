@@ -66,14 +66,14 @@ const Carousel = (props: CarouselProps) => {
       if (
         bottom <
         (imagesRef.current?.offsetHeight || 0) -
-          (containerRef.current?.offsetHeight || 0) -
-          CAROUSEL_MOVEMENT()
+        (containerRef.current?.offsetHeight || 0) -
+        CAROUSEL_MOVEMENT()
       ) {
         setBottom(bottom + CAROUSEL_MOVEMENT());
       } else {
         setBottom(
           (imagesRef.current?.offsetHeight || 0) -
-            (containerRef.current?.offsetHeight || 0)
+          (containerRef.current?.offsetHeight || 0)
         );
         setEndReached(true);
       }
@@ -104,6 +104,7 @@ const Carousel = (props: CarouselProps) => {
             <Link
               duration={500}
               delay={0}
+              offset={-250}
               smooth={true}
               spy={true}
               to={`img_${element.position}`}

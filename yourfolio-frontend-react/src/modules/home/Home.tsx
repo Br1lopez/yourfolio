@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { getPortfolios, getUserInfo } from "src/api/authenticatedUserRequests";
-import { HomeSidebar } from "./components/homeSideBar/HomeSideBar";
 import "./home.scss";
 import { FaPlus } from "react-icons/fa";
 import { PortfolioContext } from "src/hooks/PortfolioContext";
 import { ModalType } from "src/types/portfolioContextTypes";
 import { EMPTY_ELEMENT_SAVE_DTO } from "src/types/dtoTypes";
 import { useNavigate } from "react-router-dom";
+import { InterfaceBar } from "../../components/interfaceBar/InterfaceBar";
 
 const Home = () => {
   const { modalWindowData } = useContext(PortfolioContext);
@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <div className="yourfolio-root">
-      <HomeSidebar></HomeSidebar>
+      <InterfaceBar />
       <div className="yourfolio-home__content">
         <h1 className="yourfolio-home__content__title welcome">
           Bienvenido, {userQuery.data?.name}.
