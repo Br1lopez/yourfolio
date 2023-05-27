@@ -21,9 +21,9 @@ export const PortfolioCreator = () => {
   const query = useQuery({
     queryKey: ["getPortfolio"],
     queryFn: () => getElement(parseInt(portfolioId || "-1")),
-    onSuccess: (data) => {
-      styleData.set(data.style);
-      applyFont(data.style?.fontFamily || "Open Sans");
+    onSuccess: (response) => {
+      styleData.set(response.data.style);
+      applyFont(response.data.style?.fontFamily || "Open Sans");
     },
   });
 
@@ -39,16 +39,16 @@ export const PortfolioCreator = () => {
           <PortfolioStyle style={styleData.value || undefined} />
           <InterfaceBar portfolioId={parseInt(portfolioId || "-1")} />
           <div className="portfolio">
-            <NavBar portfolio={query.data} height={navHeight} />
-            {query.data.elements.length > 0 &&
+            <NavBar portfolio={query.data.data} height={navHeight} />
+            {query.data.data.elements.length > 0 &&
 
 
 
               (
                 <ActiveComponent
                   element={getElementByIdRecursive(
-                    activeElementId.value || query.data.elements.find((e) => e.home)?.id || -1,
-                    query.data
+                    activeElementId.value || query.data.data.elements.find((e) => e.home)?.id || -1,
+                    query.data.data
                   )}
                   height={`calc(100vh - ${navHeight}`}
                 />

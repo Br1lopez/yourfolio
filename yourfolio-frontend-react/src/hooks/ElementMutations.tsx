@@ -14,6 +14,8 @@ import {
   ModalType,
   NULL_MODAL_WINDOW_DATA,
 } from "src/types/portfolioContextTypes";
+import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const useCreateElementMutation = (
   elementSaveDto: ElementSaveDTO,
@@ -23,21 +25,30 @@ export const useCreateElementMutation = (
     useContext(PortfolioContext);
 
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: () => createElement(elementSaveDto, parentId),
-    onSuccess: (data) => {
+    onSuccess: (response) => {
+      console.log("response", response.status);
       pushCloudNotification(
         toaster,
         elementSaveDto.name,
         ModalType.CreateElement,
-        data.type
+        response.data.type
       );
       queryClient.invalidateQueries(["getPortfolio"]);
       queryClient.invalidateQueries(["getPortfolios"]);
-
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
     },
+
+    onSettled: (data, error, variables, context) => {
+      switch ((error as AxiosError).response?.status) {
+        case 401:
+          navigate("/login");
+          break;
+      }
+    }
   });
 };
 
@@ -52,12 +63,12 @@ export const useEditElementMutation = (
 
   return useMutation({
     mutationFn: () => updateElement(elementId, elementSaveDto),
-    onSuccess: (data) => {
+    onSuccess: (response) => {
       pushCloudNotification(
         toaster,
         elementSaveDto.name,
         ModalType.EditElement,
-        data.type
+        response.data.type
       );
       queryClient.invalidateQueries(["getPortfolio"]);
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
@@ -76,7 +87,7 @@ export const useEditElementStyleMutation = (
 
   return useMutation({
     mutationFn: () => updateElementStyle(elementId, styleDto),
-    onSuccess: (data) => {
+    onSuccess: (response) => {
       pushCloudNotification(toaster, "", ModalType.SetSyle);
       queryClient.invalidateQueries(["getPortfolio"]);
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
@@ -91,13 +102,13 @@ export const useDeleteElementMutation = (elementId: number) => {
 
   return useMutation({
     mutationFn: () => deleteElement(elementId),
-    onSuccess: (data) => {
+    onSuccess: (response) => {
       queryClient.invalidateQueries(["getPortfolio"]);
       pushCloudNotification(
         toaster,
-        data?.name || "",
+        response?.data?.name || "",
         ModalType.DeleteElement,
-        data?.type
+        response?.data?.type
       );
     },
   });

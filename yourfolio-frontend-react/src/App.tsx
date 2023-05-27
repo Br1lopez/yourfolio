@@ -8,6 +8,7 @@ import Home from "./modules/home/Home";
 import { PortfolioContext } from "./hooks/PortfolioContext";
 import { ModalWindow } from "./components/modals/ModalWindow";
 import LandingPage from "./modules/landingPage/LandingPage";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ROUTES = [
   {
@@ -34,7 +35,6 @@ const ROUTES = [
 
 function App() {
   const { modalWindowData } = useContext(PortfolioContext);
-
   return (
     <BrowserRouter>
       <ModalWindow modalProperties={modalWindowData} />

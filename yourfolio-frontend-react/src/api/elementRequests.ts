@@ -1,13 +1,14 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { API_BASE_URL } from "../globals";
 import { ElementDTO, ElementSaveDTO, StyleDTO } from "../types/dtoTypes";
+import { ApiResponse } from "src/types/apiTypes";
 
-export const getElement = async (elementId: number): Promise<ElementDTO> => {
+export const getElement = async (elementId: number): Promise<ApiResponse<ElementDTO>> => {
   try {
     const response = await axios.get<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}`
     );
-    return response.data;
+    return { data: response.data, status: response.status };
   } catch (err) {
     throw new Error("error");
   }
@@ -16,39 +17,39 @@ export const getElement = async (elementId: number): Promise<ElementDTO> => {
 export const createElement = async (
   body: ElementSaveDTO,
   parentId?: number
-): Promise<ElementDTO> => {
+): Promise<ApiResponse<ElementDTO>> => {
   try {
     const response = await axios.post<ElementDTO>(
       `${API_BASE_URL}/elements/${parentId || ""}`,
       body
     );
     console.log(response.data);
-    return response.data;
+    return { data: response.data, status: response.status };
   } catch (error) {
-    throw new Error("error");
+    throw error as AxiosError;
   }
 };
 
 export const updateElement = async (
   elementId: number,
   body: ElementSaveDTO
-): Promise<ElementDTO> => {
+): Promise<ApiResponse<ElementDTO>> => {
   try {
     console.log(elementId, body);
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}`,
       body
     );
-    return response.data;
+    return { data: response.data, status: response.status };
   } catch (error) {
-    throw new Error("error");
+    throw new Error("error", error as AxiosError);
   }
 };
 
 export const updateElementStyle = async (
   elementId: number,
   style: StyleDTO | null
-): Promise<ElementDTO> => {
+): Promise<ApiResponse<ElementDTO>> => {
   try {
     const response = await axios.put<ElementDTO>(
       `${API_BASE_URL}/elements/${elementId}/style`,
@@ -60,7 +61,7 @@ export const updateElementStyle = async (
         },
       }
     );
-    return response.data;
+    return { data: response.data, status: response.status };
   } catch (error) {
     throw new Error("error");
   }
@@ -68,7 +69,7 @@ export const updateElementStyle = async (
 
 export const deleteElement = async (
   elementId: number
-): Promise<ElementDTO | null> => {
+): Promise<ApiResponse<ElementDTO> | null> => {
   try {
     const response = await axios
       .delete<ElementDTO>(`${API_BASE_URL}/elements/${elementId}`)
@@ -76,7 +77,7 @@ export const deleteElement = async (
         console.log(error);
       });
 
-    return response instanceof Object ? response.data : null;
+    return response instanceof Object ? { data: response.data, status: response.status } : null;
   } catch (error) {
     throw new Error("error");
   }

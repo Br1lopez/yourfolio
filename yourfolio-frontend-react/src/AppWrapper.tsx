@@ -1,17 +1,36 @@
 import { useEffect } from "react";
 import "./App.scss";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   PortfolioContext,
   usePortfolioContext,
 } from "./hooks/PortfolioContext";
 import App from "./App";
-import { API_BASE_URL } from "./globals";
+import { useNavigate } from "react-router-dom";
 
-const queryClient = new QueryClient();
+
+
 
 function AppWrapper() {
+
+  const queryClient = new QueryClient(
+    // {
+    //   defaultOptions: {
+    //     mutations: {
+    //       onSettled:
+    //         (data, error, variables, context) => {
+    //           switch ((error as AxiosError).response?.status) {
+    //             case 401:
+    //               navigate("/login");
+    //               break;
+    //           }
+    //         }
+    //     },
+    //   }
+    // }
+  );
+
   useEffect(() => {
     document.title = "YOURFOLIO";
     axios.defaults.withCredentials = true;

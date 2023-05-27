@@ -45,7 +45,7 @@ export const ElementTypeInput = (props: {
     queryFn: () => getElement(props.modalState.value.parentId || -1),
     onSuccess: (data) => {
       setPossibleChildren(
-        (props.modalState.value.parentId && data.type.possibleChildren) || []
+        (props.modalState.value.parentId && data.data.type.possibleChildren) || []
       );
     },
   });
