@@ -23,9 +23,9 @@ export const UserLogin = () => {
     console.log("Form data:", formData);
     if (formRef.current.check()) {
       loginUser(formData).then((result) => {
-        if (result.success) {
+        if (result.data.success) {
           const cookies = new Cookies();
-          cookies.set("JSESSIONID", result.token, { path: "/" });
+          cookies.set("JSESSIONID", result.data.token, { path: "/" });
           navigate("/home");
         } else {
           alert("Error al iniciar sesión");

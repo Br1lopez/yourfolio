@@ -9,8 +9,9 @@ import { PortfolioContext } from "./hooks/PortfolioContext";
 import { ModalWindow } from "./components/modals/ModalWindow";
 import LandingPage from "./modules/landingPage/LandingPage";
 import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { NULL_MODAL_WINDOW_DATA } from "./types/portfolioContextTypes";
+import { ApiResponse } from "./types/apiTypes";
 
 const ROUTES = [
   {
@@ -47,20 +48,20 @@ function App() {
 
   queryClient.setDefaultOptions(
     {
-      mutations: {
-        onSettled:
-          (data, error, variables, context) => {
-            if (error && (error as AxiosError).response) {
-              switch ((error as AxiosError).response?.status) {
-                case 401:
-                  navigate("/login");
-                  break;
-              }
-
-              modalWindowData.set(NULL_MODAL_WINDOW_DATA);
+      queries: {
+        onError: (error) => {
+          if ((error && (error as AxiosError))) {
+            const status: number = (error as AxiosError)?.response?.status || -1;
+            switch (status) {
+              case 401:
+              case 403:
+                navigate("/login");
+                break;
             }
+            modalWindowData.set(NULL_MODAL_WINDOW_DATA);
           }
-      },
+        }
+      }
     });
 
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -169,7 +170,12 @@ public class ElementService {
         }
 
         public ElementDTO updateElement (ElementSaveDTO elementDTO, Integer elementId){
-            int parentId = elementRelationshipRepository.findByChildId(elementId).get(0).getParentId();
+            List<ElementRelationshipEntity> elementRelationshipEntities =
+                    elementRelationshipRepository.findByChildId(elementId);
+            Integer parentId = null;
+            if (elementRelationshipEntities != null && elementRelationshipEntities.size() > 0){
+                parentId = elementRelationshipEntities.get(0).getParentId();
+            }
             return saveElement(elementDTO, elementId, parentId, null);
         }
 

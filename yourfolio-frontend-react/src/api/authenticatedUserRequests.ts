@@ -1,44 +1,47 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { API_BASE_URL } from "src/globals";
+import { ApiResponse } from "src/types/apiTypes";
 import { ElementDTO, LoginResponseDTO } from "src/types/dtoTypes";
 import { LoginRequestData, UserDTO, UserSaveDTO } from "src/types/dtoTypes";
 
-export const registerUser = async (body: UserSaveDTO): Promise<UserDTO> => {
+export const registerUser = async (body: UserSaveDTO): Promise<ApiResponse<UserDTO>> => {
   try {
     const response = await axios.post<UserDTO>(
       `${API_BASE_URL}/user/register`,
       body
     );
-    return response.data;
+    return { data: response.data, status: response.status };
+
   } catch (error) {
-    throw new Error("error");
+    throw error as AxiosError;
   }
 };
 
-export const getPortfolios = async (): Promise<ElementDTO[]> => {
+export const getPortfolios = async (): Promise<ApiResponse<ElementDTO[]>> => {
   try {
     const response = await axios.get<ElementDTO[]>(
       `${API_BASE_URL}/user/portfolios`
     );
-    return response.data;
-  } catch (err) {
-    throw new Error("error");
+    return { data: response.data, status: response.status };
+
+  } catch (error) {
+    throw error as AxiosError;
   }
 };
 
-export const getUserInfo = async (): Promise<UserDTO> => {
+export const getUserInfo = async (): Promise<ApiResponse<UserDTO>> => {
   try {
     const response = await axios.get<UserDTO>(`${API_BASE_URL}/user/info`);
-    return response.data;
-  } catch (err) {
-    throw new Error("error");
+    return { data: response.data, status: response.status };
+
+  } catch (error) {
+    throw error as AxiosError;
   }
 };
 
-//todo: cambiar al tipo ApiResponse
 export const loginUser = async (
   loginData: LoginRequestData
-): Promise<LoginResponseDTO> => {
+): Promise<ApiResponse<LoginResponseDTO>> => {
   try {
     const response = await axios.post<LoginResponseDTO>(
       `${API_BASE_URL}/login`,
@@ -50,9 +53,9 @@ export const loginUser = async (
         },
       }
     );
-    return response.data;
+    return { data: response.data, status: response.status };
+
   } catch (error) {
-    console.error(error);
-    throw new Error("Failed to authenticate user");
+    throw error as AxiosError;
   }
 };
