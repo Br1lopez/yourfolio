@@ -30,7 +30,9 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     onSuccess: (response) => {
       styleData.set(response.data.style);
       applyFont(response.data.style?.fontFamily || "Open Sans");
-      activeElementId.set(response.data.elements.find((e) => e.home)?.id || -1);
+      if (!activeElementId.value || activeElementId.value < 0) {
+        activeElementId.set(response.data.elements.find((e) => e.home)?.id || -1);
+      }
     },
   });
 

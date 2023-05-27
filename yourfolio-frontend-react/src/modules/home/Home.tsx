@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { getPortfolios, getUserInfo } from "src/api/authenticatedUserRequests";
 import "./home.scss";
 import { FaPlus, } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { InterfaceBar } from "../../components/interfaceBar/InterfaceBar";
 import { PortfolioThumbnail } from "./components/PortfolioThumbnail";
 
 const Home = () => {
-  const { modalWindowData } = useContext(PortfolioContext);
+  const { modalWindowData, editMode } = useContext(PortfolioContext);
 
   const userQuery = useQuery({
     queryKey: ["getUserInfo"],
@@ -21,6 +21,10 @@ const Home = () => {
     queryKey: ["getPortfolios"],
     queryFn: () => getPortfolios(),
   });
+
+  useEffect(() => {
+    editMode.set(true);
+  }, [editMode]);
 
   return (
     <div className="yourfolio-root">
@@ -35,7 +39,7 @@ const Home = () => {
         </h1>
         <div className="yourfolio-home__content__portfolios">
           {portfoliosQuery.data?.data.map((portfolio) => (
-            <PortfolioThumbnail portfolio={portfolio} />
+            <PortfolioThumbnail portfolio={portfolio} key={portfolio.id} />
           ))}
           <div
             className="yourfolio-home__content__portfolios__add-portfolio"
