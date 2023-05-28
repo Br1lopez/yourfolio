@@ -17,6 +17,7 @@ public class ElementSaveDTO implements Serializable {
     private final FileDTO thumbnailFile;
     private List<FileDTO> files;
     private final StyleDTO style;
+    private final UserDTO user;
     private boolean home;
     private boolean hidden;
 }

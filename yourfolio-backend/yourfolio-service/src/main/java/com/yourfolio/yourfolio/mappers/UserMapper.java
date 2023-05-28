@@ -14,6 +14,8 @@ public interface UserMapper {
     @Mapping(source="password", target="password", qualifiedByName = "encryptPassword")
     UserEntity toEntity(UserSaveDTO saveDto);
 
+    UserEntity toEntity(UserDTO userDto);
+
     UserDTO toDto(UserEntity entity);
 
     @Named("encryptPassword")

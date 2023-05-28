@@ -34,6 +34,7 @@ export interface ElementSaveDTO {
   style?: StyleDTO;
   hidden?: boolean;
   home?: boolean;
+  user?: UserDTO;
 }
 
 export const EMPTY_ELEMENT_SAVE_DTO: ElementSaveDTO = {
@@ -94,5 +95,6 @@ export function mapElementDtoToElementSaveDto(
     style: elementDto.style,
     hidden: elementDto.hidden,
     home: elementDto.home,
+    user: elementDto.user,
   };
 }

@@ -59,6 +59,7 @@ export const useEditElementMutation = (
         response.data.type
       );
       queryClient.invalidateQueries(["getPortfolio"]);
+      queryClient.invalidateQueries(["getPortfolios"]);
       activeModalData.set(NULL_MODAL_WINDOW_DATA);
     },
   });
@@ -92,6 +93,7 @@ export const useDeleteElementMutation = (elementId: number) => {
     mutationFn: () => deleteElement(elementId),
     onSuccess: (response) => {
       queryClient.invalidateQueries(["getPortfolio"]);
+      queryClient.invalidateQueries(["getPortfolios"]);
       pushCloudNotification(
         toaster,
         response?.data?.name || "",
