@@ -41,7 +41,6 @@
         <dependency>
             <groupId>com.yourfolio</groupId>
             <artifactId>yourfolio-api</artifactId>
-
         </dependency>
         <dependency>
             <groupId>com.yourfolio</groupId>
@@ -51,7 +50,6 @@
         <dependency>
             <groupId>com.yourfolio</groupId>
             <artifactId>yourfolio-repository</artifactId>
-
         </dependency>
     </dependencies>
 </project>
