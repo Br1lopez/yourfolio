@@ -6,18 +6,19 @@
     <parent>
         <groupId>com.yourfolio</groupId>
         <artifactId>yourfolio</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
+
 
     </parent>
 
     <artifactId>yourfolio-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
+
 
     <dependencies>
         <dependency>
             <groupId>com.yourfolio</groupId>
             <artifactId>yourfolio-repository</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
