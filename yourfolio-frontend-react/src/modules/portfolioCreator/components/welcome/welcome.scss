@@ -1,0 +1,38 @@
+@import 'src/vars.scss';
+
+.welcome {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & img {
+        width: calc(100% - var(--sidebar-width));
+        height: calc(100% - var(--navbar-height));
+        position: absolute;
+        object-fit: cover;
+    }
+
+    &__title {
+        margin-top: 150px;
+        margin-bottom: 40px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 4em;
+        position: relative;
+        color: black;
+        z-index: 1000;
+        text-shadow: $default-title-shadow;
+    }
+
+    &__description {
+        font-size: 1.5em;
+        position: relative;
+        color: black;
+        z-index: 1000;
+        // font-weight: bold;
+        text-shadow: $default-text-shadow;
+    }
+
+}
