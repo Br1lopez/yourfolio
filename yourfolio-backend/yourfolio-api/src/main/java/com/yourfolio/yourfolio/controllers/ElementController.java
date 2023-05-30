@@ -32,6 +32,11 @@ public class ElementController {
     }
 
 
+    @PatchMapping("/{elementId}/name") ResponseEntity<ElementDTO> changeElementName(@PathVariable Integer elementId, @RequestBody String newName){
+        newName = newName.replaceAll("^\"|\"$", "");
+        return new ResponseEntity<>(elementService.changeElementName(elementId, newName), HttpStatus.OK);
+    }
+
     @PutMapping("/{elementId}")
     public ResponseEntity<ElementDTO> updateElement(@PathVariable Integer elementId, @RequestBody ElementSaveDTO elementDto) {
         return new ResponseEntity<>(elementService.updateElement(elementDto, elementId), HttpStatus.OK);

@@ -79,6 +79,12 @@ public class ElementService {
         return saveElement(elementDTO, null, parentId, userEmail);
     }
 
+    public ElementDTO changeElementName(Integer elementId, String newName){
+        ElementEntity elementToSave = elementRepository.getReferenceById(elementId);
+        elementToSave.setName(newName);
+        return elementMapper.toDto(elementRepository.save(elementToSave));
+    }
+
     public ElementDTO saveElement(ElementSaveDTO elementDTO, Integer elementId, Integer parentId, String userEmail) {
         // Creamos la entidad a guardar a partir del DTO
         ElementEntity elementToSave = elementMapper.toEntity(elementDTO);

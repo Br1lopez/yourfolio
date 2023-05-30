@@ -36,9 +36,10 @@ public class AuthenticatedUserController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<UserDTO> getAuthenticatedUserInfo(Authentication authentication) throws LoginNeededException {
+    public ResponseEntity<UserDTO> getAuthenticatedUserInfo(Authentication authentication)  {
         if (authentication == null)
-            throw new LoginNeededException();
+           return new ResponseEntity<>(UserDTO.builder().build(), HttpStatus.OK);
+
         else
             return new ResponseEntity<>(userService.getUserByEmail(authentication.getName()), HttpStatus.OK);
     }
