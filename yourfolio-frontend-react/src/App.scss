@@ -11,6 +11,10 @@
     // --rs-picker-value: blue;
 }
 
+body {
+    transition: $slow-transition;
+}
+
 button {
     box-shadow: $default-second-shadow;
 }
@@ -22,4 +26,12 @@ button {
 .rs-loader-content {
     font-family: $title-font;
     color: rgba(#272727, 0.7);
+}
+
+.rs-btn-primary {
+    background-color: $secondary-color !important;
+
+    &:hover {
+        background-color: $primary-color !important;
+    }
 }

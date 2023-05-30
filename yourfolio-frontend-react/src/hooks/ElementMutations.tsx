@@ -6,6 +6,7 @@ import {
   updateElement,
   deleteElement,
   updateElementStyle,
+  changeElementName,
 } from "../api/elementRequests";
 
 import { pushCloudNotification } from "src/components/notifications/CloudNotification";
@@ -55,6 +56,31 @@ export const useEditElementMutation = (
       pushCloudNotification(
         toaster,
         elementSaveDto.name,
+        ModalType.EditElement,
+        response.data.type
+      );
+      queryClient.invalidateQueries(["getPortfolio"]);
+      queryClient.invalidateQueries(["getPortfolios"]);
+      activeModalData.set(NULL_MODAL_WINDOW_DATA);
+    },
+  });
+};
+
+export const useChangeElementNameMutation = (
+  elementId: number,
+  name: string
+) => {
+  const { modalWindowData: activeModalData, toaster } =
+    useContext(PortfolioContext);
+
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => changeElementName(elementId, name),
+    onSuccess: (response) => {
+      pushCloudNotification(
+        toaster,
+        name,
         ModalType.EditElement,
         response.data.type
       );

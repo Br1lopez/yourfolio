@@ -9,6 +9,7 @@ import React from "react";
 import { API_BASE_URL } from "src/globals";
 import { FileType } from "rsuite/esm/Uploader";
 import { useLocation, useParams } from "react-router-dom";
+import { upperCase } from "lodash";
 const Textarea = React.forwardRef((props, ref: any) => (
   <Input {...props} as="textarea" ref={ref} />
 ));
@@ -122,6 +123,7 @@ export const ElementImageInput = (props: {
           });
         }}
       />
+      <div style={{ textTransform: "uppercase", fontSize: "10px", color: "grey" }}>(máximo 5MB)</div>
     </Form.Group>
   );
 };
@@ -178,6 +180,9 @@ export const CustomElementInputs = (props: {
       result.push(<ElementDescriptionInput modalState={modalState} />);
       result.push(<ElementImageInput modalState={modalState} />);
       break;
+    case "welcome":
+      result.push(<ElementDescriptionInput modalState={modalState} />);
+      result.push(<ElementImageInput modalState={modalState} />);
     default:
       break;
   }

@@ -46,17 +46,17 @@ export const ArtworkContainer = (props: ArtworkContainerProps) => {
 
       {editMode.value && <div className="edit-footer">
 
-        <div className="action-button">
-          <FaEdit onClick={() => {
-            modalWindowData.set({
-              values: mapElementDtoToElementSaveDto(artworkData),
-              elementId: artworkData.id,
-              modalType: ModalType.EditElement,
-            })
-          }} />
+        <div className="action-button" onClick={() => {
+          modalWindowData.set({
+            values: mapElementDtoToElementSaveDto(artworkData),
+            elementId: artworkData.id,
+            modalType: ModalType.EditElement,
+          })
+        }} >
+          <FaEdit />
         </div>
-        <div className="action-button">
-          <FaTrashAlt onClick={() => { deleteElement.mutate(); }} />
+        <div className="action-button" onClick={() => { deleteElement.mutate(); }}>
+          <FaTrashAlt />
         </div>
 
       </div>}

@@ -37,7 +37,7 @@ export const UserLogin = () => {
   return (
     <div className="login-page">
       <div className="login-page__container">
-        <h1>Inicio de sesión</h1>
+        <h1>Inicia sesión</h1>
         <Form
           className="login-page__container__form"
           fluid

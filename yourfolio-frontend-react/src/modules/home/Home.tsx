@@ -8,6 +8,8 @@ import { ModalType } from "src/types/portfolioContextTypes";
 import { EMPTY_ELEMENT_SAVE_DTO } from "src/types/dtoTypes";
 import { InterfaceBar } from "../../components/interfaceBar/InterfaceBar";
 import { PortfolioThumbnail } from "./components/PortfolioThumbnail";
+import { Loader } from "rsuite";
+import { AppLoader } from "src/components/loader/AppLoader";
 
 const Home = () => {
   const { modalWindowData, editMode } = useContext(PortfolioContext);
@@ -26,17 +28,22 @@ const Home = () => {
     editMode.set(true);
   }, [editMode]);
 
+  if (!userQuery.data || !portfoliosQuery.data) return <AppLoader />;
+
   return (
     <div className="yourfolio-root">
       <InterfaceBar />
       <div className="yourfolio-home__content">
-        <h1 className="yourfolio-home__content__title welcome">
-          Bienvenido, {userQuery.data?.data.name}.
-        </h1>
+        <div className="yourfolio-home__content__intro">
+          <h1 className="yourfolio-home__content__title welcome">
+            Bienvenido, {userQuery.data?.data.name}.
+          </h1>
+        </div>
 
         <h1 className="yourfolio-home__content__title portfolios">
           TUS PORTFOLIOS:
         </h1>
+        <div className="hr" />
         <div className="yourfolio-home__content__portfolios">
           {portfoliosQuery.data?.data.map((portfolio) => (
             <PortfolioThumbnail portfolio={portfolio} key={portfolio.id} />

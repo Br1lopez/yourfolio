@@ -5,6 +5,7 @@ import { StyleDTO } from "src/types/dtoTypes";
 export interface PortfolioStyleProps {
   style?: StyleDTO;
   navbarHeight?: string;
+  sidebarWidth?: string;
 }
 
 function hexToRgba(hex: string, alpha: number): string {
@@ -43,18 +44,37 @@ function hexToLuminance(hex: string): number {
   return luminance;
 }
 
+export function mixWithWhite(hex: string): string {
+  const white = 255;
+  const mixRatio = 0.9;
+  let red = parseInt(hex.substring(1, 3), 16);
+  let green = parseInt(hex.substring(3, 5), 16);
+  let blue = parseInt(hex.substring(5, 7), 16);
+  red = Math.round((red + (white - red) * mixRatio));
+  green = Math.round((green + (white - green) * mixRatio));
+  blue = Math.round((blue + (white - blue) * mixRatio));
+  return "#" + red.toString(16).padStart(2, "0") + green.toString(16).padStart(2, "0") + blue.toString(16).padStart(2, "0");
+}
+
+
 export const PortfolioStyle = (props: PortfolioStyleProps) => {
+  const { navbarHeight, sidebarWidth } = props;
+
   const setStyle = (property: string, value: string) => {
+    document.documentElement?.style.removeProperty(property);
     document.documentElement?.style.setProperty(property, value);
   };
 
   useEffect(() => {
     if (props.style) {
+
       setStyle("--navbar-height", props.navbarHeight || "55px");
+      setStyle("--sidebar-width", props.sidebarWidth || "55px");
       setStyle("--bg-color", props.style.bgColor || "black");
+      document.body?.style.setProperty("background-color", props.style.bgColor || "black");
       setStyle(
         "--bg-color-light",
-        hexToRgba(props.style.bgColor || "black", 0.1)
+        mixWithWhite(props.style.bgColor || "black")
       );
       // setStyle("--card-bg", `rgba(255,255,255,${0.15 + hexToLuminance(props.style.bgColor || "black") * 0.85})`);
       setStyle("--font-color", props.style.fontColor || "white");
@@ -65,7 +85,7 @@ export const PortfolioStyle = (props: PortfolioStyleProps) => {
           : props.style.fontColor || "white"
       );
     }
-  }, [props.style]);
+  }, [props.style, navbarHeight, sidebarWidth]);
 
   return <div style={{ display: "none" }}>PortfolioStyle</div>;
 };

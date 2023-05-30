@@ -5,6 +5,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useDeleteElementMutation } from 'src/hooks/ElementMutations';
 import { PortfolioContext } from 'src/hooks/PortfolioContext';
 import { ModalType } from 'src/types/portfolioContextTypes';
+import { mixWithWhite } from 'src/modules/portfolioCreator/components/PortfolioStyle';
 
 
 export interface PortfolioThumbnailProps {
@@ -38,24 +39,29 @@ export const PortfolioThumbnail = (props: PortfolioThumbnailProps) => {
         <div
             key={`portfolio_${portfolio.id}}`}
             className="yourfolio-home__content__portfolios__portfolio"
+            style={{
+                backgroundColor: portfolio.style?.bgColor || "#b4b1ac",
+            }}
+        // style={{ backgroundColor: mixWithWhite(portfolio.style.bgColor || "black") }}
         >
             <div
                 className="yourfolio-home__content__portfolios__portfolio__thumbnail"
                 style={{
                     backgroundColor: portfolio.style?.bgColor || "#b4b1ac",
+                    color: portfolio.style?.fontColor || "black",
                 }}
                 onClick={handleClick}
-            ></div>
-            <div className="yourfolio-home__content__portfolios__portfolio__title"
+            >                {portfolio.name}</div>
+            {/* <div className="yourfolio-home__content__portfolios__portfolio__title"
                 onClick={handleClick}>
                 {portfolio.name}
-            </div>
+            </div> */}
             <div className="yourfolio-home__content__portfolios__portfolio__actions">
-                <div className="yourfolio-home__content__portfolios__portfolio__actions__edit">
-                    <FaEdit onClick={handleEditClick} />
+                <div className="yourfolio-home__content__portfolios__portfolio__actions__edit" onClick={handleEditClick}>
+                    <FaEdit />
                 </div>
-                <div className="yourfolio-home__content__portfolios__portfolio__actions__delete">
-                    <FaTrashAlt onClick={handleDeleteClick} />
+                <div className="yourfolio-home__content__portfolios__portfolio__actions__delete" onClick={handleDeleteClick}>
+                    <FaTrashAlt />
                 </div>
             </div>
         </div>

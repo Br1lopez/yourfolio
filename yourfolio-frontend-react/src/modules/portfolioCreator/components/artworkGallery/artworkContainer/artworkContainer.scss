@@ -38,21 +38,21 @@ $artwork-margin: 100px 0px 0px 0px;
         align-items: center;
         padding: 8px;
 
-        & span {
+
+
+        &>* {
+            font-size: 1.5em;
+            margin: 6px;
+            color: rgba($color: #000000, $alpha: 0.7);
             cursor: pointer;
 
-            &>* {
-                font-size: 1.5em;
-                margin: 6px;
-                color: rgba($color: #000000, $alpha: 0.7);
 
+            &:hover {
+                color: rgba($color: #000000, $alpha: 0.9);
 
-                &:hover {
-                    color: rgba($color: #000000, $alpha: 0.9);
-
-                }
             }
         }
+
     }
 
     & .artwork {

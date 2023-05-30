@@ -1,12 +1,13 @@
 @import 'src/vars.scss';
 
+.register-page,
 .login-page {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-image: url('/img/bg/register-bg.webp');
+    background-image: url('/img/bg/bg_new.png');
     background-size: cover;
-    background-position: center bottom;
+    background-position: center;
     height: 100vh;
     @include mobile-full-width;
 
@@ -29,21 +30,23 @@
 
     &__container {
         margin-top: 50px;
-        margin-left: 20vw;
+        margin-left: calc(33vw - 200px);
+        width: 400px;
         @include mobile-full-width;
 
 
         @include flex-column;
 
+        color: $secondary-color;
 
 
         h1 {
             @include yourfolio-font;
-            text-shadow: $default-shadow;
+            // text-shadow: $default-shadow;
             font-size: 50px;
             font-weight: bold;
             margin-bottom: 36px;
-            color: white;
+            color: $secondary-color;
             text-align: center;
         }
 
@@ -59,8 +62,13 @@
 
                 & .rs-form-control-label {}
 
+                & label {
+                    font-size: 14px;
+                }
+
                 & input {
                     font-weight: bold;
+                    color: black;
                 }
             }
 
@@ -69,14 +77,25 @@
                 justify-content: flex-end;
                 margin-bottom: 0px;
                 margin-top: 20px;
+
             }
 
             padding-bottom: 20px;
 
             &__bottom-text {
                 margin-top: 20px;
-                font-size: 14px;
+                font-size: 15px;
                 text-align: center;
+
+                &>a {
+                    color: $accent-color;
+
+                    &:hover {
+                        color: $dark-accent-color;
+                        text-decoration: none;
+                    }
+                }
+
             }
 
         }

@@ -30,6 +30,25 @@ export const createElement = async (
   }
 };
 
+export const changeElementName = async (
+  elementId: number,
+  name: string
+): Promise<ApiResponse<ElementDTO>> => {
+  try {
+    const response = await axios.patch<ElementDTO>(
+      `${API_BASE_URL}/elements/${elementId}/name`,
+      name,
+      {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+      });
+    return { data: response.data, status: response.status };
+  } catch (error) {
+    throw error as AxiosError;
+  }
+};
+
 export const updateElement = async (
   elementId: number,
   body: ElementSaveDTO

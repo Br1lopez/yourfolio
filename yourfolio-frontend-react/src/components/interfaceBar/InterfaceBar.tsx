@@ -21,7 +21,12 @@ export const InterfaceBar = (props: InterfaceBarProps) => {
       <AiFillHome
         className="i-bar__icon top"
         // style={{ width: "30px", height: "30px", color: "white" }}
-        onClick={() => navigate("/home")}
+        onClick={() => {
+          navigate("/home");
+          document.body?.style.removeProperty("background-color");
+          document.body?.style.removeProperty("bg-color");
+          document.body?.style.removeProperty("bg-color-light");
+        }}
       />
 
       {props.portfolioId && (<><FaPaintBrush className="i-bar__icon" onClick={() => {

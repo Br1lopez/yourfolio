@@ -3,8 +3,8 @@ import { ModalContentProps } from '../ModalWindow';
 import { Button, ButtonToolbar, Form, Modal } from 'rsuite';
 import { ModalType } from 'src/types/portfolioContextTypes';
 import { CustomElementInputs, ElementTitleInput, ElementTypeInput } from '../inputs/ElementInputs';
-import { useCreateElementMutation, useEditElementMutation } from 'src/hooks/ElementMutations';
-import { EMPTY_ELEMENT_SAVE_DTO } from 'src/types/dtoTypes';
+import { useChangeElementNameMutation, useCreateElementMutation, useEditElementMutation } from 'src/hooks/ElementMutations';
+import { EMPTY_ELEMENT_SAVE_DTO, ElementSaveDTO } from 'src/types/dtoTypes';
 
 export const ElementModalContent = (props: ModalContentProps) => {
     const { modalProperties } = props;
@@ -20,6 +20,11 @@ export const ElementModalContent = (props: ModalContentProps) => {
         modalProperties.value.values
     );
 
+    const changeName = useChangeElementNameMutation(
+        modalProperties.value.elementId || -1,
+        modalProperties.value.values.name
+    );
+
 
     const handleSubmit = (event: any) => {
         console.log("form", modalProperties.value.values);
@@ -29,7 +34,11 @@ export const ElementModalContent = (props: ModalContentProps) => {
                     createElement.mutate();
                     break;
                 case ModalType.EditElement:
-                    editElement.mutate();
+                    if (modalProperties.value.values.typeId == "portfolio") {
+                        changeName.mutate();
+                    } else {
+                        editElement.mutate();
+                    }
                     break;
             }
         } else {

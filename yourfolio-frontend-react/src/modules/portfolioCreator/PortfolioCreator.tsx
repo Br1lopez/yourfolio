@@ -11,6 +11,7 @@ import { applyFont, getElementByIdRecursive } from "src/utils/functions";
 import { useParams } from "react-router-dom";
 import { getUserInfo } from "src/api/authenticatedUserRequests";
 import { ModalType } from "src/types/portfolioContextTypes";
+import { AppLoader } from "src/components/loader/AppLoader";
 
 export interface PortfolioCreatorProps {
   editMode?: boolean;
@@ -53,11 +54,14 @@ export const PortfolioCreator = (props: PortfolioCreatorProps) => {
     //eslint-disable-next-line
   }, []);
 
+  if (!userQuery.data || !portfolioQuery.data) return <AppLoader />;
+
+
   return (
     <>
       {portfolioQuery.data && (
         <div className="root apply-font">
-          <PortfolioStyle style={styleData.value || undefined} navbarHeight={navHeight} />
+          <PortfolioStyle style={styleData.value || undefined} navbarHeight={navHeight} sidebarWidth={editMode ? "55px" : "0px"} />
           {editMode.value && <InterfaceBar portfolioId={parseInt(portfolioId || "-1")} />}
           <div className="portfolio">
             <NavBar portfolio={portfolioQuery.data.data} />

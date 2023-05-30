@@ -1,17 +1,24 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import './landingPage.scss'
 
 const LandingPage = () => {
     const navigate = useNavigate();
     return (
-        <div><h1>YOURFOLIO GOAPISIMO</h1>
-            <p>Te vas a registrar o eres un puto mierdas? te boy a rebentar eh gilipollas</p>
-            <button onClick={() => { navigate("/login"); }}>
-                Entra hostia
-            </button>
-            <button onClick={() => { navigate("/register"); }}>
-                Registrate tambien
-            </button></div>
+        <div className='landing-page'>
+            <div className="landing-page__block">
+                <h1>YOURFOLIO</h1>
+                <p>Crea tu currículum visual en minutos.</p>
+                <div className="landing-page__block__buttons">
+                    <button onClick={() => { navigate("/register"); }}>
+                        Registrarse
+                    </button>
+                    <button onClick={() => { navigate("/login"); }}>
+                        Iniciar sesión
+                    </button>
+                </div>
+            </div>
+        </div>
     )
 }
 

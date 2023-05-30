@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Form, Button } from "rsuite";
-import "./userRegister.scss";
+import "../userLogin/userLogin.scss";
 import {
   emailValidation,
   equalPasswords,
