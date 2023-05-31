@@ -13,7 +13,7 @@ const Carousel = (props: CarouselProps) => {
   const { elements } = props;
   const CAROUSEL_MOVEMENT = (): number => {
     return imagesRef.current != null
-      ? imagesRef.current.offsetHeight * 0.01
+      ? imagesRef.current.offsetHeight * 0.1
       : 200;
   };
 
@@ -66,14 +66,14 @@ const Carousel = (props: CarouselProps) => {
       if (
         bottom <
         (imagesRef.current?.offsetHeight || 0) -
-        (containerRef.current?.offsetHeight || 0) -
-        CAROUSEL_MOVEMENT()
+          (containerRef.current?.offsetHeight || 0) -
+          CAROUSEL_MOVEMENT()
       ) {
         setBottom(bottom + CAROUSEL_MOVEMENT());
       } else {
         setBottom(
           (imagesRef.current?.offsetHeight || 0) -
-          (containerRef.current?.offsetHeight || 0)
+            (containerRef.current?.offsetHeight || 0)
         );
         setEndReached(true);
       }

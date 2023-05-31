@@ -12,8 +12,8 @@ CREATE TABLE user (
 
 CREATE TABLE file (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    url VARCHAR(255),
-    description VARCHAR(255),
+    url VARCHAR(512),
+    description VARCHAR(1024),
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
@@ -39,7 +39,7 @@ create table element (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	element_type_id VARCHAR(255),
 	name VARCHAR(255),
-    description VARCHAR(255),
+    description VARCHAR(1024),
     user_id INT,
     thumbnail_image_id INT,
     home BOOL default false,

@@ -41,6 +41,7 @@ $carousel-height: calc(100% - $navbar-height);
         @include flex-column;
         position: relative;
         transition: 0.5s;
+        user-select: none;
 
         & a {
             opacity: 0.2;

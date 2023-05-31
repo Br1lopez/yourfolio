@@ -24,6 +24,21 @@ $artwork-margin: 100px 0px 0px 0px;
         .artwork {
             @include for-desktop {
                 flex-direction: row-reverse;
+
+                &__text-parent {
+                    padding-left: 35px !important;
+                }
+            }
+        }
+    }
+
+    &:nth-child(even) {
+        .artwork {
+            @include for-desktop {
+
+                &__text-parent {
+                    padding-right: 35px !important;
+                }
             }
         }
     }
@@ -58,7 +73,7 @@ $artwork-margin: 100px 0px 0px 0px;
     & .artwork {
         @include mobile-full-width;
         display: flex;
-        height: 500px;
+        // height: 500px;
         justify-content: center;
         padding: 30px 30px;
 
@@ -105,7 +120,11 @@ $artwork-margin: 100px 0px 0px 0px;
                 box-shadow: $default-shadow;
                 border-radius: $default-border-radius;
                 @include mobile-full-width;
+                max-width: 500px;
                 max-height: 500px;
+                height: auto;
+                width: auto;
+                object-fit: contain;
             }
 
         }
@@ -115,8 +134,8 @@ $artwork-margin: 100px 0px 0px 0px;
             position: relative;
             @include mobile-full-width;
             display: flex;
-            // justify-content: center;
-            padding: 0 40px;
+            justify-content: center;
+            padding: 20px 65px;
             flex-direction: column;
             min-width: 500px;
             // max-width: 550px;
@@ -124,13 +143,13 @@ $artwork-margin: 100px 0px 0px 0px;
 
             &__title {
                 text-transform: uppercase;
-                font-weight: bold;
-                min-width: 500px;
+                font-weight: bolder;
+                // min-width: 500px;
                 // max-width: 550px;
                 text-align: center;
-                font-size: 3em;
+                font-size: 2.6em;
                 // font-family: $title-font;
-                padding: 0em 0.6em;
+                padding: 0em 1em;
                 color: var(--font-color-titles);
                 text-shadow: $default-text-shadow;
 
@@ -138,13 +157,13 @@ $artwork-margin: 100px 0px 0px 0px;
 
             &__text {
                 color: black;
-                padding: 0em 1em;
-                padding-top: 1.6em;
-                font-size: 1.3em;
-                letter-spacing: -1px;
+                // padding: 0em 1em;
+                padding-top: 2em;
+                font-size: 1.4em;
+                // letter-spacing: -1px;
                 // font-family: $paragraph-font;
                 font-weight: 200;
-                line-height: 1em;
+                line-height: 1.2em;
                 @include break-words;
                 @include mobile-full-width;
                 white-space: pre-line;

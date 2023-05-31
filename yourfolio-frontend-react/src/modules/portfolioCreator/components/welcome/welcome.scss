@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     & img {
         width: calc(100% - var(--sidebar-width));
@@ -15,7 +16,7 @@
     }
 
     &__title {
-        margin-top: 150px;
+        // margin-top: 150px;
         margin-bottom: 40px;
         font-weight: bold;
         text-transform: uppercase;
@@ -23,7 +24,10 @@
         position: relative;
         color: black;
         z-index: 1000;
+        padding: 100px 0px;
         text-shadow: $default-title-shadow;
+        padding: 0px 150px;
+
     }
 
     &__description {
@@ -33,6 +37,9 @@
         z-index: 1000;
         // font-weight: bold;
         text-shadow: $default-text-shadow;
+        padding: 0px 150px;
+        white-space: pre-line;
+
     }
 
 }
