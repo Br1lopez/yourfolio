@@ -45,7 +45,8 @@ create table element (
     home BOOL default false,
     hidden BOOL default false,
     FOREIGN KEY (element_type_id) REFERENCES element_type(id),
-    FOREIGN KEY (thumbnail_image_id) REFERENCES file(id)
+    FOREIGN KEY (thumbnail_image_id) REFERENCES file(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE element_children (
