@@ -1,0 +1,62 @@
+@import 'src/vars.scss';
+
+$carousel-height: calc(100% - $navbar-height);
+
+
+
+.carousel {
+    @include for-mobile {
+        display: none;
+    }
+
+    @include flex-column;
+    width: $carousel-width;
+    background-color:black;
+    height: inherit;
+    position: sticky;
+    // top: $navbar-height;
+    box-sizing: border-box;
+    left: 0;
+    justify-content: space-around;
+
+    &__container {
+        max-height: calc($carousel-height);
+        @include flex-column;
+        overflow: hidden;
+    }
+
+    &__icon {
+        height: 32px;
+        color: white;
+        cursor: pointer;
+        margin: 10px;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &__images {
+        @include flex-column;
+        position: relative;
+        transition: 0.5s;
+        user-select: none;
+
+        & a {
+            opacity: 0.2;
+            transition: 0.2s;
+
+            &.active {
+                opacity: 1;
+            }
+
+            & img {
+                width: $carousel-img-width;
+                padding: 5px 0px;
+                cursor: pointer;
+                border-radius: $default-border-radius;
+            }
+        }
+    }
+}

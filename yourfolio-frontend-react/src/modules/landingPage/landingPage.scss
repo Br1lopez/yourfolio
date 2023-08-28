@@ -1,0 +1,78 @@
+@import 'src/vars.scss';
+
+.landing-page {
+    background-image: url('/img/bg/2d.webp');
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+
+    &__block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 400px;
+        margin-left: calc(66vw - 200px);
+
+        & h1 {
+            font-size: 5em;
+            font-family: $title-font;
+            color: black;
+        }
+
+        & p {
+            font-family: $paragraph-font;
+            color: $beige;
+
+            color: $accent-color;
+            color: $dark-accent-color;
+            text-shadow: $default-text-shadow;
+
+
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        &__buttons {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            box-sizing: border-box;
+
+
+            & button {
+                font-family: $paragraph-font;
+                box-shadow: $default-shadow;
+
+                text-shadow: $default-second-shadow;
+                padding: 12px 35px;
+                border-radius: $default-border-radius;
+                color: white;
+                font-weight: 500;
+                font-size: 1.1em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background-color: $secondary-color;
+
+                &:hover {
+                    background-color: $primary-color;
+                }
+
+                &:first-child {
+                    background-color: $accent-color;
+
+                    &:hover {
+                        background-color: $dark-accent-color;
+                    }
+                }
+
+
+            }
+        }
+    }
+}

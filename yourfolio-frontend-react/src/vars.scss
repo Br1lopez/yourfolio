@@ -1,0 +1,129 @@
+@mixin for-mobile {
+    @media (max-width: 575.98px) {
+        @content;
+    }
+}
+
+@mixin for-desktop {
+    @media (min-width: 575.98px) {
+        @content;
+    }
+}
+
+@mixin mobile-full-width {
+    @include for-mobile {
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@mixin full-width {
+    max-width: 100vw;
+    width: 100vw;
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+//OTHER TOOLS:
+@mixin padding($value: 20px, $border-box: true) {
+    padding: $value;
+
+    @if ($border-box) {
+        box-sizing: border-box;
+    }
+}
+
+$default-shadow: 5px 5px 7px rgba(0, 0, 0, 0.064),
+2px 2px 3px rgba(0, 0, 0, 0.064);
+
+$quick-transition: cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+$slow-transition: cubic-bezier(0.16, 1, 0.3, 1) 1.5s;
+
+
+@mixin rounded-borders($value: 6px) {
+    border-radius: $value;
+}
+
+$navbar-height: 70px;
+
+
+
+
+
+
+$default-width: min(100vw, 1200px);
+// $default-width: 100vw;
+
+
+
+@mixin break-words {
+    /*Utilizamos hyphens para obtener la mejor partición posible*/
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    /*Y seguidamente word-wrap como graceful degradation para los navegadores que no lo soporten*/
+    word-wrap: break-word;
+}
+
+@mixin flex-column {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+//FONTS:
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Lato&display=swap');
+$title-font: 'Josefin Sans';
+$paragraph-font: 'Lato';
+
+@mixin yourfolio-font {
+    font-family: $title-font;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+@mixin paragraph-font {
+    font-family: 'Lato', 'sans-serif';
+}
+
+@mixin card {
+    padding: 40px;
+    border-radius: $default-border-radius;
+    box-shadow: $default-shadow;
+    background-color: white;
+    // width: min-content;
+}
+
+$carousel-width: 250px;
+$carousel-img-width: 180px;
+$bg-color: #f5f5f5;
+
+$default-padding: 20px;
+$default-shadow: 5px 5px 7px rgba(0, 0, 0, 0.064),
+2px 2px 3px rgba(0, 0, 0, 0.064);
+$default-second-shadow: 4px 4px 6px rgba(0, 0, 0, 0.04),
+1px 1px 2px rgba(0, 0, 0, 0.04);
+$default-title-shadow:2px 2px 5px rgba(0, 0, 0, 0.2),
+4px 4px 10px rgba(0, 0, 0, 0.064);
+$default-text-shadow:2px 2px 5px rgba(0, 0, 0, 0.064);
+$default-border-radius: 6px;
+
+$carousel-vertical-artwork-width: 90%;
+$carousel-vertical-artwork-margin: 10px 0px;
+
+$primary-color: black;
+$secondary-color: rgb(34, 28, 23);
+// $beige: #a68b60;
+$beige: #dfc4a6;
+// $accent-color: #ad734a;
+$accent-color: #c38f67;
+$neutral: #d8d9db;
+$dark-accent-color: rgb(128, 70, 19);
+$sidebar-width: 55px;

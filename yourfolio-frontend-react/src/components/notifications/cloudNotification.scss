@@ -1,0 +1,73 @@
+$cloudIconSize: 24px;
+
+
+.cloud-notification {
+
+    & .rs-notification-description {
+        display: flex;
+        display: flex;
+        flex-direction: column;
+        min-width: 300px;
+    }
+
+    &__element-name {
+        font-size: 32px;
+        font-weight: bold;
+        // line-height: 24px;
+        // text-transform: uppercase;
+    }
+
+    &__element-type {
+        font-size: 12px;
+        // font-weight: bold;
+        font-style: italic;
+        text-transform: uppercase;
+    }
+
+    &__action {
+        display: flex;
+        flex-direction: row;
+        font-weight: bold;
+
+        &__icon {
+            width: $cloudIconSize;
+            height: $cloudIconSize;
+            margin-right: 8px;
+
+
+            &.blue {
+                color: #4687e3;
+            }
+
+            &.green {
+                color: #219487;
+            }
+        }
+
+        &__text {
+            margin-top: 1px;
+            font-size: 15px;
+            display: flex;
+            flex-direction: column;
+            text-transform: uppercase;
+
+        }
+    }
+
+    &__description {
+        margin-top: 8px;
+
+        line-height: 16px;
+
+        &:first-of-type {
+            margin-top: 12px;
+
+        }
+
+        & svg {
+            margin-top: -2px;
+
+        }
+    }
+
+}

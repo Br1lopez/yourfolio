@@ -1,0 +1,9 @@
+En las capturas:
+
+- Para editar las cosas y que salga el menú contextual (el del lápiz y la papelera) hago clic derecho.
+Esto de clic derecho lo puedo reutilizar para editar el nombre de los portfolios (por si quieres pasar de meterle botones de editar / borrar, puedo reutilizarlo y era mi idea de hecho).
+
+- Las barra lateral del home no se vería así, se vería como en el creador de portfolios. Igual incluso se podría quitar del home, yo que se.
+
+
+(en el vídeo quería mostrar todas las funciones del creador de portfolios pero descubrí mientras grababa que muchas cosas han dejado de funcionar :)))) (igualmente es lo que vimos en tu casa)

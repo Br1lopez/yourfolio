@@ -1,0 +1,139 @@
+@import 'src/vars.scss';
+
+body {
+    background-color: rgb(128, 70, 19);
+}
+
+.yourfolio-root {
+    display: flex;
+    transition: $quick-transition;
+}
+
+.yourfolio-home__content {
+    width: calc(100vw - 55px);
+    background-image: url('/img/bg/plain-bg.webp');
+
+    &__intro {
+        background-color: rgba(white, 0.7);
+        // border-bottom: 1px solid rgba(black, 0.2);
+
+        margin: 0;
+    }
+
+
+    & .hr {
+        margin: 0;
+        background-color: rgba(black, 0.1);
+        margin: 0px 40px;
+        margin-bottom: 20px;
+        height: 2px;
+        z-index: 100;
+    }
+
+    &__title {
+        @include yourfolio-font;
+        text-transform: capitalize;
+        color: black;
+        margin: 0;
+        padding: 20px 100px;
+        font-size: 30px;
+        // background-color: rgba(white, 0.7);
+        // box-shadow: $default-shadow;
+
+        &.portfolios {
+            margin-bottom: 0;
+            text-align: center;
+            font-size: 50px;
+            padding-top: 40px;
+
+        }
+    }
+
+    &__portfolios {
+        display: flex;
+        padding: 0px 60px;
+
+        &__portfolio {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            @include card;
+            margin: 20px;
+            padding: 0;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+
+            &__thumbnail {
+                border-radius: $default-border-radius $default-border-radius 0 0;
+                width: 200px;
+                // height: 150px;
+                padding: 20px;
+                font-family: $title-font;
+                font-size: 20px;
+                flex: auto;
+
+                &:hover {
+                    background-color: rgba(black, 0.2) !important;
+                }
+
+                // box-shadow: $default-second-shadow;
+            }
+
+            &__title {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                font-size: 20px;
+                width: 200px;
+                height: 50px;
+            }
+
+            &__actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                background-color: white;
+                height: 30px;
+                border-radius: 0 0 $default-border-radius $default-border-radius;
+
+                &>* {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 0 0 $default-border-radius $default-border-radius;
+
+                    &:hover {
+                        background-color: rgba(black, 0.1);
+                    }
+                }
+
+                &__edit {}
+
+                &__delete {}
+            }
+        }
+
+        &__add-portfolio {
+            @include card;
+            margin: 20px;
+            padding: 0;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(black, 0.2) !important;
+            }
+
+            &__icon {
+                width: 50px;
+                height: 50px;
+            }
+
+        }
+    }
+}

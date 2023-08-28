@@ -1,0 +1,37 @@
+@import "~bootstrap/scss/bootstrap";
+@import './vars.scss';
+
+:root {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @include paragraph-font;
+    --rs-btn-primary-bg: #272727 !important;
+    --rs-btn-primary-hover-bg: black !important;
+    // --rs-input-focus-border: blue;
+    // --rs-picker-value: blue;
+}
+
+body {
+    transition: $slow-transition;
+}
+
+button {
+    box-shadow: $default-second-shadow;
+}
+
+.rs-loader-backdrop {
+    z-index: 1;
+}
+
+.rs-loader-content {
+    font-family: $title-font;
+    color: rgba(#272727, 0.7);
+}
+
+.rs-btn-primary {
+    background-color: $secondary-color !important;
+
+    &:hover {
+        background-color: $primary-color !important;
+    }
+}

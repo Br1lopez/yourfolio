@@ -1,0 +1,33 @@
+{
+    "name": "Joaquín Jiménez - Cocinero",
+    "style": {
+        "bgColor": "black",
+        "fontColor": "white"
+    },
+    "tabs": [
+        {
+            "name": "Pasta italiana",
+            "id": 1,
+            "sections": [
+                {
+                    "name": "global",
+                    "id": 1,
+                    "projects": [
+                        {
+                            "id": "1",
+                            "name": "Macarrones",
+                            "description": "Macarrones con queso",
+                            "files": [
+                                {
+                                    "id": 1,
+                                    "url": "/imgs/test.jpg",
+                                    "description": "Imagen de unos macarrones"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

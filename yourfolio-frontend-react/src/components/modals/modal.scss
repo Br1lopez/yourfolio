@@ -1,0 +1,64 @@
+@import 'src/vars.scss';
+
+.modal-content {
+    box-shadow: $default-shadow;
+    border: none;
+}
+
+.rs-modal-header {
+    margin-bottom: 0;
+    font-family: $title-font;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    .rs-modal-title {
+        font-size: 1.4em;
+        color: $secondary-color;
+        font-weight: bold;
+
+    }
+
+    padding-right: 0;
+}
+
+
+.rs-modal-body {
+    &.info {
+        margin-top: 0;
+        line-height: 0.5em;
+        padding: 0px 16px;
+
+        h4 {
+            margin-top: 16px;
+            color: black;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+    }
+
+    svg {
+        margin-bottom: 3px;
+        margin-left: 1px;
+        margin-right: 1px;
+        color: black;
+    }
+
+    font-size: 14px;
+
+}
+
+.rs-picker-menu {
+    z-index: 2000 !important;
+}
+
+.rs-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-window-form {
+    display: flex;
+    flex-direction: column;
+}

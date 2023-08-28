@@ -1,0 +1,29 @@
+@import 'src/vars.scss';
+
+.i-bar {
+    // background-color: $secondary-color;
+    background-color: rgba(rgb(31, 31, 31), 0.93);
+    height: 100vh;
+    box-shadow: $default-shadow;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: $sidebar-width;
+
+    &__icon {
+        width: 23px;
+        height: 23px;
+        color: rgba(white, 0.7);
+        margin: 12px 0px;
+        cursor: pointer;
+
+        &:hover {
+            color: white;
+        }
+    }
+
+    & .top {
+        margin-bottom: auto;
+    }
+}

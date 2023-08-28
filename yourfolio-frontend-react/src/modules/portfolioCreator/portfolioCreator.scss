@@ -1,0 +1,14 @@
+@import 'src/vars.scss';
+
+.root {
+    display: flex;
+    height: 100vh;
+
+    & .portfolio {
+        flex: auto;
+        width: 2px;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-color-light) !important;
+    }
+}

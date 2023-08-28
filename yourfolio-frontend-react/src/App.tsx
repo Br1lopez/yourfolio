@@ -1,16 +1,78 @@
-// @ts-ignore
-import "./App.css";
-import DefaultHead from "./components/DefaultHead";
+import { useContext } from "react";
+import "./App.scss";
+import { PortfolioCreator } from "./modules/portfolioCreator/PortfolioCreator";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { UserRegister } from "./modules/user/components/userRegistration/UserRegister";
+import { UserLogin } from "./modules/user/components/userLogin/UserLogin";
+import Home from "./modules/home/Home";
+import { PortfolioContext } from "./hooks/PortfolioContext";
+import { ModalWindow } from "./components/modals/ModalWindow";
+import LandingPage from "./modules/landingPage/LandingPage";
+import { useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { NULL_MODAL_WINDOW_DATA } from "./types/portfolioContextTypes";
 
-import React from "react";
-import { NavBar } from "./modules/pageCreator/components/navBar/NavBar";
+const ROUTES = [
+  {
+    path: "/",
+    component: <LandingPage />,
+  },
+  {
+    path: "/portfolio/:portfolioId/edit",
+    component: <PortfolioCreator editMode={true} />,
+  },
+  {
+    path: "/portfolio/:portfolioId",
+    component: <PortfolioCreator editMode={false} />,
+  },
+  {
+    path: "/register",
+    component: <UserRegister />,
+  },
+  {
+    path: "/login",
+    component: <UserLogin />,
+  },
+  {
+    path: "/home",
+    component: <Home />,
+  },
+];
 
+//TODO: implemetar loader
 function App() {
+  const { modalWindowData } = useContext(PortfolioContext);
+  const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+
+  queryClient.setDefaultOptions(
+    {
+      queries: {
+        onError: (error) => {
+          if ((error && (error as AxiosError))) {
+            const status: number = (error as AxiosError)?.response?.status || -1;
+            switch (status) {
+              case 401:
+              case 403:
+                navigate("/login");
+                break;
+            }
+            modalWindowData.set(NULL_MODAL_WINDOW_DATA);
+          }
+        }
+      }
+    });
+
+
   return (
-    <div>
-      <DefaultHead></DefaultHead>
-      <NavBar title="test"></NavBar>
-    </div>
+    <>
+      <ModalWindow modalProperties={modalWindowData} />
+      <Routes>
+        {ROUTES.map((route, i) => (
+          <Route path={route.path} key={i} element={route.component} />
+        ))}
+      </Routes></>
   );
 }
 

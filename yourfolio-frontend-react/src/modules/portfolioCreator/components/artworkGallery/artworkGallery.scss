@@ -1,0 +1,44 @@
+@import 'src/vars.scss';
+
+.artwork-gallery {
+    display: flex;
+    @include mobile-full-width;
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-color-light) !important;
+
+    & .artworks-parent {
+        @include flex-column;
+        overflow-y: scroll;
+    }
+
+    &__add-container {
+        border-radius: $default-border-radius;
+        padding: 30px;
+        box-shadow: $default-shadow;
+        background-color: rgba(0, 0, 0, 0.2);
+        width: $carousel-vertical-artwork-width;
+        margin: $carousel-vertical-artwork-margin;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+
+            >* {
+                color: white;
+            }
+        }
+
+        >* {
+            color: rgb(237, 237, 237);
+        }
+
+        &__icon {
+            width: 70px;
+            height: 70px;
+            color: white;
+        }
+    }
+}
